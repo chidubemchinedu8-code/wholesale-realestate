@@ -273,3 +273,44 @@ trading there, so the note should say to re-mine periodically.
 
 **Fix lives in.** `state/comps/dayton_45405_fairview_comps.csv`,
 `state/comps/DAYTON_45405_NEIGHBOURHOOD_CORRECTION.md` pass 4.
+
+---
+
+## D-15 · 2026-11-08 · "Hood UNKNOWN" declared without reading the facts block
+
+**What happened.** `251 Castlewood Ave` was written into the sheet and into the ledger as
+`hood UNKNOWN`, justified by an empty Nominatim response. The very next detail-page read
+showed `Subdivision: Castlewood` in the Facts block, plus a breadcrumb of `Shiloh > 45405`.
+The hood was knowable the whole time. The refusal was correct; the *reason* was wrong, and
+a wrong reason is worse than no reason because it tells the next agent to stop looking.
+
+**Why.** OSM was treated as the authority on whether a hood exists. It is not. It is one
+lookup among several, and it fails silently by returning `[]`.
+
+**Prevention.** Before writing `hood UNKNOWN`, read the Zillow Facts block's `Subdivision`
+line. UNKNOWN is the last resort after that field is empty or absent, not the first answer
+after a single 404-ish lookup.
+
+**Fix lives in.** `references/hood-verification.md` §3; `DAYTON LEADS!K36`.
+
+---
+
+## D-16 · 2026-11-08 · Whole-row write onto a column fragment, and the damage was silent
+
+**What happened.** Fixing the `OM`/`OSM` typo on row 31, I called `update_values` with a
+single cell of text as if it were a full row. It wrote the note into `A31` *and* `B31`,
+destroying the address and the property type without any error. A later repair to `K31`
+worked fine and still left the damage, because I was repairing the wrong cell.
+
+**Why.** A 1x1 `values` payload against a range like `A31` is a legal write. Nothing in the
+API objects when you overwrite an address column with a paragraph of prose. The only guard
+is reading the row back afterwards.
+
+**Prevention.** Two rules:
+1. **Never write a prose note to a bare letter+numeric range.** Target the exact cell that
+   holds the note (`K31`), or write the whole row (`A31:K31`) with all eleven values.
+2. **After any write that touches a row, read that row back and diff it.** This turn I read
+   `A31:K31` back and caught it; the ledger and sheet both now match. Row-level verification
+   is cheap and it is the only thing that catches a silent clobber.
+
+**Fix lives in.** This entry. Row 31 verified in full after repair.

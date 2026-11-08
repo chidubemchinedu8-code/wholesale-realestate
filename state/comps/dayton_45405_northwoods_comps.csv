@@ -1,0 +1,4 @@
+address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
+61 Redder Ave,2026-05-08,115000,1210,45405-NORTHWOODS,39.8008,-84.2218,TRADITIONAL,3,maintained,
+19 Sandhurst Dr,2026-01-01,129200,1552,45405-NORTHWOODS,39.8012,-84.2206,TRADITIONAL,3,dated,
+135 Northwood Ave,2024-10-01,77720,1048,45405-NORTHWOODS,39.8005,-84.2210,TRADITIONAL,3,dated,

@@ -1000,6 +1000,53 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 9p. Ledger <-> sheet drift gate (D-7 / D-15 class). The export is a fixture: a
+# row that is in the sheet but not the ledger must fail preflight, and restoring
+# it must pass again.
+exportdir="$SKILL_DIR/state"
+cp "$exportdir/sheet_export.csv" /tmp/sheet_export.bak 2>/dev/null || true
+cp "$exportdir/property_ledger.csv" /tmp/prop_ledger.bak 2>/dev/null || true
+
+if [ -r "$exportdir/sheet_export.csv" ] && [ -r "$SKILL_DIR/scripts/preflight.sh" ]; then
+  # drop a real address from the ledger copy and confirm preflight notices
+  python3 - "$exportdir" <<'PY2'
+import csv, sys, os
+d = sys.argv[1]
+rows = list(csv.DictReader(open(d + "/property_ledger.csv")))
+keep = [r for r in rows if r["address"].strip().lower() != "251 castlewood ave"]
+w = csv.DictWriter(open(d + "/property_ledger.csv", "w", newline=""), fieldnames=rows[0].keys())
+w.writeheader(); w.writerows(keep)
+PY2
+  out="$(bash "$SKILL_DIR/scripts/preflight.sh" 2>&1 || true)"
+  if printf '%s' "$out" | grep -q "absent from the property ledger"; then
+    pass "preflight fails when a sheet row is missing from the ledger"
+  else
+    fail "preflight did not notice sheet/ledger drift"
+  fi
+  cp /tmp/prop_ledger.bak "$exportdir/property_ledger.csv" 2>/dev/null || true
+  out="$(bash "$SKILL_DIR/scripts/preflight.sh" 2>&1 || true)"
+  if printf '%s' "$out" | grep -q "ledger matches the last sheet export"; then
+    pass "preflight passes again once the ledger is restored"
+  else
+    fail "preflight still reports drift after restore"
+  fi
+else
+  fail "sheet_export.csv or preflight.sh missing"
+fi
+
+# 9q. The hood-verification reference must teach the Facts-block rule, not just OSM.
+if grep -q "Subdivision" "$SKILL_DIR/references/hood-verification.md" 2>/dev/null; then
+  pass "hood reference cites the Subdivision field as the top hood source"
+else
+  fail "hood-verification.md does not mention the Subdivision field (D-15 regression)"
+fi
+if grep -q "Shiloh" "$SKILL_DIR/references/hood-verification.md" 2>/dev/null; then
+  pass "hood reference warns that 45405 parcels can sit in Shiloh, not Dayton"
+else
+  fail "hood-verification.md lost the Shiloh/45405 warning"
+fi
+
+# ---------------------------------------------------------------------------
 echo
 if [ "$FAIL" -gt 0 ]; then
   echo "STATUS: FAILED ($FAIL failure(s), $PASS pass(es))"

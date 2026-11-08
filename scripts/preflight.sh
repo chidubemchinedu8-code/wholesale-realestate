@@ -82,6 +82,24 @@ if [ -r "$SKILL_ROOT/state/property_ledger.csv" ]; then
 else
   fail "state/property_ledger.csv missing - duplicate guard has no history, stop and restore it"
 fi
+# Offline guard for the ledger <-> sheet drift that D-7 recorded. state/sheet_export.csv is
+# refreshed by hand from get_values; every address it lists must exist in the ledger.
+if [ -r "$SKILL_ROOT/state/sheet_export.csv" ] && [ -r "$SKILL_ROOT/state/property_ledger.csv" ] && command -v python3 >/dev/null 2>&1; then
+  drift="$(python3 - "$SKILL_ROOT" <<'PYX'
+import csv, sys
+root = sys.argv[1]
+led = {r["address"].strip().lower() for r in csv.DictReader(open(root + "/state/property_ledger.csv"))}
+sheet = [r["address"].strip() for r in csv.DictReader(open(root + "/state/sheet_export.csv"))]
+missing = [a for a in sheet if a.lower() not in led]
+print("|".join(missing))
+PYX
+)"
+  if [ -z "$drift" ]; then
+    pass "ledger matches the last sheet export (no drift)"
+  else
+    fail "sheet rows absent from the property ledger: $drift"
+  fi
+fi
 if [ -r "$SKILL_ROOT/state/zip_ledger.csv" ]; then
   n=$(( $(wc -l < "$SKILL_ROOT/state/zip_ledger.csv") - 1 ))
   pass "zip ledger present ($n scanned ZIPs)"

@@ -96,6 +96,32 @@ Never "pick the nearest hood", never "borrow the pool", never average two hoods.
   `4041 Old Riverside Dr` both return `[]`. Record `hood UNKNOWN` and do not price.
   Do **not** infer the hood from nearby listings or from the ZIP.
 
+### The `Subdivision` field is the single best hood datum on a Zillow page
+
+Buried in `## Facts & features` → `### Community & HOA`, one line: `Subdivision: Northwood`.
+It beats OSM, beats the breadcrumb, and beats anything in the listing copy. It is also the
+only field that resolved the Northwoods puzzle:
+
+- `66 Redder Ave` and `61 Redder Ave` both read `Subdivision: Northwood`.
+- `251 Castlewood Ave` reads `Subdivision: Castlewood`.
+
+`251 Castlewood` had been logged as **hood UNKNOWN** on the strength of an empty OSM lookup.
+That was wrong - the answer was on the page all along, in a field nobody had read. OSM
+returning `[]` means *OSM does not know*, not *nobody knows*. **Read the Facts block before
+concluding a hood is unknowable.**
+
+### 45405 is a ZIP code, not a city - and Zillow's breadcrumb knows it
+
+The breadcrumb on houses in the northern plat reads
+`Ohio > Montgomery County > Shiloh > 45405`, not `Dayton`. Parcels carrying a Dayton mailing
+address and a 45405 ZIP can sit in the city of Shiloh or in Harrison Township. So:
+
+- **A `45405` ZIP does not establish Dayton.** It establishes a mailing address.
+- **Never use the breadcrumb *city* as the neighbourhood.** It is a municipal fact, and for
+  these parcels it is frequently Shiloh.
+- For anything in the Northwoods / Castlewood / Redder / Waverly / Sandhurst pocket, expect
+  Shiloh and verify the plat from `Subdivision`.
+
 ### When every source fails, the answer is UNKNOWN
 
 `251 Castlewood Ave` ($69,900, 2/1, 912 sf) is the worked example: OSM `[]`, no Zillow
