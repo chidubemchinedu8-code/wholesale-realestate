@@ -149,3 +149,33 @@ only part of this that is robust to the missing error band.
 
 One buy-box line still fails — the five-comp standard — but the type, condition and value gates
 all clear, so this reaches a price. **PRIORITY at the ask, every repair grade.**
+
+## Re-verified 2026-11-08 — the number is unchanged
+
+Re-ran the engine on the stored comp file rather than restating the figure:
+
+```
+python3 scripts/comp.py --comps state/comps/detroit_48224_outerdrivehayes_comps.csv \
+  --as-of 2026-11-08 --repairs 31500 \
+  --subject '{"address":"9453 McKinney St","beds":"2","sqft":900,
+              "hood":"48224-OUTERDRIVEHAYES","lat":42.4120,"lon":-82.9540,"style":"BUNGALOW"}'
+```
+
+On the subject's own hood label alone: **UNPRICED**, exit 3 — only 2 renovated comps
+(Lakepointe, Nottingham), needs 3. With East English Village pooled in: **ARV $134,398**,
+median $149.33/sf, n=3, spread 6.3%, radius 1.0 mi, exit 0. Both readings reproduce
+exactly as first recorded. `ARV BAND NONE` — no backtest exists for 48224.
+
+Repair ladder at 900 sf, unchanged:
+
+| grade | repairs | ceiling | seller MAO | ask | headroom |
+|---|---|---|---|---|---|
+| LIGHT $20/sf | $18,000 | $76,079 | **$66,079** | $29,900 | $36,179 |
+| MODERATE $35/sf | $31,500 | $62,579 | **$52,579** | $29,900 | $22,679 |
+| HEAVY $50/sf | $45,000 | $49,079 | **$39,079** | $29,900 | $9,179 |
+
+Standing caveat, restated because it is the whole risk in one line: **all three pricing
+comps are 3-bedroom and the subject is 2-bedroom.** $149.33/sf applied to a smaller
+2-bed house probably overstates finished value, so $134,398 is a ceiling, not a midpoint.
+The ARV also clears the $125,000 buy-box floor by only $9,398 — inside an error band
+that is explicitly unmeasured.
