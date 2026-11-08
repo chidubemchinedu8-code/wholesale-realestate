@@ -570,3 +570,32 @@ simplifies beautifully, check what it deleted.
 
 **Fix lives in.** `state/comps/BACKTEST_44102.md` ("Does the method make money?"),
 `state/backtest/decision_test.py`, `state/backtest/repair_risk_test.py`.
+
+---
+
+## D-28 · 2026-11-08 · "Real property only" does not clear a senior community
+
+**What happened.** Sweeping Dayton ZIP 45416 (Trotwood), the best-shaped lead was `3944 Haney Rd`,
+$80,000 / 1,422 sf / **$56/sf** — brick SFR, built 1957, central air, 0.5 acre **owned** lot with a
+real parcel number, tax assessed $75,070, prior rental at $650/mo. It passed every cheap screen:
+real property, not manufactured, land in the sale, clear value-add spread.
+
+It is in a **55+ community** (`Community → Senior community: Yes`).
+
+**Why the earlier rule didn't catch it.** `references/underwriting.md` says *"Types means real
+property only"* and lists manufactured homes on leased land as the thing to exclude. Read
+narrowly, a brick house on owned land passes. But `references/comps.md` tell #3 is explicit:
+`Community` naming a 55+/active-adult or assisted-living community is a **manufactured/leased-lot
+tier exclusion**. The two rules are in different files and the buy-box screen only applied the
+first one.
+
+**Why it matters commercially, not just procedurally.** A 55+ park is a **captive market** — the
+buyer pool is restricted by age, resale velocity is structurally low, and the appreciation accrues
+to the operator, not the owner. A $56/sf entry looks like the best deal in the county and is
+actually the least liquid asset in it. The low price is the *symptom*, not the opportunity.
+
+**Prevention.** The buy-box screen's step 1 now runs **both** exclusions: (a) real property, and
+(b) **not** a 55+/senior/assisted community, which lives in `Facts → Community → Senior community`.
+Check it on every property that looks unusually cheap for its ZIP — cheapness is the tell.
+
+**Fix lives in.** `state/zip_ledger.csv` row 45416 (rejection `G_senior_community_55plus`).
