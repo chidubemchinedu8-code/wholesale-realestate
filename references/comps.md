@@ -211,3 +211,27 @@ used them.
 The six verified sales still do useful work as an **as-is floor**: updated homes
 $85–$137/sf, maintained $80–$85/sf, which for a 1,259 sf house is roughly
 $103,000–$151,000. A floor is a legitimate output; an ARV is not available.
+
+
+## Manufactured homes are not a comp set — and often not the asset you think
+
+A manufactured home on a **leased lot** is personal property on a rented pad. It is not a
+house, it does not finance like one, and `$/sf` medians do not transfer to it.
+
+Zillow labels them `Home type: SingleFamily`. Do not trust that field. Check, in this order —
+any one is disqualifying:
+
+1. `sqft lot` shows `--` (no land in the sale).
+2. `Parking features: Carport` on a "single family" home.
+3. `Community` names a 55+/active-adult or assisted-living community.
+4. Price per sqft far under the ZIP median (8823 Edgewood Blvd: **$55/sf** in a **$366K** ZIP).
+5. The `Similar homes` carousel fills with "Mobile Home Sales" / "Mobile Home Brokers" agents.
+6. Cross-check MHVillage, Homes.com, or the park's own website.
+
+**Lot rent is the real variable, and it ratchets.** At Fountainview Estates the pad went
+$645/mo (2019) → $690 (2021) → $1,050 (2026), about +63% while the homes depreciated. The park
+owner captures the appreciation. A market like this shows up as endless "PRICE DROP" and
+seller-financing ads — a captive market repricing its ground lease faster than its assets.
+
+**Never build a comp pool from one 55+ park.** It is a captive market, not arm's-length
+inventory. Refuse, and say why.

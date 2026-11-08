@@ -1046,6 +1046,39 @@ else
   fail "hood-verification.md lost the Shiloh/45405 warning"
 fi
 
+# 9r. Asset-class gate: manufactured-home detection + low-basis repair tiers (D-17/D-18).
+if grep -q "leased lot\|Carport" "$SKILL_DIR/references/comps.md" 2>/dev/null; then
+  pass "comps.md warns that manufactured/leased-lot homes are not a comp set (D-17)"
+else
+  fail "comps.md lost the manufactured-home detection rules"
+fi
+if grep -q "Types means real property only" "$SKILL_DIR/references/underwriting.md" 2>/dev/null; then
+  pass "underwriting.md scopes the buy box to real property"
+else
+  fail "underwriting.md does not exclude leased-land manufactured homes"
+fi
+if grep -q "invalid — refuse to price\|refuse to price" "$SKILL_DIR/references/underwriting.md" 2>/dev/null; then
+  pass "underwriting.md refuses the \$/sf repair tiers below \$60/sf (D-18)"
+else
+  fail "underwriting.md missing the low-basis repair tier gate"
+fi
+
+# 9s. Ordering: the write-up for the Tampa refusal must lead with asset class, not comps.
+if [ -r "$SKILL_DIR/state/comps/TAMPA_33635_8823_EDGEWOOD.md" ]; then
+  if head -20 "$SKILL_DIR/state/comps/TAMPA_33635_8823_EDGEWOOD.md" | grep -qi "manufactured"; then
+    pass "Tampa refusal names the asset class as the primary gate"
+  else
+    fail "Tampa refusal does not name the asset class first (D-19 regression)"
+  fi
+  if grep -q "1,050/mo\|\$1,050" "$SKILL_DIR/state/comps/TAMPA_33635_8823_EDGEWOOD.md"; then
+    pass "Tampa refusal records the lot rent"
+  else
+    fail "Tampa refusal omits the lot rent, the decisive fact"
+  fi
+else
+  fail "Tampa refusal write-up missing"
+fi
+
 # ---------------------------------------------------------------------------
 echo
 if [ "$FAIL" -gt 0 ]; then

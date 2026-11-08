@@ -314,3 +314,73 @@ is reading the row back afterwards.
    is cheap and it is the only thing that catches a silent clobber.
 
 **Fix lives in.** This entry. Row 31 verified in full after repair.
+
+---
+
+## D-17 · 2026-11-08 · `Home type: SingleFamily` on a manufactured home in a leased-lot park
+
+**What happened.** `8823 Edgewood Blvd, Tampa FL 33635` is served by Zillow as
+`Home type: SingleFamily`. It is a 1982 multi-section manufactured home on a rented pad in
+Fountainview Estates, a 55+ gated park with **$1,050/mo lot rent**. Every downstream
+assumption — that it is real property, that it finances like a house, that `$/sf` comps
+transfer, that there is an assignment exit — is wrong, and none of it is visible in the
+`Home type` field.
+
+**Why it exists.** Agency feeds map manufactured homes onto the SFR enum because there is no
+better slot, and parks list through My State MLS / MHVillage rather than the local board. The
+misclassification is structural, not a one-off error.
+
+**Detection, in this order — any one is disqualifying:**
+1. `sqft lot` is `--` (no land owned).
+2. `Parking features: Carport` on a "single family" home.
+3. `Community` field names a 55+/active-adult or "assisted living" community.
+4. Price per sqft far under the ZIP's median `$/sf` (here $55/sf against a $366K ZIP).
+5. The `Similar homes` carousel fills with listings brokered by
+   "XYZ Mobile Home Sales" / "Mobile Home Brokers" — a reliable tell, and cheap to check.
+6. Cross-check the address on MHVillage, Homes.com or the park's own site.
+
+**Fix lives in.** `references/comps.md` (new subsection), `references/underwriting.md`
+(buy-box clarification).
+
+---
+
+## D-18 · 2026-11-08 · The `$/sf` repair tiers collapse on low-basis assets
+
+**What happened.** Applying the standard method to the Tampa park home produced
+`MAO $13,500` on a $59,990 ask — a number that looks like a screening result and is actually
+an artifact. `1,100 sf × $20/sf = $22,000` of "light" repairs against a $60,000 asset is
+37% of value, and the 70%/75% LTV ceiling is built for assets where $20/sf is 8–12% of value.
+
+**Why.** `REPAIR_TIERS` is a `$/sf` model, calibrated on Dayton SFRs at $120–$180/sf. It
+assumes rehab cost scales with area while value scales with area at roughly the same rate.
+When the *asset* is worth $55/sf, a $20/sf rehab tier is not a tier — it is a demolition.
+
+**Prevention.** Before running `--tier`, check `ARV/sf` against the tier rate:
+
+| ARV $/sf | repair tier validity |
+|---|---|
+| ≥ $100/sf | light/moderate/heavy behave as calibrated |
+| $60–100/sf | tiers overstate repairs; use them only with a walkthrough scope |
+| < $60/sf | **$/sf tiers are invalid. Refuse to price.** |
+
+The engine will not warn you. This is a judgment gate that must be applied by hand before
+the first `comp.py --tier` call on an unfamiliar market.
+
+---
+
+## D-19 · 2026-11-08 · Recording a refusal on the wrong objective
+
+**What happened.** For the Fairview, Northwoods and Castlewood refusals, the reasoning was
+concentrated on *whether a comp pool could be built*. That is the correct gate for ARV. But
+the Tampa property failed on asset class and ARV floor, both of which are stated plainly in
+`references/underwriting.md` — and the buy-box check would have taken thirty seconds and
+closed it before any comp research.
+
+**Why.** The habit built over the last several passes is "find or build the pool", which
+front-loads the hardest work. Screening is supposed to be a sieve in the opposite order:
+asset type → price band → condition → then comps.
+
+**Prevention.** Run the buy-box screen **first**, in one pass, before any comp work:
+`type ∈ {SFR, duplex, multifamily}` → `ARV band $125K–$900K` → `condition has a spread`.
+Only survivors get a comp pool. A property that fails at step one should never reach
+`comp.py`, and the refusal note should name the buy-box line, not the comp gap.

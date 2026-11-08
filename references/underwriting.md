@@ -124,6 +124,38 @@ number downstream is suspect.
 | Close | ~21–30 days |
 | Comps required | Five |
 
+**Types means real property only.** `SFR / duplex / multifamily` excludes manufactured and
+mobile homes on leased land, park models, condos and co-ops. A manufactured home sitting on
+*owned* land may qualify as an SFR — verify the land is in the sale (`sqft lot` is populated)
+before treating it as one.
+
+### Run the buy-box screen FIRST
+
+Order matters, and it is cheapest-first:
+
+1. **Type** — real property in the buy box?
+2. **ARV band** — can this clear $125,000?
+3. **Condition** — is there a spread to capture?
+4. *Then* comps.
+
+A property failing step 1 never reaches `comp.py`. Refusal notes should name the buy-box line
+that failed, not the comp gap — otherwise the note invites someone to go build a pool that was
+never going to matter (D-19).
+
+### The `$/sf` repair tiers collapse on low-basis assets
+
+`light $20 / moderate $35 / heavy $50` per sf was calibrated on $120–$180/sf SFRs. Check
+`ARV/sf` before using it:
+
+| ARV $/sf | tier validity |
+|---|---|
+| ≥ $100/sf | behaves as calibrated |
+| $60–100/sf | overstates repairs; needs a walkthrough scope |
+| < $60/sf | **invalid — refuse to price** |
+
+At $55/sf, "light" repairs of $20/sf are 37% of value. The engine emits a number anyway.
+That gate is applied by hand, before the first `--tier` call on an unfamiliar market (D-18).
+
 Never state or imply that a buyer has approved a deal unless that approval was
 received. "Fits the stated buy box" is the strongest claim available without a
 specific buyer's written interest.
