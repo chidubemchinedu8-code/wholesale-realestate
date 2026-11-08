@@ -876,3 +876,45 @@ single most useful verdict a wholesaler can get: it is a hard walk.
 **Rule:** when parsing engine output, MAO/ceiling patterns must accept `-?`, and a
 NULL MAO alongside a present ARV is always a parse bug, never a refusal. A refusal has
 **no ARV at all** — that is the discriminator: ARV present + MAO absent = broken parse.
+
+## D-41 — "bimodal" was declared on a cluster of ONE
+
+Pulling the 45410 anchor, `anchor.py` reported:
+
+```
+sales used 69	median $88.02/sf	spread $11.46/sf - $244.13/sf
+BIMODAL: low cluster $11.46/sf (n=1), high cluster $89.45/sf (n=68)
+BIMODAL - the ZIP blends two markets. Drop to a named-neighbourhood median.
+```
+
+The "low cluster" was a single sale: 717 Wyoming St, 4,798 sf at $55,000. One junk
+parcel is an **outlier**, not a market. `split_clusters` found the largest relative
+gap in the sorted `$/sf` field, and a gap needs only one value on each side — so the
+most extreme row in any file is guaranteed to look like a second market whenever it
+is far enough from its neighbour. The advice printed with it was actively harmful:
+it told the reader to throw away a usable $93.12/sf ZIP median (n=141 over six
+months) and drop to a neighbourhood median, over one bad row.
+
+**Rule:** both sides of a gap must clear `MIN_CLUSTER` (3) sales before the word
+"bimodal" may be used for them. Below that it is an outlier and the single
+distribution stands. Guarded by selftest plus test 9r — which also re-checks that a
+genuine 4-against-4 split is still caught, so the fix cannot be mistaken for
+"stop detecting bimodality".
+
+## D-42 — a ZIP-wide run printed a distance it never measured
+
+45410 has 141 usable sales but no coordinates: the geocoder was unreachable and
+D-37 already says a shared coordinate makes every radius test vacuous. So the engine
+gained `--zip-wide`, which pools the whole ZIP with no radius. Two fabricated claims
+appeared the moment it ran:
+
+1. `PASS  no comp beyond the 1.5 mi radius cap  [radius 1.5 mi (cap 1.5), 0 comps
+   beyond cap]` — for a run that never called `miles()` once. The check was
+   structurally incapable of failing, which is the same failure D-37 describes,
+   in a new place.
+2. Every comp row printed `0.00 mi` in the MI column, because lat/lon were 0.
+
+**Rule:** `result.radius = None` must mean *no radius was applied*, and every
+reader of it — the check, the CONF line, the comp table header and row — must say
+so out loud rather than print a zero. A measurement that was not taken is reported
+as not taken. Guarded by test 9q.

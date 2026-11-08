@@ -1,0 +1,142 @@
+address,sold,price,sqft,beds,condition,exclusion,evidence
+129 Kastner Ave,2026-05-18,35000,1104,3,distressed,,"original trim/doors, new roof, 'ready for your updates'"
+1106 Beaumont Ave,2026-10-30,75000,1380,3,distressed,,"fixer-upper, mechanicals need updating, as-is"
+2101 Wyoming St,2026-09-16,211900,5246,6,unknown,multifamily,"4-unit building, 4 refrigerators"
+412 Livingston Ave,2026-10-27,27000,1020,2,distressed,,2bd fixer upper
+3027 Wellington Dr,2026-05-28,210000,1441,3,maintained,,"preserved woodwork, appliances included, Pella door"
+3440 Wellington Dr,2026-08-21,127000,1322,3,maintained,,"cape cod on 2 lots, wood floors, vinyl siding"
+1646 Pell Dr,2026-10-02,40000,720,2,distressed,,"needs extensive remodeling, as-is"
+4233 Corinth Blvd,2026-06-17,170000,1514,3,maintained,,"maintained, freshly updated kitchen, modern appliances"
+701 Kolping Ave,2026-09-16,222000,2400,4,renovated,,"extensively renovated, new cabinetry, farm sink"
+426 Hulbert St,2026-10-15,135000,1016,2,renovated,,"freshly remodeled, new kitchen/bath/LVP/windows/HVAC"
+40 Indiana Ave,2026-08-05,158000,1475,4,maintained,,"roof, HVAC, WH, windows updated"
+140 Indiana Ave,2026-08-10,209900,1523,4,maintained,,"modern updates, original hardwood, medallion 1900s"
+1039-1041 Highland Ave,2026-06-22,205000,2660,6,unknown,multifamily,"fully rented duplex, 3bd each side"
+1663 Pershing Blvd,2026-07-24,132000,744,2,maintained,,"newer roof/windows, painted 2 yrs ago"
+858 Alverno Ave,2026-08-03,166600,1032,4,maintained,,"kitchen updated 2021, brick, 4bd/1032sf"
+1653 Pell Dr,2026-06-24,90213,1512,3,dated,,'a little updating can go a long way'
+1659 Pell Dr,2026-08-18,143000,1400,3,maintained,,"fresh paint, newer windows, market-ready rental"
+234 Fillmore St,2026-08-28,103900,1042,3,maintained,,"updated in 2020, cape cod"
+164 Edgar Ave,2026-07-06,169900,1499,3,maintained,,"brand-new carpet, updated eat-in kitchen"
+721 Xenia Ave,2026-10-16,155000,948,3,renovated,,"beautifully remodeled, LVP, quartz, new baths"
+1409 Wyoming St,2026-10-23,140000,2512,6,unknown,multifamily,"duplex, unit leased $1,100/mo"
+1122 Demphle Ave,2026-06-30,99900,1408,3,dated,,"1905, functional, simple"
+1001 E Stewart St,2026-06-30,122500,1849,3,maintained,,charming 3bd 2 full bath
+800 Linden Ave,2026-06-10,62500,1472,3,dated,,'ready to move in' but priced as rental
+844 Wellmeier Ave,2026-08-17,190000,1439,3,maintained,,"wood flooring, eat-in kitchen, deck"
+550 Santa Cruz Ave,2026-10-19,215000,2108,4,maintained,,"capital improvements since 2018, HVAC, panel"
+1214 Linden Ave,2026-08-27,99000,1572,3,distressed,,"'needs work', full basement"
+47 Indiana Ave,2026-07-31,169000,1450,3,renovated,,"fully renovated, new everything, new roof"
+14 Adams St,2026-07-23,167500,878,2,maintained,,"nicely updated, new roof, kitchen and bath"
+628 Hickory St,2026-06-30,45000,1271,2,distressed,,"LandBank, no mechanicals, utilities off"
+433 Livingston Ave,2026-09-30,79900,1352,3,dated,,no condition narrative
+170 Indiana Ave,2026-07-27,56210,1282,2,distressed,,"court-ordered auction, condition unknown"
+835 Lorain Ave,2026-08-13,159500,1880,3,maintained,,"move-in ready, new flooring/paint/fixtures"
+1253 Epworth Ave,2026-07-27,185000,1204,3,renovated,,"renovated, granite, hardwood, clawfoot"
+3015 Wellington Dr,2026-10-28,150000,1071,2,maintained,,"new flooring, updated lighting, pride of ownership"
+3521 Cleveland Ave,2026-09-11,194000,1779,3,maintained,,"dual primary suite potential, remodeled attic bath"
+843 Bowen St,2026-06-26,199000,1422,4,maintained,,"kitchen remodeled 2023, quartz"
+1147 Beaumont Ave,2026-07-23,168000,1380,3,renovated,,"extensively renovated, new HVAC/WH/roof/siding/windows"
+1456 Pershing Blvd,2026-07-15,128620,1176,4,maintained,,"cape cod, 2bd down 2bd up, maintained"
+1154 Demphle Ave,2026-06-26,186800,1408,3,renovated,,"complete rehab, quartz, stainless, 2 new baths"
+267 Indiana Ave,2026-05-19,154000,1140,2,renovated,,"tastefully remodeled, new half bath, new laundry"
+1030 Epworth Ave,2026-06-18,182000,1446,4,maintained,,"recent upgrades, remodeled baths, AC 2023"
+1414 Phillips Ave,2026-07-22,154000,1836,3,renovated,,"beautifully renovated, granite, two-tone cabinetry"
+40 Anderson St,2026-05-20,172850,1433,3,maintained,,newer roof/HVAC/WH/main water line
+728 Wyoming St,2026-10-30,115500,896,2,renovated,,"renovated to the studs, granite, new roof/HVAC"
+12 Morton Ave,2026-06-16,137000,1379,3,maintained,,"refreshed, newer cabinets, new roof last yr"
+1031 Highland Ave,2026-06-09,148000,1828,3,maintained,,"hardwood, eat-in kitchen, built-in bench"
+842 Kolping Ave,2026-07-01,135000,1310,2,maintained,,"well-maintained cape cod, 35x13 bonus room"
+442 Oak St,2026-06-01,98010,932,1,distressed,,"court-ordered auction, condition unknown"
+247 Oak St,2026-10-30,240000,1858,2,renovated,,"tastefully renovated, remodeled kitchen, granite"
+40 Edgar Ave,2026-06-19,170000,1415,3,maintained,,"quartz counters, stainless, roof/AC/furnace 2022"
+355 Park Dr,2026-08-07,215000,2098,3,maintained,,"1898 restored, cherry cabinetry, pocket doors"
+117 Nassau St,2026-08-14,59000,974,2,dated,,"rented, new walls/flooring/electric 4 yrs ago"
+1150 Beaumont Ave,2026-07-30,115000,1380,3,dated,,recent improvement: added central air
+1517 Emmons Ave,2026-08-14,219900,1364,3,maintained,,"remodeled baths, butcher block, new cabinetry"
+634 Saint Nicholas Ave,2026-10-05,106000,1303,3,dated,,"new garage 2023, new gutters 2025 only"
+630 Creighton Ave,2026-07-14,134900,1392,3,maintained,,"stately, classic woodwork, full basement"
+325 Johnson St,2026-07-24,199900,1008,2,renovated,,completely restored: roof/HVAC/windows/electric/plumbing
+1742 S Smithville Rd,2026-10-21,112000,936,3,maintained,,refreshed kitchen and baths
+1335 Wyoming St,2026-07-15,119900,1190,2,maintained,,kitchen and bath recently updated
+215 Heaton Ave,2026-06-16,60000,1036,2,dated,,"vacant, cosmetic improvements only"
+609 Hickory St,2026-10-09,143550,588,1,renovated,,"updated, modern kitchen, barn door"
+284 Mcclure St,2026-05-26,164900,2064,3,maintained,,"well-kept, hardwood, full bath main"
+309 Johnson St,2026-10-29,270000,2116,3,maintained,,"1901, restored millwork, 2 full baths"
+636 Bowen St,2026-07-10,145001,1610,3,maintained,,"furnace 2018, WH 2020, panel 2021, new flooring 2022"
+613 Creighton Ave,2026-10-23,139900,1228,3,renovated,,"beautifully renovated, new HVAC, electrical, deck"
+845 Carlisle Ave,2026-06-18,134900,1338,3,maintained,,"1919, finished basement, 33x122 lot"
+2222 Wayne Ave,2026-05-29,59500,1878,3,distressed,,"investor's special, as-is, cash preferred"
+141 Fillmore St,2026-07-24,159900,1882,3,unknown,multifamily,"3-unit, 1bd each, owner pays utilities"
+32 Indiana Ave,2026-09-02,182000,1559,4,maintained,,"finished attic, roof and AC 2024"
+1314 Demphle Ave,2026-09-11,88000,1308,3,dated,,"as-is, new AC 2025, replacement windows 2024"
+1138 Demphle Ave,2026-08-11,75000,1750,4,dated,,"as-is, 1905, 1.5 baths"
+157 Dover St,2026-08-14,35000,832,2,distressed,,"investor special, as-is, cash only"
+314 Park Dr,2026-07-27,419900,2652,5,renovated,,"restored Victorian, 5bd, 1890"
+361 Park Dr,2026-08-14,238000,2896,6,unknown,multifamily,"duplex, 3bd each side, one tenant 30 yrs"
+525 Wyoming St,2026-07-09,130100,2384,5,distressed,,"3-unit, gutted to studs, has service only"
+125 Perrine St,2026-08-03,249000,1336,3,renovated,,"beautifully renovated bungalow, systems updated"
+247 Park Dr,2026-07-30,276000,1997,4,renovated,,"beautifully renovated 4bd, granite, island"
+506 Oak St,2026-07-21,56760,1178,2,distressed,,"court-ordered auction, condition unknown"
+39 Clover St,2026-09-24,86800,2072,4,distressed,,'needs fairly complete rehab'
+423 Alberta St,2026-07-07,140000,2825,8,unknown,multifamily,two 4bd units
+112 Park Dr,2026-09-21,422500,3528,4,maintained,,"chef's kitchen granite, commercial range, wrap porch"
+29 Greenwood Ave,2026-07-10,67000,1792,3,dated,,"sold as-is, historical charm"
+1573 Wayne Ave,2026-06-25,150000,1932,3,maintained,,"kitchen updated, basement french drain/sump"
+34 Margaret St,2026-11-02,216000,2748,6,unknown,multifamily,"duplex, 3bd each, $2,800/mo"
+405 E Gunckel St,2026-09-16,160500,2652,6,unknown,multifamily,duplex with solar roof
+22 Mello Ave,2026-10-16,158000,1161,2,unknown,multifamily,"brick duplex, two 1bd units at $800"
+26 Mello Ave,2026-10-19,158000,1161,2,unknown,multifamily,"brick duplex, two 1bd units $750/$850"
+29 Colorado Ave,2026-08-11,61000,1304,3,dated,,"1907, wood floors, needs next chapter"
+1628 Wyoming St,2026-08-14,153000,2209,4,renovated,,"'spacious, renovated, exceptionally clean', 4bd"
+1117-1119 Epworth Ave,2026-10-28,122375,1985,4,unknown,multifamily,"duplex, 2bd each"
+310 Illinois Ave,2026-08-04,78500,932,2,dated,,no condition narrative
+1415 Epworth Ave,2026-09-28,117000,1394,3,maintained,,"updated, vintage charm"
+530 Saint Nicholas Ave,2026-07-23,115900,1298,3,maintained,,"roof/furnace/AC/WH ~5 yrs ago, tenant-occupied"
+836 Creighton Ave,2026-11-04,149900,1248,3,maintained,,"roof 2019, WH 2020, furnace/AC 2021, new windows"
+636 Wilfred Ave,2026-07-31,164000,1945,4,renovated,,"updated 3-story, quartz, LVP, 4th bd up"
+621 Wellmeier Ave,2026-10-28,193500,1376,3,renovated,,"renovated 2023, granite, stainless, LVP"
+615 Wellmeier Ave,2026-09-25,160000,1404,3,maintained,,"original hardwood, crown molding, updated windows"
+453 Livingston Ave,2026-06-05,160000,1134,3,renovated,,"fully renovated, primary suite, custom tile shower"
+804 Linden Ave,2026-05-19,86000,1395,3,maintained,,"refreshed, granite, both baths renovated"
+3405 Cleveland Ave,2026-11-02,173000,852,2,renovated,,completely remodeled ranch bungalow
+1629 John Glenn Rd,2026-05-28,184000,1128,3,renovated,,"fully remodeled cape cod, granite, new HVAC"
+3621 Cleveland Ave,2026-07-24,147000,864,2,maintained,,"new carpet, flex space, 2 full baths"
+1722 Meriline Ave,2026-05-19,149000,674,2,maintained,,"kitchen/bath renovated 2023, furnace/AC 2023"
+704 Kolping Ave,2026-10-09,217000,2352,6,unknown,multifamily,"duplex, LVP both units"
+1514 Westona Dr,2026-08-31,144900,1086,2,renovated,,"newly remodeled, new roof/windows/kitchen/bath"
+3315 Wellington Dr,2026-09-04,168000,878,2,maintained,,"move-in ready, new roof 2023"
+3452 Wellington Dr,2026-05-21,185000,1317,3,maintained,,"beautiful updates, 2.5 baths"
+3516 Eastwey Ave,2026-07-06,145000,1196,2,maintained,,"finished basement, small deck"
+3200 Linden Ave,2026-06-05,211500,1488,3,renovated,,"renovated top to bottom, new plumbing and HVAC"
+110-112 Johnson St,2026-06-16,255000,2418,4,unknown,multifamily,"renovated duplex 2021, 2bd each side"
+509 Xenia Ave,2026-09-03,173000,3880,5,unknown,multifamily,"3-unit, 3bd + two 1bd, $2,600/mo"
+1012 Lorain Ave #1010,2026-07-01,174000,2112,4,unknown,multifamily,"turnkey duplex, 2bd each"
+227-229 James St,2026-08-28,267500,3392,6,unknown,multifamily,"duplex, 3bd each, 10ft ceilings"
+800 Lorain Ave #802-808,2026-08-12,328500,4688,9,unknown,multifamily,"7-unit, 3bd house + 6 studios"
+34 Morton Ave,2026-06-09,80300,496,1,dated,one_bed,496sf cottage
+32 Morton Ave,2026-05-13,105000,448,1,dated,one_bed,448sf cottage
+3410 Marimont Dr,2026-10-06,90000,1056,3,dated,,no condition narrative
+4543 Elliot Ave,2026-07-10,145800,2392,4,maintained,,"4bd 3ba, no condition narrative"
+279 Indiana Ave,2026-06-22,90000,1180,2,dated,,no condition narrative
+2217 Wayne Ave,2026-09-08,87000,1672,4,dated,,"4bd 1.5ba, no condition narrative"
+58 Clover St,2026-06-30,72000,1188,3,dated,,no condition narrative
+55 Illinois Ave,2026-08-20,95000,1408,3,dated,,no condition narrative
+514 Santa Cruz Ave,2026-09-29,70000,1641,4,dated,,"4bd 1ba, no condition narrative"
+215 Clover St,2026-07-21,129900,1164,3,maintained,,no condition narrative
+606 Creighton Ave,2026-10-30,119000,1352,3,maintained,,no condition narrative
+38 Gebhart St,2026-06-30,40000,1328,3,distressed,,"no condition narrative, $30/sf"
+204 Haynes St,2026-07-10,75000,1162,2,dated,,no condition narrative
+1127 Epworth Ave,2026-08-20,91000,870,2,dated,,no condition narrative
+1274 Highland Ave,2026-09-30,230000,2470,0,maintained,,"no bed count reported, 2470sf"
+11 Bonner St,2026-07-10,72000,560,1,dated,one_bed,560sf cottage
+717 Wyoming St,2026-09-30,55000,4798,0,unknown,different_tier,"no bed count, 4798sf, $11.46/sf"
+721 Wyoming St,2026-07-10,40000,698,1,dated,one_bed,698sf
+573 Wyoming St,2026-09-30,50000,816,1,dated,one_bed,816sf
+10 Clover St,2026-09-30,166500,1832,4,maintained,,4bd 2ba
+241 Park Dr,2026-09-30,290000,1970,3,maintained,,"South Park, 3bd/1ba at $147/sf"
+152 Virginia Ave,2026-09-30,125000,1661,4,dated,,4bd 1ba
+1508 Xenia Ave,2026-09-30,68100,1676,4,distressed,,"4bd 2ba, $40.63/sf"
+1721 Wyoming St,2026-09-30,170000,2368,6,unknown,multifamily,"6bd 2ba 2368sf, duplex scale"
+1438 Xenia Ave,2026-09-30,103700,3363,0,unknown,different_tier,"no bed count, 3363sf"
+128 Cross St,2026-09-30,232000,2400,4,maintained,,"4bd 2ba, $96.67/sf"

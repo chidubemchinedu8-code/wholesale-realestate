@@ -953,6 +953,78 @@ PYE
 then pass "every comp has a real address, price and square footage"
 else fail "a comp row is malformed"; fi
 
+section "9q. A ZIP-WIDE RUN MUST NOT FABRICATE A DISTANCE"
+# 45410 has solds but no coordinates (Overpass unreachable, and D-37 says a
+# shared coordinate makes every radius check vacuous). The engine grew a
+# --zip-wide mode. Two lies appeared the moment it did: a "PASS no comp beyond
+# the 1.5 mi radius cap" for a run that never measured a distance, and a
+# "0.00 mi" in every comp row. Both are guarded here.
+ZWC="$(mktemp)"
+cat > "$ZWC" <<'CSV'
+address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
+1 Near St,2026-09-01,160000,1450,ZIPW,0,0,TRADITIONAL,3,renovated,
+2 Near St,2026-08-01,150000,1460,ZIPW,0,0,TRADITIONAL,3,renovated,
+3 Near St,2026-07-01,145000,1400,ZIPW,0,0,TRADITIONAL,3,renovated,
+4 Near St,2026-06-01,140000,1440,ZIPW,0,0,TRADITIONAL,3,renovated,
+CSV
+ZWO="$(py "$SKILL_DIR/scripts/comp.py" \
+  --subject '{"address":"Subj","beds":"3","sqft":1450,"hood":"ZIPW","lat":0,"lon":0}' \
+  --comps "$ZWC" --as-of 2026-11-08 --zip-wide 2>&1)"
+echo "$ZWO" | grep -q "ZIP-WIDE (no radius)" \
+  && pass "a zip-wide run labels itself zip-wide, with no radius" \
+  || fail "a zip-wide run still reports a radius"
+echo "$ZWO" | grep -q "no distance is claimed" \
+  && pass "the radius check says the distance was never measured" \
+  || fail "the radius check passes vacuously on a zip-wide run"
+echo "$ZWO" | grep -q "0\.00" \
+  && fail "a zip-wide comp row prints a fabricated 0.00 mi" \
+  || pass "no comp row claims a distance it never measured"
+echo "$ZWO" | grep -qE 'ARV +\$ +[0-9]' \
+  && pass "a coordinate-free zip-wide run still produces an ARV from the ZIP pool" \
+  || fail "zip-wide mode refuses a pool it should be able to price"
+rm -f "$ZWC"
+
+section "9r. ONE JUNK SALE IS AN OUTLIER, NOT A SECOND MARKET"
+# 717 Wyoming St (4,798 sf, $55,000, $11.46/sf) produced the largest gap in the
+# 45410 $/sf field. anchor.py called the ZIP bimodal on a cluster of ONE and
+# advised throwing away a perfectly good $93.12/sf median.
+if py - <<'PYE'
+import sys
+from datetime import date, timedelta
+sys.path.insert(0, "scripts")
+import anchor
+as_of = date(2026, 11, 8)
+def mk(vals, days=10):
+    return [{"sold": str(as_of - timedelta(days=days + i)),
+             "price": str(int(p * s)), "sqft": str(s)}
+            for i, (p, s) in enumerate(vals)]
+one_junk = mk([(78,1400),(80,1450),(82,1350),(76,1500),(84,1420),(79,1380),(30,1800)])
+r = anchor.analyse(one_junk, "45410", as_of)
+print("   one junk sale -> bimodal =", r.get("bimodal"), "median $/sf", r.get("median_ppsf"))
+sys.exit(0 if r["status"] == "OK" and not r["bimodal"] else 1)
+PYE
+then pass "a single outlier sale does not fabricate a second market"
+else fail "one junk sale still flips the ZIP to bimodal"; fi
+
+if py - <<'PYE'
+import sys
+from datetime import date, timedelta
+sys.path.insert(0, "scripts")
+import anchor
+as_of = date(2026, 11, 8)
+def mk(vals, days=10):
+    return [{"sold": str(as_of - timedelta(days=days + i)),
+             "price": str(int(p * s)), "sqft": str(s)}
+            for i, (p, s) in enumerate(vals)]
+# 8 sales: bimodality is not even TESTED below 8 (MIN_SALES_BIMODAL).
+two = mk([(180,1500),(190,1600),(200,1550),(210,1450),
+          (45,1400),(48,1500),(50,1350),(52,1450)])
+r = anchor.analyse(two, "45410", as_of)
+sys.exit(0 if r["status"] == "OK" and r["bimodal"] else 1)
+PYE
+then pass "a genuine two-market split is still caught"
+else fail "the outlier guard also suppressed a real bimodal ZIP"; fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do
@@ -1148,19 +1220,26 @@ for r in csv.DictReader(open("state/sweeps/dayton_coverage.csv", encoding="utf-8
         print("  BAD unparseable counts for", r.get("zip"))
         n += 1
         continue
+    # Three things must hold, and the sweep is now COMPLETE, so the old
+    # "flagged if under-covered" shape had its pass condition backwards: it
+    # only passed while some ZIP was short. Assert the invariant instead.
     if li and ex < li and int(r.get("redfin_listed_total") or 0) != li:
         print("  BAD denominator not corrected", r.get("zip"))
         n += 1
-    if ex < li:
+    if ex < li and not (r.get("deviation_note") or "").strip():
+        print("  BAD under-covered with no deviation_note", r.get("zip"))
+        n += 1
+    if ex > li:
+        print("  BAD examined exceeds the live total", r.get("zip"))
         n += 1
 print(n)
 PYE
 )
   bad=$(echo "$bad" | tail -1 | tr -d ' ')
-  if [ "$bad" -gt 0 ]; then
-    pass "Dayton ZIPs with partial coverage are flagged, not claimed done ($bad flagged)"
+  if [ "$bad" -eq 0 ]; then
+    pass "every Dayton ZIP reports coverage against a counted total, with no silent shortfall"
   else
-    fail "a Dayton ZIP has examined < listed but is not flagged"
+    fail "a Dayton ZIP claims coverage its counts do not support ($bad bad)"
   fi
 else
   fail "dayton_coverage.csv lost its filter_basis column"

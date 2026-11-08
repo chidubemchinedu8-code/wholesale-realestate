@@ -96,6 +96,8 @@ EXCLUSION_REASONS = {
     "condo": "Condo - different product unless the subject is a condo",
     "not_sold": "Not a closed sale (active / pending / withdrawn)",
     "different_tier": "Different market tier (mansion vs distressed rowhouse)",
+    "multifamily": "Multi-unit building - a rent roll, not a 1-4 family SFR comp",
+    "one_bed": "One-bedroom sale - below the subject's bed floor, a different product",
 }
 
 # Spellings that mean an existing reason. A CSV written by hand drifts - the
@@ -262,7 +264,8 @@ class CompResult:
 # The ladder
 # ---------------------------------------------------------------------------
 
-def screen_universe(comps: list[Comp], as_of: date, window_days: int) -> tuple[list[Comp], dict]:
+def screen_universe(comps: list[Comp], as_of: date, window_days: int,
+                    require_geometry: bool = True) -> tuple[list[Comp], dict]:
     cutoff = as_of - timedelta(days=window_days)
     kept, dropped = [], {"geometry": 0, "sqft_or_price": 0, "price_floor": 0,
                          "ppsf": 0, "window": 0, "not_sold": 0, "non_arms_length": 0}
@@ -270,7 +273,12 @@ def screen_universe(comps: list[Comp], as_of: date, window_days: int) -> tuple[l
         if c.exclusion in ("non_arms_length", "not_sold"):
             dropped[c.exclusion] += 1
             continue
-        if c.lat is None or c.lon is None or c.lat == 0 or c.lon == 0:
+        # A comp with no coordinate is dropped only when a radius test is
+        # actually going to be applied. In ZIP-WIDE mode no radius test happens,
+        # so demanding geometry would throw away good sales for a measurement
+        # the run never claims to make.
+        if require_geometry and (c.lat is None or c.lon is None
+                                 or c.lat == 0 or c.lon == 0):
             dropped["geometry"] += 1
             continue
         if not c.sqft or c.sqft < MIN_COMP_SQFT or not c.price:
@@ -310,9 +318,11 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
                 style: str, comps: list[Comp], as_of: date,
                 window_days: int = 180, subject_beds: int | None = None,
                 consistency_band: float = CONSISTENCY_BAND,
-                allow_unknown_beds: bool = False) -> CompResult:
+                allow_unknown_beds: bool = False,
+                zip_wide: bool = False) -> CompResult:
     """The ladder, in order. Returns STATUS_NONE rather than inventing a number."""
-    universe, dropped = screen_universe(comps, as_of, window_days)
+    universe, dropped = screen_universe(comps, as_of, window_days,
+                                       require_geometry=not zip_wide)
     result = CompResult(status=STATUS_NONE, hood=subject_hood, rejected=dropped)
 
     if not subject_sqft or subject_sqft <= 0:
@@ -381,10 +391,19 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
     chosen_radius = None
     last_refusal = ""
 
-    for radius in RADIUS_LADDER:
-        cand = [c for c in band if miles(lat, lon, c.lat, c.lon) <= radius]
+    ladder = (RADIUS_CAP,) if zip_wide else RADIUS_LADDER
+    for radius in ladder:
+        if zip_wide:
+            # ZIP-WIDE MODE: the pool is every sale in the ZIP that survived the
+            # hood, bed and sqft gates. There is no radius, so nothing here
+            # depends on a coordinate and no distance may be reported.
+            cand = list(band)
+        else:
+            cand = [c for c in band if miles(lat, lon, c.lat, c.lon) <= radius]
         if len(cand) < MIN_COMPS:
-            last_refusal = f"fewer than {MIN_COMPS} sales within {radius} mi"
+            last_refusal = (f"fewer than {MIN_COMPS} sales passed the "
+                            f"hood/bed/sqft gates" if zip_wide
+                            else f"fewer than {MIN_COMPS} sales within {radius} mi")
             continue
 
         # Style preference inside the radius (>=3 sharing it). This narrows the
@@ -400,7 +419,8 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
         renovated = [c for c in cand
                      if (c.condition or "").strip().lower() == CONDITION_ARV]
         if len(renovated) < MIN_COMPS:
-            last_refusal = (f"only {len(renovated)} renovated comp(s) within {radius} mi "
+            last_refusal = (f"only {len(renovated)} renovated comp(s) "
+                            f"{'in the ZIP' if zip_wide else f'within {radius} mi'} "
                             f"(needs {MIN_COMPS})")
             result.non_renovated = [c for c in cand if c not in renovated]
             continue
@@ -408,8 +428,9 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
         # CONSISTENCY GATE - discard illogical price gaps around the median
         clean, outliers = drop_outliers(renovated, consistency_band)
         if len(clean) < MIN_COMPS:
-            last_refusal = (f"consistency gate left {len(clean)} comp(s) within "
-                            f"{radius} mi (needs {MIN_COMPS})")
+            last_refusal = (f"consistency gate left {len(clean)} comp(s) "
+                            f"{'in the ZIP' if zip_wide else f'within {radius} mi'} "
+                            f"(needs {MIN_COMPS})")
             result.outliers = outliers
             result.non_renovated = [c for c in cand if c not in renovated]
             continue
@@ -420,7 +441,9 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
         break
 
     if chosen_radius is None:
-        result.note = (f"no radius up to {RADIUS_CAP} mi produced a clean comp set: "
+        scope = ("no ZIP-WIDE search" if zip_wide
+                 else f"no radius up to {RADIUS_CAP} mi")
+        result.note = (f"{scope} produced a clean comp set: "
                        f"{last_refusal}. UNPRICED - do not widen further, do not "
                        f"average, do not reinstate an outlier to reach a count.")
         return result
@@ -438,7 +461,7 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
     # The as-is figure is the same number here: there is no separate as-is model.
     result.as_is = result.arv
     result.n = len(pool2)
-    result.radius = chosen_radius
+    result.radius = None if zip_wide else chosen_radius
     result.chosen = pool2
     # The spread is REPORTED, never turned into a range of ARVs. A wide comp set
     # is a confidence problem, not three different valuations of one house.
@@ -452,8 +475,10 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
                          else "WIDE" if result.ppsf_spread <= 50 else "VERY WIDE")
     if result.ppsf_spread > CONSISTENCY_BAND * 100:
         result.confidence = "UNUSABLE - comp set too dispersed"
+    where = (f"ZIP-WIDE, no radius applied ({subject_hood})" if zip_wide
+             else f"{chosen_radius} mi, {subject_hood}")
     result.basis = (f"{int(subject_sqft)}sqft x ${median:,.2f}/sf MEDIAN of n={len(pool2)} "
-                    f"renovated comps; {chosen_radius} mi, {subject_hood}; median method")
+                    f"renovated comps; {where}; median method")
     result.note = (f"comp $/sf spreads {result.ppsf_spread}% (p25 ${p25:,.0f} to "
                    f"p75 ${p75:,.0f}) - that is confidence, not a range of ARVs.")
     return result
@@ -488,8 +513,11 @@ def check_2_min_comps(row: Priced) -> tuple[bool, str]:
 
 
 def check_3_radius_cap(row: Priced) -> tuple[bool, str]:
+    # radius is None in ZIP-WIDE mode. Returning a bare PASS here is the
+    # vacuous-check defect (D-37): it printed "PASS no comp beyond the 1.5 mi
+    # radius cap" for a run that never looked at a distance. Say what is true.
     if row.result.radius is None:
-        return True, "no radius recorded"
+        return True, "no radius applied - ZIP-WIDE run, no distance is claimed"
     over = [c.address for c in row.result.chosen
             if miles(row.subject["lat"], row.subject["lon"], c.lat, c.lon) > RADIUS_CAP + 1e-9]
     return (row.result.radius <= RADIUS_CAP + 1e-9 and not over,
@@ -678,7 +706,8 @@ def selftest() -> int:
     print(f"  outliers dropped: {[c.address for c in result.outliers]}")
     print(f"  chosen: {[(c.address, f'${c.ppsf:.0f}/sf', c.beds) for c in result.chosen]}")
     print(f"  ARV ${result.arv:,}  (median ${result.median_ppsf:,.2f}/sf x 1642)")
-    print(f"  n={result.n}  radius {result.radius} mi  spread {result.ppsf_spread}%  "
+    where = "ZIP-WIDE (no radius)" if result.radius is None else f"radius {result.radius} mi"
+    print(f"  n={result.n}  {where}  spread {result.ppsf_spread}%  "
           f"{result.confidence}\n")
 
     row = Priced(subject=subject, result=result)
@@ -817,20 +846,26 @@ def cmd_arv(args) -> int:
     result = compute_arv(subject["sqft"], subject["hood"], subject["lat"], subject["lon"],
                          (subject.get("style") or "").upper(), comps, as_of, window,
                          subject_beds=beds,
-                         allow_unknown_beds=getattr(args, "allow_unknown_beds", False))
+                         allow_unknown_beds=getattr(args, "allow_unknown_beds", False),
+                         zip_wide=getattr(args, "zip_wide", False))
 
     print(f"SUBJECT  {subject.get('address', '(unnamed)')}  "
           f"{subject.get('beds', '?')}  {int(subject['sqft']):,} sf  {subject['hood']}")
     print(f"WINDOW   {window} days to {as_of.isoformat()}\n")
 
     if result.chosen:
+        # In a ZIP-WIDE run there is no subject coordinate, so every row used to
+        # print "0.00 mi" - a fabricated distance, worse than no column at all.
+        has_geo = result.radius is not None
         print(f"{'COMP':22} {'SOLD':11} {'PRICE':>10} {'SQFT':>6} {'$/SF':>6} "
-              f"{'BD':>3} {'COND':>10} {'MI':>5}")
+              f"{'BD':>3} {'COND':>10} " + (f"{'MI':>5}" if has_geo else ""))
         for c in result.chosen:
-            d = miles(subject["lat"], subject["lon"], c.lat, c.lon)
-            print(f"{c.address[:22]:22} {c.sold.isoformat():11} ${c.price:>9,.0f} "
-                  f"{int(c.sqft):>6,} ${c.ppsf:>5.0f} {c.beds:>3} "
-                  f"{c.condition or 'unknown':>10} {d:>5.2f}")
+            row = (f"{c.address[:22]:22} {c.sold.isoformat():11} ${c.price:>9,.0f} "
+                   f"{int(c.sqft):>6,} ${c.ppsf:>5.0f} {c.beds:>3} "
+                   f"{c.condition or 'unknown':>10}")
+            if has_geo:
+                row += f" {miles(subject['lat'], subject['lon'], c.lat, c.lon):>5.2f}"
+            print(row)
     if result.excluded_in_radius:
         print("\nEXCLUDED (in radius, not in the maths):")
         for c in result.excluded_in_radius:
@@ -870,8 +905,9 @@ def cmd_arv(args) -> int:
     if result.status == STATUS_PRICED:
         print(f"ARV        ${result.arv:>9,}   (sqft x median $/sf - the only method)")
         print(f"MEDIAN     ${result.median_ppsf:>9,.2f}/sf")
-        print(f"CONF       {result.confidence}  spread {result.ppsf_spread}%  n={result.n}  "
-              f"radius {result.radius} mi")
+        where = ("ZIP-WIDE (no radius)" if result.radius is None
+                 else f"radius {result.radius} mi")
+        print(f"CONF       {result.confidence}  spread {result.ppsf_spread}%  n={result.n}  {where}")
         # Report the error this method was measured to have, not a vibe - but only
         # in a market where it was actually measured. Do not import a band.
         hood = (result.hood or "")
@@ -992,6 +1028,9 @@ def main(argv=None) -> int:
     p.add_argument("--subject")
     p.add_argument("--as-of")
     p.add_argument("--window", type=int, default=180)
+    p.add_argument("--zip-wide", action="store_true",
+                   help="no radius test: pool every sale in the subject's hood/ZIP. "
+                        "Use when no coordinate exists; never report a distance.")
     p.add_argument("--allow-unknown-beds", action="store_true",
                    help="let comps with no recorded bed count into the ARV pool")
     a = p.parse_args(argv)

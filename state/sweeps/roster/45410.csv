@@ -1,0 +1,79 @@
+address,ask,beds,baths,sqft,type,condition_signal,verdict,reject_reason
+23 Harper Ave,79000,4,2,1643,SFR,"was duplex, now single-family; furnace/AC 2021, as-is",CANDIDATE,
+1541 Westona Dr,139000,2,1,924,SFR,"beautifully updated, HVAC 2022, new gutters 2026",REJECT,turnkey_retail_ready
+541 Kolping Ave,155000,3,1,1728,SFR,"new furnace/WH 2023, 3-ton AC 2026",CANDIDATE,
+1732 Xenia Ave,81000,3,1,1457,SFR,"SHORT SALE; newer roof 2023, updated panel, LVP",CANDIDATE,
+18 Morton Ave,169500,3,2,768,SFR,"beautifully maintained, original hardwood",REJECT,turnkey_retail_ready
+314 Gunckel Ave,138777,3,1.5,1157,SFR,no condition detail in listing,CANDIDATE,
+819 Wyoming St,60000,3,1,1456,SFR,no condition detail in listing,CANDIDATE,
+324 Jones St,469000,4,3,0,SFR,no sqft; priced far above band,REJECT,above_market_arv_band
+39 Gebhart St,145000,3,2,1248,SFR,no condition detail in listing,CANDIDATE,
+442 Carlisle Ave,109000,4,1,1394,SFR,no condition detail in listing,CANDIDATE,
+416-418 Edgar Ave,115000,6,2,2200,Duplex,2 units indicated by double address,REJECT,multifamily_needs_2_4unit_comps
+1600 Clarence St,169900,3,2,1378,SFR,no condition detail in listing,CANDIDATE,
+307 Xenia Ave,69900,4,3,0,SFR,no sqft; no condition detail,POTENTIAL,
+32 Edgar Ave,144900,3,1,1541,SFR,no condition detail in listing,CANDIDATE,
+608 Pritz Ave,179000,4,1.5,1700,SFR,no condition detail in listing,CANDIDATE,
+1435 Gascho Dr,320000,3,2.5,1728,SFR,"2020s build, priced far above band",REJECT,above_market_arv_band
+136 Dover St,147900,3,1.5,1512,SFR,no condition detail in listing,CANDIDATE,
+309-311 Xenia Ave,59900,2,2,0,Duplex,"double address, no sqft",REJECT,multifamily_needs_2_4unit_comps
+569 Corwin Ave,69900,2,2,0,SFR,no sqft; no condition detail,POTENTIAL,
+1318 Epworth Ave,164900,3,1.5,1384,SFR,no condition detail in listing,CANDIDATE,
+109 Perrine St,285000,3,2,1190,SFR,"$239/sf ask, far above band",REJECT,above_market_arv_band
+1547 Coventry Rd,164900,2,1.5,1240,SFR,no condition detail in listing,CANDIDATE,
+606 Oak St,275000,6,2.5,2892,SFR,6bd 2892 sf,REJECT,above_market_arv_band
+1319 Epworth Ave,174900,3,1,1037,SFR,no condition detail in listing,CANDIDATE,
+3409 Wellington Dr,159900,3,1,998,SFR,no condition detail in listing,CANDIDATE,
+1409 Holly Ave,174900,3,2,1355,SFR,no condition detail in listing,CANDIDATE,
+115 Oaklawn Ave,115000,2,1,1202,SFR,no condition detail in listing,CANDIDATE,
+916 Lorain Ave,75000,2,1.5,1176,SFR,no condition detail in listing,CANDIDATE,
+710 Creighton Ave,179900,3,1,1255,SFR,no condition detail in listing,CANDIDATE,
+4201 Cleveland Ave,194000,2,1,1190,SFR,"$163/sf ask, above band",REJECT,above_market_arv_band
+727 Beckman St,59900,1,2,0,SFR,1 bed - ARV floor cannot be met,REJECT,one_bed_arv_floor
+47 Illinois Ave,175000,4,1.5,1698,SFR,no condition detail in listing,CANDIDATE,
+914 Wyoming St,135000,3,1,1448,SFR,no condition detail in listing,CANDIDATE,
+217 Fillmore St,78000,3,1,1160,SFR,no condition detail in listing,CANDIDATE,
+45 Edgar Ave,179995,5,2,1898,SFR,5 bed,POTENTIAL,
+1400 Ohmer Ave,99900,3,1,990,SFR,no condition detail in listing,CANDIDATE,
+219 Adams St,249900,2,2,1430,SFR,"$175/sf ask, above band",REJECT,above_market_arv_band
+853 Wellmeier Ave,190000,3,2.5,1693,SFR,no condition detail in listing,POTENTIAL,
+1507 Tacoma St,130000,3,1,954,SFR,no condition detail in listing,CANDIDATE,
+329 Johnson St,265000,4,1.5,2404,SFR,no condition detail; above band,REJECT,above_market_arv_band
+116 Edgar Ave,150000,3,1.5,1250,SFR,no condition detail in listing,CANDIDATE,
+429 Oak St,87900,3,2,2088,SFR,"Fannie Mae HomePath, South Park, no condition claim",POTENTIAL,
+2100 Wayne Ave,60000,4,2,1542,SFR,"needs work, 'bring it back to life'",CANDIDATE,
+1572 Wayne Ave,139000,4,4,2744,Multifamily,"4-unit, two vacant units need rehab",REJECT,multifamily_needs_2_4unit_comps
+263 Wyoming St,179900,2,1,1030,SFR,"LISTED 45409 (not 45410); updated LVP, furnace 2026",REJECT,outside_zip
+1359-1361 Jordan Ave,130000,4,2,2120,Duplex,"2 units, both occupied, as-is",REJECT,multifamily_needs_2_4unit_comps
+114 Bonner St,269900,3,1.5,1982,SFR,"turnkey South Park, lovingly renovated",REJECT,turnkey_retail_ready
+2 Ware Ave,193500,4,4,6200,Multifamily,4-unit,REJECT,multifamily_needs_2_4unit_comps
+54 Haynes St,169900,4,1.5,1634,SFR,"beautifully renovated top to bottom, new plumbing/electrical/roof",REJECT,turnkey_retail_ready
+1315 Jordan Ave,180000,3,2,1440,SFR,"beautifully remodeled, extensive improvements 5 yrs",REJECT,turnkey_retail_ready
+318 Oak St,290000,3,2.5,1864,SFR,"uniquely updated South Park, granite island",REJECT,above_market_arv_band
+1415 Ohmer Ave,174900,4,2,1773,SFR,TWO-PARCEL package (1415 Ohmer + 528 Greenwald); 1415 leased $850/mo,REJECT,landlord_model_occupied
+1080 Linden Ave,99500,2,1,1065,SFR,"new carpet/flooring, gutters 2024",CANDIDATE,
+1149 Holly Ave,128000,3,1,1248,SFR,"well cared for, some cosmetic updates needed",CANDIDATE,
+1108 Demphle Ave,135000,3,2,1408,SFR,no condition detail in listing,CANDIDATE,
+666 Oak St,164900,2,1,924,SFR,"adorable South Park, updated kitchen granite, clawfoot tub",REJECT,turnkey_retail_ready
+836 Wellmeier Ave,128000,4,1.5,1418,SFR,no condition detail in listing,CANDIDATE,
+533 Parrot St,98000,2,1,1044,SFR,"renovated Nov 2022, tenant at $900/mo",REJECT,landlord_model_occupied
+1107 Highland Ave,165000,3,1.5,1228,SFR,"old world charm, full bath beautifully remodeled",REJECT,turnkey_retail_ready
+433 Oak St,589000,2,8,0,Commercial,"1800s Gothic Victorian CHURCH, 24,000 sf, no sqft field",REJECT,commercial_use
+2005 Wayne Ave,329999,8,8,3800,Multifamily,"8-unit (6 studio, 2 one-bed)",REJECT,multifamily_needs_2_4unit_comps
+1108 Wyoming St,185000,5,2,2112,SFR,"5 bed, hardwood, new carpet upstairs",POTENTIAL,
+1010 Wyoming St,165000,3,1.5,1896,SFR,"substantial addition, needs personal touch",CANDIDATE,
+856 Creighton Ave,155000,3,2,1392,SFR,no condition detail in listing,CANDIDATE,
+1312 Phillips Ave #1314,225000,4,2,2200,Duplex,"two units ~1100 sf each, clawfoot tubs",REJECT,multifamily_needs_2_4unit_comps
+1630 Rosemont Blvd,178000,3,1.5,1308,SFR,"new furnace 1 yr, newer appliances",CANDIDATE,
+907 Saint Nicholas Ave,172999,3,2,1286,SFR,"original woodwork, updated bathroom",CANDIDATE,
+2419 St Charles Ave,120000,2,1,798,SFR,"substantial 2021 remodel, new roof/AC/kitchen/bath",REJECT,turnkey_retail_ready
+164 Oaklawn Ave,119500,4,1,932,SFR,"new paint/flooring/carpet, roof ~10 yrs",CANDIDATE,
+1708 Xenia Ave,160400,3,1.5,1796,SFR,"completely re-invented, kitchen remodeled 2026",REJECT,turnkey_retail_ready
+808 Xenia Ave,515000,1,1,4046,Commercial,"warehouse + living quarters, 5-parcel package",REJECT,commercial_use
+812 Xenia Ave,125000,1,1.5,3284,Commercial,"former retail/food service, needs significant renovation",REJECT,commercial_use
+716 Wellmeier Ave,239500,3,2,1390,SFR,"completely renovated top to bottom, new roof/AC/windows",REJECT,turnkey_retail_ready
+1409 Phillips Ave,40000,0,0,0,Land,"vacant lot 6,534 sf",REJECT,land_no_structure
+116 Nassau St,2000,0,0,0,Land,"vacant commercial lot 2,130 sf",REJECT,land_no_structure
+800 Xenia Ave,8000,0,0,0,Land,"vacant commercial lot 3,899 sf",REJECT,land_no_structure
+1206 Wyoming St,19000,0,0,0,Land,"vacant lot 8,120 sf",REJECT,land_no_structure
+818 Xenia Ave,10000,0,0,0,Land,"vacant commercial lot 5,279 sf",REJECT,land_no_structure

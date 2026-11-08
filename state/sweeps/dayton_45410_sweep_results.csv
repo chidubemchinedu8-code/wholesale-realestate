@@ -1,0 +1,42 @@
+address,beds,sqft,ask,tier,repairs,arv,ceiling,mao,verdict,conf,refusal_reason
+23 Harper Ave,4,1643,79000,moderate,57505,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: only 2 renovated comp(s) in the ZIP (needs 3). UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+541 Kolping Ave,3,1728,155000,light,34560,205883,109558,99558,NO,WIDE spread 37.9%  n=10,
+1732 Xenia Ave,3,1457,81000,heavy,72850,204891,70573,60573,NO,MEASURED (uncalibrated) spread 20.4%  n=11,
+314 Gunckel Ave,3,1157,138777,moderate,40495,163245,73776,63776,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+819 Wyoming St,3,1456,60000,moderate,50960,204750,92365,82365,PRIORITY,MEASURED (uncalibrated) spread 20.4%  n=11,
+39 Gebhart St,3,1248,145000,moderate,43680,176085,79579,69579,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+442 Carlisle Ave,4,1394,109000,moderate,48790,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: only 0 renovated comp(s) in the ZIP (needs 3). UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+1600 Clarence St,3,1378,169900,moderate,48230,194104,87642,77642,NO,MEASURED (uncalibrated) spread 18.7%  n=10,
+307 Xenia Ave,4,,69900,moderate,,,,,UNPRICED,,"no living area reported in the listing - subject sqft unknown, so no ARV"
+32 Edgar Ave,3,1541,144900,moderate,53935,212977,95148,85148,NO,MEASURED (uncalibrated) spread 18.5%  n=13,
+608 Pritz Ave,4,1700,179000,moderate,59500,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: consistency gate left 2 comp(s) in the ZIP (needs 3). UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+136 Dover St,3,1512,147900,moderate,52920,206611,91707,81707,NO,MEASURED (uncalibrated) spread 21.3%  n=12,
+569 Corwin Ave,2,,69900,moderate,,,,,UNPRICED,,"no living area reported in the listing - subject sqft unknown, so no ARV"
+1318 Epworth Ave,3,1384,164900,moderate,48440,194949,88024,78024,NO,MEASURED (uncalibrated) spread 18.7%  n=10,
+1547 Coventry Rd,2,1240,164900,moderate,43400,170942,76259,66259,NO,MEASURED (uncalibrated) spread 17.6%  n=16,
+1319 Epworth Ave,3,1037,174900,moderate,36295,164248,78678,68678,NO,MEASURED (uncalibrated) spread 12.1%  n=6,
+3409 Wellington Dr,3,998,159900,moderate,34930,153347,72412,62412,NO,MEASURED (uncalibrated) spread 14.3%  n=5,
+1409 Holly Ave,3,1355,174900,moderate,47425,190864,86179,76179,NO,MEASURED (uncalibrated) spread 18.7%  n=10,
+115 Oaklawn Ave,2,1202,115000,moderate,42070,169031,76251,66251,NO,MEASURED (uncalibrated) spread 21.7%  n=17,
+916 Lorain Ave,2,1176,75000,moderate,41160,165375,74602,64602,NO,MEASURED (uncalibrated) spread 21.7%  n=17,
+710 Creighton Ave,3,1255,179900,moderate,43925,177072,80025,70025,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+47 Illinois Ave,4,1698,175000,moderate,59430,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: only 2 renovated comp(s) in the ZIP (needs 3). UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+914 Wyoming St,3,1448,135000,moderate,50680,203625,91857,81857,NO,MEASURED (uncalibrated) spread 20.4%  n=11,
+217 Fillmore St,3,1160,78000,moderate,40600,163668,73967,63967,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+45 Edgar Ave,5,1898,179995,moderate,66430,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: fewer than 3 sales passed the hood/bed/sqft gates. UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+1400 Ohmer Ave,3,990,99900,moderate,34650,152118,71832,61832,NO,MEASURED (uncalibrated) spread 14.3%  n=5,
+853 Wellmeier Ave,3,1693,190000,moderate,59255,224611,97972,87972,NO,MEASURED (uncalibrated) spread 19.7%  n=11,
+1507 Tacoma St,3,954,130000,moderate,33390,146586,69220,59220,NO,MEASURED (uncalibrated) spread 14.3%  n=5,
+116 Edgar Ave,3,1250,150000,moderate,43750,176367,79706,69706,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+429 Oak St,3,2088,87900,moderate,73080,175597,49837,39837,NO,MEASURED (uncalibrated) spread 7.3%  n=4,
+2100 Wayne Ave,4,1542,60000,heavy,77100,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: only 2 renovated comp(s) in the ZIP (needs 3). UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+1080 Linden Ave,2,1065,99500,light,21300,150015,83710,73710,NO,MEASURED (uncalibrated) spread 21.6%  n=14,
+1149 Holly Ave,3,1248,128000,light,24960,176085,98299,88299,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+1108 Demphle Ave,3,1408,135000,moderate,49280,198330,89551,79551,NO,MEASURED (uncalibrated) spread 18.7%  n=10,
+836 Wellmeier Ave,4,1418,128000,moderate,49630,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: only 0 renovated comp(s) in the ZIP (needs 3). UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+1108 Wyoming St,5,2112,185000,light,42240,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: fewer than 3 sales passed the hood/bed/sqft gates. UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."
+1010 Wyoming St,3,1896,165000,moderate,66360,225900,91770,81770,NO,WIDE spread 42.4%  n=10,
+856 Creighton Ave,3,1392,155000,moderate,48720,196076,88533,78533,NO,MEASURED (uncalibrated) spread 18.7%  n=10,
+1630 Rosemont Blvd,3,1308,178000,light,26160,184550,103024,93024,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+907 Saint Nicholas Ave,3,1286,172999,light,25720,181446,101292,91292,NO,MEASURED (uncalibrated) spread 22.1%  n=11,
+164 Oaklawn Ave,4,932,119500,light,18640,,,,UNPRICED,,"NO COMPS - no ZIP-WIDE search produced a clean comp set: fewer than 3 sales passed the hood/bed/sqft gates. UNPRICED - do not widen further, do not average, do not reinstate an outlier to reach a count. Unpriced is a complete answer. Do not quote a number."

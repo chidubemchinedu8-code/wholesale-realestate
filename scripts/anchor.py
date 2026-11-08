@@ -24,6 +24,7 @@ from datetime import date, timedelta
 
 BIMODAL_GAP = 0.60          # a >60% gap between the two clusters is bimodal
 MIN_SALES = 5
+MIN_CLUSTER = 3             # each side of a gap needs this many sales to be a market
 MIN_SALES_BIMODAL = 8
 
 
@@ -47,6 +48,12 @@ def split_clusters(ppsf: list[float]) -> tuple[list[float], list[float]] | None:
         if rel > best_rel:
             best_i, best_rel = i, rel
     if best_i is None or best_rel < BIMODAL_GAP:
+        return None
+    # A cluster of one is an OUTLIER, not a market. A single $11/sf junk sale
+    # next to a $89/sf field produced the largest relative gap in 45410 and got
+    # reported as "bimodal - drop the ZIP median", destroying a usable anchor.
+    # Both sides must clear MIN_SALES before we call it two markets.
+    if best_i < MIN_CLUSTER or (len(v) - best_i) < MIN_CLUSTER:
         return None
     return v[:best_i], v[best_i:]
 
@@ -118,6 +125,16 @@ def selftest() -> int:
         return [{"sold": str(as_of - timedelta(days=days + i)),
                  "price": str(int(p * s)), "sqft": str(s)}
                 for i, (p, s) in enumerate(vals)]
+
+    # A single junk sale must not be called a second market. 45410's $-11.46/sf
+    # row (4,798 sf, $55,000) was the largest gap in the file and flipped the
+    # whole ZIP to "bimodal", which would have thrown away a usable anchor.
+    outlier = mk([(78, 1400), (80, 1450), (82, 1350), (76, 1500), (84, 1420),
+                  (79, 1380), (30, 1800)])
+    r = analyse(outlier, "45410", as_of)
+    ok = r["status"] == "OK" and not r["bimodal"]
+    print(f"  {'PASS' if ok else 'FAIL'}  one junk sale -> outlier, NOT bimodal")
+    fails += 0 if ok else 1
 
     # tight distribution
     tight = mk([(78, 1400), (80, 1450), (82, 1350), (76, 1500), (84, 1420), (79, 1380)])
