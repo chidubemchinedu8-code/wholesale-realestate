@@ -258,9 +258,16 @@ rm -f "$tmpc"
 # the worked Akron example must reproduce the documented correction
 if out3="$(py "$SKILL_DIR/scripts/comp.py" --comps "$SKILL_DIR/fixtures/akron_44302_worked_example.csv" \
      --as-of 2026-10-31 --subject '{"address":"141 Grand Ave","sqft":1642,"hood":"44302","lat":41.0790,"lon":-81.5360,"style":"COLONIAL"}')"; then
-  printf '%s' "$out3" | grep -q "ARV      \$126,372" \
-    && pass "141 Grand Ave reproduces \$126,372 (documented correction: \$125,000)" \
-    || fail "worked example does not reproduce"
+  flat3="$(printf '%s' "$out3" | tr -d ' ')"
+  printf '%s' "$flat3" | grep -qF 'ARVLOW$114,578' \
+    && pass "141 Grand Ave ARV LOW = \$114,578" || fail "ARV LOW wrong"
+  printf '%s' "$flat3" | grep -qF 'ARVPOINT$120,571' \
+    && pass "141 Grand Ave ARV POINT = \$120,571" || fail "ARV POINT wrong"
+  printf '%s' "$flat3" | grep -qF 'ARVHIGH$126,372' \
+    && pass "141 Grand Ave ARV HIGH = \$126,372" || fail "ARV HIGH wrong"
+  printf '%s' "$flat3" | grep -q 'UNDERWRITELOW' \
+    && pass "LOW confidence underwrites to the LOW tier" \
+    || fail "lower-confidence row did not underwrite to LOW"
   printf '%s' "$out3" | grep -q "64 Byers Ave" \
     && pass "newer build excluded from the ARV maths but still reported" \
     || fail "newer build not excluded"
