@@ -10,6 +10,7 @@ SKILL_MD="$SKILL_ROOT/SKILL.md"
 
 PASS=0
 FAIL=0
+WARN=0
 pass() { echo "  [PASS] $1"; PASS=$((PASS + 1)); }
 fail() { echo "  [FAIL] $1"; FAIL=$((FAIL + 1)); }
 
@@ -59,6 +60,18 @@ else
   fail "$missing script(s) missing — arithmetic and ledger checks unavailable"
 fi
 
+if [ -r "$SKILL_ROOT/state/property_ledger.csv" ]; then
+  n=$(( $(wc -l < "$SKILL_ROOT/state/property_ledger.csv") - 1 ))
+  pass "property ledger present ($n properties - duplicate guard has history)"
+else
+  fail "state/property_ledger.csv missing - duplicate guard has no history, stop and restore it"
+fi
+if [ -r "$SKILL_ROOT/state/zip_ledger.csv" ]; then
+  n=$(( $(wc -l < "$SKILL_ROOT/state/zip_ledger.csv") - 1 ))
+  pass "zip ledger present ($n scanned ZIPs)"
+else
+  fail "state/zip_ledger.csv missing - scan history lost"
+fi
 if [ -r "$SKILL_ROOT/assets/zip_universe.csv" ]; then
   n=$(( $(wc -l < "$SKILL_ROOT/assets/zip_universe.csv") - 1 ))
   pass "zip universe seeded ($n ZIPs)"
@@ -108,6 +121,32 @@ else
   fail "python3 not available — arithmetic cannot be verified, do not quote numbers"
 fi
 
+# --- data freshness --------------------------------------------------------
+# A comp is only good for its window. Yesterday's sold data is today's stale ARV,
+# so the preflight reports ledger age rather than letting a silent drift through.
+if [ -r "$SKILL_ROOT/state/zip_ledger.csv" ] && command -v python3 >/dev/null 2>&1; then
+  newest="$(python3 - "$SKILL_ROOT/state/zip_ledger.csv" <<'PYEOF'
+import csv, sys
+from datetime import date
+try:
+    rows = [r for r in csv.DictReader(open(sys.argv[1], encoding="utf-8"))
+            if r.get("last_scan_date")]
+    print(max(r["last_scan_date"] for r in rows) if rows else "none")
+except Exception:
+    print("none")
+PYEOF
+)"
+  if [ "$newest" != "none" ]; then
+    age=$(( ( $(date -u +%s) - $(date -u -d "$newest" +%s 2>/dev/null || date -u +%s) ) / 86400 ))
+    if [ "$age" -gt 30 ]; then
+      echo "  [WARN] newest scan is $age days old ($newest). Re-scan before quoting an ARV."
+      WARN=$((WARN + 1))
+    else
+      pass "scan data is fresh (newest $newest, ${age}d old)"
+    fi
+  fi
+fi
+
 echo
 if [ "$FAIL" -gt 0 ]; then
   echo "PREFLIGHT FAILED ($FAIL failure(s), $PASS pass(es))."
@@ -115,6 +154,6 @@ if [ "$FAIL" -gt 0 ]; then
   exit 1
 fi
 
-echo "PREFLIGHT PASSED ($PASS checks)."
+echo "PREFLIGHT PASSED ($PASS checks${WARN:+, $WARN warning(s)})."
 echo "Loaded: SKILL.md v$(awk -F': *' '/^version:/{print $2}' "$SKILL_MD" 2>/dev/null || echo 1.0.0)"
 echo "Next: read references/market-research.md, then scan ranked ZIPs by priority."

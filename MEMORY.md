@@ -6,6 +6,7 @@
 - A fuller fork-local copy also exists at `chidubemchinedu8-code/superpowers` → `skills/real-estate-deal-sourcing`, but this session's GitHub App cannot write to that repo (403 on push). `wholesale-realestate` is the writable, authoritative copy [added: 2026-11-08]
 - Business: Nigeria-based virtual US wholesaler operating through RealVenture. Markets: Cleveland OH, Akron OH, Columbus OH, Dayton OH, Birmingham AL, Atlanta GA. Buy box is a guideline, never a buyer commitment [added: 2026-11-08]
 - Fee $10,000 whole, 50% JV split. Lower the offer, never the fee [added: 2026-11-08]
+- Lead ledgers are COMMITTED, append-only history (`state/`), never gitignored: a fresh clone must inherit scan history or the duplicate guard resets and old properties get re-reported as new. Never delete a row, never rewrite history [added: 2026-11-08]
 - Comping v2.1: bed-count floor, renovated-condition-only ARV pool, ±45% consistency gate that never reinstates an outlier, LOW/POINT/HIGH ARV, repair tiers $20/$35/$50 per sf, MAO per ARV tier [added: 2026-11-08]
 
 ## Index

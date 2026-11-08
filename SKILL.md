@@ -127,8 +127,21 @@ python3 scripts/zip_ledger.py --list      # what was scanned, when, what it prod
 python3 scripts/zip_ledger.py --due       # which ZIPs are owed a re-scan
 ```
 
-Ledgers live in `state/` (gitignored). `assets/zip_universe.csv` is the committed
-seed: markets, ZIPs, priority scores, and the evidence behind each score.
+**Ledgers are committed and append-only.** `state/zip_ledger.csv` and
+`state/property_ledger.csv` are version-controlled on purpose: a fresh clone must
+inherit the scan history, or the duplicate guard resets and old properties get
+re-reported as new finds.
+
+- **Never delete a row.** Update it in place (price change, status change, new verdict).
+- **Never rewrite history** to make a report look tidier.
+- **Never re-report a `SEEN` property as a new opportunity.** Report it as `SEEN`
+  with its first-seen date and what changed.
+- A property that comes back on market, or drops price, is a legitimate re-surface —
+  log the change and say what changed.
+
+`assets/zip_universe.csv` is the committed *plan*: markets, ZIPs, scores and the
+evidence behind each. `state/` is the *history*: what was actually scanned and what
+it produced. Keep them separate; the universe file is not a scan log.
 
 ## Markets and operating reality
 

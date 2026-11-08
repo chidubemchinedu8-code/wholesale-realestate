@@ -307,6 +307,32 @@ else
   fail "anchor selftest failed"
 fi
 
+section "9d. THE LEDGERS SURVIVE A FRESH CLONE"
+if [ -r "$SKILL_DIR/state/property_ledger.csv" ] && [ -r "$SKILL_DIR/state/zip_ledger.csv" ]; then
+  pass "both ledgers are committed (not gitignored)"
+else
+  fail "a ledger is missing - the duplicate guard resets on every clone"
+fi
+if grep -qx "state/" "$SKILL_DIR/.gitignore" 2>/dev/null; then
+  fail "state/ is gitignored again - history will be lost"
+else
+  pass "state/ is not gitignored"
+fi
+# the guard must actually recognise a documented property from a fresh checkout
+out="$(py "$SKILL_DIR/scripts/zip_ledger.py" --check "141 Grand Ave" --city Akron --zip 44302)"
+case "$out" in
+  SEEN*) pass "a documented property is recognised as SEEN in a fresh clone" ;;
+  *) fail "fresh clone reports a known property as NEW" ;;
+esac
+n=$(( $(wc -l < "$SKILL_DIR/state/zip_ledger.csv") - 1 ))
+[ "$n" -ge 4 ] && pass "scan history present ($n ZIPs)" || fail "scan history empty"
+# append-only must be stated, not just implied
+if tr '\n' ' ' < "$SKILL_DIR/SKILL.md" | tr -s ' ' | grep -qi "Never delete a row"; then
+  pass "append-only ledger rule is written down"
+else
+  fail "no append-only rule"
+fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do

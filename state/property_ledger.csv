@@ -1,0 +1,15 @@
+address,city,zip,first_seen,last_seen,channel,status,last_verdict,last_price,last_scan_date,notes
+141 Grand Ave,Akron,44302,2026-10-31,2026-10-31,on-market,active,REJECT,95000,2026-10-31,"ARV $125K (was $240K - asking-price error); MAO $12,500 vs $95K ask = 3%. Source: VERIFIED_COMPS_akron_2026-10-31"
+156 Colony Cres,Akron,44305,2026-10-31,2026-10-31,on-market,active,POTENTIAL,55000,2026-10-31,ARV $150K; clears at asking IF repairs <= $40K. Walkthrough decides it. Source: VERIFIED_COMPS_akron
+838 Fess Ave,Akron,44307,2026-10-31,2026-10-31,on-market,active,REJECT,45000,2026-10-31,"ARV $105K; fails as assignment by $1,500. Rent-and-hold, not wholesale. Source: VERIFIED_COMPS_akron"
+6090 Manchester Rd,Akron,44319,2026-10-31,2026-10-31,on-market,active,REJECT,108000,2026-10-31,"4-unit, 337 DOM. No 4-unit comp, no rent roll. UNPRICED - do not quote. Source: VERIFIED_COMPS_akron"
+82 Aqueduct St,Akron,44303,2026-10-31,2026-10-31,on-market,active,REJECT,119900,2026-10-31,ARV $165-195K; needs -32% best case. Duplex range too wide to trust. Source: VERIFIED_COMPS_akron
+75 E Ido Ave,Akron,44301,2026-10-31,2026-10-31,on-market,active,REJECT,109900,2026-10-31,"ARV $120K; 52 E Brookside is a direct comp at $117,500. Source: VERIFIED_COMPS_akron"
+1364-1366 Marcy St,Akron,44301,2026-10-31,2026-10-31,on-market,active,REJECT,79999,2026-10-31,"Was misfiled as off-market. At $60K repairs buyer max $13,500 -> 95.6% cut needed. Source: FIXES_akron"
+239 Crosby St,Akron,44303,2026-10-31,2026-10-31,off-market,unknown,POTENTIAL,,2026-10-31,"Zestimate $85K; ceiling $49,500 at $0 repairs. Last sold $39K (5/2022). Source: ZESTIMATE_offmarket"
+283 Gordon Dr,Akron,44302,2026-10-31,2026-10-31,off-market,unknown,POTENTIAL,,2026-10-31,"NO Zestimate. Tax assessed $13,170. Call first, price second. Source: ZESTIMATE_offmarket"
+647 Crosby St,Akron,44302,2026-10-31,2026-10-31,off-market,unknown,REJECT,,2026-10-31,"ARV $120-135K after correction (was $170-200K from 44303 comps). Ceiling $42K; tax assessed $84,840. Source: SEPARATION_akron"
+544 Stratford Ave,Akron,44303,2026-10-31,2026-10-31,off-market,unknown,REJECT,,2026-10-31,"No 44303 2-bed SFR sold in 6 months -> UNPRICED. Also fails the signal bar (owner-occupant, not vacant). Source: SEPARATION_akron"
+119 Oakdale Ave,Akron,44302,2026-10-31,2026-10-31,off-market,unknown,POTENTIAL,,2026-10-31,"Zestimate $142,600; rent est $1,935 (highest on the list); ceiling $89,820 at $0 repairs. Recovered in the audit. Source: SCREEN_AUDIT_akron"
+268 Alhambra Way,Akron,44302,2026-10-31,2026-10-31,off-market,unknown,POTENTIAL,,2026-10-31,"Zestimate $121,100; 2 units, 210 months. Ceiling $74,770 at $0 repairs. Source: SCREEN_AUDIT_akron"
+806 Amherst St,Akron,44311,2026-10-31,2026-10-31,off-market,unknown,POTENTIAL,,2026-10-31,"Highest signal in the export (7). Zestimate $94,300; ceiling $56,010 at $0 repairs. $325 recorded sale is non-arms-length - verify. Source: FIXES_akron"
