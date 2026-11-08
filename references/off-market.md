@@ -19,7 +19,7 @@ and a filtered Redfin search is neither.
 |---|---|
 | Redfin (listings, sold-6mo, detail pages) | **Works** |
 | Zillow property pages | Works via a fetcher; ZIP filters are ignored |
-| `gis.cuyahogacounty.gov` ArcGIS layer | **Blocked** — TLS handshake closed by egress policy, not by the county |
+| `gis.cuyahogacounty.gov/server/rest/services/CCFO/Parcel_Fabric_Taxparcels/FeatureServer/0` | **WORKS — corrected 2026-11-08 (D-49).** Returns live JSON, 142 fields. The earlier "blocked" note tested a path (`/arcgis/rest/services`) that does not exist on this server; a 404 is a *successful* handshake |
 | PropWire search | Not usable without a logged-in session |
 
 The Cuyahoga block is the same one recorded in `leadgen/README.md`: DNS resolves and
