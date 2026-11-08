@@ -1011,3 +1011,36 @@ as "hood verified with a named source".
    carry city/state/ZIP — check them against the subject, not just against each other.
 3. A suspiciously convenient comp is a reason to re-read the address, not a reason to
    price. This is D-32 (wrong-house collisions) generalised past one character.
+
+---
+
+## D-47 — Zillow card sqft is not the subject's sqft (33% overstatement on a priced subject)
+
+**Where.** `3308 W 88th St, Cleveland OH 44102`, priced 2026-11-08 from the West Boulevard sweep.
+
+**What happened.** The hood sweep recorded the subject at **1,727 sqft** — the figure printed
+on the Zillow search-results card. The property page and public record both carry
+**1,155 sqft**. The sweep row was **572 sf (33%) too large**, which cut the ask-per-foot from
+**$82.25** to **$55.01** and put the property at **#5 of 25** in the "cheapest per foot" ranking
+that drives the comp order.
+
+Had the card figure been used, the ARV would have been **$209,398** instead of **$140,041** —
+**$69,357 (50%) too high**. At MODERATE repairs that is a seller MAO of **$106,153** instead of
+**$47,604**; the deal would have gone from a walk to a $106,000 offer on a house the market says
+is worth $140,000 finished.
+
+**Why it is easy to miss.** The card and the page are the same site, the card is the surface the
+sweep actually reads, and a too-large sqft makes a listing look *cheaper* — it flatters the
+screen rather than failing it. Nothing about the number looks wrong. A 1,727 sf 3/1 Colonial
+from 1915 is entirely plausible; so is 1,155.
+
+**Rules:**
+1. **A search-results card supplies identity, price, beds and baths. It never supplies sqft.**
+   Sqft comes from the property page, and the property page is checked against public record.
+2. **Re-verify sqft on every shortlisted subject before comping it.** The sweep's `sqft` column
+   is a lead attribute, not a pricing input.
+3. **Ranking by ask-per-foot is ranking by an unverified denominator.** Any "$/sf shortlist" is
+   provisional until each row's sqft is confirmed. Recompute the ranking afterwards — the order
+   changes materially (3308 W 88th drops from 5th cheapest to 12th).
+4. This is the sqft analogue of **D-46**: a field that is real, populated, internally consistent,
+   and about the wrong thing.

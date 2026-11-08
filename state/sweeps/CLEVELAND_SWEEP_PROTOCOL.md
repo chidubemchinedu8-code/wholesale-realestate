@@ -192,3 +192,33 @@ Two traps this creates in Stockyards specifically:
 Cleveland hoods around $54k–$111k Zestimate medians (North Broadway $54,540, Goodrich-Kirkland
 $80,471, Clark Fulton $106,254) sit squarely in the dangerous band. **Compute ARV/sf for every
 subject before trusting a repair tier.**
+
+## 8. Sqft integrity — the sweep column is a lead attribute (D-47)
+
+**A search-results card never supplies sqft.** It supplies identity, price, beds, baths and
+DOM. Sqft comes from the property page and is checked against public record before the row is
+comped.
+
+- **Every shortlisted subject gets its sqft re-verified before pricing.** `3308 W 88th St` swept
+  at 1,727 sf from a Zillow card; the page and public record both say **1,155 sf**. That is 33%
+  and it moved the ARV by $69,357.
+- **Ranking by ask-per-foot ranks by an unverified denominator.** Treat any `$/sf` shortlist as
+  provisional. 3308 W 88th fell from 5th-cheapest to 12th once corrected.
+- **The direction of the error matters.** An inflated sqft makes an ask look cheaper and
+  *promotes* the row through the screen. The defect flatters; it does not fail loudly.
+- Redfin property pages retain the **full agent remarks on sold listings**; Zillow strips them.
+  Condition evidence for comps therefore comes from Redfin, and `condition` is recorded per comp
+  from that text — never inferred from photos, price, or `days on market`. (**D-48**)
+
+## 9. Comps in these hoods are thin — expect UNPRICED
+
+Measured on 3308 W 88th:
+
+- A 180-day window produced **NO COMPS** (2 renovated in band, needs 3).
+- 365 days produced exactly **3** — the floor.
+- Of 20 candidate sales in radius, **5 were maintained/dated** (barred from ARV), **2 were
+  duplexes**, **1 was a 2003 build**, and **4 renovated sales fell outside the ±30% band**.
+
+**Consequence:** in a 44102/44109/44111 hood with a ~1,100–1,300 sf subject, the ARV pool will
+routinely be n=3 at the full 12-month window. `UNPRICED` is a legitimate and common outcome here.
+Do not widen the band, do not borrow a duplex, do not reinstate the 2003 build.
