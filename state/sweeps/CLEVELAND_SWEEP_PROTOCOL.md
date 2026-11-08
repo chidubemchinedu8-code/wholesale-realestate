@@ -108,3 +108,87 @@ Every ZIP report states, in this order:
 6. what was NOT read (detail pages, photos, cross-checks) and why
 
 **Never claim more listings reviewed than were actually read.**
+
+---
+
+## 7. HOOD-BY-HOOD IS THE ONLY WORKABLE UNIT — measured 2026-11-08
+
+### The coverage ceiling is the fetcher, not the market
+
+`fetch_page` returns roughly **40 cards per feed and then stops**. Chunks beyond that hold
+the page footer, not more listings. Measured twice on the same day:
+
+| Feed | Live total | Cards actually retrievable | % |
+|---|---|---|---|
+| Zillow ZIP `cleveland-oh-44102` | 281 | ~40 (chunks 0–1) | 14% |
+| Zillow hood `stockyards-cleveland-oh` | 72 | 41 (chunks 0–5) | 57% |
+
+Consequence: **a ZIP can never be swept to `examined == live_total` by this tool.** A hood
+under ~40 listings can be fully covered; a hood above 40 cannot. Report the percentage and
+the raw counts every time; never mark a feed `scanned` on a subset.
+
+### Good news: Cleveland hood URLs DO filter
+
+`https://www.zillow.com/stockyards-cleveland-oh/` returned title
+`Stockyards Cleveland Real Estate - Stockyards Cleveland Homes For Sale` and a breadcrumb of
+`Ohio > Cuyahoga County > Cleveland > Stockyards`. It is a genuine hood feed, not a ZIP
+redirect. Unlike Dayton's `/dayton-oh-45405/fairview/` (D-4), the Cleveland slugs work.
+
+**Still confirm on every hood, every time:** the `<title>` must name the hood and the
+breadcrumb must end in it. A ZIP-level title means the slug failed.
+
+### The hood feed is NOT ZIP-clean — check every row
+
+The Stockyards feed returned 4 of 41 rows in the wrong ZIP: `3444 W 44th` and
+`4501 Hyde Ave` (44109), `3296 W 44th` (44109), and `8162 Russell Ln` (**44144**, 8 miles
+away, blank sqft, $12,500 — a plausible manufactured-home listing the buy box excludes).
+
+**Record the ZIP of every row and flag leaks.** A hood feed is a starting point, not a
+verified set.
+
+### Verified Cleveland hood slugs (for future sweeps)
+
+Confirmed working: `stockyards-cleveland-oh`.
+Named in the Stockyards footer, therefore known-good slugs to test next:
+`detroit-shoreway-cleveland-oh`, `cudell-cleveland-oh`, `clark-fulton-cleveland-oh`,
+`brooklyn-centre-cleveland-oh`, `west-boulevard-cleveland-oh`, `jefferson-cleveland-oh`,
+`edgewater-cleveland-oh`, `ohio-city-cleveland-oh`, `tremont-cleveland-oh`,
+`old-brooklyn-cleveland-oh`, `kamms-corner-cleveland-oh`, `north-broadway-cleveland-oh`,
+`goodrich-kirkland-park-cleveland-oh`, `south-broadway-cleveland-oh`,
+`puritas-longmead-cleveland-oh`.
+
+### Buy box — quoted from `references/underwriting.md`, not from memory
+
+| Item | Value |
+|---|---|
+| Buyer pricing ceiling | ~70% of ARV (policy: midpoint of 0.65–0.75) |
+| ARV range | **$125,000 – $900,000** |
+| Types | SFR, **duplex**, **multifamily** — real property only |
+| Excludes | manufactured/mobile on leased land, park models, condos, co-ops, REO |
+| Condition | Any |
+| Comps required (submission) | **Five**. ARV arithmetic needs ≥3 |
+| Close | ~21–30 days |
+| Terms | Cash or seller financing may be acceptable |
+
+**Screen order is cheapest-first: type → ARV band → condition → comps.** A property failing
+type never reaches `comp.py`, and the refusal note names the buy-box line, not the comp gap.
+
+Two traps this creates in Stockyards specifically:
+1. **Duplex is IN the box.** Many rows are duplexes and must not be rejected as "multi-family".
+   But a duplex needs *same-type* sold comps; an SFR comp set does not price it.
+2. **A 2bd/812sf SFR at $90,000 probably cannot reach a $125,000 ARV.** The ARV floor is a
+   real reject, separate from the ask price. Small-house rows carry `ARV floor risk`.
+
+### Repair-tier validity gate — apply BEFORE any `comp.py` run
+
+`$20 / $35 / $50` per sf was calibrated on $120–180/sf SFRs. Check `ARV/sf` first:
+
+| ARV $/sf | tier validity |
+|---|---|
+| ≥ $100/sf | behaves as calibrated |
+| $60–100/sf | overstates repairs; needs a walkthrough scope |
+| < $60/sf | **invalid — refuse to price** |
+
+Cleveland hoods around $54k–$111k Zestimate medians (North Broadway $54,540, Goodrich-Kirkland
+$80,471, Clark Fulton $106,254) sit squarely in the dangerous band. **Compute ARV/sf for every
+subject before trusting a repair tier.**
