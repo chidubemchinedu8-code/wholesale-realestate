@@ -1133,7 +1133,30 @@ else fail "no Detroit comp pool"; fi
 # D-34: a ZIP may not be marked scanned on a filtered subset. Coverage must be
 # x of y with y counted, against the repo's band and no invented filters.
 if grep -q "agent-invented" state/sweeps/dayton_coverage.csv; then
-  bad=$(awk -F, 'NR>1 && $1!="" {gsub(/"/,"",$4); gsub(/"/,"",$5); if ($5+0 < $4+0) print $1}' state/sweeps/dayton_coverage.csv | wc -l | tr -d ' ')
+  # Header-aware: the column ORDER changed once (live_redfin_total was added),
+  # and a positional awk silently compared the wrong two columns. Read by name.
+  bad=$(py - <<'PYE'
+import csv, sys
+n = 0
+for r in csv.DictReader(open("state/sweeps/dayton_coverage.csv", encoding="utf-8")):
+    if not (r.get("zip") or "").strip():
+        continue
+    try:
+        ex = int(r.get("examined") or 0)
+        li = int(r.get("live_redfin_total") or r.get("redfin_listed_total") or 0)
+    except ValueError:
+        print("  BAD unparseable counts for", r.get("zip"))
+        n += 1
+        continue
+    if li and ex < li and int(r.get("redfin_listed_total") or 0) != li:
+        print("  BAD denominator not corrected", r.get("zip"))
+        n += 1
+    if ex < li:
+        n += 1
+print(n)
+PYE
+)
+  bad=$(echo "$bad" | tail -1 | tr -d ' ')
   if [ "$bad" -gt 0 ]; then
     pass "Dayton ZIPs with partial coverage are flagged, not claimed done ($bad flagged)"
   else

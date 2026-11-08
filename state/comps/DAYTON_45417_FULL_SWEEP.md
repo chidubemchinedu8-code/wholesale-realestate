@@ -88,7 +88,7 @@ sanity band.
 (needs 3)`. Correct refusal, not a gap to paper over.
 
 **The 33 remaining houses: every single one fails.** All priced, none clears.
-Full table: `state/comps/dayton_45417_sweep_results.csv`.
+Full table: `state/sweeps/dayton_45417_sweep_results.csv`.
 
 ## 361 Adelite — the block problem, stated plainly
 

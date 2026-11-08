@@ -768,3 +768,33 @@ harness that never failed the build.
 `STATUS: FAILED (n failed, m passed)`. Verified by leaving the failing check in place and
 watching the run change to a pass only after the underlying rule was actually written into
 `references/on-market.md`.
+
+## D-36 — the coverage denominators were wrong in ALL SEVEN Dayton ZIPs
+
+Found 2026-11-08 while sweeping 45417. `state/sweeps/dayton_coverage.csv`
+recorded `redfin_listed_total` as 173 listings across the seven ZIPs. Live
+Redfin on the same day reports **579**. Every ZIP was understated:
+
+| ZIP | recorded | live | recorded % of live |
+|---|---|---|---|
+| 45402 | 24 | 73 | 33% |
+| 45403 | 13 | 69 | 19% |
+| 45404 | 8 | 48 | 17% |
+| 45405 | 39 | 114 | 34% |
+| 45406 | 16 | 86 | 19% |
+| 45410 | 24 | 78 | 31% |
+| 45417 | 49 | 111 | 44% |
+
+Consequence: the "18% of Dayton swept" figure was itself computed against
+denominators missing two-thirds of the market. True coverage is **24%**
+(139 of 579), and 6 of 7 ZIPs remain unswept. The earlier correction (D-34)
+fixed the *filter* problem but inherited the bad counts, so it still reported
+a percentage that could not have been right.
+
+**Fix:** `live_redfin_total` + `live_total_checked` columns added; the test
+that guards partial coverage now reads columns **by name**, because it had
+been reading positional `$4`/`$5` and silently compared the wrong fields once
+the column order changed.
+
+**Rule:** a coverage denominator must be re-counted from the live source on
+the day it is reported. Never carry a stored denominator forward.
