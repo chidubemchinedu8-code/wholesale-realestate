@@ -599,3 +599,45 @@ actually the least liquid asset in it. The low price is the *symptom*, not the o
 Check it on every property that looks unusually cheap for its ZIP — cheapness is the tell.
 
 **Fix lives in.** `state/zip_ledger.csv` row 45416 (rejection `G_senior_community_55plus`).
+
+---
+
+## D-29 · 2026-11-08 · The error band is market-specific and does not travel
+
+**What happened.** Approaching the first Detroit lead, the obvious move was to reuse the
+±40% ARV band measured in `BACKTEST_44102.md`. It has no business being applied to Detroit.
+
+**Why.** That figure is an *empirical dispersion measurement* for one ZIP, one property class,
+43 sales, 13 months. Dispersion is a local property of the housing stock and the buyer pool. In
+48224 a 900–970 sf bungalow trades anywhere from **$50,000 to $145,000** — a 2.9x range on the
+same floorplan — and the ZIP's sold feed spans **$25–$149/sf**. That is at least as wide as
+Cuyahoga's 2.4x interquartile range, possibly wider.
+
+**Prevention.** An error band is **per-market and must be re-measured**, exactly like the
+`MIN_COMPS`/radius constants. Until a market is backtested, print **no band at all** rather than
+importing one. `ARV_MEDIAN_ABS_ERROR` / `BACKTEST_BASIS` in `comp.py` name Cuyahoga in the
+constant for this reason — but they are global, so a Detroit run will still print the Cuyahoga
+band and *look* calibrated. That is the live hazard: **the engine will confidently mislabel a
+new market.** Fix by making the basis string travel with the run and refusing to print a band
+when the subject's market has no backtest row.
+
+**Fix lives in.** `state/comps/DETROIT_48224_9453_MCKINNEY.md` (states the band does not
+transfer); `state/zip_ledger.csv` 48224 (`revisit: yes`).
+
+---
+
+## D-30 · 2026-11-08 · A 900 sf 2-bed subject has no comp set in a 3-bed market
+
+**What happened.** `9453 McKinney` is 900 sf, **2 bed**. The two verified renovated sales in its
+neighbourhood are 954 and 971 sf and **both 3 bed**. The next three are 1,284–1,498 sf, outside
+the ±30% band. `comp.py` refused with "only 2 renovated comps within 1.5 mi (needs 3)" — correct.
+
+**Why it is a real finding, not bad luck.** Detroit's East Side renovator stock is
+predominantly 3-bed; a 2-bed bungalow is an outlier *in the stock itself*. A comp method keyed on
+±30% living area will structurally starve on the small end of an already-small market. Meanwhile
+the sale that most resembles the subject is the one thing the engine cannot use.
+
+**Prevention.** Do not "fix" this by widening the band or averaging two comps — the 2.9x price
+spread on this exact floorplan ($50K dated vs $145K finished) is precisely why two points cannot
+carry a number. Report it as unpriced, publish the near-misses so a human can see the shape of
+the evidence, and state the conditional arithmetic explicitly labelled as **not an ARV**.
