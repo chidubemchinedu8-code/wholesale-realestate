@@ -196,3 +196,50 @@ python3 scripts/comp.py --comps state/comps/dayton_45405_fairview_comps.csv \
   --as-of 2026-11-08 --window 365
 # -> exit 3, "NO COMPS ... do not widen further, do not average"
 ```
+
+---
+
+## Pass 5 — Northwoods (built, then refused), and a correction to Pass 4's method
+
+### The hood exists and is small
+
+Northwoods has no Zillow hood feed. Both `/northwood-dayton-oh/sold/` and
+`/northwoods-dayton-oh/sold/` return **404**. Every parcel in the plat also files under the
+city **Shiloh** in Zillow's breadcrumb, not Dayton — the 45405 ZIP is a mailing address, not
+an incorporation.
+
+The plat was confirmed from the field nobody was reading: `Facts & features → Community & HOA
+→ Subdivision`. It reads `Northwood` on both 66 Redder and 61 Redder.
+
+### The pool
+
+`state/comps/dayton_45405_northwoods_comps.csv` — built from `_rb/` detail pages:
+
+| address | sold | price | sqft | $/sf | condition |
+|---|---|---|---|---|---|
+| 61 Redder Ave | 2026-05-08 | $115,000 | 1,210 | $95.04 | maintained |
+| 19 Sandhurst Dr | 2026-01-01 (unverified) | $129,200 | 1,552 | $83.25 | dated |
+| 135 Northwood Ave | 2024-10 | $77,720 | 1,048 | $74.16 | dated (outside window) |
+
+**Zero renovated.** 61 Redder is the closest thing to it — 32 photos, "clean finishes",
+refinished hardwoods, updated kitchen — but no roof, HVAC, electrical or bath work is named,
+so it stays `maintained`. 19 Sandhurst's own copy pitches investors and first-time buyers and
+says "plenty of potential to make it your own": that is a dated house being sold as one.
+
+`comp.py` on 66 Redder Ave (4bd/1,274 sf) returns **NO COMPS** and names two separate gates:
+`window 1` (135 Northwood is too old) and `under_bed_floor 2` (every remaining Northwoods sale
+has three bedrooms, the subject has four).
+
+### The correction to Pass 4
+
+Pass 4 recorded Fairview and Northwoods together as "no pool built for this hood yet". That
+phrasing conflated two different situations, and D-14 now forbids it. Both hoods are now
+**built and refused** — a finding, not a backlog item. The distinction matters because a
+missing pool invites someone to re-check it every pass; a proven refusal does not.
+
+### What this changes in the book
+
+Four rows move from *unpriced-because-unbuilt* to *unpriced-because-proven*:
+66 Redder, 25 Redwood, 152 Northwood, 35 Santa Clara (Fairview). One row changes its reason
+entirely: **251 Castlewood** was logged as hood `UNKNOWN`; it is Castlewood, and it is refused
+for bed count, not for geography.
