@@ -95,8 +95,16 @@ def analyse(rows: list[dict], label: str, as_of: date,
         out["advice"] = ("BIMODAL - the ZIP blends two markets. Drop to a named-"
                          "neighbourhood or plat-level median and say why. A single "
                          "ZIP median is not usable here.")
+    elif len(used) < MIN_SALES_BIMODAL:
+        out["bimodal"] = False
+        out["bimodal_tested"] = False
+        out["advice"] = (f"NOT TESTED - {len(used)} sale(s) is below the "
+                         f"{MIN_SALES_BIMODAL} needed to test for bimodality. The "
+                         f"median is arithmetically valid but the shape is unknown, "
+                         f"so do not call this a single distribution.")
     else:
         out["bimodal"] = False
+        out["bimodal_tested"] = True
         out["advice"] = "single distribution - the ZIP median is a usable sanity check"
     return out
 

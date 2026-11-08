@@ -37,9 +37,15 @@ ZIP_FIELDS = ["city", "zip", "priority_score", "priority_category", "evidence",
               "rejected_count", "rejection_reasons", "best_opportunity", "revisit",
               "source", "notes"]
 
-# Discovery order is a hard rule, not a preference. Zillow discovers; Redfin
-# only cross-checks. A ZIP logged as discovered anywhere else is a process bug.
+# Discovery order is a hard rule, not a preference. Zillow discovers and MUST be
+# one of the sources; Redfin and Realtor.com are then read as cross-checks so the
+# operator gets a wider margin across all three feeds. A scan that skipped Zillow,
+# or that leans on Redfin alone, is a process bug. See operator instruction
+# 2026-11-08 and references/on-market.md.
 ZILLOW_FIRST = "zillow"
+CROSS_CHECK_SOURCES = ("zillow", "redfin", "realtor.com", "county")
+# A scan must include Zillow and at least one cross-check to count as multi-source.
+MIN_SOURCES = 2
 PROP_FIELDS = ["address", "city", "zip", "first_seen", "last_seen", "channel",
                "status", "last_verdict", "last_price", "last_scan_date", "notes"]
 
@@ -77,20 +83,40 @@ def category_for(score: int) -> str:
 
 
 def check_source(source: str) -> str:
-    """Reject a scan that was not discovered on Zillow first."""
-    s = (source or "").strip().lower()
-    if s != ZILLOW_FIRST:
+    """Validate a scan's discovery sources.
+
+    Accepts "+"-joined multi-source strings, e.g. "zillow+redfin+realtor.com".
+    Zillow is mandatory (it is the primary discovery reference); at least two
+    sources are required so every lead is cross-checked on more than one feed.
+    """
+    raw = (source or "").strip().lower()
+    if not raw:
         raise SystemExit(
-            f"REFUSED: scan source is '{source or 'blank'}'. Zillow is the primary "
-            f"discovery reference and Redfin is only a cross-check (SKILL.md rule 20, "
-            f"references/on-market.md). Log it with --source zillow after actually "
-            f"scanning Zillow, or log the divergence in notes and stop.")
-    return s
+            "REFUSED: scan source is blank. Log the feeds actually read, e.g. "
+            "--source zillow+redfin+realtor.com")
+    parts = [p.strip() for p in raw.split("+") if p.strip()]
+    unknown = [p for p in parts if p not in CROSS_CHECK_SOURCES]
+    if unknown:
+        raise SystemExit(
+            f"REFUSED: unknown discovery source(s) {unknown}. "
+            f"Allowed: {list(CROSS_CHECK_SOURCES)}")
+    if ZILLOW_FIRST not in parts:
+        raise SystemExit(
+            f"REFUSED: scan source is '{raw}'. Zillow is the primary discovery "
+            f"reference and must be included (SKILL.md rule 20, "
+            f"references/on-market.md). Read Zillow first, then cross-check on "
+            f"Redfin and Realtor.com.")
+    if len(parts) < MIN_SOURCES:
+        raise SystemExit(
+            f"REFUSED: scan source is '{raw}' - a single source is not a "
+            f"cross-check. Add redfin and/or realtor.com, e.g. "
+            f"zillow+redfin+realtor.com")
+    return "+".join(parts)
 
 
 def log_zip(city, zip5, score, category, qualifying, potential, rejected,
-            best="", reasons="", evidence="", notes="", source=ZILLOW_FIRST,
-            today=None) -> dict:
+            best="", reasons="", evidence="", notes="",
+            source="zillow+redfin+realtor.com", today=None) -> dict:
     today = today or date.today()
     rows = _read(ZIP_LEDGER, ZIP_FIELDS)
     row = next((r for r in rows if r["zip"] == str(zip5)), None)
@@ -255,7 +281,8 @@ def selftest() -> int:
 
     d0 = date(2026, 11, 1)
     log_zip("Akron", 44302, 78, "A", 3, 5, 41,
-            best="156 Colony Cres POTENTIAL", today=d0)
+            best="156 Colony Cres POTENTIAL", today=d0,
+            source="zillow+redfin+realtor.com")
     r = check_property("141 Grand Ave", "Akron", 44302)
     print(f"  {'PASS' if not r['seen'] else 'FAIL'}  unknown property is not 'seen'")
     fails += 0 if not r["seen"] else 1
@@ -280,18 +307,35 @@ def selftest() -> int:
           f"({n} row(s), expected 1)")
     fails += 0 if n == 1 else 1
 
-    # --- Zillow-first is enforced, not just documented (rule 20)
+    # --- Zillow-mandatory multi-source is enforced, not just documented (rule 20)
     try:
         log_zip("Dayton", 45417, 70, "B", 1, 2, 3, source="redfin", today=d0)
         ok = False
     except SystemExit:
         ok = True
-    print(f"  {'PASS' if ok else 'FAIL'}  a scan discovered on redfin is REFUSED")
+    print(f"  {'PASS' if ok else 'FAIL'}  a scan that skipped Zillow is REFUSED")
     fails += 0 if ok else 1
-    row = log_zip("Dayton", 45417, 70, "B", 1, 2, 3, source="zillow", today=d0)
-    print(f"  {'PASS' if row['source'] == 'zillow' else 'FAIL'}  "
-          f"a zillow-first scan records its source")
-    fails += 0 if row["source"] == "zillow" else 1
+    try:
+        log_zip("Dayton", 45417, 70, "B", 1, 2, 3,
+                source="zillow+redfin+realtor.com", today=d0)
+        ok = False
+    except SystemExit:
+        ok = True
+    print(f"  {'PASS' if not ok else 'FAIL'}  zillow+redfin+realtor.com is ACCEPTED")
+    fails += 0 if not ok else 1
+    try:
+        log_zip("Dayton", 45417, 70, "B", 1, 2, 3, source="zillow", today=d0)
+        ok = False
+    except SystemExit:
+        ok = True
+    print(f"  {'PASS' if ok else 'FAIL'}  a single source is not a cross-check "
+          f"(zillow alone is refused)")
+    fails += 0 if ok else 1
+    row = log_zip("Dayton", 45417, 70, "B", 1, 2, 3,
+                  source="zillow+redfin+realtor.com", today=d0)
+    print(f"  {'PASS' if row['source'] == 'zillow+redfin+realtor.com' else 'FAIL'}  "
+          f"a multi-source scan records all its feeds")
+    fails += 0 if row["source"] == "zillow+redfin+realtor.com" else 1
 
     # category boundary
     print(f"  {'PASS' if category_for(75)=='A' else 'FAIL'}  75 -> A")
@@ -336,8 +380,9 @@ def main(argv=None) -> int:
     p.add_argument("--best", default="")
     p.add_argument("--evidence", default="")
     p.add_argument("--notes", default="")
-    p.add_argument("--source", default=ZILLOW_FIRST,
-                   help="discovery source; must be zillow (rule 20)")
+    p.add_argument("--source", default="zillow+redfin+realtor.com",
+                   help="discovery feeds read, '+'-joined; zillow is mandatory "
+                        "and at least two are required (rule 20)")
     p.add_argument("--selftest", action="store_true")
     a = p.parse_args(argv)
 

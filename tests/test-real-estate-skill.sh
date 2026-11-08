@@ -338,10 +338,16 @@ if grep -q "Zillow is the primary manual discovery reference" "$SKILL_DIR/refere
 else
   fail "source hierarchy (Zillow primary / Redfin cross-check) is not stated"
 fi
-if grep -qi "Redfin is a secondary" "$SKILL_DIR/references/on-market.md"; then
-  pass "Redfin is explicitly demoted to secondary cross-check"
+if grep -qi "Redfin and Realtor.com are" "$SKILL_DIR/references/on-market.md" \
+   && grep -qi "cross-check" "$SKILL_DIR/references/on-market.md"; then
+  pass "Redfin and Realtor.com are explicitly demoted to cross-checks"
 else
-  fail "Redfin not demoted to cross-check"
+  fail "Redfin/Realtor.com not demoted to cross-checks"
+fi
+if grep -qi "all three, every scan" "$SKILL_DIR/references/on-market.md"; then
+  pass "on-market.md records the three-feed rule the operator asked for"
+else
+  fail "the three-feed discovery rule is not written down"
 fi
 # the cross-check must not be mistakable for independent verification
 if tr '\n' ' ' < "$SKILL_DIR/references/on-market.md" | tr -s ' ' | grep -qi "one portal repeating another portal is not a second source"; then
@@ -658,10 +664,22 @@ tr '\n' ' ' < "$SKILL_DIR/references/on-market.md" | tr -s ' ' \
   || fail "photos are not part of the documented discovery step"
 # the ledger must refuse a non-Zillow discovery
 if py "$SKILL_DIR/scripts/zip_ledger.py" --selftest 2>&1 \
-     | grep -q "a scan discovered on redfin is REFUSED"; then
-  pass "the ledger REFUSES a scan discovered on any site but Zillow"
+     | grep -q "a scan that skipped Zillow is REFUSED"; then
+  pass "the ledger REFUSES a scan that skipped Zillow"
 else
   fail "nothing stops a Redfin-first scan being logged"
+fi
+if py "$SKILL_DIR/scripts/zip_ledger.py" --selftest 2>&1 \
+     | grep -q "zillow+redfin+realtor.com is ACCEPTED"; then
+  pass "the ledger ACCEPTS zillow+redfin+realtor.com (all three, wider margin)"
+else
+  fail "the operator's three-feed discovery rule is not accepted"
+fi
+if py "$SKILL_DIR/scripts/zip_ledger.py" --selftest 2>&1 \
+     | grep -qi "single source is not a cross-check"; then
+  pass "a single-source scan is refused (no cross-check)"
+else
+  fail "a single-source scan is still allowed, so there is no cross-check"
 fi
 grep -q "ZILLOW_FIRST" "$SKILL_DIR/scripts/zip_ledger.py" \
   && pass "the Zillow-first constant exists in code, not only in prose" \
@@ -674,12 +692,12 @@ else
 fi
 # no logged ZIP may claim a non-Zillow discovery source
 SRCW="$(py "$SKILL_DIR/scripts/zip_ledger.py" --list-sources 2>/dev/null | sort -u)"
-if [ "$SRCW" = "zillow" ]; then
-  pass "every scanned ZIP is logged as Zillow-discovered"
-elif [ -z "$SRCW" ]; then
+if [ -z "$SRCW" ]; then
   pass "no ZIP scanned yet, so no source can be wrong"
+elif printf '%s\n' "$SRCW" | grep -qv "zillow"; then
+  fail "a ZIP is logged as discovered without Zillow: $SRCW"
 else
-  fail "a ZIP is logged as discovered somewhere other than Zillow: $SRCW"
+  pass "every scanned ZIP includes Zillow among its discovery feeds"
 fi
 
 section "9m. AN UNPRICED ROW CANNOT BE FAILED FOR LACKING A CEILING"

@@ -10,7 +10,7 @@ missing or wrong, and they are now fixed or explicitly open.
 
 ---
 
-## Gap 1 — the anchor step was skipped on every ZIP. FIXED.
+## Gap 1 — the anchor step was skipped on every ZIP. FIXED, and now confirmed non-binding on comps.
 
 `anchor.py` is step one of the framework and it had never been run on any Dayton ZIP.
 It exists to sanity-check a comp pool before it is trusted. Run now:
@@ -33,6 +33,14 @@ nothing else. In 45405 that claim is strong (three sales at $120–$132 with 4.8
 In 45404 it rests on **two** sales, one of them (34 Ingleside) whose coordinate I cannot
 verify in OSM.
 
+**Confirmed non-binding on comps.** `comp.py` and `indicative_arv.py` contain zero
+references to `anchor.py` — it cannot feed an ARV. Proven by running the same subject
+before and after an anchor pass: ARV $154,516 both times, median $128.76/sf both times.
+
+One honest defect found while proving it: `anchor.py` required 8 sales before testing for
+bimodality, but printed "single distribution - the ZIP median is a usable sanity check"
+when it had only 6 and had not tested at all. It now prints **NOT TESTED** with the reason.
+
 **What it changes: nothing about the arithmetic, everything about confidence.** 1012 St
 Adelbert's ARV of $154,516 is a renovated-band number in a ZIP whose overall median is
 $65.93/sf. If 185 Grove and 34 Ingleside are not both genuine full renovations, that ARV
@@ -50,7 +58,19 @@ finds." It held 4 Dayton rows. I had just examined 20 more and written them to a
 file and a sheet, not the ledger. **All 20 are now logged** with verdict, price, comps,
 repairs, MAO and the caveats — 24 Dayton rows total.
 
-## Gap 3 — I invented a discovery source. FIXED, and the test caught it.
+## Gap 3 — RESOLVED BY OPERATOR DECISION: discovery is all three feeds.
+
+I logged `45403`, `45404`, `45406` with `source=realtor.com` and the test failed me. The
+first fix (relabel to zillow-only) was too narrow: the operator's actual rule is **Zillow
+primary, then go further into Redfin and Realtor.com — all three, for a wider margin.**
+
+Rule and code now agree:
+
+- `SKILL.md` rule 20 and `references/on-market.md` rewritten to the three-feed standard.
+- `zip_ledger.py` accepts `zillow+redfin+realtor.com` and **still refuses** a scan that
+  skipped Zillow, and **refuses a single-source scan** — one feed is not a cross-check.
+- New selftest cases cover all three branches; the suite is at **169 checks**.
+- All 7 Dayton ZIP rows now log `zillow+redfin+realtor.com`.
 
 I logged `45403`, `45404`, `45406` with `source=realtor.com`. The test failed on it, and
 it was right to: rule 20 is **Zillow discovers, Redfin/Realtor.com cross-check.** I had

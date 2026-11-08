@@ -1,9 +1,11 @@
 # On-market sourcing (primary channel)
 
-## Source priority — Zillow first, Redfin second
+## Source priority — Zillow primary, then Redfin and Realtor.com (all three)
 
-**Zillow is the primary manual discovery reference. Redfin is a secondary
-cross-check.** Discovery happens on Zillow property pages, read by a human (or by
+**Zillow is the primary manual discovery reference. Redfin and Realtor.com are
+then read as cross-checks — all three, every scan.** A wider margin comes from
+reading every feed, not from trusting one. At least two feeds must be read and
+Zillow must be one of them. Discovery happens on Zillow property pages, read by a human (or by
 a fetcher reading the page as a human would). Redfin is opened afterwards to
 confirm or contradict what Zillow showed — DOM, sold records, agent detail.
 
