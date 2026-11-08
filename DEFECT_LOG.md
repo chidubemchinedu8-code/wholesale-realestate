@@ -1044,3 +1044,32 @@ from 1915 is entirely plausible; so is 1,155.
    changes materially (3308 W 88th drops from 5th cheapest to 12th).
 4. This is the sqft analogue of **D-46**: a field that is real, populated, internally consistent,
    and about the wrong thing.
+
+---
+
+## D-48 — A listing can forbid assignment; the screen had no column for it
+
+**Where.** `3322 W 54th St, Cleveland OH 44102`, agent remarks, MLS# 5259044, read 2026-11-08.
+
+**What happened.** The remarks end: *"**No wholesalers and no contract assignments/reassignments.**
+Selling AS-IS."* The property passed every buy-box screen — 3bd/1ba, $96,500, in-band ARV,
+in-hood, real property, Section 8 tenancy in place at $1,290/mo. It is also **not assignable**,
+which means the only exit is a double close, and the remark explicitly names wholesalers as
+unwelcome. The sweep had no column that could have caught this.
+
+The same listing also carried a sqft defect: **1,102 sf** on the page against **1,916 sf** on the
+Zillow card — **74% over** (D-47), which had it ranked **#2 cheapest per foot of 25**.
+
+**Why it matters more than a normal reject.** The assignment model (`and/or assigns`) is the
+default structure for every deal in this book. A "no assignment" clause is not a marketing
+preference — it removes the exit. Screening it late means comping a house that cannot be
+contracted the way the business contracts.
+
+**Rules:**
+1. **Read the full agent remarks on every shortlisted row before comping it.** Two defects
+   surfaced in one paragraph here. Remarks are the highest-yield field on a listing and the only
+   place either fact existed.
+2. **Record an `assignable` field: yes / no / unstated.** `unstated` is not `yes`.
+3. Phrases that make a row **not assignable**: "no assignments", "no reassignments",
+   "no wholesalers", "buyer may not assign", "no contract assignment".
+4. A `no` is a **REJECT at the structure step**, before comps — not a reason to discount.

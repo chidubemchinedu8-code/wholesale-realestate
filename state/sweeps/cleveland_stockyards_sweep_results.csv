@@ -1,42 +1,42 @@
 address,zip,hood,beds,ba,sqft,ask,type,dom,signal,buyscreen,verdict
-3489 W 60th St,44102,STOCKYARDS,4,2,2044,185000,Multi-family,,,"type=FITS (multifamily); ARV not established","POTENTIAL - no ARV"
-3643 W 48th St,44102,STOCKYARDS,4,2,2492,150000,Multi-family,,,"type=FITS; ARV not established","POTENTIAL - no ARV"
-3261 W 58th St,44102,STOCKYARDS,4,2,1584,59900,Multi-family,,,"type=FITS; MULTI-FAMILY, not the SFR I first assumed; ARV not established","POTENTIAL - no ARV"
-3189 W 52nd St,44102,STOCKYARDS,4,2,1800,185000,FSBO,,,"type UNSTATED (FSBO, no type field) - rule 21: UNKNOWN is not a pass","HOLD - type unverified"
-3304 W 56th St,44102,STOCKYARDS,3,1,990,85000,House,,,"type=FITS; cheapest 3bd SFR in hood; ARV not established","SHORTLIST for comps"
-3283 W 48th St,44102,STOCKYARDS,6,3,1852,143400,Multi-family,,"price cut $500 (11/5)","type=FITS; ARV not established","POTENTIAL - no ARV"
-3284 W 50th St,44102,STOCKYARDS,3,1,1186,95000,House,4,,"REJECT - under 14 days on market, no documented mispricing (rule 15)","REJECT - DOM"
-4718 Gedeon Ave,44102,STOCKYARDS,4,2,1561,170000,Multi-family,,,"type=FITS; ARV not established","POTENTIAL - no ARV"
-3444 W 44th St,44109,STOCKYARDS FEED,2,2,1236,69999,House,,"new water heater","ZIP 44109 - hood feed leaks outside 44102; 2bd/1,236sf unlikely to clear $125K ARV floor","POTENTIAL - ARV floor risk"
-3437 W 45th St,44102,STOCKYARDS,4,2,1323,99900,House,5,,"REJECT - under 14 days on market (rule 15)","REJECT - DOM"
-3521 W 49th St,44102,STOCKYARDS,4,1,1577,150000,House,6,,"REJECT - under 14 days on market (rule 15)","REJECT - DOM"
-3295 W 56th St,44102,STOCKYARDS,5,2,1614,130000,Multi-family,,"modern finishes","type=FITS; 'modern finishes' suggests retail-ready - condition unread","POTENTIAL - no ARV"
-3525 W 49th St,44102,STOCKYARDS,3,2,1026,112000,House,,,"type=FITS; 3bd/2ba at 1,026sf - bath count implies prior update, verify","SHORTLIST for comps"
-3468 W 62nd St,44102,STOCKYARDS,4,2,1840,129900,Multi-family,,,"type=FITS; ARV not established","POTENTIAL - no ARV"
-4601 Fenwick Ave,44102,STOCKYARDS,4,2,2358,109900,House,,"retaining both kitchens","converted duplex listed as House - type CONFLICT, rule 21","HOLD - type conflict"
-3322 W 54th St,44102,STOCKYARDS,3,1,1916,96500,House,,"price cut $2,500 (11/6)","type=FITS; 1,916sf for 3bd/1ba is an outlier - verify sqft before pricing","SHORTLIST - verify sqft"
-3571 W 67th St,44102,STOCKYARDS,3,2,1001,159900,House,,,"type=FITS; 3bd/2ba 1,001sf","POTENTIAL - no ARV"
-3349 W 63rd St,44102,STOCKYARDS,3,2,990,75000,House,58,,"type=FITS; 58 DOM - strongest staleness signal in the hood; ask $75/sf","SHORTLIST - BEST candidate"
-8162 Russell Ln,44144,STOCKYARDS FEED,2,1,,12500,Home,,"sqft --","EXCLUDE - 44144, sqft UNKNOWN, $12,500 'Home' pattern is mobile/manufactured (buy box excludes)","EXCLUDE - type + sqft"
-3185 W 58th St,44102,STOCKYARDS,5,2,2290,89000,Multi-family,80,,"type=FITS; 80 DOM, 5bd multifamily at $38.86/sf - very stale","SHORTLIST for comps"
-3506 W 48th St,44102,STOCKYARDS,3,2,1304,134900,House,,"updated bathrooms","'updated' language = likely retail-ready; no wholesale spread (rule 15 turnkey rejection)","REJECT - condition/retail"
-4501 Hyde Ave,44109,STOCKYARDS FEED,3,1,1320,105000,House,,"storage shed","ZIP 44109 - hood feed leak","POTENTIAL - verify hood"
-3150 W 46th St,44102,STOCKYARDS,4,2,1800,214900,Multi-family,,,"type=FITS; high ask for hood","POTENTIAL - no ARV"
-3339 W 46th St,44102,STOCKYARDS,2,1,,55000,House,,"sqft --, solid layout","sqft UNKNOWN - rule 21, cannot price; 2bd also risks $125K ARV floor","HOLD - sqft unknown"
-4324 Riverside Ave,44102,STOCKYARDS,3,2,1254,150000,House,,"quiet dead-end street","type=FITS","POTENTIAL - no ARV"
-3288 W 52nd St,44102,STOCKYARDS,4,2,1797,139900,Multi-family,,"price cut $5,000 (10/12)","type=FITS","POTENTIAL - no ARV"
-5007 Clark Ave,44102,STOCKYARDS,4,2,2785,309000,Multi-family,,"new washers/dryers","type=FITS; ask far above hood","POTENTIAL - no ARV"
-4801 Denison Ave,44102,STOCKYARDS,4,4,1870,255000,FSBO,37,,"type UNSTATED; 4ba in 1,870sf suggests heavy update","HOLD - type unverified"
-3222 W 46th St,44102,STOCKYARDS,5,3,1982,169900,Multi-family,,,"type=FITS","POTENTIAL - no ARV"
-3482 W 49th St,44102,STOCKYARDS,5,4,2784,179000,Multi-family,,"all-new windows","type=FITS; 4ba suggests updated","POTENTIAL - no ARV"
-3311 W 56th St,44102,STOCKYARDS,2,1,912,85000,House,6,,"REJECT - under 14 days (rule 15); also 912sf/2bd ARV floor risk","REJECT - DOM"
-3330 W 59th Pl,44102,STOCKYARDS,2,1,814,90000,House,,"ceiling fan","2bd/814sf - very unlikely to clear $125K ARV floor","POTENTIAL - ARV floor risk"
-3202 W 52nd St,44102,STOCKYARDS,6,2,2198,158000,Multi-family,,"updates to roof","type=FITS","POTENTIAL - no ARV"
-3263 W 50th St,44102,STOCKYARDS,5,2,2178,175000,Multi-family,,"vinyl siding","type=FITS","POTENTIAL - no ARV"
-3271 W 50th St,44102,STOCKYARDS,3,1,1230,124900,House,,3D tour,"type=FITS","POTENTIAL - no ARV"
-3404 W 49th St,44102,STOCKYARDS,6,2,2988,220000,Multi-family,,"comfortable layouts","type=FITS","POTENTIAL - no ARV"
-3296 W 44th St,44109,STOCKYARDS FEED,4,2,2355,159900,Multi-family,184,,"ZIP 44109 leak; 184 DOM extremely stale - worth re-checking under its OWN hood","POTENTIAL - verify hood"
-5910 Gilbert Ct,44102,STOCKYARDS,3,1,1116,114900,House,,3D tour,"type=FITS","SHORTLIST for comps"
-3283 W 54th St,44102,STOCKYARDS,3,2,1160,98000,House,,"renovated half bath upstairs","type=FITS; partial update noted","SHORTLIST for comps"
-3409 W 54th St,44102,STOCKYARDS,3,1,1328,119900,House,,,"type=FITS","SHORTLIST for comps"
-3310 W 54th St,44102,STOCKYARDS,3,1,852,85000,House,,"price cut $3,000 (10/13)","type=FITS; 852sf/3bd thin - ARV floor risk","SHORTLIST - ARV floor risk"
+3489 W 60th St,44102,STOCKYARDS,4,2,2044,185000,Multi-family,,,type=FITS (multifamily); ARV not established,POTENTIAL - no ARV
+3643 W 48th St,44102,STOCKYARDS,4,2,2492,150000,Multi-family,,,type=FITS; ARV not established,POTENTIAL - no ARV
+3261 W 58th St,44102,STOCKYARDS,4,2,1584,59900,Multi-family,,,"type=FITS; MULTI-FAMILY, not the SFR I first assumed; ARV not established",POTENTIAL - no ARV
+3189 W 52nd St,44102,STOCKYARDS,4,2,1800,185000,FSBO,,,"type UNSTATED (FSBO, no type field) - rule 21: UNKNOWN is not a pass",HOLD - type unverified
+3304 W 56th St,44102,STOCKYARDS,3,1,990,85000,House,,,type=FITS; cheapest 3bd SFR in hood; ARV not established,SHORTLIST for comps
+3283 W 48th St,44102,STOCKYARDS,6,3,1852,143400,Multi-family,,price cut $500 (11/5),type=FITS; ARV not established,POTENTIAL - no ARV
+3284 W 50th St,44102,STOCKYARDS,3,1,1186,95000,House,4,,"REJECT - under 14 days on market, no documented mispricing (rule 15)",REJECT - DOM
+4718 Gedeon Ave,44102,STOCKYARDS,4,2,1561,170000,Multi-family,,,type=FITS; ARV not established,POTENTIAL - no ARV
+3444 W 44th St,44109,STOCKYARDS FEED,2,2,1236,69999,House,,new water heater,"ZIP 44109 - hood feed leaks outside 44102; 2bd/1,236sf unlikely to clear $125K ARV floor",POTENTIAL - ARV floor risk
+3437 W 45th St,44102,STOCKYARDS,4,2,1323,99900,House,5,,REJECT - under 14 days on market (rule 15),REJECT - DOM
+3521 W 49th St,44102,STOCKYARDS,4,1,1577,150000,House,6,,REJECT - under 14 days on market (rule 15),REJECT - DOM
+3295 W 56th St,44102,STOCKYARDS,5,2,1614,130000,Multi-family,,modern finishes,type=FITS; 'modern finishes' suggests retail-ready - condition unread,POTENTIAL - no ARV
+3525 W 49th St,44102,STOCKYARDS,3,2,1026,112000,House,,,"type=FITS; 3bd/2ba at 1,026sf - bath count implies prior update, verify",SHORTLIST for comps
+3468 W 62nd St,44102,STOCKYARDS,4,2,1840,129900,Multi-family,,,type=FITS; ARV not established,POTENTIAL - no ARV
+4601 Fenwick Ave,44102,STOCKYARDS,4,2,2358,109900,House,,retaining both kitchens,"converted duplex listed as House - type CONFLICT, rule 21",HOLD - type conflict
+3322 W 54th St,44102,STOCKYARDS,3,1,1102,96500,House,,"REJECT: ""NO WHOLESALERS AND NO CONTRACT ASSIGNMENTS"" (MLS#5259044). Also 1,102sf on the page vs 1,916 on the card - 74% error (D-47). Sec8 tenant $1,290/mo.","type=FITS; 1,916sf for 3bd/1ba is an outlier - verify sqft before pricing",REJECT - not assignable (D-48)
+3571 W 67th St,44102,STOCKYARDS,3,2,1001,159900,House,,,"type=FITS; 3bd/2ba 1,001sf",POTENTIAL - no ARV
+3349 W 63rd St,44102,STOCKYARDS,3,2,990,75000,House,58,,type=FITS; 58 DOM - strongest staleness signal in the hood; ask $75/sf,SHORTLIST - BEST candidate
+8162 Russell Ln,44144,STOCKYARDS FEED,2,1,,12500,Home,,sqft --,"EXCLUDE - 44144, sqft UNKNOWN, $12,500 'Home' pattern is mobile/manufactured (buy box excludes)",EXCLUDE - type + sqft
+3185 W 58th St,44102,STOCKYARDS,5,2,2290,89000,Multi-family,80,,"type=FITS; 80 DOM, 5bd multifamily at $38.86/sf - very stale",SHORTLIST for comps
+3506 W 48th St,44102,STOCKYARDS,3,2,1304,134900,House,,updated bathrooms,'updated' language = likely retail-ready; no wholesale spread (rule 15 turnkey rejection),REJECT - condition/retail
+4501 Hyde Ave,44109,STOCKYARDS FEED,3,1,1320,105000,House,,storage shed,ZIP 44109 - hood feed leak,POTENTIAL - verify hood
+3150 W 46th St,44102,STOCKYARDS,4,2,1800,214900,Multi-family,,,type=FITS; high ask for hood,POTENTIAL - no ARV
+3339 W 46th St,44102,STOCKYARDS,2,1,,55000,House,,"sqft --, solid layout","sqft UNKNOWN - rule 21, cannot price; 2bd also risks $125K ARV floor",HOLD - sqft unknown
+4324 Riverside Ave,44102,STOCKYARDS,3,2,1254,150000,House,,quiet dead-end street,type=FITS,POTENTIAL - no ARV
+3288 W 52nd St,44102,STOCKYARDS,4,2,1797,139900,Multi-family,,"price cut $5,000 (10/12)",type=FITS,POTENTIAL - no ARV
+5007 Clark Ave,44102,STOCKYARDS,4,2,2785,309000,Multi-family,,new washers/dryers,type=FITS; ask far above hood,POTENTIAL - no ARV
+4801 Denison Ave,44102,STOCKYARDS,4,4,1870,255000,FSBO,37,,"type UNSTATED; 4ba in 1,870sf suggests heavy update",HOLD - type unverified
+3222 W 46th St,44102,STOCKYARDS,5,3,1982,169900,Multi-family,,,type=FITS,POTENTIAL - no ARV
+3482 W 49th St,44102,STOCKYARDS,5,4,2784,179000,Multi-family,,all-new windows,type=FITS; 4ba suggests updated,POTENTIAL - no ARV
+3311 W 56th St,44102,STOCKYARDS,2,1,912,85000,House,6,,REJECT - under 14 days (rule 15); also 912sf/2bd ARV floor risk,REJECT - DOM
+3330 W 59th Pl,44102,STOCKYARDS,2,1,814,90000,House,,ceiling fan,2bd/814sf - very unlikely to clear $125K ARV floor,POTENTIAL - ARV floor risk
+3202 W 52nd St,44102,STOCKYARDS,6,2,2198,158000,Multi-family,,updates to roof,type=FITS,POTENTIAL - no ARV
+3263 W 50th St,44102,STOCKYARDS,5,2,2178,175000,Multi-family,,vinyl siding,type=FITS,POTENTIAL - no ARV
+3271 W 50th St,44102,STOCKYARDS,3,1,1230,124900,House,,3D tour,type=FITS,POTENTIAL - no ARV
+3404 W 49th St,44102,STOCKYARDS,6,2,2988,220000,Multi-family,,comfortable layouts,type=FITS,POTENTIAL - no ARV
+3296 W 44th St,44109,STOCKYARDS FEED,4,2,2355,159900,Multi-family,184,,ZIP 44109 leak; 184 DOM extremely stale - worth re-checking under its OWN hood,POTENTIAL - verify hood
+5910 Gilbert Ct,44102,STOCKYARDS,3,1,1116,114900,House,,3D tour,type=FITS,SHORTLIST for comps
+3283 W 54th St,44102,STOCKYARDS,3,2,1160,98000,House,,renovated half bath upstairs,type=FITS; partial update noted,SHORTLIST for comps
+3409 W 54th St,44102,STOCKYARDS,3,1,1328,119900,House,,,type=FITS,SHORTLIST for comps
+3310 W 54th St,44102,STOCKYARDS,3,1,852,85000,House,,"price cut $3,000 (10/13)",type=FITS; 852sf/3bd thin - ARV floor risk,SHORTLIST - ARV floor risk

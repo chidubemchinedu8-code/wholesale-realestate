@@ -222,3 +222,19 @@ Measured on 3308 W 88th:
 **Consequence:** in a 44102/44109/44111 hood with a ~1,100–1,300 sf subject, the ARV pool will
 routinely be n=3 at the full 12-month window. `UNPRICED` is a legitimate and common outcome here.
 Do not widen the band, do not borrow a duplex, do not reinstate the 2003 build.
+
+## 10. Assignability and remarks — the structure gate (D-48)
+
+**Read the full agent remarks on every shortlisted row before comping it.** In one paragraph on
+3322 W 54th St the remarks carried both:
+
+- *"No wholesalers and no contract assignments/reassignments"* → **not assignable**; the
+  assignment exit is closed and the row is a structural reject, not a discount.
+- **1,102 sf** against the Zillow card's **1,916 sf** → 74% sqft defect.
+
+`assignable: yes / no / unstated`. **`unstated` is not `yes`.** Phrases that force a `no`:
+"no assignments", "no reassignments", "no wholesalers", "buyer may not assign".
+
+Screen order with this gate inserted:
+
+**type → assignable → ARV band → condition → comps**
