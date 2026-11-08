@@ -112,21 +112,46 @@ file. Both had already survived a "clean" preflight, so neither is theoretical.
 
 **A comp file must never carry a hand-typed sold date.** A date is a fact about
 a parcel; it comes off the property page or it is not a date. Two dates in the
-45410 file were typed from memory: `164 Edgar Ave` 2026-09-15, and
-`40 Indiana Ave` 2026-08-01. Re-fetching the sold list showed:
+45410 file were typed from memory: `164 Edgar Ave` 2026-09-15 and
+`40 Indiana Ave` 2026-08-01.
 
-- **`164 Edgar Ave` does not exist in 45410's sold list at all.** The nearest
-  real properties are 32 Edgar ($144,900, 1,541 sf, 3 bd), 40 Edgar ($170,000,
-  1,415 sf, 3 bd) and 416-418 Edgar (a 6-bd duplex). A phantom comp had been
-  shaping a comp set.
 - **`40 Indiana Ave` closed 2026-08-05, not 2026-08-01.** Four days wrong is
   still wrong, and wrong dates move sales in and out of the 180-day window.
+- **`164 Edgar Ave` is a real sale.** Its hand-typed date was wrong — the sale
+  closed **2026-07-06** at $169,900 — but the property is not invented. It is
+  a 1,499 sf, 3 bd / 1.5 ba, built 1913, parcel R72034120008, MLS# 959119,
+  listed 5/22/2026 at $159,900, pending 5/29, closed $169,900 (103% of list).
+  Listing copy: brand-new carpet, updated eat-in kitchen, grey cabinets,
+  brand-new appliances — **renovated**. It belongs in the ARV pool.
 
 The rule: an undated row is dropped by the loader, so if a row is deliberately
 left undated it must be *marked* in the exclusion column (`date_unverified`) —
 otherwise it disappears silently and the comp set looks thicker than it is.
-Section 9n of the test suite now enforces both halves.
+Section 9n of the test suite enforces both halves.
 
+## "Not in this one list" is not "does not exist"
+
+`164 Edgar Ave` was reported as a **phantom comp** because it did not appear in
+Redfin's 45410 sold list, and the wrong date was taken as corroboration. That
+was a false negative, and the correction matters:
+
+- **Redfin's sold list is not the set of all sales.** It returned 87 homes for
+  45410; Realtor.com returns ~271 four-bedroom sales for the same ZIP. A
+  property can be absent from the filtered list and still be a real, recent,
+  arm's-length sale.
+- Absence from one aggregator must **never** be written up as "this sale does
+  not exist". The honest finding is "I could not confirm it here", followed by a
+  second source — Zillow by zpid, Realtor.com by address, or the county.
+- A wrong *date* on a real property is a data-entry error. Treating it as proof
+  of a fabricated property compounded one small error into a large one.
+
+**Realtor.com is a first-class sold-date source and was missing from the ladder.**
+It exposes exact sold dates, price history, year built, sq ft, lot, tax
+assessment and **permit history** on a plain property page, and it is not
+paywalled or bot-blocked the way the others can be. Use it as a cross-check on
+every sold date before drafting, and use permit history as evidence of real
+renovation work (a 2024 HVAC permit is stronger evidence than the word
+"updated" in listing copy).
 **An exclusion tag the engine does not recognise must refuse the file, not be
 ignored.** The 45417 file tagged a court-ordered auction sale
 `auction_not_arms_length`. The engine's recognised reasons included

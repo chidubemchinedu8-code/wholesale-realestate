@@ -794,6 +794,43 @@ echo "$OUT2" | grep -q "'sqft_band': 1" \
   || fail "band drops are missing from the tally"
 rm -f "$NMB"
 
+section "9p. A COMP IS NEVER CALLED FAKE FOR BEING IN ONE LIST ONLY"
+# 164 Edgar Ave is a real sale (MLS# 959119, closed 2026-07-06, $169,900) that
+# was wrongly reported as a phantom comp because it was missing from a single
+# Redfin sold list. The wrong date on it was taken as corroboration, turning a
+# typo into an accusation of fabrication. Guard both halves.
+grep -qi "not in this one list" "$SKILL_DIR/references/comps.md" \
+  && pass "docs state that absence from one list is not absence from the market" \
+  || fail "nothing warns against declaring a real sale fabricated"
+
+grep -qi "realtor.com" "$SKILL_DIR/references/comps.md" \
+  && pass "Realtor.com is documented as a sold-date source" \
+  || fail "Realtor.com is still missing from the source ladder"
+
+if py - <<'PYE'
+import csv, glob, sys
+# every comp must carry a real address and a real, plausible price/sqft
+bad = []
+for f in sorted(glob.glob("state/comps/*.csv")):
+    for r in csv.DictReader(open(f, encoding="utf-8")):
+        a = (r.get("address") or "").strip()
+        try:
+            p = float(r.get("price") or 0)
+            sq = float(r.get("sqft") or 0)
+        except ValueError:
+            bad.append(f"{f}:{a} non-numeric price/sqft")
+            continue
+        if p <= 0 or sq <= 0:
+            bad.append(f"{f}:{a} missing price or sqft")
+        elif not (5 <= p / sq <= 700):
+            bad.append(f"{f}:{a} implausible ${p/sq:.0f}/sf")
+for b in bad:
+    print("  BAD", b)
+sys.exit(1 if bad else 0)
+PYE
+then pass "every comp has a real address, price and square footage"
+else fail "a comp row is malformed"; fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do
