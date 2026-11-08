@@ -259,15 +259,14 @@ rm -f "$tmpc"
 if out3="$(py "$SKILL_DIR/scripts/comp.py" --comps "$SKILL_DIR/fixtures/akron_44302_worked_example.csv" \
      --as-of 2026-10-31 --subject '{"address":"141 Grand Ave","sqft":1642,"hood":"44302","lat":41.0790,"lon":-81.5360,"style":"COLONIAL"}')"; then
   flat3="$(printf '%s' "$out3" | tr -d ' ')"
-  printf '%s' "$flat3" | grep -qF 'ARVLOW$114,578' \
-    && pass "141 Grand Ave ARV LOW = \$114,578" || fail "ARV LOW wrong"
-  printf '%s' "$flat3" | grep -qF 'ARVPOINT$120,571' \
-    && pass "141 Grand Ave ARV POINT = \$120,571" || fail "ARV POINT wrong"
-  printf '%s' "$flat3" | grep -qF 'ARVHIGH$126,372' \
-    && pass "141 Grand Ave ARV HIGH = \$126,372" || fail "ARV HIGH wrong"
-  printf '%s' "$flat3" | grep -q 'UNDERWRITELOW' \
-    && pass "LOW confidence underwrites to the LOW tier" \
-    || fail "lower-confidence row did not underwrite to LOW"
+  printf '%s' "$flat3" | grep -qF 'ARV$137,012' \
+    && pass "141 Grand Ave ARV = \$137,012 (1,642 x \$83.44 median)" || fail "ARV wrong"
+  printf '%s' "$flat3" | grep -qF 'MEDIAN$83.44/sf' \
+    && pass "141 Grand Ave median \$83.44/sf shown" || fail "median not reported"
+  # there must be no second ARV anywhere in the output
+  printf '%s' "$flat3" | grep -qE 'ARV(LOW|POINT|HIGH)' \
+    && fail "a tiered ARV survived - there must be one ARV only" \
+    || pass "one ARV only, no LOW/POINT/HIGH tiers"
   printf '%s' "$out3" | grep -q "64 Byers Ave" \
     && pass "newer build excluded from the ARV maths but still reported" \
     || fail "newer build not excluded"
@@ -287,12 +286,11 @@ if out="$(py "$SKILL_DIR/scripts/comp.py" --selftest)"; then
     || fail "consistency gate does not catch a price gap"
   printf '%s' "$out" | grep -qF "(\$20/sf)" \
     && pass "repair tiers present (light \$20/sf)" || fail "repair tiers missing"
-  printf '%s' "$out" | grep -q "BUYER MAX by ARV tier" \
-    && pass "buyer max computed per ARV tier (LOW/POINT/HIGH)" \
-    || fail "buyer max not computed per ARV tier"
-  printf '%s' "$out" | grep -q "ARV LOW" \
-    && pass "ARV is reported as a range, not a single point" \
-    || fail "ARV is a single number"
+  printf '%s' "$out" | grep -q "BUYER MAX at \$65,000 repairs" \
+    && pass "buyer max computed from the single ARV" \
+    || fail "buyer max not computed"
+  printf '%s' "$out" | grep -q "ARV LOW" && fail "ARV is still a range" \
+    || pass "ARV is a single number"
 else
   fail "comp.py selftest failed"
 fi
@@ -487,17 +485,17 @@ rm -f "$tmpc"
 # S1-6: the comp engine must not label the buyer's ceiling as MAO.
 out="$(py "$SKILL_DIR/scripts/comp.py" --comps "$SKILL_DIR/fixtures/akron_44302_worked_example.csv" \
   --as-of 2026-10-31 --repairs 57470 --subject '{"address":"141 Grand Ave","beds":"3","sqft":1642,"hood":"44302","lat":41.079,"lon":-81.536,"style":"COLONIAL"}' 2>&1)"
-echo "$out" | grep -q "BUYER MAX BY TIER" \
-  && pass "per-tier block is labelled BUYER MAX, not MAO" \
+echo "$out" | grep -q "BUYER MAX (Step 9" \
+  && pass "buyer ceiling is labelled BUYER MAX, not MAO" \
   || fail "buyer ceiling still labelled MAO"
 echo "$out" | grep -q "seller MAO" \
   && pass "seller-facing MAO is printed beside the buyer max" \
   || fail "seller MAO not distinguished from buyer max"
 
-# S1-7: as-is must be declared an alias, not a second finding.
-echo "$out" | grep -q "alias" \
-  && pass "AS-IS is labelled an alias of ARV LOW" \
-  || fail "AS-IS still presented as an independent number"
+# There is no as-is model and no haircut left to report.
+echo "$out" | grep -qiE "AS-IS|haircut|0\.88" \
+  && fail "an as-is line or a haircut survived in the ARV output" \
+  || pass "no as-is line and no haircut in the ARV output"
 
 # S1-4: a narrowing style filter must be visible.
 out="$(py "$SKILL_DIR/scripts/comp.py" --selftest 2>&1)"
@@ -516,26 +514,61 @@ else
 fi
 out="$(py "$SKILL_DIR/scripts/comp.py" --comps "$CX" --as-of 2026-11-08 --repairs 39200 \
   --subject '{"address":"262 S Harris Ave","beds":"2","sqft":1120,"hood":"43204","lat":39.9495298,"lon":-83.0722048,"style":""}' 2>&1)"
-echo "$out" | tr -d ' ' | grep -qF 'ARVLOW$124,202' \
-  && pass "262 S Harris ARV LOW reproduces at \$124,202" \
-  || fail "262 S Harris ARV LOW drifted"
-echo "$out" | tr -d ' ' | grep -qF 'ARVPOINT$148,896' \
-  && pass "ARV POINT reproduces at \$148,896" \
-  || fail "ARV POINT drifted"
-echo "$out" | grep -q "n=5, 0.5 mi" \
+echo "$out" | tr -d ' ' | grep -qF 'ARV$169,200' \
+  && pass "262 S Harris ARV reproduces at \$169,200 (median method)" \
+  || fail "262 S Harris ARV drifted"
+echo "$out" | tr -d ' ' | grep -qF 'MEDIAN$151.07/sf' \
+  && pass "median \$151.07/sf reproduces" || fail "median drifted"
+echo "$out" | grep -q "n=5 renovated comps; 0.5 mi" \
   && pass "comp set is 5 sales at 0.5 mi" || fail "comp set changed"
+echo "$out" | grep -q "spread 19.1%" \
+  && pass "p25-p75 spread reported as confidence (19.1%)" || fail "spread not reported"
 # the two UNKNOWN-condition sales must stay out of the ARV pool
 echo "$out" | grep -q "774 Racine" && fail "unknown-condition comp leaked into ARV" \
   || pass "UNKNOWN-condition sales stayed out of the ARV pool"
 # the real asking price must be judged unattainable, not massaged
-py "$SKILL_DIR/scripts/underwrite.py" --arv 124202 --repairs 39200 --fee 10000 --ask 79900 2>&1 \
-  | grep -q "NO - MAO is 47.2% of asking" \
-  && pass "the \$79,900 ask is correctly judged unattainable (47.2%)" \
+py "$SKILL_DIR/scripts/underwrite.py" --arv 169200 --repairs 39200 --fee 10000 --ask 79900 2>&1 \
+  | grep -q "MAYBE - MAO is 86.7% of asking" \
+  && pass "the \$79,900 ask is judged MAYBE at 86.7% under the median method" \
   || fail "asking-price verdict drifted"
 # the buyer ceiling must never be presented as the seller MAO
-echo "$out" | grep -q "seller MAO \$   37,741" \
+echo "$out" | grep -q "seller MAO" \
   && pass "seller MAO printed distinct from buyer max" \
-  || pass "seller MAO printed distinct from buyer max (formatting variant)"
+  || fail "seller MAO not distinguished from buyer max"
+
+section "9i. ARV IS THE MEDIAN METHOD AND NOTHING ELSE"
+# The user directed one method: sqft x median $/sf. A haircut, a percentile
+# tier, or a second formula must never reappear in the engine.
+if grep -qE "HAIRCUT|arv_low|arv_point|arv_high|underwrite_to" "$SKILL_DIR/scripts/comp.py"; then
+  fail "a haircut or percentile tier survived in comp.py"
+else
+  pass "no haircut, no percentile tiers in the engine"
+fi
+if grep -q "percentile(ppsf, 0.50)" "$SKILL_DIR/scripts/comp.py"; then
+  pass "the ARV is built on the median"
+else
+  fail "the median is not the basis of the ARV"
+fi
+out="$(py "$SKILL_DIR/scripts/comp.py" --selftest 2>&1)"
+echo "$out" | grep -q "MEDIAN method" && fail "docstring still describes the old method" \
+  || pass "engine docstring matches the median method"
+# the spread must be confidence, not a range of ARVs
+if grep -q "ppsf_spread" "$SKILL_DIR/scripts/comp.py"; then
+  pass "comp-set spread is computed and reported"
+else
+  fail "spread not reported"
+fi
+# and the docs must not offer a second route
+if grep -rqE "0\.88|p75 .*sqft|× 0\.88" --include="*.md" "$SKILL_DIR" 2>/dev/null \
+   && grep -rqE "0\.88" --include="*.md" "$SKILL_DIR" 2>/dev/null; then
+  if grep -rlE "0\.88" --include="*.md" "$SKILL_DIR" 2>/dev/null | grep -qvE "AUDIT.md|MEMORY.md|COMPING.md"; then
+    fail "a reference still teaches the 0.88 haircut"
+  else
+    pass "0.88 survives only as documented history, never as instruction"
+  fi
+else
+  pass "no reference teaches the 0.88 haircut"
+fi
 
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \

@@ -8,7 +8,7 @@ Enforces the rule the report is graded on:
     < 5 comps -> ARV INSUFFICIENTLY SUPPORTED. No number is produced.
 
 The ARV arithmetic itself lives in the wholesale-realestate repo (comping/comp.py:
-p75 $/sqft x sqft x 0.88, neighbourhood gate, radius ladder). This script is the
+sqft x median $/sqft, neighbourhood gate, radius ladder). This script is the
 gate that decides whether that arithmetic is allowed to run at all.
 
 Usage:

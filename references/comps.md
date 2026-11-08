@@ -76,14 +76,15 @@ for our purposes unless a county record was pulled — say which.
 
 ## ARV
 
-Use the **renovated** comps for ARV, the distressed ones for the as-is floor.
+Use the **renovated** comps for ARV. Distressed sales are not a second valuation.
 
 ```
-p75 $/sqft of the chosen comps × subject sqft × 0.88
+MEDIAN $/sqft of the chosen comps × subject sqft
 ```
 
-p75 prices the subject as one of the better houses in its own comp set — which is what
-it becomes after the work. The 0.88 backs it off. Use both or neither.
+Median, not average, so one strange sale cannot drag the ARV. No haircut, no
+percentile tier, no second method — the median is the number. The p25-p75 spread
+is reported as confidence, never as a range of ARVs.
 
 Then report, always:
 

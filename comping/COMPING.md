@@ -12,9 +12,14 @@ The executable version is `scripts/comp.py`; read this to understand it, run tha
 
 ## 0. The one sentence
 
-**ARV is `sqft × p25/p50/p75($/sqft of ≥3 arm's-length closed sales in the same
+**ARV is `sqft × MEDIAN($/sqft of ≥3 arm's-length closed sales in the same
 neighbourhood, within 1.5 mi, within 6–12 months, within ±30% sqft, at or above the
-subject's bed count, in renovated condition) × 0.88` — or it is blank.**
+subject's bed count, in renovated condition)` — or it is blank.**
+
+**One method. Median, not average, not a percentile tier, and no haircut.** The
+median is used because one strange sale cannot drag the ARV: the lowest sale
+cannot pull it down and the highest cannot inflate it. There is no second way to
+compute an ARV in this system and there is nothing stacked on top of the median.
 
 There is no third option. "Blank" is a legitimate, shippable answer; an invented number
 is not. `NO COMPS` is a status, not a problem to be papered over.
@@ -26,7 +31,7 @@ is not. `NO COMPS` is a status, not a problem to be papered over.
 | Term | What it means | What it is **not** |
 |---|---|---|
 | **ARV** | Post-repair value from closed sales, same neighbourhood, with the filter ladder below | A Zestimate, an asking price, a tax assessment, "what it'll be worth" |
-| **As-is value** | `sqft × p25($/sqft) × 0.88` | ARV. Never present one as the other |
+| **As-is value** | not separately modelled — the ARV is the only figure | ARV. Do not invent a second number |
 | **Zestimate** | An automated property-level estimate — **an anchor for off-market only** | An ARV. Never combined with, averaged into, or used to "support" an ARV |
 | **Asking price** | What the seller wants | A comp. Asking prices set ceilings on *nothing* |
 | **Ceiling** | `0.70 × value − repairs` | An offer. It is the most you may pay |
@@ -65,7 +70,7 @@ Comp universe first, then the ladder per subject. Constants are in `scripts/comp
    radius that yields **≥3** comps. Never keep widening to reach a number.
 4. **Style preference:** if ≥3 in-radius comps share the subject's style, use only those.
 5. **Under 3 comps at 1.50 mi → `NO COMPS`.** Do not widen, do not fall back to a ZIP
-   band, do not average across tiers. Say it is unpriced and move on.
+   band, do not average. Say it is unpriced and move on.
 
 **Two filters run *inside the ladder*, not after it.** A radius is only accepted if
 the set that survives every filter is still ≥3:
@@ -84,30 +89,33 @@ the set that survives every filter is still ≥3:
 
 If a radius cannot produce a clean set, the ladder tries the next radius and says so,
 then stops at 1.50 mi. It never reinstates an outlier, and it never averages across
-tiers.
+percentiles.
 
 **Then:**
 
 ```
-p25   = 25th percentile of $/sqft across the chosen comps
-p50   = median
-p75   = 75th percentile
-ARV LOW   = round(subject_sqft × p25 × 0.88)
-ARV POINT = round(subject_sqft × p50 × 0.88)
-ARV HIGH  = round(subject_sqft × p75 × 0.88)
-as_is     = ARV LOW  (p25 is the as-is floor - never shown as the ARV)
-confidence = HIGH if n >= 6 else LOW
-underwrite to POINT when HIGH, to LOW when LOW
+median = MEDIAN of $/sqft across the chosen comps
+ARV    = round(subject_sqft × median)
+
+spread = (p75 − p25) / median × 100          # REPORTED, not used
+confidence = TIGHT if spread <= 25 else WIDE if spread <= 50 else VERY WIDE
 ```
 
-The headline ARV is whichever tier you underwrite to, and the report must say which.
-`$200K ARV` alone is not reportable — `ARV $112K / $117K / $121K, underwriting to LOW`
-is.
+One ARV. There is no LOW, no POINT, no HIGH, and no haircut. The p25–p75 spread
+is printed next to the ARV as a **confidence** measure — a wide comp set is a
+reason to trust the number less, not a reason to quote three different numbers
+for one house.
 
-**Why p75 and not the median.** p75 prices the subject as one of the better houses in
-its own comp set — which is what a *renovated* subject will be after the work. The
-`0.88` haircut then backs that off. The pair is deliberate: don't "improve" one
-without the other, and never use p75 without the haircut.
+**Why the median and not the average.** A single forced or distressed sale can
+move an average by thousands of dollars per foot; the median ignores it by
+construction. This is the whole reason for using it.
+
+**Why no haircut.** A haircut on top of the median is a second opinion with no
+evidence behind it. If the comp set is right, the median is the ARV. If the comp
+set is wrong, a haircut does not fix it — better comps do. An arbitrary
+percentage is unfalsifiable: it cannot be checked against a sale, so it can only
+ever make the number wrong in a direction nobody measured. This is why the old
+tier-and-haircut method was removed.
 
 ---
 
@@ -204,15 +212,14 @@ Never report a single point estimate without its skeleton:
 
 ```
 141 Grand Ave, 44302 — 3/1, 1,642 sf
-ARV $125,000   basis: 1,642 sf × $78/sf (p75) × 0.88   n=4   radius 0.50 mi   44302   LOW
-As-is $86,000  basis: p25
+ARV $137,012   basis: 1,642 sf × $83.44/sf MEDIAN   n=4   radius 0.50 mi   44302   TIGHT
 Anchor used: none (on-market, comps available)
 Ceiling $77,500 @ $10,000 repairs → contract $67,500 vs ask $95,000 → needs −29%   REJECT
 ```
 
 Rules for the output:
 - State **n**, **radius**, **neighbourhood**, **confidence** on every ARV. No exceptions.
-- Give a **range** when confidence is LOW, and say what would narrow it.
+- Report the comp-set **spread** as confidence. Never turn it into a range of ARVs.
 - Label every number `ESTIMATE — not an appraisal, not an offer`.
 - Name what you could not get (MLS access, interior, rent roll, county records) and how
   that weakens the number. An ARV with a hidden assumption is a lie with a decimal point.

@@ -8,9 +8,11 @@ The rule (see comping/COMPING.md section 2):
               -> smallest radius with >=3 -> RENOVATED condition only
               -> consistency gate (drop illogical price gaps)
 
-    ARV LOW    = subject_sqft x p25 $/sqft x 0.88
-    ARV POINT  = subject_sqft x p50 $/sqft x 0.88
-    ARV HIGH   = subject_sqft x p75 $/sqft x 0.88
+    ARV = subject_sqft x MEDIAN $/sqft of the comp set
+
+    Median, not average, not a percentile tier, and with NO haircut. One method,
+    one number. The lowest sale cannot drag the ARV down and the highest cannot
+    inflate it. A comp set with three-and-a-bit comps still has one ARV.
 
     under 3 comps at 1.50 mi -> NO ARV. Do not widen, do not average.
 
@@ -46,9 +48,7 @@ from datetime import date, timedelta
 RADIUS_LADDER = (0.25, 0.50, 0.75, 1.00, 1.25, 1.50)
 RADIUS_CAP = 1.50
 MIN_COMPS = 3
-HIGH_CONFIDENCE_COMPS = 6
 SQFT_BAND = 0.30
-HAIRCUT = 0.88
 MIN_COMP_SQFT = 400
 MIN_COMP_PRICE = 20_000
 PPSF_MIN, PPSF_MAX = 20.0, 300.0
@@ -152,19 +152,15 @@ def economics(arv: float, repairs: float = 0.0) -> dict:
     }
 
 
-def buyer_max_by_tier(result: "CompResult", repairs: float) -> dict:
-    """Step 9: BUYER MAX = (ARV x 0.70) - repairs, on each ARV tier.
+def buyer_max(result: "CompResult", repairs: float) -> int | None:
+    """Step 9: BUYER MAX = (ARV x 0.70) - repairs.
 
-    This is the BUYER's ceiling, not the seller-facing MAO. The seller MAO is
-    this minus the assignment fee and the wholesaler's costs (underwrite.py).
-    Printing this as "MAO" overstated the offer price by the fee.
+    One ARV means one buyer max. This is the BUYER's ceiling, not the
+    seller-facing MAO, which is this minus the fee and wholesaler costs.
     """
-    out = {}
-    for label, key in (("LOW", "arv_low"), ("POINT", "arv_point"), ("HIGH", "arv_high")):
-        v = getattr(result, key)
-        if v:
-            out[label] = economics(v, repairs)["CEILING (0.70 x ARV - repairs)"]
-    return out
+    if not result.arv:
+        return None
+    return int(round(BUYER_PCT * result.arv - repairs))
 
 
 # ---------------------------------------------------------------------------
@@ -197,10 +193,9 @@ class Comp:
 @dataclass
 class CompResult:
     status: str
-    arv: int | None = None                 # headline = the tier you underwrite to
-    arv_low: int | None = None
-    arv_point: int | None = None
-    arv_high: int | None = None
+    arv: int | None = None                 # sqft x median $/sf. One method.
+    median_ppsf: float | None = None
+    ppsf_spread: float | None = None       # p25-p75 width as % of median, reported
     as_is: int | None = None
     basis: str = ""
     n: int = 0
@@ -213,13 +208,8 @@ class CompResult:
     non_renovated: list[Comp] = field(default_factory=list)
     rejected: dict = field(default_factory=dict)
     note: str = ""
-    underwrite_to: str = "POINT"
     note_bed_unknown: int = 0      # comps admitted with an UNKNOWN bed count
     style_filtered: tuple = ()     # (before, after) when the style filter narrowed the pool
-
-    def tier(self, label: str) -> int | None:
-        return {"LOW": self.arv_low, "POINT": self.arv_point,
-                "HIGH": self.arv_high}.get(label)
 
 
 # ---------------------------------------------------------------------------
@@ -376,32 +366,33 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
     if chosen_radius is None:
         result.note = (f"no radius up to {RADIUS_CAP} mi produced a clean comp set: "
                        f"{last_refusal}. UNPRICED - do not widen further, do not "
-                       f"average across tiers, do not reinstate an outlier to reach a count.")
+                       f"average, do not reinstate an outlier to reach a count.")
         return result
 
     ppsf = [c.ppsf for c in pool2]
-    p25, p50, p75 = (percentile(ppsf, q) for q in (0.25, 0.50, 0.75))
+    median = percentile(ppsf, 0.50)
+    p25, p75 = percentile(ppsf, 0.25), percentile(ppsf, 0.75)
 
     result.status = STATUS_PRICED
-    result.arv_low = int(round(subject_sqft * p25 * HAIRCUT))
-    result.arv_point = int(round(subject_sqft * p50 * HAIRCUT))
-    result.arv_high = int(round(subject_sqft * p75 * HAIRCUT))
-    # ALIAS, not an independent measure: the as-is floor IS the low ARV. Keep the
-    # field for reporting, but never present the two as separate findings.
-    result.as_is = result.arv_low
+    result.median_ppsf = median
+    # ARV = subject sqft x MEDIAN $/sf of the comp set. Nothing stacked on top.
+    # No haircut, no percentile tier, no second method. This is the only way
+    # this system produces an ARV.
+    result.arv = int(round(subject_sqft * median))
+    # The as-is figure is the same number here: there is no separate as-is model.
+    result.as_is = result.arv
     result.n = len(pool2)
     result.radius = chosen_radius
     result.chosen = pool2
-    result.confidence = "HIGH" if len(pool2) >= HIGH_CONFIDENCE_COMPS else "LOW"
-    # Underwrite to the POINT when confidence is HIGH, to the LOW when it is not.
-    result.underwrite_to = "POINT" if result.confidence == "HIGH" else "LOW"
-    result.arv = result.tier(result.underwrite_to)
-    result.basis = (f"{int(subject_sqft)}sqft x [${p25:,.0f} / ${p50:,.0f} / ${p75:,.0f}]"
-                    f"/sqft p25-p50-p75 x {HAIRCUT}; n={len(pool2)}, {chosen_radius} mi, "
-                    f"{subject_hood}; renovate-only; underwriting to "
-                    f"{result.underwrite_to}")
-    result.note = ("p25 is also the as-is floor - never shown as ARV. "
-                   "Underwrite to the LOW when confidence is LOW.")
+    # The spread is REPORTED, never turned into a range of ARVs. A wide comp set
+    # is a confidence problem, not three different valuations of one house.
+    result.ppsf_spread = round((p75 - p25) / median * 100, 1) if median else 0.0
+    result.confidence = ("TIGHT" if result.ppsf_spread <= 25
+                         else "WIDE" if result.ppsf_spread <= 50 else "VERY WIDE")
+    result.basis = (f"{int(subject_sqft)}sqft x ${median:,.2f}/sf MEDIAN of n={len(pool2)} "
+                    f"renovated comps; {chosen_radius} mi, {subject_hood}; median method")
+    result.note = (f"comp $/sf spreads {result.ppsf_spread}% (p25 ${p25:,.0f} to "
+                   f"p75 ${p75:,.0f}) - that is confidence, not a range of ARVs.")
     return result
 
 
@@ -456,8 +447,8 @@ def check_5_no_invented_arv(row: Priced) -> tuple[bool, str]:
     r = row.result
     if r.status == STATUS_PRICED:
         return True, "priced from comps"
-    invented = (r.arv is not None or r.arv_low is not None or r.arv_point is not None
-                or r.arv_high is not None or bool(r.basis) or r.confidence != STATUS_NONE)
+    invented = (r.arv is not None or r.median_ppsf is not None
+                or bool(r.basis) or r.confidence != STATUS_NONE)
     return (not invented), ("unpriced row carries an ARV/basis/confidence"
                             if invented else "unpriced row is clean: no ARV, no basis")
 
@@ -603,10 +594,9 @@ def selftest() -> int:
     print(f"  non-renovated dropped: {[c.address for c in result.non_renovated]}")
     print(f"  outliers dropped: {[c.address for c in result.outliers]}")
     print(f"  chosen: {[(c.address, f'${c.ppsf:.0f}/sf', c.beds) for c in result.chosen]}")
-    print(f"  ARV ${result.arv_low:,} / ${result.arv_point:,} / ${result.arv_high:,} "
-          f"(low/point/high)")
-    print(f"  underwriting to {result.underwrite_to} = ${result.arv:,}  n={result.n}  "
-          f"radius {result.radius} mi  {result.confidence}\n")
+    print(f"  ARV ${result.arv:,}  (median ${result.median_ppsf:,.2f}/sf x 1642)")
+    print(f"  n={result.n}  radius {result.radius} mi  spread {result.ppsf_spread}%  "
+          f"{result.confidence}\n")
 
     row = Priced(subject=subject, result=result)
     failures = 0
@@ -695,9 +685,9 @@ def selftest() -> int:
         print(f"    {t:9} ${lo:,} / ${pt:,} / ${hi:,}  (${REPAIR_TIERS[t]}/sf)")
 
     # -- MAO per ARV tier --------------------------------------------------
-    print("\n  BUYER MAX by ARV tier at $65,000 repairs (Step 9):")
-    for label, v in buyer_max_by_tier(result, 65_000).items():
-        print(f"    ARV {label:5} ${result.tier(label):>8,}  ->  MAO ${v:>8,}")
+    bm = buyer_max(result, 65_000)
+    print(f"\n  BUYER MAX at $65,000 repairs (Step 9): ARV ${result.arv:,} -> ${bm:,}")
+    print(f"    at $10,000 fee -> seller MAO ${bm - 10_000:,}")
 
     print("\n  Economics regressions:")
     cases = [
@@ -784,21 +774,18 @@ def cmd_arv(args) -> int:
 
     print()
     if result.status == STATUS_PRICED:
-        print(f"ARV LOW    ${result.arv_low:>9,}")
-        print(f"ARV POINT  ${result.arv_point:>9,}")
-        print(f"ARV HIGH   ${result.arv_high:>9,}")
-        print(f"UNDERWRITE {result.underwrite_to} = ${result.arv:,}")
-        print(f"AS-IS      ${result.as_is:>9,}   (= ARV LOW, an alias - not a second finding)")
-        print(f"CONF       {result.confidence}  n={result.n}  radius {result.radius} mi")
+        print(f"ARV        ${result.arv:>9,}   (sqft x median $/sf - the only method)")
+        print(f"MEDIAN     ${result.median_ppsf:>9,.2f}/sf")
+        print(f"CONF       {result.confidence}  spread {result.ppsf_spread}%  n={result.n}  "
+              f"radius {result.radius} mi")
         print(f"BASIS      {result.basis}")
         if args.repairs is not None:
-            print("\nBUYER MAX BY TIER (Step 9: (ARV x 0.70) - repairs) - NOT the seller MAO")
-            for label, v in buyer_max_by_tier(result, args.repairs).items():
-                mark = "  <- underwrite here" if label == result.underwrite_to else ""
-                print(f"  ARV {label:5} ${result.tier(label):>9,}  ->  buyer max ${v:>9,}{mark}")
-                print(f"{'':30}  at ${WHOLE_FEE:,} fee -> seller MAO ${v - WHOLE_FEE:>9,}")
+            bmax = buyer_max(result, args.repairs)
+            print(f"\nBUYER MAX (Step 9: (ARV x 0.70) - repairs) - NOT the seller MAO")
+            print(f"  ARV ${result.arv:,}  ->  buyer max ${bmax:,}")
+            print(f"{'':22}  at ${WHOLE_FEE:,} fee -> seller MAO ${bmax - WHOLE_FEE:,}")
             e = economics(result.arv, args.repairs)
-            print(f"\n  CEILING at {result.underwrite_to}  ${e['CEILING (0.70 x ARV - repairs)']:,}")
+            print(f"\n  CEILING             ${e['CEILING (0.70 x ARV - repairs)']:,}")
             print(f"  OFFER LOW (0.55)    ${e['OFFER LOW (0.55)']:,}")
             print(f"  OFFER HIGH (0.60)   ${e['OFFER HIGH (0.60)']:,}")
             print(f"  CONTRACT for fee    ${e['CONTRACT FOR $10K FEE']:,}")

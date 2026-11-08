@@ -274,5 +274,46 @@ matches the code. They do not prove the code matches reality.
 | S1-5 no location field | open — needs a `references/location.md` and a gate field |
 | S2-1 geometry assumptions | open — documented, not fixed |
 | S2-2 no time adjustment | open — documented, not fixed |
-| S2-3 unvalidated calibration | open — requires outcome data that does not exist yet |
+| S2-3 unvalidated calibration | partly — the 0.88 haircut is DELETED, which removes 12% of the unexplained stack. The median x 0.70 cap is still unvalidated against a resale |
 | S2-4 test kind blur | open — labelled in this file, not yet split in the suite |
+
+
+---
+
+## Post-audit correction: the 0.88 haircut (2026-11-08, user-directed)
+
+The finding that mattered most was not in the list above. It was found by
+comparing this system's ARV against RealVenture's published method:
+
+> We take the median price per square foot across your five comps and multiply
+> by your subject's size. Median, not average, so one strange sale cannot drag
+> your ARV around.
+
+This repo was computing `p75 × sqft × 0.88`, and defaulting to `p25 × sqft × 0.88`
+whenever confidence was not HIGH. Both differ from the house method.
+
+On 262 S Harris Ave:
+
+| method | ARV | seller MAO | % of asking |
+|---|---|---|---|
+| median, no haircut | $169,200 | $69,240 | 86.7% |
+| p50 x 0.88 | $148,896 | $55,027 | 68.9% |
+| p25 x 0.88 | $124,202 | $37,741 | 47.2% |
+
+The same house read as "MAYBE, a $10,660 gap" under the house method and "NO"
+under mine. The verdict difference was produced entirely by a constant.
+
+**The 0.88 had no source.** It is not in the user's ten-step spec, it is not an
+appraisal adjustment, and it is not backed by any sale/resale observation. It was
+in the repo before this session and was carried forward and defended in prose
+("the 0.88 backs it off") without ever being justified. That is the exact failure
+mode this file exists to catch: a number that looks like a rule and is actually a
+guess.
+
+**Deleted.** ARV is now `sqft × median $/sf`, one method, one number. The
+p25–p75 spread is reported as confidence instead of being turned into three
+different ARVs. A guard test fails the suite if a haircut, a percentile tier or
+a second formula reappears in the engine.
+
+Lesson for the next audit: the dangerous numbers are not the ones the code
+computes, they are the constants it was told to use.

@@ -26,16 +26,18 @@ Excluded, with reason:
 | 429 S Harris Ave $82,500 | 4bd/2ba bank-ish as-is, sold as project not renovated |
 | 145 Lechner Ave $92,000 | "ready for a complete renovation" |
 
-Result: ARV LOW $124,202 / POINT $148,896 / HIGH $152,637, n=5, 0.5 mi,
-confidence LOW (needs 6 for POINT), underwriting to the LOW.
+Result: **ARV $169,200** = 1,120 sf × $151.07/sf median, n=5, 0.5 mi,
+confidence TIGHT (p25–p75 spread 19.1%).
 
 Repairs at moderate $35/sf: $33,320 / $39,200 / $45,080.
 
-Seller MAO at LOW = $37,741. Asking $79,900 is **47.2% of asking** — not a
-negotiation, a different deal. Verdict: no.
+Buyer max $79,240 → seller MAO $69,240. Asking $79,900 is **86.7% of asking** —
+a $10,660 gap. Verdict: MAYBE, needs a real cut. Under the old tier-and-haircut
+method this read 47.2% and "NO"; that verdict was produced by a constant, not by
+the market.
 
 ## What this example proves and what it does not
 
 It proves the ladder runs on real records and refuses to invent a number.
-It does NOT prove the ARV is right — `AUDIT.md` S2-3: the conservative stack
-(0.88 x 0.70) has never been checked against an actual resale.
+It does NOT prove the ARV is right — the median × 0.70 cap has still never been
+checked against an actual resale (see `AUDIT.md`).

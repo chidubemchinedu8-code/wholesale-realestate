@@ -4,7 +4,7 @@ Detail lives in `SKILL.md` and `references/`. This file is the short index of
 where each rule is enforced and how to prove it still holds.
 
 - Entry point: the only copy is `SKILL.md` at the repo root; `scripts/preflight.sh` loads it and prints its version, so never hard-code a version here - it drifts [added: 2026-11-08]
-- Comp/ARV arithmetic, deeper rulebook: `comping/COMPING.md`; executable in `scripts/comp.py` — neighbourhood gate, radius ladder 0.25→1.50 mi, ≥3 comps same neighbourhood, p75 × 0.88, `NO COMPS` rather than a widened radius [added: 2026-11-08]
+- Comp/ARV arithmetic, deeper rulebook: `comping/COMPING.md`; executable in `scripts/comp.py` — neighbourhood gate, radius ladder 0.25→1.50 mi, ≥3 comps same neighbourhood, **sqft × median $/sf, no haircut**, `NO COMPS` rather than a widened radius [added: 2026-11-08]
 - Five-comp submission standard: `references/comps.md`; enforced by `scripts/comps.py` (no ARV under five) [added: 2026-11-08]
 - On-market priorities and the 14-day rejection: `references/on-market.md`; enforced by `scripts/rank_listing.py` [added: 2026-11-08]
 - Off-market signals, PropWire limits, county GIS workaround: `references/off-market.md` [added: 2026-11-08]

@@ -1,6 +1,6 @@
 ---
 name: wholesale-realestate
-version: 2.2.0
+version: 3.0.0
 description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
@@ -59,7 +59,7 @@ condition classification and a repair range.
 | `scripts/preflight.sh` | The skill is intact and current — run it first |
 | `scripts/rank_listing.py` | DOM/reduction priorities, the 14-day rejection |
 | `scripts/comps.py` | Five-comp rule; no ARV under five |
-| `scripts/comp.py` | ARV: neighbourhood gate, bed floor, renovated-only, consistency gate, radius ladder, LOW/POINT/HIGH × 0.88 |
+| `scripts/comp.py` | ARV: neighbourhood gate, bed floor, renovated-only, consistency gate, radius ladder, **sqft × MEDIAN $/sf** |
 | `scripts/anchor.py` | ZIP/neighbourhood median $/sf anchor, and bimodal detection |
 | `scripts/underwrite.py` | Buyer max ≠ seller MAO; the $200K check |
 | `scripts/zip_ledger.py` | What was scanned, and the duplicate guard |
@@ -91,8 +91,9 @@ Each has `--selftest`, and each selftest must pass before a number is quoted.
 20. **Zillow is the primary manual discovery reference; Redfin is a secondary cross-check.** Neither is licensed data. Two portals agreeing is not verification — see `references/data-access.md`.
 21. **UNKNOWN is never a pass.** A missing bed count, condition, location or address suffix does not satisfy a rule — it fails it. Excluding a comp for missing data is correct; admitting it is guessing.
 22. **Whatever narrows the comp pool must be printed.** A filter that changes the ARV without appearing in the report is an invisible decision. Style, radius, condition, bed floor and consistency band all name their effect and their count.
-23. **The buyer's ceiling is not the seller's MAO.** `BUYER MAX = (ARV x 0.70) - repairs`; seller MAO = buyer max - fee - wholesaler costs. Never label the first one MAO. A non-positive MAO is not a thin deal, it is no deal — refuse, do not format it.
-24. **The arithmetic is unvalidated.** Every rule here is internally consistent and none has been checked against a real outcome. Say so before anyone stakes money on a number. See `AUDIT.md`.
+23. **There is exactly one way to get an ARV: `sqft × MEDIAN $/sf`.** Not the average, not p75, not a tier, and **no haircut**. The p25–p75 spread is confidence, never a range of ARVs. Any haircut, discount factor or second formula is forbidden — it cannot be checked against a sale, so it can only move the number in a direction nobody measured.
+24. **The buyer's ceiling is not the seller's MAO.** `BUYER MAX = (ARV x 0.70) - repairs`; seller MAO = buyer max - fee - wholesaler costs. Never label the first one MAO. A non-positive MAO is not a thin deal, it is no deal — refuse, do not format it.
+25. **The arithmetic is unvalidated.** Every rule here is internally consistent and none has been checked against a real outcome. Say so before anyone stakes money on a number. See `AUDIT.md`.
 
 ## Red Flags
 
@@ -237,8 +238,8 @@ worked.
 | Buyer max contract | (ARV × 0.70) − Repairs − buyer costs |
 | Seller-facing MAO | Buyer max − assignment fee − wholesaler costs |
 | Buyer gross spread | ARV − Contract − Repairs (gross, not profit) |
-| Subject ARV | Sqft × p75 $/sqft × 0.88 (see `references/comps.md`) |
-| As-is value | Sqft × p25 $/sqft × 0.88 |
+| Subject ARV | Sqft × **median** $/sqft (see `references/comps.md`) |
+| As-is value | not separately modelled — one ARV, no second figure |
 | Assignment fee | End buyer price − contract price |
 
 ## Quick commands
