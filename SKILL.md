@@ -1,7 +1,7 @@
 ---
 name: wholesale-realestate
-version: 3.0.0
-description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, assigning a contract, or deciding whether a deal is worth pursuing
+version: 3.1.0
+description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, negotiating with a seller or buyer (anchoring, concessions, influence), assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
 # Wholesale Real Estate — Sourcing and Underwriting
@@ -37,6 +37,7 @@ references are the detail and they change.
 | Qualification gate, verdict, report format | `references/qualification.md` |
 | Labels, provenance, anti-hallucination | `references/data-integrity.md` |
 | Licensing, MLS/RESO routes, buying data | `references/data-access.md` |
+| **Seller call, anchoring, concessions, influence** | `references/negotiation.md` |
 | Deeper comp arithmetic (neighbourhood gate, radius ladder) | `comping/COMPING.md` |
 
 ## The pipeline
@@ -62,6 +63,7 @@ condition classification and a repair range.
 | `scripts/comp.py` | ARV: neighbourhood gate, bed floor, renovated-only, consistency gate, radius ladder, **sqft × MEDIAN $/sf** |
 | `scripts/anchor.py` | ZIP/neighbourhood median $/sf anchor, and bimodal detection |
 | `scripts/underwrite.py` | Buyer max ≠ seller MAO; the $200K check |
+| `scripts/negotiate.py` | Pre-call gate: no written BATNA, no talk track |
 | `scripts/zip_ledger.py` | What was scanned, and the duplicate guard |
 | `scripts/gate.py` | The 15-point gate, mechanically |
 
@@ -94,6 +96,11 @@ Each has `--selftest`, and each selftest must pass before a number is quoted.
 23. **There is exactly one way to get an ARV: `sqft × MEDIAN $/sf`.** Not the average, not p75, not a tier, and **no haircut**. The p25–p75 spread is confidence, never a range of ARVs. Any haircut, discount factor or second formula is forbidden — it cannot be checked against a sale, so it can only move the number in a direction nobody measured.
 24. **The buyer's ceiling is not the seller's MAO.** `BUYER MAX = (ARV x 0.70) - repairs`; seller MAO = buyer max - fee - wholesaler costs. Never label the first one MAO. A non-positive MAO is not a thin deal, it is no deal — refuse, do not format it.
 25. **The arithmetic is unvalidated.** Every rule here is internally consistent and none has been checked against a real outcome. Say so before anyone stakes money on a number. See `AUDIT.md`.
+26. **No written BATNA, no seller call.** Target, reservation, your alternative to
+    this deal, their alternative, their deadline and three non-price trade
+    variables must exist in writing before the gate will print a talk track.
+    `scripts/negotiate.py --check` enforces it. The comps decide the number; the
+    negotiation decides whether you reach it. Neither substitutes for the other.
 
 ## Red Flags
 
@@ -167,9 +174,10 @@ current photos or a walkthrough before it can be `STRONG`.
 Sourcing and underwriting are the front of the deal. The later stages live below,
 and they use the numbers this standard produces:
 
-- **Stage 4 — the offer.** Open at `OFFER LOW` (55% of ARV − repairs), never above
-  `OFFER HIGH` (60%). The room to negotiate is the 55→70% friction, which already
-  exists. Offer script and PSA checklist follow.
+- **Stage 4 — the offer.** Anchor once, precisely, at or just above `TARGET`
+  (55–60% of ARV − repairs), with one sentence of justification from the comps,
+  then stop talking. Everything after the anchor is `references/negotiation.md`
+  and the `scripts/negotiate.py` gate. PSA checklist follows.
 - **Stage 5 — end buyer and assignment.** Assignment fee = end buyer price −
   contract price. The assignment agreement must reference the original contract.
 - **Stage 6 — close.** Title company, title search, proof of funds, signed
@@ -187,10 +195,23 @@ close in [14–21] days, no commissions, no contingencies.
 Would that work for you?"
 ```
 
-**Negotiation anchors**
-- Open at `OFFER LOW` (55% of ARV − repairs); never open above `OFFER HIGH` (60%).
-- Emphasise speed, certainty, and no repairs.
-- If the seller counters high: "What's the lowest you'd go to close quickly?"
+**Negotiation — run `bash scripts/negotiate.py --check` first**
+
+The anchor is the best-supported tactic in the research (Galinsky & Mussweiler
+2001; Orr & Guthrie meta-analysis r ≈ .50) and opening at 55–60% of ARV net of
+repairs is the right anchor: aggressive, precise, and explainable from the comps.
+Everything else is in `references/negotiation.md`. The four rules that matter:
+
+1. **No written BATNA, no call.** The gate refuses to print a talk track without
+   a target, a reservation, a real alternative to this deal, and three trade
+   variables. A weak BATNA loses more deals than any tactic wins.
+2. **Do not ask "what's the lowest you'd go?"** It invites the counter-anchor,
+   surrenders your information advantage, and frames you as eager. Ask what would
+   make it worth doing for them, instead.
+3. **Never concede without a trade.** Price, closing date, earnest money,
+   repairs, possession, financing — non-price currency is where deals close.
+4. **Beyond the reservation, say no plainly.** A preserved relationship and a
+   clean no beat a thin yes that dies at the closing table.
 
 **Purchase and Sale Agreement checklist**
 - Property address and legal description

@@ -33,7 +33,7 @@ else
   fail "frontmatter name is '$name', expected wholesale-realestate"
 fi
 
-refs="market-research on-market off-market comps condition repairs underwriting qualification data-integrity"
+refs="market-research on-market off-market comps condition repairs underwriting qualification data-integrity data-access negotiation"
 missing=0
 for r in $refs; do
   if [ -r "$SKILL_ROOT/references/$r.md" ]; then
@@ -44,19 +44,19 @@ for r in $refs; do
   fi
 done
 if [ "$missing" -eq 0 ]; then
-  pass "all 9 references present and readable"
+  pass "all 10 references present and readable"
 else
   fail "$missing reference file(s) missing — README says which steps you cannot run"
 fi
 
-scripts="underwrite.py zip_ledger.py gate.py comps.py rank_listing.py comp.py anchor.py"
+scripts="underwrite.py zip_ledger.py gate.py comps.py rank_listing.py comp.py anchor.py negotiate.py"
 missing=0
 for s in $scripts; do
   if [ -r "$SKILL_ROOT/scripts/$s" ]; then :; else
     echo "  [MISSING] scripts/$s"; missing=$((missing + 1)); fi
 done
 if [ "$missing" -eq 0 ]; then
-  pass "all 7 scripts present"
+  pass "all 8 scripts present"
 else
   fail "$missing script(s) missing — arithmetic and ledger checks unavailable"
 fi
@@ -117,6 +117,11 @@ if command -v python3 >/dev/null 2>&1; then
     pass "median anchor + bimodal detection behave"
   else
     fail "anchor selftest FAILED"
+  fi
+  if python3 "$SKILL_ROOT/scripts/negotiate.py" --selftest >/dev/null 2>&1; then
+    pass "pre-call negotiation gate refuses a talk track without a BATNA"
+  else
+    fail "negotiation gate selftest FAILED - do not open a seller conversation"
   fi
 else
   fail "python3 not available — arithmetic cannot be verified, do not quote numbers"

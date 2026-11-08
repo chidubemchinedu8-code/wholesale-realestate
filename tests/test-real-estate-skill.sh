@@ -570,6 +570,62 @@ else
   pass "no reference teaches the 0.88 haircut"
 fi
 
+section "9j. NEGOTIATION: EVIDENCE-GROUNDED, GATED, AND ONLY ONE COPY"
+NEG="$SKILL_DIR/references/negotiation.md"
+if [ -r "$NEG" ]; then pass "references/negotiation.md exists"; else fail "negotiation reference missing"; fi
+# the old, harmful advice must be gone from every instruction file
+# (excluding this file: a guard that greps its own pattern trips on itself)
+if grep -rq "lowest you'd go to close quickly" --include="*.md" \
+     "$SKILL_DIR" 2>/dev/null; then
+  fail "the 'what is the lowest you'd go' script survived somewhere"
+else
+  pass "the counter-anchor-inviting question is purged from the repo"
+fi
+# it must be evidence-graded, not motivational
+for src in "Galinsky" "Mussweiler" "Northcraft" "Cialdini" "Ames"; do
+  grep -q "$src" "$NEG" && pass "negotiation cites $src" \
+    || fail "negotiation does not cite $src"
+done
+# the honest-use boundary must be explicit
+grep -qi "does the shortcut point at something true" "$NEG" \
+  && pass "influence is bounded by a truth test; manipulation is banned" \
+  || fail "no honest-use test in the negotiation reference"
+grep -qi "manufactured\|fabricated\|invented" "$NEG" \
+  && pass "fabricated social proof / scarcity is explicitly banned" \
+  || fail "no ban on fabricated influence"
+# it must state its own limits
+grep -qi "will not claim" "$NEG" && pass "the chapter states what it cannot claim" \
+  || fail "no limits section - this is how book-summary fluff gets in"
+# the gate exists and actually blocks
+if py "$SKILL_DIR/scripts/negotiate.py" --selftest >/dev/null 2>&1; then
+  pass "negotiation gate selftest passes (6 cases)"
+else
+  fail "negotiation gate selftest fails"
+fi
+py "$SKILL_DIR/scripts/negotiate.py" --check --target 62000 --reservation 69239 \
+   --batna unknown --their-batna "retail net 71K" --deadline "taxes" \
+   --trades "closing 12 days; cash as-is; your timeline" >/dev/null 2>&1
+[ $? -eq 2 ] && pass "gate returns non-zero and prints no talk track without a BATNA" \
+  || fail "gate prints a talk track without a BATNA"
+py "$SKILL_DIR/scripts/negotiate.py" --check --target 62000 --reservation 69239 \
+   --batna "two 43204 leads at gate stage" --their-batna "retail listing net 71K" \
+   --deadline "taxes due Nov 30" --trades "closing 12 days; cash as-is; your timeline" \
+   >/dev/null 2>&1 && pass "gate opens once the six fields are real" \
+  || fail "gate rejects a complete, honest brief"
+# SKILL.md must route to it
+grep -q "references/negotiation.md" "$SKILL_MD" && pass "SKILL.md routes to the negotiation reference" \
+  || fail "SKILL.md does not route to the negotiation reference"
+grep -q "No written BATNA, no seller call" "$SKILL_MD" && pass "rule 26 is in force" \
+  || fail "rule 26 missing"
+# exactly one copy anywhere in the workspace
+dupes="$(find /home/user -path /home/user/wholesale-realestate -prune -o \
+        \( -iname "*negotiat*" -o -iname "*sales-psych*" \) -print 2>/dev/null | grep -v "/\.git/")"
+if [ -z "$dupes" ]; then
+  pass "exactly one negotiation chapter exists in the workspace"
+else
+  fail "duplicate negotiation material outside the repo: $dupes"
+fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do
