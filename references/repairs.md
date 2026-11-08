@@ -12,6 +12,27 @@ contractor bid exists. Photos support a range, not a number.
 | Heavy | Multiple systems + cosmetic + exterior + partial structural | cosmetic + 3+ systems |
 | Major / structural or unknown | Foundation, roof structure, sewer, fire/water damage, or unverifiable systems | define separately, never buried in a range |
 
+## Tier rates — the quick size, and the default
+
+| Tier | $/sqft of living area | When |
+|---|---|---|
+| Light | **$20/sf** | paint, flooring, minor kitchen/bath, cosmetic exterior |
+| Moderate | **$35/sf** | full kitchen and baths, flooring throughout, some mechanicals — **the placeholder when condition is unconfirmed** |
+| Heavy | **$50/sf** | multiple systems + cosmetic + exterior + partial structural |
+
+```
+python3 scripts/comp.py --repair-tiers        # the table against several sizes
+```
+
+Size it as a **range of ±15% around the tier rate**, never a single confident number.
+At a 1,642 sf subject that is $32,840 ± $4,926 at moderate. These are the same
+`REPAIR_TIERS` constants the ARV engine uses, so the repair number and the ARV can
+never be quoted from different scales.
+
+A tier rate is a **planning size**, not a bid. Anything in the unknown-systems list
+takes a separate allowance on top, not a bigger tier — otherwise a missing roof
+silently inflates the cosmetic budget and nobody can see where the money went.
+
 ## Line items
 
 Kitchen · bathrooms · flooring · paint · drywall · windows · roof · HVAC · plumbing ·

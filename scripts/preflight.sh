@@ -47,14 +47,14 @@ else
   fail "$missing reference file(s) missing — README says which steps you cannot run"
 fi
 
-scripts="underwrite.py zip_ledger.py gate.py comps.py rank_listing.py comp.py"
+scripts="underwrite.py zip_ledger.py gate.py comps.py rank_listing.py comp.py anchor.py"
 missing=0
 for s in $scripts; do
   if [ -r "$SKILL_ROOT/scripts/$s" ]; then :; else
     echo "  [MISSING] scripts/$s"; missing=$((missing + 1)); fi
 done
 if [ "$missing" -eq 0 ]; then
-  pass "all 6 scripts present"
+  pass "all 7 scripts present"
 else
   fail "$missing script(s) missing — arithmetic and ledger checks unavailable"
 fi
@@ -95,9 +95,14 @@ if command -v python3 >/dev/null 2>&1; then
     fail "listing screen selftest FAILED"
   fi
   if python3 "$SKILL_ROOT/scripts/comp.py" --selftest >/dev/null 2>&1; then
-    pass "ARV engine: 6 checks, 6/6 mutations caught"
+    pass "ARV engine: 9 checks, 9/9 mutations caught"
   else
     fail "ARV engine selftest FAILED - do not quote an ARV"
+  fi
+  if python3 "$SKILL_ROOT/scripts/anchor.py" --selftest >/dev/null 2>&1; then
+    pass "median anchor + bimodal detection behave"
+  else
+    fail "anchor selftest FAILED"
   fi
 else
   fail "python3 not available — arithmetic cannot be verified, do not quote numbers"

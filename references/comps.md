@@ -2,6 +2,30 @@
 
 Five credible sold comps, or the ARV is not supported. There is no third state.
 
+## Step 0 — verify the subject across four sources
+
+Before any comp is pulled, establish the subject from **MLS/agent remarks, public
+records, Zillow and Redfin**. Never finalize from one source.
+
+| Source | Wins on |
+|---|---|
+| Public records (county assessor / recorder) | beds, baths, sqft, year built, lot, platted subdivision |
+| MLS / agent remarks | condition language, days on market, disclosures, showings |
+| Zillow property page | price history, Zestimate, rent estimate, MLS number |
+| Redfin | DOM, sold records, agent contact, photo set |
+
+If two sources disagree, **state the conflict and both values**, name which is more
+reliable and why, and never quietly pick the one that helps the deal.
+
+**Subdivision / plat check.** Confirm the subject's actual platted subdivision from
+public records — not an aggregator's drawn "neighbourhood" polygon, which blends
+different eras and tiers together. Where the plat is unavailable, say so, and treat
+the neighbourhood gate in `comping/COMPING.md` as ZIP-level only.
+
+Comps are split by condition tier: **ARV uses the renovated pool only**; the
+distressed/dated pool may only inform the as-is floor. Never blend the two into one
+average, and never let a distressed sale into the ARV number.
+
 ## Comp selection, in priority order
 
 1. Same ZIP code, then immediate neighbourhood

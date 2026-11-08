@@ -1,6 +1,6 @@
 ---
 name: wholesale-realestate
-version: 2.0.0
+version: 2.1.0
 description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
@@ -58,7 +58,8 @@ condition classification and a repair range.
 | `scripts/preflight.sh` | The skill is intact and current — run it first |
 | `scripts/rank_listing.py` | DOM/reduction priorities, the 14-day rejection |
 | `scripts/comps.py` | Five-comp rule; no ARV under five |
-| `scripts/comp.py` | ARV arithmetic: neighbourhood gate, radius ladder, p75 × 0.88 |
+| `scripts/comp.py` | ARV: neighbourhood gate, bed floor, renovated-only, consistency gate, radius ladder, LOW/POINT/HIGH × 0.88 |
+| `scripts/anchor.py` | ZIP/neighbourhood median $/sf anchor, and bimodal detection |
 | `scripts/underwrite.py` | Buyer max ≠ seller MAO; the $200K check |
 | `scripts/zip_ledger.py` | What was scanned, and the duplicate guard |
 | `scripts/gate.py` | The 15-point gate, mechanically |
@@ -67,27 +68,24 @@ Each has `--selftest`, and each selftest must pass before a number is quoted.
 
 ## Hard rules
 
-1. **Five comps or no ARV.** Fewer than five credible sold comps means
-   `ARV INSUFFICIENTLY SUPPORTED`, and the property is not a submission.
-2. **Same ZIP or immediate neighbourhood first.** Expand only when needed, state
-   why, and never force five weak comps to reach five.
-3. **Active listings are never comps.** Only closed sales.
-4. **Photos classify; descriptions do not.** Separate what is shown, what is
-   inferred, and what cannot be confirmed remotely.
-5. **Repairs are a range plus a contingency** unless an inspection or bid exists.
-6. **Buyer max and seller MAO are different numbers.** Buyer max =
-   `(ARV × 0.70) − repairs`. Seller MAO = buyer max − fee − wholesaler costs.
-7. **Gross spread is not profit.** Say so every time it appears.
-8. **RealVenture's buy box is a guideline, not a commitment.** No buyer has
-   approved anything until that buyer says so.
-9. **Report zero if zero qualify.** A ZIP with nothing is an honest result.
-10. **No REO/bank-owned in normal results.** Separate channel, on request.
-11. **New listings (<14 days) rejected by default** unless documented mispricing.
-12. **A previously scanned property is not a new opportunity.** Check the ledger.
-13. **Stop on missing evidence.** Unverified title, occupancy, access or
-    structure caps a property at `POTENTIAL`.
-14. **Never invent.** Address, URL, sold price, date, sqft, beds, DOM, owner,
-    phone, equity, motivation, repair observation, buyer approval.
+1. **Verify the subject across four sources** — public records win on hard facts (beds, baths, sqft, year), MLS/agent remarks win on condition. State conflicts; never silently pick one.
+2. **Five comps or no ARV.** Fewer than five credible sold comps means `ARV INSUFFICIENTLY SUPPORTED`, and the property is not a submission.
+3. **No comp below the subject's bed count.** A 3-bed subject takes 3-bed-and-up only, no matter how good the $/sqft match.
+4. **The ARV pool is renovated-condition only.** Dated, distressed, auction and unknown-condition sales inform the as-is floor — never the ARV number.
+5. **The consistency gate never reinstates an outlier.** A price > ±45% from the comp-set median is dropped; if that leaves under 3, the answer is unpriced.
+6. **Same ZIP or immediate neighbourhood first.** Expand only when needed, state why, and never force weak comps to reach a count.
+7. **Active listings are never comps.** Only closed sales.
+8. **Photos classify; descriptions do not.** Separate what is shown, what is inferred, and what cannot be confirmed remotely.
+9. **Repairs are a range plus a contingency** unless an inspection or bid exists.
+10. **Buyer max and seller MAO are different numbers.** Buyer max = `(ARV × 0.70) − repairs`. Seller MAO = buyer max − fee − wholesaler costs.
+11. **Gross spread is not profit.** Say so every time it appears.
+12. **RealVenture's buy box is a guideline, not a commitment.** No buyer has approved anything until that buyer says so.
+13. **Report zero if zero qualify.** A ZIP with nothing is an honest result.
+14. **No REO/bank-owned in normal results.** Separate channel, on request.
+15. **New listings (<14 days) rejected by default** unless documented mispricing.
+16. **A previously scanned property is not a new opportunity.** Check the ledger.
+17. **Stop on missing evidence.** Unverified title, occupancy, access or structure caps a property at `POTENTIAL`.
+18. **Never invent.** Address, URL, sold price, date, sqft, beds, DOM, owner, phone, equity, motivation, repair observation, buyer approval.
 
 ## Red Flags
 

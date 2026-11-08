@@ -12,8 +12,9 @@ The executable version is `scripts/comp.py`; read this to understand it, run tha
 
 ## 0. The one sentence
 
-**ARV is `sqft × p75($/sqft of ≥3 arm's-length closed sales in the same neighbourhood,
-within 1.5 mi, within 6–12 months, within ±30% sqft) × 0.88` — or it is blank.**
+**ARV is `sqft × p25/p50/p75($/sqft of ≥3 arm's-length closed sales in the same
+neighbourhood, within 1.5 mi, within 6–12 months, within ±30% sqft, at or above the
+subject's bed count, in renovated condition) × 0.88` — or it is blank.**
 
 There is no third option. "Blank" is a legitimate, shippable answer; an invented number
 is not. `NO COMPS` is a status, not a problem to be papered over.
@@ -36,7 +37,12 @@ is not. `NO COMPS` is a status, not a problem to be papered over.
 
 ## 2. The comp filter ladder (run in this exact order)
 
-Comp universe first, then the ladder per subject. Constants are in `comp.py`
+**First: verify the subject across four sources.** MLS/agent remarks, public
+records, Zillow, Redfin. **Public records win on hard facts** (beds, baths, sqft, year
+built); **MLS/agent remarks win on condition language**. If sources genuinely disagree,
+state the conflict — never silently pick one. `references/data-integrity.md` §provenance.
+
+Comp universe first, then the ladder per subject. Constants are in `scripts/comp.py`
 (`RADIUS_LADDER`, `MIN_COMPS`, `SQFT_BAND`, `HAIRCUT` in `scripts/comp.py`).
 
 **Comp universe screen — drop a sale if any of these is true:**
@@ -61,14 +67,42 @@ Comp universe first, then the ladder per subject. Constants are in `comp.py`
 5. **Under 3 comps at 1.50 mi → `NO COMPS`.** Do not widen, do not fall back to a ZIP
    band, do not average across tiers. Say it is unpriced and move on.
 
+**Two filters run *inside the ladder*, not after it.** A radius is only accepted if
+the set that survives every filter is still ≥3:
+
+6. **Bed-count floor.** A comp may never have fewer beds than the subject. A 3-bed
+   subject takes 3-bed-and-up comps only — no exceptions for a great $/sqft match.
+   This is stated in `scripts/comp.py` as `check_7_bed_floor`.
+7. **Renovated condition only.** ARV is value *after* repairs, so the ARV pool must
+   already be in the target condition. Dated, distressed, auction and
+   unknown-condition sales are **banned from the ARV number** — they may only inform
+   the as-is floor or a repair-cost check. `check_8_renovated_only`.
+8. **Consistency gate.** With ≥3 comps, drop any comp further than **±45%** from the
+   comp-set median $/sf — the "$120K sitting next to a $50K" test. The gate **never
+   puts an outlier back to reach a count**: if it leaves fewer than 3, the set is
+   unpriced. `check_9_no_price_gap`.
+
+If a radius cannot produce a clean set, the ladder tries the next radius and says so,
+then stops at 1.50 mi. It never reinstates an outlier, and it never averages across
+tiers.
+
 **Then:**
 
 ```
-p75   = 75th percentile of $/sqft across the chosen comps
-ARV   = round(subject_sqft × p75 × 0.88)
-as_is = round(subject_sqft × p25 × 0.88)
+p25   = 25th percentile of $/sqft across the chosen comps
+p50   = median
+p75   = 75th percentile
+ARV LOW   = round(subject_sqft × p25 × 0.88)
+ARV POINT = round(subject_sqft × p50 × 0.88)
+ARV HIGH  = round(subject_sqft × p75 × 0.88)
+as_is     = ARV LOW  (p25 is the as-is floor - never shown as the ARV)
 confidence = HIGH if n >= 6 else LOW
+underwrite to POINT when HIGH, to LOW when LOW
 ```
+
+The headline ARV is whichever tier you underwrite to, and the report must say which.
+`$200K ARV` alone is not reportable — `ARV $112K / $117K / $121K, underwriting to LOW`
+is.
 
 **Why p75 and not the median.** p75 prices the subject as one of the better houses in
 its own comp set — which is what a *renovated* subject will be after the work. The

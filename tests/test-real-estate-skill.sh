@@ -236,10 +236,10 @@ if out="$(py "$SKILL_DIR/scripts/comp.py" --selftest)"; then
 else
   fail "ARV engine selftest failed"
 fi
-printf '%s' "$out" | grep -q "6/6 checks" \
-  && pass "6/6 checks pass on the healthy fixture" || fail "checks did not all pass"
-printf '%s' "$out" | grep -q "6/6 checks proven able to fail" \
-  && pass "6/6 injected defects are caught (each check can actually fail)" \
+printf '%s' "$out" | grep -q "9/9 checks" \
+  && pass "9/9 checks pass on the healthy fixture" || fail "checks did not all pass"
+printf '%s' "$out" | grep -q "9/9 checks proven able to fail" \
+  && pass "9/9 injected defects are caught (each check can actually fail)" \
   || fail "a check cannot fail - it is a false PASS"
 printf '%s' "$out" | grep -q '\$350,000 ARV / \$34,933 repairs -> ceiling \$210,067' \
   && pass "economics regression: \$350K/\$34,933 -> ceiling \$210,067" \
@@ -264,6 +264,40 @@ if out3="$(py "$SKILL_DIR/scripts/comp.py" --comps "$SKILL_DIR/fixtures/akron_44
   printf '%s' "$out3" | grep -q "64 Byers Ave" \
     && pass "newer build excluded from the ARV maths but still reported" \
     || fail "newer build not excluded"
+fi
+
+section "9c. THE RULES THAT CAME FROM THE ARV-COMPING SPEC"
+# bed floor, renovated-only, consistency gate, tiers, anchor
+if out="$(py "$SKILL_DIR/scripts/comp.py" --selftest)"; then
+  printf '%s' "$out" | grep -q "4-bed subject with only 3-bed comps -> NO COMPS" \
+    && pass "bed floor: a lower-bed comp set cannot produce an ARV" \
+    || fail "bed floor not enforced"
+  printf '%s' "$out" | grep -q "no renovated comps -> NO COMPS" \
+    && pass "renovated-only: a dated/distressed pool cannot produce an ARV" \
+    || fail "condition gate not enforced"
+  printf '%s' "$out" | grep -q "CAUGHT  price_gap" \
+    && pass "consistency gate catches a \$40K sale among \$100K comps" \
+    || fail "consistency gate does not catch a price gap"
+  printf '%s' "$out" | grep -qF "(\$20/sf)" \
+    && pass "repair tiers present (light \$20/sf)" || fail "repair tiers missing"
+  printf '%s' "$out" | grep -q "MAO by ARV tier" \
+    && pass "MAO computed per ARV tier (LOW/POINT/HIGH)" \
+    || fail "MAO not computed per ARV tier"
+  printf '%s' "$out" | grep -q "ARV LOW" \
+    && pass "ARV is reported as a range, not a single point" \
+    || fail "ARV is a single number"
+else
+  fail "comp.py selftest failed"
+fi
+if out="$(py "$SKILL_DIR/scripts/anchor.py" --selftest)"; then
+  printf '%s' "$out" | grep -q "BIMODAL flagged" \
+    && pass "anchor flags a bimodal ZIP (mansion + distress)" \
+    || fail "bimodal detection missing"
+  printf '%s' "$out" | grep -q "no median invented" \
+    && pass "anchor refuses to invent a median from too few sales" \
+    || fail "anchor invents a median"
+else
+  fail "anchor selftest failed"
 fi
 
 section "10. DATA INTEGRITY RULES PRESENT"
