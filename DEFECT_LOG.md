@@ -833,3 +833,26 @@ engine read a truncated CSV, found no usable sale, and returned
 **Rule:** a batch that returns a high UNPRICED rate is suspect, not conclusive.
 Close every file before spawning the subprocess, and reconcile at least one
 lead manually before reporting a batch.
+
+## D-39 — a comp-file ERROR was silently reported as UNPRICED
+
+While sweeping 45406, all 46 leads came back `UNPRICED`. The cause was not a
+thin comp set: `comp.py` refused the *entire file* with
+
+```
+COMP FILE ERROR: 3546 Stanford Pl has exclusion 'multifamily', which is not a known reason.
+```
+
+because I had tagged multi-unit rows `multifamily`, which is not in
+`EXCLUSION_REASONS`. The engine exited non-zero and printed an error, and my
+batch harness mapped **any** non-zero exit to `UNPRICED` — turning a hard file
+error into 46 legitimate-looking refusals.
+
+This is worse than D-38. D-38 lost rows; this one disguised a broken input as
+an honest "no comps" answer, which is exactly the kind of quiet false negative
+that makes a sweep look complete when it priced nothing.
+
+**Rule:** `comp.py` distinguishes its exits — `3` means a genuine UNPRICED
+refusal, `1` means a check or file failure. A harness must map **only exit 3**
+to UNPRICED and must abort loudly on exit 1. Multi-unit rows should be dropped
+from an SFR comp pool, not tagged with an invented exclusion reason.

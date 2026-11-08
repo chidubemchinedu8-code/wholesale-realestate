@@ -1,0 +1,46 @@
+address,beds,sqft,ask,tier,repairs,arv,ceiling,mao,verdict,conf
+1816 Auburn Ave,2,1524,25000,heavy,76200,185881,53917,43917,PRIORITY,n=8 spread 8.7%
+3733 El Paso Ave,3,1332,49899,heavy,66600,163952,48166,38166,NO,n=9 spread 12.2%
+4913 Genesee Ave,2,672,55000,moderate,23520,,,,UNPRICED,refused(exit3)
+4904 Genesee Ave,3,832,55000,heavy,41600,,,,UNPRICED,refused(exit3)
+2436 Ulrich Ave,2,898,60000,moderate,31430,,,,UNPRICED,refused(exit3)
+4074 Middlehurst Ln,3,1259,64990,moderate,44065,156113,65214,55214,NO(above MAO),n=8 spread 11.5%
+4920 Queens Ave,3,810,65000,moderate,28350,,,,UNPRICED,refused(exit3)
+2424 Ulrich Ave,3,1118,70000,moderate,39130,149451,65486,55486,NO,n=5 spread 9.2%
+2303 Arlene Ave,2,792,79000,moderate,27720,,,,UNPRICED,refused(exit3)
+2150 Kensington Dr,2,725,79995,moderate,25375,,,,UNPRICED,refused(exit3)
+3648 W Siebenthaler Ave,2,754,85000,moderate,26390,,,,UNPRICED,refused(exit3)
+2441 Grant Ave,2,1075,85000,moderate,37625,143703,62967,52967,NO,n=5 spread 9.2%
+4428 Eichelberger Ave,3,870,85000,light,17400,,,,UNPRICED,refused(exit3)
+317 Bellevue Ave,3,1500,89000,moderate,52500,184631,76742,66742,NO,n=9 spread 12.2%
+4642 W Hillcrest Ave,2,792,89000,moderate,27720,,,,UNPRICED,refused(exit3)
+3938 Necco Ave,3,936,95000,moderate,32760,,,,UNPRICED,refused(exit3)
+3100 Princeton Dr,3,1448,99000,moderate,50680,178230,74081,64081,NO,n=9 spread 12.2%
+3395 Brumbaugh Blvd,3,984,99900,moderate,34440,131538,57637,47637,NO,n=3 spread 6.1%
+2109 Rugby Rd,3,1226,100000,moderate,42910,152021,63505,53505,NO,n=8 spread 11.5%
+3932 Necco Ave,3,936,100000,moderate,32760,,,,UNPRICED,refused(exit3)
+1626 Arlene Ave,3,1296,100000,moderate,45360,159521,66305,56305,NO,n=9 spread 12.2%
+1019 Cherry Dr,4,1057,100000,moderate,36995,,,,UNPRICED,refused(exit3)
+1838 Malvern Ave,3,1848,111000,moderate,64680,219358,88871,78871,NO,n=9 spread 9.8%
+715 W Fairview Ave,3,1556,114900,moderate,54460,189784,78389,68389,NO,n=8 spread 8.7%
+2433 Lynn Ave,3,1204,115000,moderate,42140,149293,62365,52365,NO,n=8 spread 11.5%
+3939 Prescott Ave,3,1020,115000,light,20400,138151,76306,66306,NO,n=4 spread 6.2%
+1367 Catalpa Dr,3,1744,119900,moderate,61040,210839,86547,76547,NO,n=10 spread 16.5%
+1554 Shaftesbury Rd,3,1094,119900,moderate,38290,146243,64080,54080,NO,n=5 spread 9.2%
+3118 Athens Ave,2,1008,119900,moderate,35280,134747,59043,49043,NO,n=3 spread 6.1%
+4545 Greenwich Village Ave,3,1015,124900,moderate,35525,135682,59452,49452,NO,n=3 spread 6.1%
+1708 Vancouver Dr,3,1008,125000,light,20160,134747,74163,64163,NO,n=3 spread 6.1%
+4324 Owens Dr,3,1377,129000,light,27540,169491,91104,81104,NO,n=9 spread 12.2%
+1601 Salem Ave,3,2192,129900,moderate,76720,240468,91608,81608,NO,n=7 spread 4.9%
+2155 Philadelphia Dr,2,1184,132900,light,23680,147891,79844,69844,NO,n=7 spread 10.8%
+2032 Rugby Rd,3,1422,134990,moderate,49770,175030,72751,62751,NO,n=9 spread 12.2%
+2520 Baywood St,3,960,137500,light,19200,128330,70631,60631,NO,n=3 spread 6.1%
+1606 Benson Dr,3,1421,140000,moderate,49735,174907,72700,62700,NO,n=9 spread 12.2%
+1303 Catalpa Dr,3,1242,144900,light,24840,154005,82964,72964,NO,n=8 spread 11.5%
+1967 Rugby Rd,6,2880,144900,moderate,100800,,,,UNPRICED,refused(exit3)
+1319 Kumler Ave,4,1676,145000,moderate,58660,194391,77414,67414,NO,n=6 spread 18.3%
+1820 Rutland Dr,3,1251,148500,light,25020,155121,83565,73565,NO,n=8 spread 11.5%
+3019 Harvard Blvd,4,2085,155900,moderate,72975,228730,87136,77136,NO,n=7 spread 7.2%
+2814 Rugby Rd,3,1499,175000,moderate,52465,184508,76691,66691,NO,n=9 spread 12.2%
+403 Kenwood Ave,3,1900,195000,light,38000,220658,116461,106461,NO,n=8 spread 9.6%
+1533 Olmsted Pl,3,2297,214000,light,45940,250621,129495,119495,NO,n=6 spread 4.2%

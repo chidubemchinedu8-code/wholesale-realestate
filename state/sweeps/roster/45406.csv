@@ -1,0 +1,87 @@
+address,ask,beds,baths,sqft,type,condition_signal,verdict,reject_reason
+1825 Elsmere Ave,189900,3,2,1810,SFR,beautifully updated quartz walk-in pantry,REJECT,turnkey_retail_ready
+1454 N Euclid Ave,189999,4,1.5,2021,SFR,great bones ready for next owner,POTENTIAL,
+601 Otterbein Ave,249850,4,1.5,1638,SFR,fully renovated refinished hardwood,POTENTIAL,
+2028 Rugby Rd,189999,3,2.5,1458,SFR,beautifully renovated new appliances finished basement,POTENTIAL,
+1400 Bryn Mawr Dr,164999,2,1,1415,SFR,fresh paint new flooring newer cabinets,POTENTIAL,
+1309-1317 Salem Ave,499900,16,8,9408,MULTI,apartment building,REJECT,multifamily_above_band
+1863-1865 Emerson Ave,140000,6,2,1956,DUPLEX,duplex,REJECT,duplex_needs_2_4unit_comps
+2032 Rugby Rd,134990,3,1,1422,SFR,,POTENTIAL,
+1530 Olmsted Pl,209900,3,1.5,1922,SFR,,POTENTIAL,
+1466 Catalpa Dr,242900,4,3,1954,SFR,,REJECT,above_market_arv_band
+1312 Philadelphia Dr,169900,3,2,1428,SFR,,POTENTIAL,
+3118 Athens Ave,119900,2,1,1008,SFR,,REJECT,two_bed_arv_floor
+239 Grafton Ave,274900,5,2.5,2560,SFR,,REJECT,above_market_arv_band
+715 W Fairview Ave,114900,3,2,1556,SFR,,POTENTIAL,
+2814 Rugby Rd,175000,3,1,1499,SFR,,POTENTIAL,
+4074 Middlehurst Ln,64990,3,1,1259,SFR,previously UNPRICED - no renovated in-band 45406 comps,CANDIDATE,
+1817 Benson Dr,189900,4,3,2386,SFR,,POTENTIAL,
+1554 Shaftesbury Rd,119900,3,1,1094,SFR,,POTENTIAL,
+2109 Rugby Rd,100000,3,1,1226,SFR,,POTENTIAL,
+120 Cambridge Ave,249000,5,2,2164,SFR,,REJECT,above_market_arv_band
+2520 Baywood St,137500,3,2,960,SFR,,POTENTIAL,
+1606 Benson Dr,140000,3,1.5,1421,SFR,,POTENTIAL,
+1546 Earlham Dr,199900,3,2.5,2524,SFR,,POTENTIAL,
+4545 Greenwich Village Ave,124900,3,1,1015,SFR,,POTENTIAL,
+2424 Ulrich Ave,70000,3,2,1118,SFR,,CANDIDATE,
+221 Central Ave,109995,7,5,5750,MULTI,multifamily 5750sf,REJECT,multifamily_needs_2_4unit_comps
+1367 Catalpa Dr,119900,3,1.5,1744,SFR,,POTENTIAL,
+4913 Genesee Ave,55000,2,1,672,SFR,,CANDIDATE,
+3932 Necco Ave,100000,3,1,936,SFR,,POTENTIAL,
+220 Central Ave,575000,5,5,4050,MULTI,multifamily,REJECT,multifamily_above_band
+4904 Genesee Ave,55000,3,1,832,SFR,,CANDIDATE,
+200 Central Ave,1700000,42,42,24102,MULTI,apartment building,REJECT,multifamily_above_band
+3938 Necco Ave,95000,3,1,936,SFR,,CANDIDATE,
+1745 Catalpa Dr,239000,4,2,1892,SFR,,REJECT,above_market_arv_band
+3733 El Paso Ave,49899,3,1.5,1332,SFR,,CANDIDATE,
+1626 Arlene Ave,100000,3,1.5,1296,SFR,,POTENTIAL,
+2436 Ulrich Ave,60000,2,1,898,SFR,,CANDIDATE,
+3395 Brumbaugh Blvd,99900,3,1,984,SFR,previously UNPRICED - verified no renovated in-band 45406 sales,CANDIDATE,
+703 W Grand Ave,180000,4,1.5,2648,SFR,,REJECT,above_market_arv_band
+3936 Lori Sue Ave,393000,10,6,3228,MULTI,multifamily,REJECT,multifamily_above_band
+1967 Rugby Rd,144900,6,2.5,2880,SFR,,POTENTIAL,
+3019 Harvard Blvd,155900,4,2,2085,SFR,offers subject to third-party approval,POTENTIAL,
+1216 Amherst Pl,264000,5,2.5,1992,SFR,brand-new updates top to bottom,REJECT,turnkey_retail_ready
+714 McCreary Ave #716,64900,6,2,2336,DUPLEX,fully gutted new roof windows electric,REJECT,duplex_needs_2_4unit_comps
+4920 Queens Ave,65000,3,1,810,SFR,newer kitchen fixtures as-is no repairs,CANDIDATE,
+4416 Genesee Ave,1,2,1,720,SFR,court ordered auction Nov 18 2026,REJECT,court_ordered_auction
+1303 Catalpa Dr,144900,3,1,1242,SFR,fully renovated new windows flooring kitchen,REJECT,turnkey_retail_ready
+403 Kenwood Ave,195000,3,1.5,1900,SFR,fully renovated Five Oaks new kitchen stairs,POTENTIAL,
+1816 Auburn Ave,25000,2,2,1524,SFR,FULL REHAB LISTED: roof windows plumbing HVAC electric kitchen baths; 37246 back taxes,CANDIDATE,
+2155 Philadelphia Dr,132900,2,1.5,1184,SFR,beautifully updated newer roof HVAC new panel,POTENTIAL,
+821-823 Neal Ave,147000,6,2,3161,DUPLEX,duplex plus 330 Hollencamp,REJECT,duplex_needs_2_4unit_comps
+3648 W Siebenthaler Ave,85000,2,1.5,754,SFR,new flooring HVAC counters appliances paint,CANDIDATE,
+39 Vassar Dr,240000,4,2.5,2109,SFR,,REJECT,above_market_arv_band
+3613 Pittsburg Ave,120400,3,1,1225,SFR,turn-key tenant-occupied vacant 1300/mo history,REJECT,landlord_model_occupied
+2010 Auburn Ave,215000,4,1,3744,MULTI,4x1br apartments,REJECT,multifamily_above_band
+4324 Owens Dr,129000,3,1,1377,SFR,new flooring paint updated bath,POTENTIAL,
+724 Salem Ave,235000,5,2,3232,SFR,restored Dayton View mixed-use zoning,REJECT,above_market_arv_band
+2433 Lynn Ave,115000,3,1.5,1204,SFR,ornate built-ins brick,REJECT,above_market_arv_band
+3100 Princeton Dr,99000,3,1,1448,SFR,new roof 2026 updated electrical needs updating throughout,CANDIDATE,
+2616 N Gettysburg Ave,144900,0,3,1512,MULTI,5 studio units substantial renovation,REJECT,multifamily_needs_2_4unit_comps
+1019 Cherry Dr,100000,4,1,1057,SFR,back on market buyer cold feet,POTENTIAL,
+2441 Grant Ave,85000,2,1,1075,SFR,tenant-occupied part of 3-property package,REJECT,landlord_model_occupied
+317 Bellevue Ave,89000,3,1,1500,SFR,updated plumbing recently installed roof,CANDIDATE,
+2039 Emerson Ave,485000,8,8,6796,MULTI,8-unit 6 of 8 occupied,REJECT,multifamily_above_band
+1708 Vancouver Dr,125000,3,1,1008,SFR,stucco roof mini-split WH gas line 3 windows; tenant 550/mo,REJECT,landlord_model_occupied
+1533 Olmsted Pl,214000,3,2.5,2297,SFR,updated kitchen granite stainless,POTENTIAL,
+1319 Kumler Ave,145000,4,2,1676,SFR,large living room fireplace,POTENTIAL,
+4642 W Hillcrest Ave,89000,2,1,792,SFR,,CANDIDATE,
+1838 Malvern Ave,111000,3,1,1848,SFR,preserved 1924 stone bungalow original hardwood,POTENTIAL,
+2303 Arlene Ave,79000,2,1,792,SFR,,CANDIDATE,
+1230 Sunnyview Ave,299899,4,3,2337,SFR,completely renovated 40 updates 5 years,REJECT,above_market_arv_band
+3939 Prescott Ave,115000,3,1,1020,SFR,freshly updated paint blinds trim bath vanity,POTENTIAL,
+1820 Rutland Dr,148500,3,1,1251,SFR,updated operating as Airbnb,POTENTIAL,
+2053 Catalpa Dr,172900,3,2.5,1560,SFR_new,new construction Welcome Home Ohio,REJECT,new_construction
+2105 Ravenwood Ave,176900,3,2,1452,SFR_new,new construction Welcome Home Ohio,REJECT,new_construction
+4428 Eichelberger Ave,85000,3,1,870,SFR,newer roof windows WH,CANDIDATE,
+1601 Salem Ave,129900,3,3.5,2192,SFR,curb offers only,POTENTIAL,
+2105 Catalpa Dr,176900,3,2,1452,SFR_new,new construction Welcome Home Ohio,REJECT,new_construction
+2150 Kensington Dr,79995,2,1,725,SFR,,REJECT,two_bed_arv_floor
+2031 Ravenwood Ave,172900,3,2.5,1560,SFR_new,new construction Welcome Home Ohio,REJECT,new_construction
+2103 Ravenwood Ave,176900,3,2,1452,SFR_new,new construction Welcome Home Ohio,REJECT,new_construction
+108 Cambridge Ave,100,,,,LAND,auction vacant lot min 100,REJECT,land_no_structure
+3644 Karwin Dr #3638,12000,,,,LAND,lot,REJECT,land_no_structure
+1840 Auburn Ave,10000,,,,LAND,vacant land,REJECT,land_no_structure
+1902 Auburn Ave,10000,,,,LAND,vacant land,REJECT,land_no_structure
+2200 N Gettysburg Ave,55000,,,,LAND,commercial 0.87 acre,REJECT,land_no_structure
