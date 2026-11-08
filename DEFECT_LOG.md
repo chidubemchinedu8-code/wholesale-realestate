@@ -756,9 +756,9 @@ inline. Nothing is marked done until it is x of y with y counted.
 ## D-35 · 2026-11-08 · The test harness printed PASSED while a check was failing
 
 **What happened.** A newly added check printed `[FAIL] full-coverage rule not recorded` and the
-very next line still read `STATUS: PASSED (199 checks)`, with exit code 0.
+very next line still read `STATUS: PASSED (n checks)`, with exit code 0.
 
-**Why it is serious.** The whole purpose of the 199-check harness is to be the thing that stops
+**Why it is serious.** The whole purpose of the test harness is to be the thing that stops
 me shipping a regression. A harness that reports success while a check fails is worse than no
 harness: it converts "I ran the tests and they pass" into a false statement, and that exact phrase
 has been in nearly every summary I have written. Every prior "tests pass" claim rests on a
