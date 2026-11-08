@@ -1,6 +1,6 @@
 # Comping & ARV — the rule, in one place
 
-**Source of truth:** `superpowers` → `leadgen/README.md` §3, `leadgen/pull_leads.py`
+**Source of truth:** this file and `SKILL.md` rule 23. `superpowers` → `leadgen/README.md` §3 and `leadgen/pull_leads.py` implement the same median method for the bulk county pull; if the two ever disagree, this file wins and the implementation is the bug
 (`build_comps`, `arv_for`, checks 10–14), and the three Akron correction documents
 (`VERIFIED_COMPS_…`, `ZESTIMATE_offmarket_…`, `SEPARATION_…`).
 
