@@ -146,3 +146,23 @@ reported `FAIL no repair number without a grade`, because the check demanded a
 ceiling that an unpriced deal can never have. That is dangerous: a permanent
 false failure trains the operator to ignore the one check that stops a ceiling
 being invented. An unpriced row now passes when it quotes no ceiling.
+
+**A band near-miss must be reported, not swallowed.** 512 Campbell St (1,132 sf)
+against a 1,628 sf subject is 7 square feet outside the ±30% band on the low
+side (floor 1,139.6). The engine dropped it silently: it left `usable`, was
+never added to `rejected`, and never printed. The report therefore said "fewer
+than 3 sales within 1.5 mi" — which reads as *the market is thin*, when in fact
+a relevant, renovated, verified sale was sitting almost exactly on the boundary.
+
+The band is correct and must not be widened for a near-miss. But the operator
+needs to *know* the near-miss happened, because it changes the answer from
+"nothing here" to "one more ~1,500 sf sale resolves this". Out-of-band comps are
+now listed closest-miss-first with their square-foot gap and counted as
+`sqft_band` in the filter tally.
+
+**When only two comps survive, print the dispersion before concluding.** For
+330 Bolander the two survivors were $130.29/sf and $78.66/sf — a **1.66×**
+spread. That number is the finding. It explains why two comps can never set a
+median, and it lets a reader see that the verdict flips across the band
+(MAO $22,660 at the low comp, $81,502 at the high one). Quote the spread, not
+just the word UNPRICED.

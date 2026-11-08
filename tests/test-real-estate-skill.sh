@@ -769,6 +769,31 @@ PYE
 then pass "an unrecognised exclusion tag refuses the run instead of joining the pool"
 else fail "an unknown exclusion tag is silently treated as a usable comp"; fi
 
+section "9o. A BAND NEAR-MISS MUST BE REPORTED, NOT SILENTLY SWALLOWED"
+# 512 Campbell was 7 sq ft outside the +-30% band against a 1,628 sf subject.
+# It was dropped from the pool with no count, no line, no trace - so the ZIP
+# looked thin when a sale was sitting right next to the boundary.
+NMB="$(mktemp)"
+cat > "$NMB" <<'CSV'
+address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
+1 In Band St,2026-09-01,160000,1450,SYNTH-B,0.10,0.00,TRADITIONAL,3,renovated,
+2 In Band St,2026-08-01,115000,1460,SYNTH-B,0.11,0.01,TRADITIONAL,3,renovated,
+3 Too Small St,2026-07-01,149000,1000,SYNTH-B,0.12,0.02,TRADITIONAL,3,renovated,
+CSV
+OUT2="$(py "$SKILL_DIR/scripts/comp.py" \
+  --subject '{"address":"Subj","beds":"3","sqft":1450,"hood":"SYNTH-B","lat":0,"lon":0}' \
+  --comps "$NMB" --ask 70000 2>&1)"
+echo "$OUT2" | grep -q "outside the +-30% sqft band" \
+  && pass "an out-of-band comp is named in the output" \
+  || fail "an out-of-band comp vanishes without a word"
+echo "$OUT2" | grep -q "3 Too Small St" \
+  && pass "the near-miss address is printed, with its square-foot gap" \
+  || fail "the dropped comp is not identified"
+echo "$OUT2" | grep -q "'sqft_band': 1" \
+  && pass "the band drop is counted in the filter-drops tally" \
+  || fail "band drops are missing from the tally"
+rm -f "$NMB"
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do

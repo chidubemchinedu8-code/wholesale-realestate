@@ -234,6 +234,7 @@ class CompResult:
     excluded_in_radius: list[Comp] = field(default_factory=list)
     outliers: list[Comp] = field(default_factory=list)
     non_renovated: list[Comp] = field(default_factory=list)
+    sqft_out: list[Comp] = field(default_factory=list)
     rejected: dict = field(default_factory=dict)
     note: str = ""
     note_bed_unknown: int = 0      # comps admitted with an UNKNOWN bed count
@@ -340,10 +341,20 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
             return result
 
     # 3. +-30% sqft band
+    # Comps cut here used to vanish without a trace: they were dropped from
+    # `usable`, never added to `rejected`, and never printed. A near-miss then
+    # looked like "the neighbourhood is thin" when in fact a sale 7 sq ft
+    # outside the band was sitting right there. Record them and say so.
     band = [c for c in usable
             if abs(c.sqft - subject_sqft) / subject_sqft <= SQFT_BAND]
+    out_of_band = [c for c in usable if c not in band]
+    result.rejected = {**result.rejected, "sqft_band": len(out_of_band)}
+    result.sqft_out = out_of_band
     if not band:
-        result.note = f"no same-neighbourhood sale within +-{int(SQFT_BAND*100)}% sqft"
+        result.note = (f"no same-neighbourhood sale within "
+                       f"+-{int(SQFT_BAND*100)}% sqft "
+                       f"({int(subject_sqft*(1-SQFT_BAND)):,}-"
+                       f"{int(subject_sqft*(1+SQFT_BAND)):,} sf)")
         return result
 
     # A candidate radius must survive every filter below before it is accepted.
@@ -801,6 +812,17 @@ def cmd_arv(args) -> int:
         for c in result.excluded_in_radius:
             print(f"  {c.address[:24]:24} ${c.price:>9,.0f}  "
                   f"{EXCLUSION_REASONS.get(c.exclusion, c.exclusion)}")
+    if result.sqft_out:
+        print(f"\nDROPPED - outside the +-{int(SQFT_BAND*100)}% sqft band "
+              f"(closest miss first):")
+        subj = subject.get("sqft") or 0
+        for c in sorted(result.sqft_out,
+                        key=lambda c: abs(c.sqft - subj)):
+            gap = c.sqft - subj
+            print(f"  {c.address[:24]:24} ${c.price:>9,.0f}  {c.sqft:>6,.0f} sf  "
+                  f"({gap:+,.0f} sf)")
+        print("  These are NOT errors - the band is the rule. But a near-miss "
+              "is worth knowing about.")
     if result.non_renovated:
         print("\nDROPPED - not renovated (as-is floor only, never ARV):")
         for c in result.non_renovated:
