@@ -69,7 +69,8 @@ Rule and code now agree:
 - `SKILL.md` rule 20 and `references/on-market.md` rewritten to the three-feed standard.
 - `zip_ledger.py` accepts `zillow+redfin+realtor.com` and **still refuses** a scan that
   skipped Zillow, and **refuses a single-source scan** — one feed is not a cross-check.
-- New selftest cases cover all three branches; the suite is at **169 checks**.
+- New selftest cases cover all three branches. The suite's own count is printed at
+  the end of every run — do not hard-code it here, it rots the moment a test is added.
 - All 7 Dayton ZIP rows now log `zillow+redfin+realtor.com`.
 
 I logged `45403`, `45404`, `45406` with `source=realtor.com`. The test failed on it, and
@@ -79,10 +80,14 @@ and then wrote it into the *discovery* field, which is a different claim. Correc
 `zillow` with the distinction spelled out in notes. **This is the kind of error that makes
 a ledger lie quietly.**
 
-## Gap 4 — 45417 is still 2 of 3. OPEN.
+## Gap 4 — 45417 3 of 3. CLOSED.
 
-Not closed out, not marked done. One candidate unexamined. Coverage is **30/31**, and the
-row in the sheet says so.
+Candidate 3 was never named in writing — my note said "3 candidates" but only one was
+logged. Re-derived the buy box from Realtor.com and examined **162 Lorenz Ave**, $80,000,
+3bd/1,344 sf, "Investor Special, sold as-is, will need renovation". Coverage is **31/31**.
+
+It prices to UNPRICED, for a verified reason: all three renovated 45417 sales are
+1.84–1.89 mi away, past the 1.5 mi cap.
 
 ## Also fixed
 All 7 Dayton ZIPs are now scored in `assets/zip_universe.csv` with written evidence
@@ -97,7 +102,6 @@ due, unrelated to this work.
 
 ## What "done zip by zip" would actually require
 
-- 45417 candidate 3 examined → 31/31
 - Anchors: enough recent sales in 45403/45406/45410/45417 for a 5-sale median, or those
   bands stay labelled unanchored
 - 45404: one more genuine renovated sale, or independent confirmation that 34 Ingleside
@@ -106,7 +110,53 @@ due, unrelated to this work.
   Fairview properties
 - Every repair grade is still a guess from listing text. None of the 31 was walked.
 
+## Gap 5 — TWO PRICING BUGS FOUND WHILE CLOSING 45417. FIXED.
+
+Chasing 162 Lorenz exposed both, and neither would have shown up in a passing test run.
+
+**Bug 1 — `indicative_arv.py` had no radius cap.** It printed a `mi` column and never
+filtered on it. All three 45417 comps sat at 1.84–1.89 mi; `comp.py` correctly refused to
+price, and `indicative_arv.py` priced off them anyway. A script that displays a distance
+without acting on it is worse than one that omits the column.
+
+**Bug 2 — `indicative_arv.py` never compared `hood`.** `comp.py` requires an exact
+neighbourhood match. The same file, in the same runs, printed the subject's neighbourhood in
+its header and never filtered on it. The 45402 pool holds Dayton View, West Dayton and
+Cornell Heights sales; every 45402 ARV had been averaging across them.
+
+**Published numbers that moved:**
+
+| Candidate | Old ARV | Corrected | Old MAO | Corrected |
+|---|---|---|---|---|
+| 817 Faulkner Ave | $174,886 (n=2) | **$178,073 (n=1)** | $45,420 | **$47,651** |
+| 623 Anna St | $151,282 (n=2) | **$148,525 (n=1)** | $27,897 | **$25,968** |
+| 945 Vernon Dr | $154,829 (n=2) | **$157,651 (n=1)** | $54,070 | **$55,545** |
+| 3619 Hoover Ave | $129,146 (n=2) | **$126,792 (n=1)** | $43,442 | **$41,794** |
+
+**No verdict flipped.** But every 45402 ARV dropped from n=2 to **n=1** — the confidence is
+now materially worse than the first table implied, even where the number barely moved.
+817 Faulkner gets slightly better on the corrected basis, which is an accident of which
+single comp survives, not new evidence.
+
+Both bugs now have regression tests that fail if reintroduced.
+
+## Fairview — pushed hard, still unpriced, now demonstrably so
+
+- **525 W Fairview Ave, sold 2026-09-09, $73,471, 1,440 sf = $51/sf.** In Fairview, in band,
+  in date. **Dated** — listed at $30,000 on 2026-05-07, sold 125 days later, a 145% uplift.
+  That is a trade, not a renovation.
+- **127 McDaniel St, sold 2026-09-23, $240,000, 1,398 sf = $172/sf.** Genuinely renovated,
+  granite counters, 2 full baths, permits. But **McPherson Town Historic District**, a
+  different submarket at 3.4x Fairview. Using it would triple every Fairview ARV.
+- **50 Woodcrest, $155,000, 1,500 sf, 2026-05-01.** Still 11 days outside the window.
+
+The Fairview gap survives a genuine search. One sale in the ZIP could price it and it is
+eleven days too old.
+
 ## Bottom line
+
+**Coverage is now 31/31** and the two bugs above are fixed and tested. Fairview is unpriced
+on evidence that took real work to establish.
 
 The **sourcing and pricing** is in good shape — 11 ARVs, 20 ledger rows, dated comps, and
 the failures are real failures rather than blanks. The **bookkeeping and the anchor step**

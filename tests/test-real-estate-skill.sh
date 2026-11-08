@@ -700,6 +700,30 @@ else
   pass "every scanned ZIP includes Zillow among its discovery feeds"
 fi
 
+section "9l2. INDICATIVE ARV RESPECTS THE RADIUS CAP AND THE NEIGHBOURHOOD RULE"
+# Regression 2026-11-08: indicative_arv.py printed a mi column and never filtered
+# on it, so it priced 162 Lorenz Ave off comps 1.84-1.89 mi away while comp.py
+# correctly refused. It also never compared hood, while comp.py requires an exact
+# match - so 45402 ARVs were averaging Dayton View and West Dayton together.
+REG="$(mktemp)"
+cat > "$REG" <<'REOF'
+address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
+Far Away St,2026-10-01,150000,1300,45417-EDGEMONT,39.8000,-84.2352,TRADITIONAL,3,renovated,
+Near Wrong Hood,2026-10-01,150000,1300,45417-SOMEWHERE,39.7555,-84.2350,TRADITIONAL,3,renovated,
+REOF
+REGOUT="$(py "$SKILL_DIR/scripts/indicative_arv.py" --comps "$REG" --as-of 2026-11-08 --repairs 40000 \
+  --subject '{"address":"t","beds":3,"sqft":1300,"hood":"45417-EDGEMONT","lat":39.7555079,"lon":-84.2352448}' 2>&1)"
+printf '%s' "$REGOUT" | grep -q "beyond the 1.5 mi cap" \
+  && pass "a comp past the 1.5 mi cap is dropped by the indicative engine" \
+  || fail "indicative engine prices off comps beyond the radius cap"
+printf '%s' "$REGOUT" | grep -q "neighbourhood '45417-SOMEWHERE' != subject" \
+  && pass "a comp in another neighbourhood is dropped by the indicative engine" \
+  || fail "indicative engine pools comps across neighbourhoods"
+printf '%s' "$REGOUT" | grep -q "INDICATIVE ARV: NONE" \
+  && pass "with both comps dropped the engine refuses to price" \
+  || fail "the indicative engine priced from no admissible comps"
+rm -f "$REG"
+
 section "9m. AN UNPRICED ROW CANNOT BE FAILED FOR LACKING A CEILING"
 # Regression: check_6 demanded a ceiling whenever repairs were graded, but an
 # unpriced row never has one by design. Every unpriced subject run with

@@ -35,6 +35,7 @@ import sys
 from datetime import date, timedelta
 
 BAND = 0.30
+MAX_RADIUS_MI = 1.5          # same cap as comp.py - never widen
 WINDOW_DAYS = 180
 MIN_COMPS = 3
 BUYER_PCT = 0.70
@@ -54,6 +55,8 @@ def main() -> int:
     ap.add_argument("--subject", required=True)
     ap.add_argument("--repairs", type=int, required=True)
     ap.add_argument("--as-of", default=None)
+    ap.add_argument("--max-radius-mi", type=float, default=MAX_RADIUS_MI,
+                    help="hard radius cap, same as comp.py (default 1.5 mi)")
     ap.add_argument("--window-days", type=int, default=WINDOW_DAYS,
                     help="extend past the 180d rule ONLY to expose a near-miss; "
                          "the shortfall is always printed")
@@ -87,6 +90,12 @@ def main() -> int:
             excluded.append((addr, f"{beds} beds < subject {s['beds']}"))
         elif not (lo <= csq <= hi):
             excluded.append((addr, f"{csq:.0f} sqft outside {lo:.0f}-{hi:.0f} band"))
+        elif (r.get("hood") or "").strip() != s["hood"].strip():
+            excluded.append((addr, f"neighbourhood '{r.get('hood') or 'blank'}' "
+                                   f"!= subject '{s['hood']}'"))
+        elif miles(s["lat"], s["lon"], lat, lon) > a.max_radius_mi:
+            excluded.append((addr, f"{miles(s['lat'], s['lon'], lat, lon):.2f} mi "
+                                   f"beyond the {a.max_radius_mi} mi cap"))
         else:
             rows.append((addr, sold, price, csq, price / csq, miles(s["lat"], s["lon"], lat, lon)))
 
@@ -109,6 +118,11 @@ def main() -> int:
     spread = (max(ppsf) - min(ppsf)) / med * 100
 
     print(f"{'COMP':28} {'SOLD':11} {'PRICE':>9} {'SQFT':>6} {'$/SF':>8} {'MI':>5}")
+    beyond = [r for r in rows if r[5] > a.max_radius_mi]
+    if beyond:
+        for r in beyond:
+            excluded.append((r[0], f"{r[5]:.2f} mi beyond the {a.max_radius_mi} mi cap"))
+        rows = [r for r in rows if r[5] <= a.max_radius_mi]
     for ad, sold, price, csq, p, mi in rows:
         print(f"{ad:28} {sold} ${price:>8,.0f} {csq:>6,.0f} ${p:>7,.2f} {mi:>5.2f}")
 

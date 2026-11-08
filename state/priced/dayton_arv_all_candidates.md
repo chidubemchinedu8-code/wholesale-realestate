@@ -44,7 +44,13 @@ exist are all **updated, not renovated**, or fall outside the 180-day window:
 50 Woodcrest (3bd, 1,500 sf, $155,000, 2026-05-01) is the closest candidate — **11 days outside
 the window**. A renovation contract date on 214 W Fairview would also do it.
 
-## 45402 — DAYTON VIEW / WEST DAYTON (indicative: 2 comps, $122.30/sf, spread 3.6%)
+## 45402 — DAYTON VIEW / WEST DAYTON (CORRECTED 2026-11-08: now n=1 per subject)
+
+**Correction.** The earlier numbers pooled $122.30/sf from 839 Dow (Dayton View) and 545
+Gramont (West Dayton) for every subject. `comp.py` requires an exact neighbourhood match and
+`indicative_arv.py` did not enforce one — it was averaging across two submarkets. The gate
+now exists and every 45402 ARV is **single-comp**. Trust these less than the first table
+implied, even though three of the five barely moved.
 
 Pool `state/comps/dayton_45402_daytonview_comps.csv`. Three verified flips, all documented
 buy-renovate-sell:
@@ -54,11 +60,11 @@ buy-renovate-sell:
 
 | Candidate | Ask | SF | ARV | n | Repairs (tier) | Buyer max | MAO | Verdict |
 |---|---|---|---|---|---|---|---|---|
-| 817 Faulkner Ave | $50,000 | 1,430 | **$174,886** | 2 | $67,000 (heavy) | $55,420 | $45,420 | **MARGINAL** — ask $4,580 over MAO. Roof/siding/windows/electrical already done, so heavy is conservative and the finish work is still real |
-| 624 N Broadway St | $85,000 | 2,302 | **$303,534** | 1 | $115,000 (shell) | $97,474 | $87,474 | **BEST ARITHMETIC IN THE SET** — ask $2,474 *under* MAO. But n=1 and repairs are a guess |
-| 623 Anna St | $65,000 | 1,237 | **$151,282** | 2 | $68,000 (heavy) | $37,897 | $27,897 | **NO** — ask 2.3x MAO |
-| 945 Vernon Dr | $86,999 | 1,266 | **$154,829** | 2 | $44,310 (mod) | $64,070 | $54,070 | **NO** — ask 61% over MAO |
-| 3619 Hoover Ave | $99,900 | 1,056 | **$129,146** | 2 | $36,960 (mod) | $53,442 | $43,442 | **NO** — ask 2.3x MAO |
+| 817 Faulkner Ave | $50,000 | 1,430 | **$178,073** | 1 | $67,000 (heavy) | $57,651 | $47,651 | **MARGINAL** — ask $2,349 over MAO. Roof/siding/windows/electrical already done, so heavy is conservative and the finish work is still real. *Was $174,886 / MAO $45,420* |
+| 624 N Broadway St | $85,000 | 2,302 | **$303,534** | 1 | $115,000 (shell) | $97,474 | $87,474 | **BEST ARITHMETIC IN THE SET** — ask $2,474 *under* MAO. But n=1 and repairs are a guess. Unchanged |
+| 623 Anna St | $65,000 | 1,237 | **$148,525** | 1 | $68,000 (heavy) | $35,968 | $25,968 | **NO** — ask 2.5x MAO. *Was $151,282 / MAO $27,897* |
+| 945 Vernon Dr | $86,999 | 1,266 | **$157,651** | 1 | $44,310 (mod) | $65,545 | $55,545 | **NO** — ask 57% over MAO. *Was $154,829 / MAO $54,070* |
+| 3619 Hoover Ave | $99,900 | 1,056 | **$126,792** | 1 | $36,960 (mod) | $51,794 | $41,794 | **NO** — ask 2.4x MAO. *Was $129,146 / MAO $43,442* |
 
 ## 45403 — EAST DAYTON (strict: 3 comps, $105.41/sf, spread 19.2%, TIGHT)
 
@@ -68,7 +74,7 @@ Pool `state/comps/dayton_45403_e5th_comps.csv`.
 |---|---|---|---|---|---|---|---|
 | 141 S Torrence St | $74,900 | 1,458 | **$153,681** | $29,160 (light) | $78,417 | $68,417 | **BEST NEGOTIATION IN THE SET** — ask only 9.5% over MAO; all-brick, cosmetic only |
 | 633 Huffman Ave | $44,900 | 1,683 | **$177,397** | $84,150 (heavy) | $40,028 | $30,028 | **NO** — $26.68/sf screams structural, and heavy repairs eat the deal |
-| 237 N Irwin St | $74,900 | 1,246 | **UNPRICED** | — | — | — | ±30% band leaves under 3 renovated sales; tenant-occupied, landlord model anyway |
+| 237 N Irwin St | $74,900 | 1,246 | **UNPRICED** | — | — | — | ±30% band leaves 2 renovated sales inside the 1.5 mi cap; tenant-occupied, landlord model anyway |
 
 ## 45404 — KOSSUTH COLONY / OLD NORTH DAYTON (indicative: 2 comps, $128.76/sf, spread 2.2%)
 
@@ -80,6 +86,16 @@ $58,000 in Dec 2025, sold 2026-10-09.
 |---|---|---|---|---|---|---|---|---|
 | 1012 St Adelbert Ave | $105,000 | 1,200 | **$154,516** | 2 | $42,000 (mod) | $66,161 | $56,161 | **NO** — ask 87% over MAO |
 | 1309 Leonhard St | $99,900 | 1,290 | **UNPRICED** | — | — | — | — | 4-bed; the two renovated comps are 3-bed, and the bed floor is absolute. Also 1 of 6 in a package |
+
+## 45417 — EDGEMONT (UNPRICED, and the reason is distance)
+
+New: **162 Lorenz Ave** — $80,000, 3bd/1,344 sf, 1920, "Investor Special, sold as-is, will
+need renovation", 74 DOM, MLS# 967359, 1 photo.
+
+| Candidate | Ask | SF | ARV | Verdict |
+|---|---|---|---|---|
+| 330 Bolander Ave | $79,000 (cut from $120,000) | 1,628 | **UNPRICED** | 2 comps in band, spread 1.66x — too wide to price |
+| 162 Lorenz Ave | $80,000 | 1,344 | **UNPRICED** | **All three renovated 45417 sales are 1.84–1.89 mi away**, beyond the 1.5 mi cap. Verified, not assumed |
 
 ## 45406 — (UNPRICED, verified)
 
@@ -115,6 +131,23 @@ $58,000 in Dec 2025, sold 2026-10-09.
 | 7 | 2326 Parkland | Walk it. $65,000 against a $59,817 MAO is a $5,183 conversation. |
 | 8 | 1309 Leonhard | Becomes priceable if it is really a 3-bed, or with a renovated 4-bed 45404 sale. |
 | 9 | 3395 Brumbaugh | Unpriceable without a renovated 45406 comp. |
+| 10 | 162 Lorenz Ave | 1 photo only. Is it a light rehab or a gut? At $80,000 with $48,384 of repairs it prices out at roughly breakeven at best. |
+
+## 45405 FAIRVIEW — still unpriced, and now demonstrably so
+
+I pushed hard on this and found the answer:
+
+- **525 W Fairview Ave — SOLD 2026-09-09, $73,471, 1,440 sf = $51/sf.** In Fairview, in date, in
+  band. But it is **DATED**: listed at $30,000 on 2026-05-07 and sold 125 days later at
+  $73,471, a 145% uplift. That is not a renovated sale; it is a trade.
+- **127 McDaniel St — SOLD 2026-09-23, $240,000, 1,398 sf = $172/sf,** granite counters, 2
+  full baths, fully renovated with permits. But it is in **McPherson Town Historic District**,
+  a different submarket 3.4x Fairview's prices. Using it would roughly triple every Fairview ARV.
+- **50 Woodcrest — $155,000, 1,500 sf, sold 2026-05-01.** Still 11 days outside the window and
+  still the only renovated in-band Fairview sale.
+
+So the Fairview gap is real: the ZIP has exactly one sale that could price it and it is 11
+days too old. The answer to "dig deep" is a specific, checkable fact, not an excuse.
 
 ## Standing caveats
 
