@@ -6,7 +6,7 @@
 
 This file exists because those rules were learned by making three expensive mistakes
 and writing them down. When this file and a convenient instinct disagree, this file wins.
-The executable version is `comping/comp.py`; read this to understand it, run that to use it.
+The executable version is `scripts/comp.py`; read this to understand it, run that to use it.
 
 ---
 
@@ -37,7 +37,7 @@ is not. `NO COMPS` is a status, not a problem to be papered over.
 ## 2. The comp filter ladder (run in this exact order)
 
 Comp universe first, then the ladder per subject. Constants are in `comp.py`
-(`RADIUS_LADDER`, `MIN_COMPS`, `SQFT_BAND`, `HAIRCUT`).
+(`RADIUS_LADDER`, `MIN_COMPS`, `SQFT_BAND`, `HAIRCUT` in `scripts/comp.py`).
 
 **Comp universe screen — drop a sale if any of these is true:**
 
@@ -149,7 +149,7 @@ Worked examples that must always reproduce (they are asserted in `comp.py --self
 
 ## 6. The six checks that make an ARV defensible
 
-A number isn't done until all six pass. `comp.py` enforces these and fails loudly.
+A number isn't done until all six pass. `scripts/comp.py` enforces these and fails loudly.
 
 1. **Same neighbourhood** — comp neighbourhood == subject neighbourhood, exactly.
 2. **≥3 comps**, never fewer.
@@ -160,7 +160,7 @@ A number isn't done until all six pass. `comp.py` enforces these and fails loudl
 
 Every check must compare **two independent things**. A check that compares a constant to
 itself is worse than no check: it manufactures a false PASS. And every check must be
-**proven able to fail** — run `--selftest`, which injects one defect per check.
+**proven able to fail** — run `python3 scripts/comp.py --selftest`, which injects one defect per check.
 
 ---
 

@@ -1,3 +1,23 @@
+# MANDATORY ROUTING — REAL ESTATE WORK
+
+This repository IS the real estate operating system. Before ANY task involving
+finding deals, scanning Zillow/Redfin/PropWire, evaluating a property, comping,
+ARV, repairs, buyer max, MAO, offers, assignments, or deal qualification:
+
+1. Read `SKILL.md` in full.
+2. Run `bash scripts/preflight.sh`. It must print PREFLIGHT PASSED.
+3. Read the reference for the step you are on.
+4. Follow the procedure. Do not improvise, and do not rely on conversation
+   memory, an older version, or assumptions about preferences.
+
+If `SKILL.md` or the preflight is missing, broken, or failing: **STOP.** Report
+exactly what is unavailable. Do not fall back to generic property sourcing.
+
+The comp/ARV arithmetic has a second, deeper rulebook at `comping/COMPING.md`.
+Where anything disagrees with `references/` + `comping/COMPING.md`, those win.
+
+---
+
 # context-mode — MANDATORY routing rules
 
 You have context-mode MCP tools available. These rules are NOT optional — they protect your context window from flooding. A single unrouted command can dump 56 KB into context and waste the entire session.

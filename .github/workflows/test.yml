@@ -1,0 +1,32 @@
+name: enforcement-tests
+
+# The skill's rules are code. If a rule breaks, this fails.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: preflight (skill intact and current)
+        run: bash scripts/preflight.sh
+
+      - name: all six script selftests
+        run: |
+          python3 scripts/underwrite.py --selftest
+          python3 scripts/zip_ledger.py --selftest
+          python3 scripts/gate.py --selftest
+          python3 scripts/comps.py --selftest
+          python3 scripts/rank_listing.py --selftest
+          python3 scripts/comp.py --selftest
+
+      - name: full enforcement suite
+        run: bash tests/test-real-estate-skill.sh

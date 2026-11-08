@@ -552,7 +552,10 @@ def cmd_arv(args) -> int:
         print(f"  {'PASS' if ok else 'FAIL'}  {label}  [{detail}]")
         fails += 0 if ok else 1
     print("\nESTIMATE - not an appraisal, not an offer.")
-    return 0 if fails == 0 else 1
+    if fails:
+        return 1
+    # exit 3 = unpriced. A caller must be able to detect the refusal, not read it.
+    return 0 if result.status == STATUS_PRICED else 3
 
 
 def cmd_offer(args) -> int:

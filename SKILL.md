@@ -1,232 +1,162 @@
 ---
 name: wholesale-realestate
-description: Full wholesale real estate workflow — search for deals in a city/area, analyze numbers (ARV by comps, ceiling, repair costs), make an offer, and close/assign the contract. Use when user mentions wholesaling, finding deals, searching for properties, making offers, assigning contracts, or asks about real estate investment analysis.
-tools: Read, Write, Glob, Grep, Bash, WebSearch, mcp__plugin_context-mode_context-mode__ctx_fetch_and_index, mcp__plugin_context-mode_context-mode__ctx_search, mcp__plugin_context-mode_context-mode__ctx_batch_execute
+version: 2.0.0
+description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
-# Wholesale Real Estate — Full Workflow
+# Wholesale Real Estate — Sourcing and Underwriting
 
-Guide the user through every stage of a wholesale real estate deal from lead to close.
+The single operating standard for US wholesale real estate. The repository is the
+source of truth; this file is the entry point and `references/` is the detail.
 
-> **Read `comping/COMPING.md` before quoting any value.** It is the binding comp/ARV
-> standard (derived from the `superpowers` → `leadgen` work and its three ARV
-> corrections), and `comping/comp.py` is the executable version. Where this file and
-> that standard disagree, the standard wins.
+**Core principle:** every number carries a source and a date, or it is `UNKNOWN`.
+`UNKNOWN` stops the analysis. It never gets filled in to make a deal pass.
 
----
+## Preflight — required before any sourcing or underwriting
 
-## Stage 0: Deal Finder (Search by City / Area)
-
-**Trigger:** User says "find deals in [city]", "search [area]", "what's available in [zip/city]", or similar.
-
-### Step 1 — Collect search parameters
-
-Ask the user:
-```
-City or area to search:
-Property types (SFR, multi-family, both):
-Max price (leave blank for no limit):
-Min bedrooms (default: 2):
-Any specific zip codes or neighborhoods? (optional):
-```
-
-### Step 2 — Run motivated-seller searches
-
-Use **WebSearch** with the following query patterns (substitute user's city/area):
-
-```
-Motivated seller search queries to run in parallel:
-
-1. site:zillow.com "[CITY]" "price reduced" "as-is" -agent
-2. site:craigslist.org "[CITY]" "motivated seller" OR "must sell" OR "as-is" real estate
-3. site:redfin.com "[CITY]" "fixer" OR "TLC" OR "as-is" "days on market"
-4. "[CITY] foreclosure listings" OR "[CITY] pre-foreclosure homes for sale"
-5. "[CITY] tax delinquent property list [YEAR]" OR "[CITY] tax lien properties"
-6. site:facebook.com "marketplace" "[CITY]" "we buy houses" OR "FSBO" OR "cash only"
-7. "[CITY] probate real estate listings" OR "[CITY] estate sale homes"
-8. "[CITY] absentee owner properties for sale"
-```
-
-Run at minimum queries 1, 2, 3, and 4. Run all 8 for a thorough search.
-
-### Step 3 — Fetch and index promising results
-
-For each promising URL found in search results, use `ctx_fetch_and_index(url, source)` to pull the full listing details. Label the source as `"deal-[address]"` so results can be searched later.
-
-### Step 4 — Score and filter leads
-
-For each property found, score it on the **Motivated Seller Score (MSS)**:
-
-| Signal | Points |
-|--------|--------|
-| Listed as "as-is" or "fixer" | +2 |
-| Price reduced (any reduction) | +2 |
-| DOM > 60 days | +2 |
-| DOM > 90 days | +3 |
-| Listed below estimated ARV by >30% | +3 |
-| Foreclosure / pre-foreclosure | +3 |
-| Probate / estate sale | +2 |
-| Tax delinquent | +3 |
-| FSBO (no agent) | +1 |
-| Vacant / abandoned indicator | +2 |
-
-**Score thresholds:**
-- 8+ points → Hot Lead (pursue immediately)
-- 5–7 points → Warm Lead (worth investigating)
-- < 5 points → Skip
-
-### Step 5 — Present results table
-
-Output a ranked table of the top leads found:
-
-```
-## Deal Finder Results — [CITY/AREA]
-Search date: [today's date]
-
-| # | Address | Price | Est. ARV | Est. Repairs | MSS | Status | Source |
-|---|---------|-------|----------|--------------|-----|--------|--------|
-| 1 | ...     | $...  | $...     | $...         | 10  | Hot    | Zillow |
-| 2 | ...     | $...  | $...     | $...         | 7   | Warm   | CL     |
-...
-
-Hot Leads: X | Warm Leads: Y | Total found: Z
-```
-
-For ARV and repair estimates, use neighborhood price data from search results and apply conservative estimates (note they are estimates until comps are run).
-
-### Step 6 — Offer next action
-
-After presenting results, ask:
-```
-Which property would you like to dig deeper on?
-→ Type a number to run full deal analysis (Stage 2 onward)
-→ Type "search more" to expand the search
-→ Type "export" to save results to a file
-```
-
-If user says **"export"**, write the results table to `wholesale-leads-[CITY]-[DATE].md` in the current directory.
-
-If user picks a property, automatically continue to **Stage 2** (Deal Analysis) with that property pre-filled.
-
----
-
-## Stage 1: Qualify an Existing Lead
-
-Ask the user for the property address or lead source, then help them qualify the lead.
-
-**Motivated Seller Checklist:**
-- Distressed property (visible repairs, code violations, tax liens)?
-- Owner situation: divorce, probate, foreclosure, out-of-state landlord, tired landlord?
-- Days on market (DOM > 90 = motivated)?
-- Asking price vs. estimated ARV?
-
-**Lead Sources to suggest if user has no deal yet:**
-- Driving for dollars (Propstream, DealMachine)
-- Direct mail (tax delinquent lists, absentee owners)
-- MLS — expired/cancelled listings
-- Bandit signs, Facebook Marketplace FSBO, Craigslist
-- Probate court records, foreclosure auction lists
-
----
-
-## Stage 2: Analyze the Deal
-
-Collect the following inputs from the user, then calculate the offer.
-
-### Inputs to Gather
-```
-Property address:
-Bedrooms / Bathrooms / Sqft:
-Year built:
-Estimated ARV (After Repair Value): $
-Estimated repair costs: $
-Your wholesale fee target: $
-End buyer's desired profit margin (default 20%):
-Holding/closing costs estimate (default 10% of ARV):
-```
-
-### Ceiling Formula (the most you may pay)
-```
-CEILING      = ARV × 0.70 − Repairs          # cap. Fee NOT deducted here
-OFFER LOW    = ARV × 0.55 − Repairs          # open here
-OFFER HIGH   = ARV × 0.60 − Repairs          # never open here
-FRICTION     = CEILING − OFFER HIGH           # 10–15% of ARV — this is the room
-CONTRACT     = CEILING − Wholesale Fee        # buy at this to make the fee
-
-Example (ARV $200,000, repairs $30,000, fee $10,000):
-  × 70%:        $140,000  − repairs  → CEILING     $110,000
-  × 55%:        $110,000  − repairs  → OFFER LOW    $80,000
-  × 60%:        $120,000  − repairs  → OFFER HIGH   $90,000
-  FRICTION (55% → 70% of ARV):                       $20,000
-  CEILING − fee                      → CONTRACT    $100,000
-```
-
-**70% is a cap, 55–60% is a target under the cap, and the gap is the pay stack.**
-**Never deduct the fee twice** — it comes off once, at the contract step. The old
-`MAO = ARV × 0.70 − Repairs − Fee` formula double-charges it, and starting at MAO−10%
-puts the opening offer below 55% of ARV with repairs already removed.
-
-Verify any numbers with `python3 comping/comp.py --offer <ARV> --repairs <graded>`.
-
-### Deal Scorecard
-| Metric | Value | Pass? |
-|--------|-------|-------|
-| Contract ≤ CONTRACT target | | ✅ / ❌ |
-| ARV from comps, with n / radius / confidence | | ✅ / ❌ |
-| Repairs graded (not guessed) | | ✅ / ❌ |
-| End buyer identified | | ✅ / ❌ |
-| Assignment fee ≥ $5,000 | | ✅ / ❌ |
-
-Output the completed scorecard and state whether the deal passes.
-
----
-
-## Stage 3: Run Comps (ARV Estimation)
-
-**The rule lives in `comping/COMPING.md`; run it with `comping/comp.py`. It is not a judgement call.**
-
-```
-ARV = subject_sqft × p75($/sqft of ≥3 arm's-length closed sales, SAME neighbourhood,
-      ≤1.5 mi, inside 6–12 months, ±30% sqft) × 0.88
-```
-
-**Ladder, in this order:** identical neighbourhood code → ±30% sqft band → radius
-`0.25 → 0.50 → 0.75 → 1.00 → 1.25 → 1.50` mi, using the *smallest* radius with **≥3**
-comps → style preference when ≥3 share it. **Under 3 comps at 1.50 mi → `NO COMPS`,
-unpriced. Do not widen, do not average, do not fall back to a ZIP band.**
-
-**Excluded from ARV** (keep as a floor only, and say so): deed-restricted / AMI sales,
-newer builds, condos, non-arm's-length transfers, and every asking price. Asking prices
-are not comps — using them is what inflated 141 Grand Ave by **85%**. ZIP ≠ neighbourhood:
-44303 three-beds sell $200K–$255K, 44302 three-beds sell $74K–$120K.
-
-**Confidence** is `HIGH` at n ≥ 6, `LOW` below that. Report `n`, radius, neighbourhood
-and confidence with every number, or the number is not reportable.
-
-**Never report a single point estimate without its skeleton**, and label it
-`ESTIMATE — not an appraisal, not an offer`. `UNPRICED` is a complete answer.
-
-**Run it:**
 ```bash
-python3 comping/comp.py --selftest        # prove the 6 checks can fail
-python3 comping/comp.py --exclusions      # the not-a-comp list
-python3 comping/comp.py --comps comping/fixtures/akron_44302_worked_example.csv \
-  --as-of 2026-10-31 --repairs 65000 \
-  --subject '{"address":"141 Grand Ave","sqft":1642,"hood":"44302","lat":41.079,"lon":-81.536,"style":"COLONIAL"}'
+bash scripts/preflight.sh
 ```
 
-**If user has no comps yet**, pull closed sales from MLS-sourced data (Redfin
-`include=sold-6mo`, Zillow property pages, Realtor.com), or Propstream/BatchLeads for
-off-market, or ask a local agent for a CMA. Zillow's ZIP-level *filters* are unreliable;
-its property pages are fine. A Zestimate is an **anchor for off-market records only** —
-never a comp, never blended with an ARV.
+It verifies every file is present, prints the version, and runs all six script
+selftests. If it fails, **STOP** and report exactly what is missing. Do not fall
+back to generic property browsing, and do not work from memory of this file.
+
+Then read the reference for the step you are on. Do not work from memory; the
+references are the detail and they change.
+
+| Step | Reference |
+|---|---|
+| ZIP research, ranking, scan bookkeeping | `references/market-research.md` |
+| On-market scan (Zillow/Redfin) | `references/on-market.md` |
+| Off-market scan (PropWire / county GIS) | `references/off-market.md` |
+| Comps to the five-comp standard | `references/comps.md` |
+| Photos and condition | `references/condition.md` |
+| Repairs | `references/repairs.md` |
+| Buyer ceiling, buyer max, seller MAO, fee | `references/underwriting.md` |
+| Qualification gate, verdict, report format | `references/qualification.md` |
+| Labels, provenance, anti-hallucination | `references/data-integrity.md` |
+| Deeper comp arithmetic (neighbourhood gate, radius ladder) | `comping/COMPING.md` |
+
+## The pipeline
+
+```
+ZIP priority  ->  on-market scan  ----\
+                                      >--  shortlist  ->  photos  ->  comps
+              ->  off-market scan  --/                                 |
+                                                                       v
+                        repairs  ->  underwriting  ->  15-point gate  ->  verdict
+```
+
+Each stage can end the deal. A property never reaches underwriting without a
+condition classification and a repair range.
+
+## The scripts
+
+| Script | Enforces |
+|---|---|
+| `scripts/preflight.sh` | The skill is intact and current — run it first |
+| `scripts/rank_listing.py` | DOM/reduction priorities, the 14-day rejection |
+| `scripts/comps.py` | Five-comp rule; no ARV under five |
+| `scripts/comp.py` | ARV arithmetic: neighbourhood gate, radius ladder, p75 × 0.88 |
+| `scripts/underwrite.py` | Buyer max ≠ seller MAO; the $200K check |
+| `scripts/zip_ledger.py` | What was scanned, and the duplicate guard |
+| `scripts/gate.py` | The 15-point gate, mechanically |
+
+Each has `--selftest`, and each selftest must pass before a number is quoted.
+
+## Hard rules
+
+1. **Five comps or no ARV.** Fewer than five credible sold comps means
+   `ARV INSUFFICIENTLY SUPPORTED`, and the property is not a submission.
+2. **Same ZIP or immediate neighbourhood first.** Expand only when needed, state
+   why, and never force five weak comps to reach five.
+3. **Active listings are never comps.** Only closed sales.
+4. **Photos classify; descriptions do not.** Separate what is shown, what is
+   inferred, and what cannot be confirmed remotely.
+5. **Repairs are a range plus a contingency** unless an inspection or bid exists.
+6. **Buyer max and seller MAO are different numbers.** Buyer max =
+   `(ARV × 0.70) − repairs`. Seller MAO = buyer max − fee − wholesaler costs.
+7. **Gross spread is not profit.** Say so every time it appears.
+8. **RealVenture's buy box is a guideline, not a commitment.** No buyer has
+   approved anything until that buyer says so.
+9. **Report zero if zero qualify.** A ZIP with nothing is an honest result.
+10. **No REO/bank-owned in normal results.** Separate channel, on request.
+11. **New listings (<14 days) rejected by default** unless documented mispricing.
+12. **A previously scanned property is not a new opportunity.** Check the ledger.
+13. **Stop on missing evidence.** Unverified title, occupancy, access or
+    structure caps a property at `POTENTIAL`.
+14. **Never invent.** Address, URL, sold price, date, sqft, beds, DOM, owner,
+    phone, equity, motivation, repair observation, buyer approval.
+
+## Red Flags
+
+Each of these has already cost real money in this workflow.
+
+| Thought | Reality |
+|---|---|
+| "It's cheap, so it's a deal" | Cheap in a $100K-ARV ZIP is a trap. The ratio to ARV decides |
+| "That ZIP is close enough" | 44303 3-beds sell $200–255K; 44302 sells $74–120K. Same city, 2× |
+| "I'll use the Zestimate as ARV" | An anchor for an off-market record, never a comp |
+| "That AMI-restricted sale is a comp" | It is a floor. Using it understated a real deal by $20,000 |
+| "Asking prices support the ARV" | This inflated one ARV by 85% |
+| "I only found 3 comps" | Then there is no ARV. Say so |
+| "4 comps is basically 5" | Then it is not a submission. The buyer pulls their own |
+| "The spread is $70K, that's profit" | Gross. Commission, closing, holding, financing are not in it |
+| "Buyer max is my offer" | Buyer max is the cap. Your offer is below your MAO |
+| "Fee first, then see if it works" | Lower the offer, never inflate the fee |
+| "Zillow filters didn't apply, so Zillow is unusable" | Its filters fail; its property pages work |
+| "No same-ZIP comps, use the next ZIP" | Then say the ARV is unsupported. Do not borrow a submarket |
+| "Photos look fine so the roof is fine" | Photos cannot prove a roof, foundation, wiring, plumbing |
+| "I'll fill the empty columns later" | `UNKNOWN` is the answer. Later never comes |
+| "Six is better than zero, the client wants options" | Padding the report is the failure, not the empty ZIP |
+| "The listing says updated" | Agent copy is a claim. The photo is the evidence |
+
+## Output contract
+
+Every shortlisted property gets the report in `references/qualification.md` §5 —
+sixteen sections, all filled or marked `UNKNOWN`. Every factual claim carries
+`VERIFIED` / `REPORTED` / `ESTIMATED` / `ASSUMED` / `UNKNOWN`, a source URL, and
+the date checked.
+
+Every report ends with `STRONG OPPORTUNITY`, `POTENTIAL OPPORTUNITY`, or `REJECT`,
+and one sentence naming what would change it.
+
+## Bookkeeping
+
+```bash
+python3 scripts/zip_ledger.py --list      # what was scanned, when, what it produced
+python3 scripts/zip_ledger.py --due       # which ZIPs are owed a re-scan
+```
+
+Ledgers live in `state/` (gitignored). `assets/zip_universe.csv` is the committed
+seed: markets, ZIPs, priority scores, and the evidence behind each score.
+
+## Markets and operating reality
+
+Six markets only: Cleveland OH, Akron OH, Columbus OH, Dayton OH, Birmingham AL,
+Atlanta GA. Only Akron and Cleveland have seeded ZIPs; the other four have no
+evidence yet and must not be scored until researched.
+
+The seller operates remotely from Nigeria, so every property needs a named path to
+current photos or a walkthrough before it can be `STRONG`.
+
+## The rest of the workflow
+
+Sourcing and underwriting are the front of the deal. The later stages live below,
+and they use the numbers this standard produces:
+
+- **Stage 4 — the offer.** Open at `OFFER LOW` (55% of ARV − repairs), never above
+  `OFFER HIGH` (60%). The room to negotiate is the 55→70% friction, which already
+  exists. Offer script and PSA checklist follow.
+- **Stage 5 — end buyer and assignment.** Assignment fee = end buyer price −
+  contract price. The assignment agreement must reference the original contract.
+- **Stage 6 — close.** Title company, title search, proof of funds, signed
+  assignment, disbursement review, fee collected at closing.
 
 ---
 
 ## Stage 4: Make the Offer
-
-### Offer Conversation Script
-Present this to the user to use with the seller:
 
 ```
 "Hi [Seller], based on what the home needs and what similar homes
@@ -236,89 +166,66 @@ close in [14–21] days, no commissions, no contingencies.
 Would that work for you?"
 ```
 
-**Negotiation anchors:**
-- Open at `OFFER LOW` (55% of ARV − repairs) and never above `OFFER HIGH` (60%).
-  The room to negotiate up is the 55→70% friction, which already exists — do not
-  manufacture more by discounting below the low anchor
-- Emphasize speed, certainty, and no repairs needed
-- If seller counters high, ask: "What's the lowest you'd go to close quickly?"
+**Negotiation anchors**
+- Open at `OFFER LOW` (55% of ARV − repairs); never open above `OFFER HIGH` (60%).
+- Emphasise speed, certainty, and no repairs.
+- If the seller counters high: "What's the lowest you'd go to close quickly?"
 
-### Purchase and Sale Agreement checklist
-- Property address (legal description)
+**Purchase and Sale Agreement checklist**
+- Property address and legal description
 - Purchase price = your offer
-- Earnest money deposit (typically $500–$2,000)
-- Inspection / due diligence period (7–14 days)
-- **Assignment clause**: "And/or assigns" after buyer's name — CRITICAL
+- Earnest money ($500–$2,000 typical)
+- Due diligence period (7–14 days)
+- **Assignment clause: "and/or assigns"** — critical
 - Closing date
 - As-is clause
 
----
+## Stage 5: End Buyer and Assignment
 
-## Stage 5: Find an End Buyer & Assign the Contract
+**Where buyers come from:** your list · local REIA · "We Buy Houses [City]" groups ·
+BiggerPockets · Craigslist "Real Estate Wanted" · co-wholesaling.
 
-### End Buyer Sources
-- Your existing cash buyer list
-- Local REIA (Real Estate Investor Association) meetings
-- Facebook Groups: "We Buy Houses [City]", local investor groups
-- Bigger Pockets forums
-- Craigslist "Real Estate Wanted" section
-- Other wholesalers (co-wholesale)
-
-### Assignment of Contract
 ```
-Assignment Fee = End Buyer's Purchase Price − Your Contract Price
-
-Example:
-  Your contract:    $100,000
-  End buyer pays:   $110,000
-  Your fee:         $10,000
+Assignment fee = end buyer's purchase price − your contract price
 ```
 
-**Assignment Agreement must include:**
-- Original contract reference
-- Assignor (you) and Assignee (end buyer) details
-- Assignment fee amount
-- End buyer takes over all rights and obligations
+The assignment agreement must reference the original contract, name assignor and
+assignee, state the fee, and transfer all rights and obligations.
 
----
+## Stage 6: Close
 
-## Stage 6: Close the Deal
-
-### Closing Checklist
-- [ ] Title company / closing attorney selected (use investor-friendly title co.)
-- [ ] Title search ordered — confirm no liens beyond seller's mortgage
+- [ ] Investor-friendly title company selected
+- [ ] Title search ordered — no liens beyond the seller's mortgage
 - [ ] End buyer has proof of funds or hard money approval
 - [ ] Assignment agreement signed and delivered to title
 - [ ] Closing date confirmed with all parties
-- [ ] Assignment fee collected at closing (wire or cashier's check)
+- [ ] Assignment fee collected at closing
 - [ ] Disbursement sheet reviewed before signing
 
-### Post-Close
-- Add end buyer to your buyers list with purchase criteria
-- Send thank-you to seller
-- Track deal in your CRM: address, ARV, repair, sale price, fee, closing date
-- Analyze: what went right / wrong for next deal
+**Post-close:** add the buyer to your list with their criteria · thank the seller ·
+log the deal (address, ARV, repairs, sale price, fee, close date) · review what
+worked.
 
----
-
-## Key Formulas Reference
+## Key formulas
 
 | Formula | Equation |
-|---------|----------|
+|---|---|
 | CEILING (max pay) | ARV × 0.70 − Repairs |
 | OFFER LOW / HIGH | ARV × 0.55 / × 0.60 − Repairs |
 | FRICTION | CEILING − OFFER HIGH (10–15% of ARV) |
-| CONTRACT | CEILING − Wholesale Fee (fee deducted once) |
-| Assignment Fee | End Buyer Price − Contract Price |
-| Comp $/sqft | Comp Sale Price ÷ Comp Sqft |
-| Subject ARV | Subject Sqft × p75 $/sqft × 0.88 (see Stage 3) |
-| As-is value | Subject Sqft × p25 $/sqft × 0.88 |
-| Net to Seller | Contract Price − Seller's Liens − Closing Costs |
+| CONTRACT | CEILING − Fee (deducted once) |
+| Buyer max contract | (ARV × 0.70) − Repairs − buyer costs |
+| Seller-facing MAO | Buyer max − assignment fee − wholesaler costs |
+| Buyer gross spread | ARV − Contract − Repairs (gross, not profit) |
+| Subject ARV | Sqft × p75 $/sqft × 0.88 (see `references/comps.md`) |
+| As-is value | Sqft × p25 $/sqft × 0.88 |
+| Assignment fee | End buyer price − contract price |
 
----
+## Quick commands
 
-## Quick Commands
-
-When the user provides deal numbers, automatically run Stage 2 analysis and output the CEILING, the 55–60% offer range and the Deal Scorecard without asking for permission. Never present a ceiling as an offer.
-
-When the user says "I have a deal" or provides an address, start at Stage 1 and walk through each stage sequentially, asking only for the inputs needed at each step.
+- User gives deal numbers → run `scripts/underwrite.py`, output CEILING, the
+  55–60% range, and the deal scorecard. Never present a ceiling as an offer.
+- User says "I have a deal" or names an address → Stage 1 qualification, then the
+  pipeline above.
+- User says "find deals in [city]" → `references/market-research.md` first, then
+  scan ranked ZIPs only.
