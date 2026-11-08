@@ -1,0 +1,24 @@
+address,beds,sqft,ask,tier,repairs,arv,ceiling,mao,verdict,conf,refusal_reason
+809 Faulkner Ave,4,1485,25000,heavy,74250,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: consistency gate left 2 comp(s) within 1.5 mi
+817 Faulkner Ave,3,1430,50000,moderate,50050,156069,59198,49198,NO(above MAO),spread 26.5%  n=4,
+1233 Windsor Ave,4,1400,59900,heavy,70000,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRICED -
+623 Anna St,3,1237,65000,heavy,61850,153999,45949,35949,NO,spread 1.8%  n=3,
+860 N Euclid Ave,3,1524,75000,moderate,53340,149671,51430,41430,NO,spread 41.1%  n=5,
+717 Shoop Ave,2,768,75000,moderate,26880,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRICED -
+847 Dow St,2,996,77000,moderate,34860,123996,51937,41937,NO,spread 1.8%  n=3,
+900 Crestmore Ave,2,891,80000,moderate,31185,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRICED -
+624 N Broadway St,3,2302,85000,heavy,115100,177360,9052,-948,NO(negative MAO),spread 15.7%  n=4,
+832 Clarkson Ave,2,744,89500,light,14880,,,,UNPRICED,,no same-neighbourhood sale within +-30% sqft (520-967 sf)
+1230 Wilson Dr,3,1212,90000,moderate,42420,150887,63201,53201,NO,spread 1.8%  n=3,
+737 Leland Ave,2,960,95000,moderate,33600,119514,50060,40060,NO,spread 1.8%  n=3,
+728 Lexington Ave,3,1584,109900,light,31680,155563,77214,67214,NO,spread 41.1%  n=5,
+740 Leland Ave,2,924,114900,light,18480,115032,62042,52042,NO,spread 1.8%  n=3,
+4017 Delphos Ave,3,1296,115000,light,25920,158477,85014,75014,NO,spread 13.0%  n=4,
+2022 W Grand Ave,3,1224,120000,moderate,42840,152381,63827,53827,NO,spread 1.8%  n=3,
+632 Yale Ave,3,1592,129900,light,31840,156349,77604,67604,NO,spread 41.1%  n=5,
+1253 Vernon Dr,4,1461,138500,moderate,51135,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRICED -
+1705 W 5th St,6,2000,159900,moderate,70000,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 6 beds - the bed floor cannot be met, so there is"
+1222 Everett Dr,3,1338,160000,light,26760,160652,85696,75696,NO,spread 21.9%  n=5,
+27 N Paul Laurence Dunbar St,3,1452,180000,light,29040,158470,81889,71889,NO,spread 26.5%  n=4,
+33 N Paul Laurence Dunbar St,4,4622,180000,heavy,231100,,,,UNPRICED,,"no same-neighbourhood sale within +-30% sqft (3,235-6,008 sf)"
+1000 W Grand Ave,4,4132,395000,heavy,206600,,,,UNPRICED,,"no same-neighbourhood sale within +-30% sqft (2,892-5,371 sf)"

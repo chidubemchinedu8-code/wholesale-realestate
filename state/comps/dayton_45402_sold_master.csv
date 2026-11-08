@@ -1,0 +1,66 @@
+address,sold,price,sqft,beds,condition,exclusion,evidence
+620 Shoop Ave,2026-10-30,123000,988,3,renovated,,completely remodeled move-in ready open concept
+839 Dow St,2026-09-04,131500,1056,3,renovated,,new roof gutters windows HVAC electrical plumbing turnkey
+545 Gramont Ave,2026-09-04,140000,1166,3,renovated,,completely reimagined remodeled LVP quartz new windows
+1133 Vernon Dr,2026-09-01,125000,1680,4,renovated,,brand new kitchen quartz new mechanicals
+600 Yale Ave,2026-09-18,170000,1731,3,renovated,,professionally renovated new shaker cabinetry flooring lighting
+39 Henry St,2026-09-01,226000,1246,2,renovated,,granite island SS appliances St Annes Hill
+2909 Hoover Ave,2026-06-05,153000,1920,4,renovated,,renovated inside and out new roof HVAC ductwork
+840 N Broadway St,2026-09-01,250000,1896,4,renovated,,
+216 S Conover St,2026-05-15,140000,2128,5,renovated,,fully remodeled two kitchens three baths duplex-capable
+201 Brown St,2026-09-01,365000,1870,3,renovated,different_tier,Oregon District fully reimagined chef kitchen
+36 Tecumseh St,2026-07-18,414000,2182,3,renovated,different_tier,Oregon District historic soul modern layout
+41 Green St,2026-09-01,405000,2208,2,renovated,different_tier,Oregon District redeveloped 2019
+104 W Monument Ave,2026-08-04,678000,2792,3,renovated,different_tier,Theater District 4-story townhome luxury
+520 E 2nd St,2026-08-14,420000,1800,2,renovated,different_tier,Webster Station brownstone condo
+28 S Patterson Blvd,2026-09-01,473000,1824,3,renovated,different_tier,upscale townhome
+30 S Patterson Blvd,2026-07-22,477000,1824,2,renovated,different_tier,luxury townhome 4 levels
+115 N Williams St,2026-09-01,270000,1214,3,new,new_build,newly built ranch Wolf Creek
+1260 W 1st St,2026-09-01,335000,1500,3,new,new_build,new construction
+136 S Williams,2026-09-01,415865,2294,3,new,new_build,brand-new ranch
+1131 W 2nd St,2026-08-20,325000,2045,4,new,new_build,newly constructed home plus ADU
+1007 W Third St,2026-05-22,298900,1323,2,new,new_build,new Townes at Wright Dunbar
+993 W Third St,2026-07-24,269075,1323,2,new,new_build,new Townes at Wright Dunbar
+417 Holt St,2026-09-25,168300,2560,5,renovated,multifamily,fully renovated duplex 2 units
+1234 Kumler Ave,2026-10-01,235000,5484,4,unknown,multifamily,four 1bd units
+109 Oxford Ave,2026-08-07,216000,2352,4,renovated,multifamily,brick 4-unit fully occupied
+34-36 Hess St,2026-05-19,310000,2800,3,renovated,multifamily,side-by-side duplex
+138 E 3rd St,2026-08-05,200000,7144,4,unknown,different_tier,mixed-use redevelopment 1865
+109 N Main St #1400,2026-09-21,390000,1976,2,renovated,condo,
+132 Canal Boat Ct,2026-09-30,293000,1200,2,renovated,condo,
+127 N Patterson Blvd,2026-10-30,349000,1845,2,renovated,condo,
+22 Van Buren St #2,2026-09-17,304900,1524,2,renovated,condo,
+207 E 6th St #201,2026-10-13,250000,816,2,renovated,condo,
+207 E 6th St,2026-06-03,240000,1007,2,renovated,condo,
+136 Canal Boat Ct,2026-06-22,247500,1168,1,renovated,condo,
+1568 W 2nd St,2026-09-25,53000,2504,4,distressed,,distressed 1885 needs renovation
+1027 W Riverview Ave,2026-10-02,35000,1800,3,distressed,,DIY renovation project
+938 Leland Ave,2026-06-08,40000,844,2,distressed,,needs complete rehab
+730 Faulkner Ave,2026-08-03,49900,972,2,distressed,,diamond in rough as-is
+925 Maplehurst Ave,2026-06-11,50000,864,3,distressed,,value-add requires renovation
+2425 W Riverview Ave,2026-08-11,25500,800,2,distressed,,gem in the rough
+161 Lexington Ave,2026-06-16,70000,2276,5,distressed,,renovations required good bones
+537 Shoop Ave,2026-10-14,71500,848,2,dated,,was rented 950 modest
+636 Westwood Ave,2026-09-01,48000,1375,3,dated,,bring your imagination
+865 Clarkson Ave,2026-10-30,59500,880,3,dated,,investor owned oak cabinetry
+732 Brooklyn Ave,2026-09-07,58000,912,2,maintained,,move-in ready first time buyer
+728 Brooklyn Ave,2026-09-14,57000,1016,2,maintained,,partially remodeled kitchen new furnace
+3925 Hoover Ave,2026-07-29,82000,936,2,maintained,,classic living modern updates
+2515 Hoover Ave,2026-05-20,120000,1608,3,maintained,,natural hardwood original woodwork
+119 Audubon Park,2026-05-21,174000,1384,3,maintained,,flooring replaced recently carpet
+1046 Shakespeare Ave,2026-08-10,112000,1436,3,maintained,,
+1034 W 1st St,2026-08-11,60000,1536,3,dated,,
+261 Boyer St,2026-10-30,105000,1248,3,maintained,,well-maintained ranch oak cabinetry
+845 Osmond Ave,2026-09-01,70000,1304,3,unknown,,
+26 Brown St,2026-09-01,422000,2594,4,unknown,,
+1236 W First St,2026-09-01,35860,1677,3,unknown,,
+713 Edison St,2026-09-01,23000,605,2,unknown,,
+1405 Superior Ave,2026-11-04,25080,2828,5,unknown,non_arms_length,court ordered auction PSO
+533 Lexington Ave,2026-07-29,27060,1864,4,unknown,non_arms_length,court ordered auction PSO
+725 Brooklyn Ave,2026-07-24,29260,944,2,unknown,non_arms_length,court ordered auction PSO
+2632 W Riverview Ave,2026-09-29,59001,1144,2,unknown,,sold as is
+348 Middle St,2026-10-07,65000,1125,3,unknown,,
+137 Kinnard Ave,2026-09-28,45000,1394,2,unknown,,
+1125 Superior Ave,2026-07-13,73000,2756,6,unknown,multifamily,6 bed 2756 sf
+928 Kumler Ave,2026-10-20,155000,2464,6,unknown,multifamily,6 bed 2464 sf
+204 S Dutoit St,2026-07-23,200000,1918,4,unknown,,

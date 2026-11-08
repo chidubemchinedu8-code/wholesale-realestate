@@ -1,0 +1,74 @@
+address,ask,beds,baths,sqft,type,condition_signal,verdict,reject_reason
+1233 Windsor Ave,59900,4,1,1400,SFR,"as-is renovation project, 4 beds upstairs",CANDIDATE,
+933 W Third St,297900,2,2.5,1323,SFR,new construction Townes at Wright Dunbar,REJECT,new_construction
+929 W Third St,314900,2,2.5,1323,SFR,new construction Townes at Wright Dunbar,REJECT,new_construction
+1546 W 1st St,164900,3,2,2332,SFR,completely move in ready,REJECT,turnkey_retail_ready
+1000 W Grand Ave,395000,4,3.5,4132,SFR,"1904 mansion, full restoration needed",POTENTIAL,
+624 N Broadway St,85000,3,2.5,2302,SFR,"gutted duplex conversion, NO mechanics/plumbing/electric on site",CANDIDATE,
+248 Green St,499000,4,2.5,2474,SFR,"1853 Oregon District, extensively renovated",REJECT,above_market_arv_band
+149 Edison St,249900,4,4,1445,Duplex,"separate meters per unit, 2 units",REJECT,multifamily_needs_2_4unit_comps
+623 Anna St,65000,3,1,1237,SFR,"completely gutted, no trash out needed",CANDIDATE,
+219 E 1st St,290000,2,1.5,1140,Townhouse,"loft-style, updated, garage",REJECT,above_market_arv_band
+1407 W Grand Ave,209900,3,1.5,2352,SFR,">$100,000 in renovations, cathedral ceilings",REJECT,turnkey_retail_ready
+740 Leland Ave,114900,2,2,924,SFR,"recently renovated, finished attic + lower level",CANDIDATE,
+39 E 1st St,99000,2,1.5,2100,Condo,"Brooks House condo, needs transformation",REJECT,condo
+15 Edith St,115000,3,1,1006,SFR,"beautifully renovated, move in ready",REJECT,turnkey_retail_ready
+51 Lexington Ave,49900,8,4,2550,Duplex,"formerly duplex, historic restoration, 8 beds",REJECT,multifamily_needs_2_4unit_comps
+847 Dow St,77000,2,2,996,SFR,"1927 cape, diamond in the rough, as-is",CANDIDATE,
+945 Vernon Dr,86999,3,2,1266,SFR,"rental-ready, generates $1,250/mo, tenant in place",REJECT,landlord_model_occupied
+737 Leland Ave,95000,2,2,960,SFR,"updated flooring/kitchen/baths, needs finishing touches",CANDIDATE,
+632 Yale Ave,129900,3,1,1592,SFR,"refreshed, fresh carpet and paint",CANDIDATE,
+34 Mound St,149500,3,2,1156,SFR,"$35,000 invested, renovated kitchen and baths",REJECT,turnkey_retail_ready
+627 Yale Ave,142900,3,2,1214,SFR,"completely renovated, quartz, new SS appliances",REJECT,turnkey_retail_ready
+435 Oxford Ave,165000,3,2,1360,SFR,"renovated, granite, new roof",REJECT,turnkey_retail_ready
+1222 Everett Dr,160000,3,1.5,1338,SFR,Welcome Home Ohio land bank restoration,POTENTIAL,
+27 N Paul Laurence Dunbar St,180000,3,2.5,1452,SFR,no condition detail in listing,POTENTIAL,
+832 Clarkson Ave,89500,2,1,744,SFR,"newly renovated, new roof/windows/siding",CANDIDATE,
+368 S Patterson Blvd,975000,5,2.5,4961,SFR,"1890 Oregon District, designer finishes, pool",REJECT,above_market_arv_band
+945 W Third St,274900,2,2.5,1323,SFR,new construction under construction,REJECT,new_construction
+1015 Lexington Ave,108900,3,1,1580,SFR,"tenant occupied, seller financing",REJECT,landlord_model_occupied
+1521 Lexington Ave,1,2,1,1032,SFR,COURT ORDERED auction ends 2026-11-12,REJECT,court_ordered_auction
+860 N Euclid Ave,75000,3,1,1524,SFR,"as-is, seller will make no repairs",CANDIDATE,
+728 Lexington Ave,109900,3,1,1584,SFR,"LVP flooring, move in ready",CANDIDATE,
+809 Faulkner Ave,25000,4,2,1485,SFR,"needs everything, dated fixtures, as-is",CANDIDATE,
+817 Faulkner Ave,50000,3,1,1430,SFR,"investor ready, newer roof/windows/siding, siding ready to paint",CANDIDATE,
+4017 Delphos Ave,115000,3,1.5,1296,SFR,"move-in ready, PEX, waterproofed basement",CANDIDATE,
+101-103 Green St,369900,4,3.5,2848,Duplex,"deeded two-unit, Oregon District",REJECT,multifamily_needs_2_4unit_comps
+3619 Hoover Ave,99900,3,1,1056,SFR,TENANT OCCUPIED,REJECT,landlord_model_occupied
+739 Faulkner Ave,135000,3,1.5,1602,SFR,fully renovated 2026,REJECT,turnkey_retail_ready
+1727 W Riverview Ave,110000,2,2,864,SFR,"renovated, tenant at $1,850/mo",REJECT,landlord_model_occupied
+1310 Glendale Ave,510000,18,6,7884,Multifamily,6-unit brick apartment building,REJECT,multifamily_needs_2_4unit_comps
+939 W Third St,324900,2,2.5,1323,SFR,new construction,REJECT,new_construction
+121 Lowe Ln,545000,3,3.5,2468,SFR,"Monument Walk rooftop terrace, tax abated",REJECT,above_market_arv_band
+1205-1207 Windsor Ave,119000,4,2,1692,Duplex,"2bd/1ba each side, tenants in place",REJECT,multifamily_needs_2_4unit_comps
+1042 W 2nd St,225000,4,2,1759,SFR,"completely renovated, Wolf Creek, new everything",REJECT,turnkey_retail_ready
+552 Evergreen Ave,118999,2,1,1152,SFR,"move in ready, completely updated",REJECT,turnkey_retail_ready
+18 S Saint Clair St #203,165000,1,1.5,1300,Condo,"Lofts of St Clair, studio concept",REJECT,condo
+100 W Cooper Pl,269900,2,2,1653,Condo,"townhouse, $87 HOA, $40k updates",REJECT,condo
+1230 Wilson Dr,90000,3,1.5,1212,SFR,no condition detail in listing,POTENTIAL,
+1253 Vernon Dr,138500,4,1,1461,SFR,no condition detail in listing,POTENTIAL,
+33 N Paul Laurence Dunbar St,180000,4,1.5,4622,SFR,"4622 sf on 4 bed record - sqft/bed mismatch, likely multi",POTENTIAL,
+708 Oxford Ave,190000,4,4,2800,Duplex,4bd/4ba 2800 sf - two units indicated,REJECT,multifamily_needs_2_4unit_comps
+2022 W Grand Ave,120000,3,1,1224,SFR,no condition detail in listing,POTENTIAL,
+44 Horace St,280000,4,3,1920,SFR,no condition detail in listing,REJECT,above_market_arv_band
+1705 W 5th St,159900,6,3,0,SFR,"ADDRESS MISMATCH: title says 45417, URL under 45402",POTENTIAL,
+109 N Main St #1108,295000,2,2,1643,Condo,downtown condo,REJECT,condo
+947 W 3rd St,274900,2,2.5,1323,SFR,new construction townhome,REJECT,new_construction
+900 Crestmore Ave,80000,2,1,891,SFR,no condition detail in listing,CANDIDATE,
+408 N Conover St,99900,8,4,3264,Multifamily,8bd/4ba 3264 sf - four units indicated,REJECT,multifamily_needs_2_4unit_comps
+943 W 3rd St,274900,2,2.5,1323,SFR,new construction townhome,REJECT,new_construction
+1240 W 1st St,299000,3,2.5,1432,SFR,new construction,REJECT,new_construction
+951 W 3rd St,304900,2,2.5,1323,SFR,new construction townhome,REJECT,new_construction
+109 N Main St #1401,399900,2,2,1708,Condo,downtown condo,REJECT,condo
+125 Lowe Ln,549900,3,3.5,2404,SFR,Monument Walk,REJECT,above_market_arv_band
+111 N Williams St,325000,3,2.5,1432,SFR,no condition detail in listing,REJECT,above_market_arv_band
+941 W 3rd St,304900,2,2.5,1323,SFR,new construction townhome,REJECT,new_construction
+The Aviator Plan,259900,2,2.5,1323,SFR,"UNBUILT new-construction plan, not a property",REJECT,new_construction
+717 Shoop Ave,75000,2,1,768,SFR,no condition detail in listing,CANDIDATE,
+321 N Antioch St,9000,0,0,0,Land,"vacant lot 3,149 sf",REJECT,land_no_structure
+500 N Broadway St,12000,0,0,0,Land,"vacant lot 3,650 sf",REJECT,land_no_structure
+420 N Conover St,98986,0,0,0,Land,vacant land 1.12 acres,REJECT,land_no_structure
+1103 W Riverview Ave,10500,0,0,0,Land,"vacant lot 8,668 sf",REJECT,land_no_structure
+818 Lexington Ave,30000,0,0,0,Land,"vacant lot 5,798 sf",REJECT,land_no_structure
+706 Ferguson Ave,10500,0,0,0,Land,"vacant lot 4,961 sf",REJECT,land_no_structure
+1004 Lexington Ave,7500,0,0,0,Land,"vacant lot 5,724 sf",REJECT,land_no_structure

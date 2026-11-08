@@ -856,3 +856,23 @@ that makes a sweep look complete when it priced nothing.
 refusal, `1` means a check or file failure. A harness must map **only exit 3**
 to UNPRICED and must abort loudly on exit 1. Multi-unit rows should be dropped
 from an SFR comp pool, not tagged with an invented exclusion reason.
+
+## D-40 — a negative MAO was silently rendered as "no MAO"
+
+Pricing 45402, one lead (624 N Broadway St) printed an ARV of $177,360 but a blank
+MAO, and my harness filed it as `UNPRICED` — i.e. "we cannot price this". That is the
+opposite of the truth: the engine *did* price it, and the answer was that the deal
+cannot exist even at a $0 purchase price.
+
+```
+ARV $177,360 -> buyer max $9,052
+                  at $10,000 fee -> seller MAO -$948
+```
+
+The batch harness regex was `seller MAO \$([\d,]+)`, which cannot match a minus sign.
+The same pattern would silently drop any negative ceiling, and a negative ceiling is the
+single most useful verdict a wholesaler can get: it is a hard walk.
+
+**Rule:** when parsing engine output, MAO/ceiling patterns must accept `-?`, and a
+NULL MAO alongside a present ARV is always a parse bug, never a refusal. A refusal has
+**no ARV at all** — that is the discriminator: ARV present + MAO absent = broken parse.
