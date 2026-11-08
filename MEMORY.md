@@ -3,7 +3,7 @@
 - All real estate sourcing, comping, ARV, repair, underwriting and offer work is governed by one skill: `chidubemchinedu8-code/wholesale-realestate`, `SKILL.md`. The repository is the source of truth; conversation memory is not [added: 2026-11-08]
 - Load it before any deal work: read `SKILL.md`, run `bash scripts/preflight.sh`, and require `PREFLIGHT PASSED` before quoting a number [added: 2026-11-08]
 - If the skill or its preflight is missing or failing, STOP and report it. Never fall back to generic Zillow browsing or a remembered workflow [added: 2026-11-08]
-- A fuller fork-local copy also exists at `chidubemchinedu8-code/superpowers` → `skills/real-estate-deal-sourcing`, but this session's GitHub App cannot write to that repo (403 on push). `wholesale-realestate` is the writable, authoritative copy [added: 2026-11-08]
+- The stale `superpowers/skills/real-estate-deal-sourcing` v1.0.0 copy was DELETED 2026-11-08: it omitted comp.py, anchor.py and comping/COMPING.md, so it was a loadable instruction set with the ARV rules missing. `wholesale-realestate` is now the only copy; do not re-add it there [added: 2026-11-08]
 - Business: Nigeria-based virtual US wholesaler operating through RealVenture. Markets: Cleveland OH, Akron OH, Columbus OH, Dayton OH, Birmingham AL, Atlanta GA. Buy box is a guideline, never a buyer commitment [added: 2026-11-08]
 - Fee $10,000 whole, 50% JV split. Lower the offer, never the fee [added: 2026-11-08]
 - Zillow = primary MANUAL discovery reference; Redfin = secondary cross-check. Neither is licensed data [added: 2026-11-08]

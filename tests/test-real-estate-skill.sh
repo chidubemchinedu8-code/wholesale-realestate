@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Structural + behavioural tests for skills/real-estate-deal-sourcing.
+# Structural + behavioural tests for the wholesale-realestate skill.
 # Covers the eight implementation tests from the build spec, plus the repo
 # conventions (frontmatter, size budget, referenced files exist, hook injection).
 #
-# Run: bash tests/real-estate-deal-sourcing/test-real-estate-skill.sh
+# Run: bash tests/test-real-estate-skill.sh
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -380,6 +380,53 @@ else
   fail "no adoption checklist"
 fi
 
+section "9f. ONE SOURCE OF TRUTH (no stale copies, no drift)"
+# Exactly one SKILL.md may exist in the skill tree. A second copy is a loaded
+# instruction set that can contradict this one, which is how a "fixed" rule
+# comes back to life months later.
+copies="$(find "$SKILL_DIR" -name 'SKILL.md' -not -path '*/node_modules/*' -not -path '*/.git/*' | wc -l)"
+if [ "$copies" -eq 1 ]; then
+  pass "exactly one SKILL.md in the skill tree"
+else
+  fail "$copies SKILL.md copies found - stale instruction sets can be loaded"
+fi
+# One version number, taken from the rulebook itself.
+ver="$(awk -F': *' '/^version:/{print $2; exit}' "$SKILL_MD")"
+if [ -n "$ver" ]; then pass "SKILL.md declares version $ver"
+else fail "SKILL.md has no version"; fi
+# Docs must not pin a version: preflight prints it, prose cannot rot if it is absent.
+if grep -rqE 'v[12]\.[01]\.0' --include="*.md" "$SKILL_DIR" 2>/dev/null; then
+  fail "a doc pins an old version string - it will drift"
+else
+  pass "no stale version strings in docs"
+fi
+# preflight must read the version rather than hard-coding it.
+if grep -q 'awk -F.*version' "$SKILL_DIR/scripts/preflight.sh"; then
+  pass "preflight reads the version instead of hard-coding it"
+else
+  fail "preflight hard-codes a version"
+fi
+# The version must appear in exactly one file - the rulebook.
+if [ "$(grep -rl '^version:' --include="*.md" "$SKILL_DIR" 2>/dev/null | wc -l)" -eq 1 ]; then
+  pass "version is declared in exactly one file"
+else
+  fail "more than one file declares a version"
+fi
+# Docs must not hard-code a check count. Exit codes are the contract; a number
+# in prose rots the moment a test is added, and a stale claim is an inaccuracy.
+if grep -rqE '[0-9]+ (test )?checks' --include="*.md" "$SKILL_DIR" 2>/dev/null; then
+  fail "a doc hard-codes a check count - it rots the moment a test is added"
+else
+  pass "no doc hard-codes a check count"
+fi
+# The rulebook is the only place the hard rules live; the notes file indexes them.
+if grep -qE '^[0-9]+\. \*\*' "$SKILL_MD"; then
+  pass "hard rules live in SKILL.md and are numbered"
+else
+  fail "SKILL.md has no numbered hard rules"
+fi
+
+# ---------------------------------------------------------------------------
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do

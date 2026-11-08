@@ -1,79 +1,76 @@
- Wholesale Real Estate — Sourcing & Underwriting System
+Wholesale Real Estate - Sourcing & Underwriting System
 
-  >>> START HERE: this repository is the single source of truth for all deal sourcing,
-  >>> comping and underwriting. Run `bash scripts/preflight.sh` first. See CLAUDE.md.
+  >>> START HERE: this repository is the single source of truth for all deal
+  >>> sourcing, comping and underwriting. Run `bash scripts/preflight.sh` first.
+  >>> The binding rulebook is SKILL.md. Nothing else in this repo overrides it.
 
   One skill, one procedure, executable rules that fail loudly:
-  SKILL.md (entry) + references/ (detail) + scripts/ (enforcement) + fixtures/ (proof).
-  Tests: `bash tests/test-real-estate-skill.sh` — 73 checks, all must pass.
+  SKILL.md (entry) + references/ (detail) + comping/ (arithmetic) +
+  scripts/ (enforcement) + fixtures/ (proof) + state/ (history).
+
+  Prove it still holds:
+      bash scripts/preflight.sh               # must print PASSED
+      bash tests/test-real-estate-skill.sh    # must print STATUS: PASSED
+      python3 scripts/comp.py --selftest      # must print 9/9, 9 injected defects caught
+
+  Exit codes are the contract. No count is written down here on purpose: a
+  documented number rots the moment a test is added, and a stale claim in a
+  doc is exactly the kind of inaccuracy this repo is built to refuse.
+
+  >>> There is exactly ONE SKILL.md. If you find a second copy of this skill
+  >>> anywhere on the machine, it is stale - use the one that preflight loads.
 
 What this is
 
-  A fully guided wholesale real estate workflow built as a Claude Code skill. Whether you're a seasoned investor or just
-   getting started, this skill walks you through every step of the wholesale process — from finding motivated seller
-  leads in any city to closing and collecting your assignment fee.
+  A wholesale real-estate sourcing and underwriting procedure, written as a
+  Claude Code skill and enforced by code. It is deliberately rigid: the value is
+  in the refusals, not the suggestions.
 
-  ---
-  What It Does
+What it does
 
-  Deal Finder (Search by City/Area)
-  Tell the skill what city or area you want to target and it goes to work. It runs parallel web searches across Zillow,
-  Redfin, Craigslist, Facebook Marketplace, foreclosure databases, probate records, and tax delinquent lists — pulling
-  real, live data on distressed and motivated seller properties. Each lead is automatically scored using a Motivated
-  Seller Score (MSS) rubric that weighs signals like days on market, price reductions, as-is status, foreclosure,
-  probate, and vacancy. Results are ranked into Hot and Warm leads and presented in a clean table you can act on
-  immediately or export to a markdown file.
+  Sourcing (Zillow primary, Redfin cross-check)
+    Scans by ZIP, never by browsing a city. Ranks listings on days on market,
+    price reductions, back-on-market, as-is language and photo evidence, then
+    rejects on the 14-day rule, turnkey condition, and unsupported comps.
+    Licensed MLS data is NOT used for sourcing - NAR rules forbid it. See
+    references/data-access.md.
 
-  Deal Analysis
-  Plug in any property's numbers and the skill gives you the ceiling (0.70 × ARV − repairs), the 55–60% offer range
-   under it, the friction in between, and the contract price that leaves your $10,000 fee. 70% is a cap, not an offer
-   price; the fee is deducted once. It also outputs a Deal Scorecard so you know whether a deal is worth pursuing
-   before you ever pick up the phone.
+  Valuation (rule-based, not vibes)
+    ARV = subject sqft x the comp set's $/sqft, anchored in the same
+    neighbourhood and ZIP. Filters run inside the radius loop: bed floor,
+    renovated-only, +/-30% sqft, +/-45% consistency. Report LOW / POINT / HIGH,
+    never a single number. Under 3 comps the answer is NO COMPS.
+    Under 5 comps it is not a submission. The rulebook is comping/COMPING.md;
+    scripts/comp.py runs it and proves every rule can fail.
 
-  ARV Estimation (binding standard)
-  Comping is rule-based, not vibes-based. ARV = subject sqft × p75 $/sqft of at least 3 arm's-length closed sales in
-  the same neighbourhood, within 1.5 mi, inside a 6–12 month window, within ±30% sqft, × 0.88. Under 3 comps the
-  answer is UNPRICED — never a widened radius, never an average across tiers. The rulebook is comping/COMPING.md;
-  scripts/comp.py runs it, enforces six checks and proves each one can fail.
+        python3 scripts/comp.py --selftest
+        python3 scripts/comp.py --comps fixtures/akron_44302_worked_example.csv \
+            --as-of 2026-10-31 --tier moderate
 
-      python3 scripts/comp.py --selftest      # 6 checks, 6 injected defects, economics regressions
-      python3 scripts/comp.py --exclusions    # not comps: AMI-restricted, new builds, quitclaims, asking prices
-      python3 scripts/comp.py --comps <csv> --subject '<json>' --as-of YYYY-MM-DD --repairs <graded>
+  Underwriting
+    Buyer max = (ARV x 0.70) - repairs. Seller MAO is a different, lower number.
+    Gross spread is not profit. Repairs are tiered (light $20 / moderate $35 /
+    heavy $50 per sqft) and blank until condition is graded.
 
-  Offer & Negotiation
-  Generates a ready-to-use seller conversation script tailored to your numbers, with negotiation anchors and a Purchase
-  and Sale Agreement checklist — including the critical "and/or assigns" clause that makes the contract assignable.
+  Gate
+    15-point qualification and the report format. A property that misses the
+    gate is reported as POTENTIAL or REJECTED, with the reason - never padded.
 
-  End Buyer & Assignment
-  Suggests where to find cash buyers fast (REIA meetings, Facebook groups, BiggerPockets, co-wholesaling), calculates
-  your assignment fee, and provides an assignment agreement checklist to hand off cleanly to your title company.
+How to run it
 
-  Closing Workflow
-  Step-by-step closing checklist from title search through disbursement, plus post-close actions to grow your buyers
-  list and track your deal history.
+  Open this repository in a session. CLAUDE.md / AGENTS.md / GEMINI.md /
+  .cursorrules all route here. Then:
 
-  ---
-  Who It's For
+      bash scripts/preflight.sh
+      cat SKILL.md                      # the binding rulebook
+      python3 scripts/zip_ledger.py --due    # what is owed a re-scan
 
-  - Wholesale real estate investors at any level
-  - Beginners who need a structured process to follow
-  - Experienced wholesalers who want faster lead research and deal analysis
-  - Anyone running a high-volume deal pipeline who wants to move from lead to offer faster
+  The ledgers in state/ are committed on purpose: a fresh clone must inherit
+  what has already been analysed, or the duplicate guard resets.
 
-  ---
-  How to Use
+Non-negotiables
 
-  Install the skill by placing the SKILL.md file in your .claude/skills/wholesale-realestate/ directory. Then invoke it
-  anytime with:
-
-  /wholesale-realestate
-
-  From there you can say things like:
-
-  - "find deals in Memphis, TN" — triggers the Deal Finder
-  - "I have a deal at 123 Main St, ARV $180k, repairs $25k" — jumps straight to analysis
-  - "help me make an offer" — generates your offer script
-  - "export results" — saves your lead table to a markdown file
-
-  The skill is conversational — it asks only for what it needs at each step and flows naturally from one stage to the
-  next.
+  - Every number carries a source and a date, or it is UNKNOWN.
+  - UNKNOWN stops the analysis. It is never filled in to make a deal pass.
+  - No comps, no ARV. No ARV, no offer.
+  - Report zero if zero qualify.

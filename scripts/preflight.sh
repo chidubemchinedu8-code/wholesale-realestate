@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Preflight for the real-estate-deal-sourcing skill.
+# Preflight for the wholesale-realestate skill. The only copy of the rulebook
+# is SKILL.md at the repo root; this script loads it and prints its version.
 # Run BEFORE any sourcing, comping, repair or underwriting work.
 # Exit 0 = the skill is intact and current. Exit 1 = STOP and report what is missing.
 set -uo pipefail
