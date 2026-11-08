@@ -152,8 +152,13 @@ def economics(arv: float, repairs: float = 0.0) -> dict:
     }
 
 
-def mao_by_tier(result: "CompResult", repairs: float) -> dict:
-    """Step 9: MAO = (ARV x 0.70) - repairs, computed on each ARV tier."""
+def buyer_max_by_tier(result: "CompResult", repairs: float) -> dict:
+    """Step 9: BUYER MAX = (ARV x 0.70) - repairs, on each ARV tier.
+
+    This is the BUYER's ceiling, not the seller-facing MAO. The seller MAO is
+    this minus the assignment fee and the wholesaler's costs (underwrite.py).
+    Printing this as "MAO" overstated the offer price by the fee.
+    """
     out = {}
     for label, key in (("LOW", "arv_low"), ("POINT", "arv_point"), ("HIGH", "arv_high")):
         v = getattr(result, key)
@@ -209,6 +214,8 @@ class CompResult:
     rejected: dict = field(default_factory=dict)
     note: str = ""
     underwrite_to: str = "POINT"
+    note_bed_unknown: int = 0      # comps admitted with an UNKNOWN bed count
+    style_filtered: tuple = ()     # (before, after) when the style filter narrowed the pool
 
     def tier(self, label: str) -> int | None:
         return {"LOW": self.arv_low, "POINT": self.arv_point,
@@ -266,7 +273,8 @@ def drop_outliers(pool: list[Comp], band: float = CONSISTENCY_BAND) -> tuple[lis
 def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
                 style: str, comps: list[Comp], as_of: date,
                 window_days: int = 180, subject_beds: int | None = None,
-                consistency_band: float = CONSISTENCY_BAND) -> CompResult:
+                consistency_band: float = CONSISTENCY_BAND,
+                allow_unknown_beds: bool = False) -> CompResult:
     """The ladder, in order. Returns STATUS_NONE rather than inventing a number."""
     universe, dropped = screen_universe(comps, as_of, window_days)
     result = CompResult(status=STATUS_NONE, hood=subject_hood, rejected=dropped)
@@ -292,12 +300,21 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
         result.note = "every same-neighbourhood sale was excluded (see excluded list)"
         return result
 
-    # 2. BED-COUNT FLOOR - a comp may never have fewer beds than the subject
+    # 2. BED-COUNT FLOOR - a comp may never have fewer beds than the subject.
+    # An UNKNOWN bed count is NOT a pass: the floor is a property of the parcel,
+    # and "we did not record it" is not evidence that it qualifies. Unknowns are
+    # excluded, counted separately, and only admitted with an explicit opt-in.
     if subject_beds:
-        kept = [c for c in usable if c.beds_n is None or c.beds_n >= subject_beds]
-        dropped_beds = [c for c in usable if c.beds_n is not None and c.beds_n < subject_beds]
+        under = [c for c in usable if c.beds_n is not None and c.beds_n < subject_beds]
+        unknown = [c for c in usable if c.beds_n is None]
+        if unknown and allow_unknown_beds:
+            kept = [c for c in usable if c.beds_n is None or c.beds_n >= subject_beds]
+            result.note_bed_unknown = len(unknown)
+        else:
+            kept = [c for c in usable if c.beds_n is not None and c.beds_n >= subject_beds]
+            result.rejected = {**result.rejected, "bed_count_unknown": len(unknown)}
         usable = kept
-        result.rejected = {**result.rejected, "under_bed_floor": len(dropped_beds)}
+        result.rejected = {**result.rejected, "under_bed_floor": len(under)}
         if not usable:
             result.note = (f"every same-neighbourhood sale has fewer than "
                            f"{subject_beds} beds - the bed floor cannot be met, so "
@@ -324,9 +341,13 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
             last_refusal = f"fewer than {MIN_COMPS} sales within {radius} mi"
             continue
 
-        # style preference inside the radius (>=3 sharing it)
+        # Style preference inside the radius (>=3 sharing it). This narrows the
+        # pool, so it is recorded and printed - a silent filter changes the ARV
+        # without appearing anywhere in the report.
         styled = [c for c in cand if c.style and c.style == style]
-        cand = styled if len(styled) >= MIN_COMPS else cand
+        if styled and len(styled) >= MIN_COMPS and len(styled) < len(cand):
+            result.style_filtered = (len(cand), len(styled))
+            cand = styled
 
         # CONDITION GATE - ARV is post-repair value, so the pool must already be
         # in the target condition. Unknown counts as not-renovated.
@@ -365,7 +386,9 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
     result.arv_low = int(round(subject_sqft * p25 * HAIRCUT))
     result.arv_point = int(round(subject_sqft * p50 * HAIRCUT))
     result.arv_high = int(round(subject_sqft * p75 * HAIRCUT))
-    result.as_is = int(round(subject_sqft * p25 * HAIRCUT))
+    # ALIAS, not an independent measure: the as-is floor IS the low ARV. Keep the
+    # field for reporting, but never present the two as separate findings.
+    result.as_is = result.arv_low
     result.n = len(pool2)
     result.radius = chosen_radius
     result.chosen = pool2
@@ -672,8 +695,8 @@ def selftest() -> int:
         print(f"    {t:9} ${lo:,} / ${pt:,} / ${hi:,}  (${REPAIR_TIERS[t]}/sf)")
 
     # -- MAO per ARV tier --------------------------------------------------
-    print("\n  MAO by ARV tier at $65,000 repairs (Step 9):")
-    for label, v in mao_by_tier(result, 65_000).items():
+    print("\n  BUYER MAX by ARV tier at $65,000 repairs (Step 9):")
+    for label, v in buyer_max_by_tier(result, 65_000).items():
         print(f"    ARV {label:5} ${result.tier(label):>8,}  ->  MAO ${v:>8,}")
 
     print("\n  Economics regressions:")
@@ -720,7 +743,8 @@ def cmd_arv(args) -> int:
     beds = beds_num(subject.get("beds"))
     result = compute_arv(subject["sqft"], subject["hood"], subject["lat"], subject["lon"],
                          (subject.get("style") or "").upper(), comps, as_of, window,
-                         subject_beds=beds)
+                         subject_beds=beds,
+                         allow_unknown_beds=getattr(args, "allow_unknown_beds", False))
 
     print(f"SUBJECT  {subject.get('address', '(unnamed)')}  "
           f"{subject.get('beds', '?')}  {int(subject['sqft']):,} sf  {subject['hood']}")
@@ -748,6 +772,13 @@ def cmd_arv(args) -> int:
         print("\nDROPPED - illogical price gap:")
         for c in result.outliers:
             print(f"  {c.address[:24]:24} ${c.price:>9,.0f}  ${c.ppsf:>5.0f}/sf")
+    if result.style_filtered:
+        before, after = result.style_filtered
+        print(f"\nSTYLE FILTER APPLIED  {before} -> {after} comps "
+              f"(>=3 sharing the subject's style; this narrowed the ARV pool)")
+    if result.note_bed_unknown:
+        print(f"\nWARNING  {result.note_bed_unknown} comp(s) admitted with an UNKNOWN "
+              f"bed count (--allow-unknown-beds). The bed floor is not enforced on them.")
     if result.rejected:
         print(f"\nUNIVERSE / FILTER DROPS  {result.rejected}")
 
@@ -757,14 +788,15 @@ def cmd_arv(args) -> int:
         print(f"ARV POINT  ${result.arv_point:>9,}")
         print(f"ARV HIGH   ${result.arv_high:>9,}")
         print(f"UNDERWRITE {result.underwrite_to} = ${result.arv:,}")
-        print(f"AS-IS      ${result.as_is:>9,}   (p25 - never shown as ARV)")
+        print(f"AS-IS      ${result.as_is:>9,}   (= ARV LOW, an alias - not a second finding)")
         print(f"CONF       {result.confidence}  n={result.n}  radius {result.radius} mi")
         print(f"BASIS      {result.basis}")
         if args.repairs is not None:
-            print("\nMAO BY TIER (Step 9: (ARV x 0.70) - repairs)")
-            for label, v in mao_by_tier(result, args.repairs).items():
+            print("\nBUYER MAX BY TIER (Step 9: (ARV x 0.70) - repairs) - NOT the seller MAO")
+            for label, v in buyer_max_by_tier(result, args.repairs).items():
                 mark = "  <- underwrite here" if label == result.underwrite_to else ""
-                print(f"  ARV {label:5} ${result.tier(label):>9,}  ->  MAO ${v:>9,}{mark}")
+                print(f"  ARV {label:5} ${result.tier(label):>9,}  ->  buyer max ${v:>9,}{mark}")
+                print(f"{'':30}  at ${WHOLE_FEE:,} fee -> seller MAO ${v - WHOLE_FEE:>9,}")
             e = economics(result.arv, args.repairs)
             print(f"\n  CEILING at {result.underwrite_to}  ${e['CEILING (0.70 x ARV - repairs)']:,}")
             print(f"  OFFER LOW (0.55)    ${e['OFFER LOW (0.55)']:,}")
@@ -860,6 +892,8 @@ def main(argv=None) -> int:
     p.add_argument("--subject")
     p.add_argument("--as-of")
     p.add_argument("--window", type=int, default=180)
+    p.add_argument("--allow-unknown-beds", action="store_true",
+                   help="let comps with no recorded bed count into the ARV pool")
     a = p.parse_args(argv)
 
     if a.selftest:

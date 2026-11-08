@@ -25,6 +25,12 @@ BUYER_PCT = 0.70
 WHOLE_FEE_DEFAULT = 10_000
 
 
+def money(v) -> str:
+    """'-$6,000', never '$-6,000'. The minus belongs outside the dollar sign."""
+    v = int(round(v))
+    return f"-${abs(v):,}" if v < 0 else f"${v:,}"
+
+
 def underwrite(arv: float, repairs: float = 0.0, fee: float = WHOLE_FEE_DEFAULT,
                buyer_costs: float = 0.0, wholesaler_costs: float = 0.0,
                ask: float | None = None, mode: str = "A",
@@ -140,6 +146,13 @@ def main(argv=None) -> int:
             print(f"  {k:44}{v:>14}")
     print("\n  Buyer max is the cap. Your offer is below your MAO.")
     print("  Gross spread is NOT net profit. ESTIMATE - not an offer.")
+    # A non-positive MAO is not a thin deal, it is no deal. A tidy table with a
+    # negative number reads like an answer, so refuse instead of formatting it.
+    if r["SELLER-FACING MAO"] <= 0:
+        print(f"\nREFUSED  seller-facing MAO is {money(r['SELLER-FACING MAO'])}. "
+              f"The buyer's cap and the repairs leave nothing. "
+              f"There is no offer to make - do not present this as a deal.")
+        return 4
     return 0
 
 

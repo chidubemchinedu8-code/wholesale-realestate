@@ -17,6 +17,8 @@ Wholesale Real Estate - Sourcing & Underwriting System
   documented number rots the moment a test is added, and a stale claim in a
   doc is exactly the kind of inaccuracy this repo is built to refuse.
 
+  >>> Read AUDIT.md before trusting a number: the arithmetic is internally
+  >>> consistent and has never been checked against a real outcome.
   >>> There is exactly ONE SKILL.md. If you find a second copy of this skill
   >>> anywhere on the machine, it is stale - use the one that preflight loads.
 

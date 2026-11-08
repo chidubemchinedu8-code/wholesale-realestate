@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 import os
 import sys
 from datetime import date, datetime, timedelta
@@ -120,12 +121,82 @@ def due_list(today=None) -> list[dict]:
     return out
 
 
+_SUFFIX = {
+    "avenue": "ave", "av": "ave", "street": "st", "str": "st", "drive": "dr",
+    "road": "rd", "lane": "ln", "court": "ct", "place": "pl", "boulevard": "blvd",
+    "terrace": "ter", "trail": "trl", "parkway": "pkwy", "circle": "cir",
+    "highway": "hwy", "square": "sq", "north": "n", "south": "s", "east": "e",
+    "west": "w", "northeast": "ne", "northwest": "nw", "southeast": "se",
+    "southwest": "sw", "mount": "mt", "fort": "ft", "first": "1st", "second": "2nd",
+    "third": "3rd",
+}
+_SUFFIXES = {"ave", "st", "dr", "rd", "ln", "ct", "pl", "blvd", "ter", "trl",
+             "pkwy", "cir", "hwy", "sq", "way", "aly", "loop", "path"}
+_DIRECTIONALS = {"n", "s", "e", "w", "ne", "nw", "se", "sw"}
+# Unit designators are stripped entirely: the ledger keys on the parcel, and
+# "Apt 3" must not make the same house look new.
+_UNIT = re.compile(r"\b(apt|apartment|unit|ste|suite|bldg|floor|fl|rm|room)\b\.?\s*[a-z0-9-]*")
+_STATES = {"oh", "ohio", "al", "alabama", "ga", "georgia", "mi", "michigan",
+           "pa", "pennsylvania", "wv", "west", "virginia"}
+
+
+def normalise_address(address: str, city: str = "") -> str:
+    """Canonical key for the duplicate guard.
+
+    Portals disagree on 'Ave'/'Avenue', 'N'/'North', trailing ', Akron OH 44302',
+    punctuation and spacing. Two spellings of one parcel must not read as two
+    opportunities, so the key is structural: house number + street core.
+    Suffixes, directionals, unit designators, city, state and zip are folded
+    away because none of them change which parcel it is.
+    """
+    s = (address or "").lower().replace(".", " ").replace(",", " ")
+    s = re.sub(r"#\s*[a-z0-9-]+", " ", s)
+    s = _UNIT.sub(" ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    city_tokens = set(normalise_plain(city).split()) if city else set()
+    tokens = []
+    for raw in s.split():
+        t = _SUFFIX.get(raw, raw)         # canonicalise FIRST, then test
+        if t in _SUFFIXES or t in _DIRECTIONALS:
+            continue                      # suffix/direction never identifies a parcel
+        if t in _STATES or t in city_tokens:
+            continue                      # city/state block adds nothing
+        if re.fullmatch(r"\d{5}(-\d{4})?", t):
+            continue                      # zip lives in its own column
+        tokens.append(t)
+    return " ".join(tokens)
+
+
+def normalise_plain(value: str) -> str:
+    s = (value or "").lower().replace(".", " ").replace(",", " ")
+    s = re.sub(r"\s+", " ", s).strip()
+    return " ".join(_SUFFIX.get(t, t) for t in s.split())
+
+
+def _same_property(a_key: str, other_address: str, city: str = "") -> bool:
+    b_key = normalise_address(other_address, city)
+    if not a_key or not b_key:
+        return False
+    if a_key == b_key:
+        return True
+    # Real-world typos ('Amelia' vs 'Amelie'): the HOUSE NUMBER must match
+    # exactly and the street core must be very close. House numbers are never
+    # fuzzy-matched - '1410 Grand' is a different parcel from '141 Grand', and a
+    # false SEEN hides a real new lead, which is worse than a duplicate.
+    a_t, b_t = a_key.split(), b_key.split()
+    if a_t[0] != b_t[0]:
+        return False
+    from difflib import SequenceMatcher
+    return SequenceMatcher(None, " ".join(a_t[1:]),
+                           " ".join(b_t[1:])).ratio() >= 0.88
+
+
 def check_property(address: str, city: str = "", zip5: str = "") -> dict:
     """Returns {'seen': bool, 'row': dict|None} - the duplicate guard."""
     rows = _read(PROP_LEDGER, PROP_FIELDS)
-    a = address.strip().lower()
+    a = normalise_address(address, city)
     for r in rows:
-        if r["address"].strip().lower() == a:
+        if _same_property(a, r["address"], city):
             if city and r["city"].strip().lower() != city.strip().lower():
                 continue
             return {"seen": True, "row": r}

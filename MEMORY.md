@@ -6,6 +6,7 @@
 - The stale older `superpowers/skills/real-estate-deal-sourcing` copy was DELETED 2026-11-08: it omitted comp.py, anchor.py and comping/COMPING.md, so it was a loadable instruction set with the ARV rules missing. `wholesale-realestate` is now the only copy; do not re-add it there [added: 2026-11-08]
 - Business: Nigeria-based virtual US wholesaler operating through RealVenture. Markets: Cleveland OH, Akron OH, Columbus OH, Dayton OH, Birmingham AL, Atlanta GA. Buy box is a guideline, never a buyer commitment [added: 2026-11-08]
 - Fee $10,000 whole, 50% JV split. Lower the offer, never the fee [added: 2026-11-08]
+- Defects found by audit are recorded in `AUDIT.md` with reproductions. UNKNOWN never satisfies a rule; anything that narrows the comp pool must print its effect; buyer max is never labelled MAO; the arithmetic is internally consistent but UNVALIDATED against real outcomes [added: 2026-11-08]
 - Zillow = primary MANUAL discovery reference; Redfin = secondary cross-check. Neither is licensed data [added: 2026-11-08]
 - NAR model MLS rules §4.4.1 forbid using MLS/IDX data for business solicitation - a licensed feed prices deals, it cannot find them [added: 2026-11-08]
 - Lead ledgers are COMMITTED, append-only history (`state/`), never gitignored: a fresh clone must inherit scan history or the duplicate guard resets and old properties get re-reported as new. Never delete a row, never rewrite history [added: 2026-11-08]

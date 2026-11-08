@@ -89,6 +89,10 @@ Each has `--selftest`, and each selftest must pass before a number is quoted.
 18. **Never invent.** Address, URL, sold price, date, sqft, beds, DOM, owner, phone, equity, motivation, repair observation, buyer approval.
 19. **Licensed data prices deals, it does not find them.** NAR model rules §4.4.1 forbid using MLS data for business solicitation, so no MLS licence can be a sourcing engine. Sourcing = county records + public sites + investor data. Valuation = licensed MLS. Never cross the line.
 20. **Zillow is the primary manual discovery reference; Redfin is a secondary cross-check.** Neither is licensed data. Two portals agreeing is not verification — see `references/data-access.md`.
+21. **UNKNOWN is never a pass.** A missing bed count, condition, location or address suffix does not satisfy a rule — it fails it. Excluding a comp for missing data is correct; admitting it is guessing.
+22. **Whatever narrows the comp pool must be printed.** A filter that changes the ARV without appearing in the report is an invisible decision. Style, radius, condition, bed floor and consistency band all name their effect and their count.
+23. **The buyer's ceiling is not the seller's MAO.** `BUYER MAX = (ARV x 0.70) - repairs`; seller MAO = buyer max - fee - wholesaler costs. Never label the first one MAO. A non-positive MAO is not a thin deal, it is no deal — refuse, do not format it.
+24. **The arithmetic is unvalidated.** Every rule here is internally consistent and none has been checked against a real outcome. Say so before anyone stakes money on a number. See `AUDIT.md`.
 
 ## Red Flags
 

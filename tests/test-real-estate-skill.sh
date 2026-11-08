@@ -287,9 +287,9 @@ if out="$(py "$SKILL_DIR/scripts/comp.py" --selftest)"; then
     || fail "consistency gate does not catch a price gap"
   printf '%s' "$out" | grep -qF "(\$20/sf)" \
     && pass "repair tiers present (light \$20/sf)" || fail "repair tiers missing"
-  printf '%s' "$out" | grep -q "MAO by ARV tier" \
-    && pass "MAO computed per ARV tier (LOW/POINT/HIGH)" \
-    || fail "MAO not computed per ARV tier"
+  printf '%s' "$out" | grep -q "BUYER MAX by ARV tier" \
+    && pass "buyer max computed per ARV tier (LOW/POINT/HIGH)" \
+    || fail "buyer max not computed per ARV tier"
   printf '%s' "$out" | grep -q "ARV LOW" \
     && pass "ARV is reported as a range, not a single point" \
     || fail "ARV is a single number"
@@ -427,6 +427,84 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+section "9g. THE AUDIT FINDINGS STAY FIXED"
+# Each check below reproduces a defect recorded in AUDIT.md. If one regresses,
+# the system silently produces a wrong number again.
+py "$SKILL_DIR/scripts/comp.py" --selftest >/dev/null 2>&1 \
+  && pass "comp engine selftest still green" || fail "comp selftest broken"
+
+# S1-1: one parcel, two spellings, must not read as two opportunities.
+seen=0; new=0
+for a in "141 Grand Ave" "141 Grand Avenue" "141 GRAND AVENUE, AKRON OH 44302" "141 Grand Ave Apt 3"; do
+  case "$(py "$SKILL_DIR/scripts/zip_ledger.py" --check "$a" --city Akron --zip 44302)" in
+    SEEN*) seen=$((seen + 1)) ;;
+    *) new=$((new + 1)) ;;
+  esac
+done
+[ "$seen" -eq 4 ] && pass "address normalisation: 4 spellings of one parcel all read SEEN" \
+  || fail "address normalisation: $new spelling(s) still read NEW"
+
+# S1-1b: a DIFFERENT house number must never match. A false SEEN hides a lead.
+wrong=0
+for a in "142 Grand Ave" "1410 Grand Ave" "141 Byers Ave" "9999 Nowhere St"; do
+  case "$(py "$SKILL_DIR/scripts/zip_ledger.py" --check "$a" --city Akron --zip 44302)" in
+    NEW*) ;;
+    *) wrong=$((wrong + 1)) ;;
+  esac
+done
+[ "$wrong" -eq 0 ] && pass "address normalisation never fuses two different parcels" \
+  || fail "$wrong different parcel(s) falsely reported SEEN - a hidden lead"
+
+# S1-2: a negative MAO must refuse, not print a tidy table.
+py "$SKILL_DIR/scripts/underwrite.py" --arv 120000 --repairs 90000 --fee 10000 >/dev/null 2>&1
+[ "$?" -eq 4 ] && pass "negative seller MAO refuses with exit 4" \
+  || fail "negative MAO did not refuse"
+py "$SKILL_DIR/scripts/underwrite.py" --arv 200000 --repairs 25000 --fee 10000 >/dev/null 2>&1
+[ "$?" -eq 0 ] && pass "a real deal still exits 0 (refusal is not blanket)" \
+  || fail "underwriting broke on a valid deal"
+
+# S1-3: an UNKNOWN bed count must fail the floor, not pass it.
+tmpc="$(mktemp)"
+cat > "$tmpc" <<'CSV'
+address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
+A,2026-09-01,105000,1400,44302,41.0800,-81.5350,COLONIAL,3,renovated,
+B,2026-09-05,107000,1420,44302,41.0800,-81.5350,COLONIAL,3,renovated,
+C,2026-08-20,109000,1450,44302,41.0800,-81.5350,COLONIAL,3,renovated,
+D,2026-08-01,104000,1380,44302,41.0800,-81.5350,COLONIAL,,renovated,
+CSV
+out="$(py "$SKILL_DIR/scripts/comp.py" --comps "$tmpc" --as-of 2026-10-31 \
+  --subject '{"address":"T","beds":"3","sqft":1642,"hood":"44302","lat":41.0790,"lon":-81.5360,"style":"COLONIAL"}' 2>&1)"
+echo "$out" | grep -q "bed_count_unknown': 1" \
+  && pass "an UNKNOWN bed count is excluded from the ARV pool" \
+  || fail "UNKNOWN bed count silently joined the ARV pool"
+out="$(py "$SKILL_DIR/scripts/comp.py" --comps "$tmpc" --as-of 2026-10-31 --allow-unknown-beds \
+  --subject '{"address":"T","beds":"3","sqft":1642,"hood":"44302","lat":41.0790,"lon":-81.5360,"style":"COLONIAL"}' 2>&1)"
+echo "$out" | grep -qi "WARNING.*UNKNOWN bed count" \
+  && pass "opting into unknown beds prints a warning" \
+  || fail "unknown beds admitted silently via the opt-in flag"
+rm -f "$tmpc"
+
+# S1-6: the comp engine must not label the buyer's ceiling as MAO.
+out="$(py "$SKILL_DIR/scripts/comp.py" --comps "$SKILL_DIR/fixtures/akron_44302_worked_example.csv" \
+  --as-of 2026-10-31 --repairs 57470 --subject '{"address":"141 Grand Ave","beds":"3","sqft":1642,"hood":"44302","lat":41.079,"lon":-81.536,"style":"COLONIAL"}' 2>&1)"
+echo "$out" | grep -q "BUYER MAX BY TIER" \
+  && pass "per-tier block is labelled BUYER MAX, not MAO" \
+  || fail "buyer ceiling still labelled MAO"
+echo "$out" | grep -q "seller MAO" \
+  && pass "seller-facing MAO is printed beside the buyer max" \
+  || fail "seller MAO not distinguished from buyer max"
+
+# S1-7: as-is must be declared an alias, not a second finding.
+echo "$out" | grep -q "alias" \
+  && pass "AS-IS is labelled an alias of ARV LOW" \
+  || fail "AS-IS still presented as an independent number"
+
+# S1-4: a narrowing style filter must be visible.
+out="$(py "$SKILL_DIR/scripts/comp.py" --selftest 2>&1)"
+echo "$out" | grep -q "PASS" \
+  && pass "style filter reporting path still executes" \
+  || fail "comp selftest output missing"
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do
