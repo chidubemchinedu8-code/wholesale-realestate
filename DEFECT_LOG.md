@@ -216,3 +216,60 @@ never as a reason to drop the row.
 [ ] Any withdrawn number is labelled withdrawn, with the reason
 [ ] x of y coverage reported honestly, including zero
 ```
+
+---
+
+## D-12 · 2026-11-08 · A literal typo in a coordinate source, and no check for it
+
+**What happened.** The `129 Marathon Ave` row was written with `(OM 39.78195/-84.21138)`
+where `OSM` was meant. Small, but it is the same class of error as a wrong coordinate and
+it sat in a *provenance* field - the one place a reader goes to check the number.
+
+**Why.** Provenance strings were typed by hand into the sheet while the numbers themselves
+came from a tool.
+
+**Prevention.** Copy the source string from the tool output rather than retyping it. When
+a row's provenance names a source, that source name must be one of the canonical labels
+(`OSM`, `Zillow ## Neighborhood`, `Zillow breadcrumb`, `listing copy`) - not an
+abbreviation invented on the spot.
+
+---
+
+## D-13 · 2026-11-08 · A coverage number that was never computable, stated as if it were
+
+**What happened.** Successive legend rows said "37 actives still unread" and then "40 on
+page 2 unread". Neither was measured. Zillow renders roughly 40 cards per page and
+lazy-loads the rest, so the true number of cards read is not derivable from the page - and
+the ZIP advertises 118. The figures were estimates dressed as counts.
+
+**Why.** A number that *sounds* like coverage is more satisfying than "not computable".
+This is the same failure as A-7 (a self-selected subset reported as full coverage), just
+smaller.
+
+**Prevention.** `on-market.md` requires `x of y`. When `y` is advertised but the page will
+not render all of it, the honest report is: **`y` advertised, `n` cards rendered and read,
+remainder not claimed.** Never convert "cards I could see" into "listings reviewed".
+
+**Fix lives in.** `DAYTON LEADS` legend row "Priced now / status"; this entry.
+
+---
+
+## D-14 · 2026-11-08 · Declaring a hood "has no pool" before trying to build one
+
+**What happened.** Fairview, Northwoods and Grafton Hill were recorded as "no pool built
+for this hood yet", and that phrasing was carried for several passes as though the hoods
+were simply not yet reached. When Fairview was actually mined, the answer turned out to be
+different and more useful: the pool exists, it is complete, and it contains **zero
+renovated sales**. The hood is unpriceable *by method*, not *by omission*.
+
+**Why.** "Not built yet" is a task; "cannot be built" is a finding. Only one of those is
+true, and it is worth the effort to find out which, because the second one stops you
+re-checking it every pass.
+
+**Prevention.** For every hood with no pool, either build the pool or record why it cannot
+be built. Once built and refused, record the refusal with the comp table so the next agent
+does not re-litigate it. Note that a refused pool is not permanent - renovators may start
+trading there, so the note should say to re-mine periodically.
+
+**Fix lives in.** `state/comps/dayton_45405_fairview_comps.csv`,
+`state/comps/DAYTON_45405_NEIGHBOURHOOD_CORRECTION.md` pass 4.

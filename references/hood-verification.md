@@ -88,6 +88,21 @@ Never "pick the nearest hood", never "borrow the pool", never average two hoods.
   its `display_name`; it is North Riverdale on the Zillow block.
 - **Street-level fallback is misleading.** `218 E Parkwood Dr` returned `[]`. Only trust
   hits whose `addresstype` is `place` or `house` **and** whose `house_number` matches.
+- **A municipality is not a neighbourhood.** `4020 Daleview Ave` returns
+  `municipality: Harrison Township`, not a `hamlet`. That is a real, useful answer: the
+  parcel is outside Dayton's hood system and no Dayton comp pool applies to it. Do not
+  round it to the nearest Dayton hood. Same for `2916 Philadelphia Dr`.
+- **An empty array is a lookup miss, not a hood.** `251 Castlewood Ave` and
+  `4041 Old Riverside Dr` both return `[]`. Record `hood UNKNOWN` and do not price.
+  Do **not** infer the hood from nearby listings or from the ZIP.
+
+### When every source fails, the answer is UNKNOWN
+
+`251 Castlewood Ave` ($69,900, 2/1, 912 sf) is the worked example: OSM `[]`, no Zillow
+`## Neighborhood` block captured, and a 2bd bed count that already fails the bed floor.
+Two independent reasons not to price it. **`hood UNKNOWN` is a terminal state for that
+row** — it is not a prompt to guess, and it is not cleared by a provider later offering a
+ZIP-level guess.
 
 ---
 
