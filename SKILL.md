@@ -1,12 +1,17 @@
 ---
 name: wholesale-realestate
-description: Full wholesale real estate workflow — search for deals in a city/area, analyze numbers (ARV, MAO, repair costs), make an offer, and close/assign the contract. Use when user mentions wholesaling, finding deals, searching for properties, making offers, assigning contracts, or asks about real estate investment analysis.
+description: Full wholesale real estate workflow — search for deals in a city/area, analyze numbers (ARV by comps, ceiling, repair costs), make an offer, and close/assign the contract. Use when user mentions wholesaling, finding deals, searching for properties, making offers, assigning contracts, or asks about real estate investment analysis.
 tools: Read, Write, Glob, Grep, Bash, WebSearch, mcp__plugin_context-mode_context-mode__ctx_fetch_and_index, mcp__plugin_context-mode_context-mode__ctx_search, mcp__plugin_context-mode_context-mode__ctx_batch_execute
 ---
 
 # Wholesale Real Estate — Full Workflow
 
 Guide the user through every stage of a wholesale real estate deal from lead to close.
+
+> **Read `comping/COMPING.md` before quoting any value.** It is the binding comp/ARV
+> standard (derived from the `superpowers` → `leadgen` work and its three ARV
+> corrections), and `comping/comp.py` is the executable version. Where this file and
+> that standard disagree, the standard wins.
 
 ---
 
@@ -140,24 +145,35 @@ End buyer's desired profit margin (default 20%):
 Holding/closing costs estimate (default 10% of ARV):
 ```
 
-### MAO Formula (Maximum Allowable Offer)
+### Ceiling Formula (the most you may pay)
 ```
-MAO = ARV × 0.70 − Repairs − Wholesale Fee
+CEILING      = ARV × 0.70 − Repairs          # cap. Fee NOT deducted here
+OFFER LOW    = ARV × 0.55 − Repairs          # open here
+OFFER HIGH   = ARV × 0.60 − Repairs          # never open here
+FRICTION     = CEILING − OFFER HIGH           # 10–15% of ARV — this is the room
+CONTRACT     = CEILING − Wholesale Fee        # buy at this to make the fee
 
-Example:
-  ARV:          $200,000
-  × 70%:        $140,000
-  − Repairs:    − $30,000
-  − Wholesale:  − $10,000
-  MAO:          $100,000
+Example (ARV $200,000, repairs $30,000, fee $10,000):
+  × 70%:        $140,000  − repairs  → CEILING     $110,000
+  × 55%:        $110,000  − repairs  → OFFER LOW    $80,000
+  × 60%:        $120,000  − repairs  → OFFER HIGH   $90,000
+  FRICTION (55% → 70% of ARV):                       $20,000
+  CEILING − fee                      → CONTRACT    $100,000
 ```
+
+**70% is a cap, 55–60% is a target under the cap, and the gap is the pay stack.**
+**Never deduct the fee twice** — it comes off once, at the contract step. The old
+`MAO = ARV × 0.70 − Repairs − Fee` formula double-charges it, and starting at MAO−10%
+puts the opening offer below 55% of ARV with repairs already removed.
+
+Verify any numbers with `python3 comping/comp.py --offer <ARV> --repairs <graded>`.
 
 ### Deal Scorecard
 | Metric | Value | Pass? |
 |--------|-------|-------|
-| Offer ≤ MAO | | ✅ / ❌ |
-| ARV source (comps) | | ✅ / ❌ |
-| Repair estimate source | | ✅ / ❌ |
+| Contract ≤ CONTRACT target | | ✅ / ❌ |
+| ARV from comps, with n / radius / confidence | | ✅ / ❌ |
+| Repairs graded (not guessed) | | ✅ / ❌ |
 | End buyer identified | | ✅ / ❌ |
 | Assignment fee ≥ $5,000 | | ✅ / ❌ |
 
@@ -167,20 +183,43 @@ Output the completed scorecard and state whether the deal passes.
 
 ## Stage 3: Run Comps (ARV Estimation)
 
-Help the user estimate ARV from comparables.
+**The rule lives in `comping/COMPING.md`; run it with `comping/comp.py`. It is not a judgement call.**
 
-**Comp criteria (SAME criteria as end buyer's lender will use):**
-- Within 1 mile (0.5 mile in urban areas)
-- Sold within last 6 months
-- Similar sqft (±20%), bed/bath, style
-- After-repaired condition
+```
+ARV = subject_sqft × p75($/sqft of ≥3 arm's-length closed sales, SAME neighbourhood,
+      ≤1.5 mi, inside 6–12 months, ±30% sqft) × 0.88
+```
 
-**If user has no comps yet**, instruct them to:
-1. Pull from MLS, Zillow, Redfin, Realtor.com
-2. Use Propstream or BatchLeads for off-market data
-3. Ask a local real estate agent for a quick CMA
+**Ladder, in this order:** identical neighbourhood code → ±30% sqft band → radius
+`0.25 → 0.50 → 0.75 → 1.00 → 1.25 → 1.50` mi, using the *smallest* radius with **≥3**
+comps → style preference when ≥3 share it. **Under 3 comps at 1.50 mi → `NO COMPS`,
+unpriced. Do not widen, do not average, do not fall back to a ZIP band.**
 
-Calculate: `ARV = Average price per sqft of comps × Subject property sqft`
+**Excluded from ARV** (keep as a floor only, and say so): deed-restricted / AMI sales,
+newer builds, condos, non-arm's-length transfers, and every asking price. Asking prices
+are not comps — using them is what inflated 141 Grand Ave by **85%**. ZIP ≠ neighbourhood:
+44303 three-beds sell $200K–$255K, 44302 three-beds sell $74K–$120K.
+
+**Confidence** is `HIGH` at n ≥ 6, `LOW` below that. Report `n`, radius, neighbourhood
+and confidence with every number, or the number is not reportable.
+
+**Never report a single point estimate without its skeleton**, and label it
+`ESTIMATE — not an appraisal, not an offer`. `UNPRICED` is a complete answer.
+
+**Run it:**
+```bash
+python3 comping/comp.py --selftest        # prove the 6 checks can fail
+python3 comping/comp.py --exclusions      # the not-a-comp list
+python3 comping/comp.py --comps comping/fixtures/akron_44302_worked_example.csv \
+  --as-of 2026-10-31 --repairs 65000 \
+  --subject '{"address":"141 Grand Ave","sqft":1642,"hood":"44302","lat":41.079,"lon":-81.536,"style":"COLONIAL"}'
+```
+
+**If user has no comps yet**, pull closed sales from MLS-sourced data (Redfin
+`include=sold-6mo`, Zillow property pages, Realtor.com), or Propstream/BatchLeads for
+off-market, or ask a local agent for a CMA. Zillow's ZIP-level *filters* are unreliable;
+its property pages are fine. A Zestimate is an **anchor for off-market records only** —
+never a comp, never blended with an ARV.
 
 ---
 
@@ -191,14 +230,16 @@ Present this to the user to use with the seller:
 
 ```
 "Hi [Seller], based on what the home needs and what similar homes
-are selling for in the area, I can offer you $[MAO] cash, as-is,
+are selling for in the area, I can offer you $[OFFER] cash, as-is,
 close in [14–21] days, no commissions, no contingencies.
 
 Would that work for you?"
 ```
 
 **Negotiation anchors:**
-- Start at MAO − 5–10% to leave room to negotiate up
+- Open at `OFFER LOW` (55% of ARV − repairs) and never above `OFFER HIGH` (60%).
+  The room to negotiate up is the 55→70% friction, which already exists — do not
+  manufacture more by discounting below the low anchor
 - Emphasize speed, certainty, and no repairs needed
 - If seller counters high, ask: "What's the lowest you'd go to close quickly?"
 
@@ -264,16 +305,20 @@ Example:
 
 | Formula | Equation |
 |---------|----------|
-| MAO | ARV × 0.70 − Repairs − Wholesale Fee |
+| CEILING (max pay) | ARV × 0.70 − Repairs |
+| OFFER LOW / HIGH | ARV × 0.55 / × 0.60 − Repairs |
+| FRICTION | CEILING − OFFER HIGH (10–15% of ARV) |
+| CONTRACT | CEILING − Wholesale Fee (fee deducted once) |
 | Assignment Fee | End Buyer Price − Contract Price |
-| ARV per sqft | Comp Sale Price ÷ Comp Sqft |
-| Subject ARV | ARV/sqft × Subject Sqft |
+| Comp $/sqft | Comp Sale Price ÷ Comp Sqft |
+| Subject ARV | Subject Sqft × p75 $/sqft × 0.88 (see Stage 3) |
+| As-is value | Subject Sqft × p25 $/sqft × 0.88 |
 | Net to Seller | Contract Price − Seller's Liens − Closing Costs |
 
 ---
 
 ## Quick Commands
 
-When the user provides deal numbers, automatically run Stage 2 analysis and output the MAO and Deal Scorecard without asking for permission.
+When the user provides deal numbers, automatically run Stage 2 analysis and output the CEILING, the 55–60% offer range and the Deal Scorecard without asking for permission. Never present a ceiling as an offer.
 
 When the user says "I have a deal" or provides an address, start at Stage 1 and walk through each stage sequentially, asking only for the inputs needed at each step.

@@ -16,14 +16,20 @@
   immediately or export to a markdown file.
 
   Deal Analysis
-  Plug in any property's numbers and the skill calculates your Maximum Allowable Offer (MAO) using the industry-standard
-   70% rule, factoring in ARV, estimated repairs, and your target wholesale fee. It also outputs a Deal Scorecard so you
-   know at a glance whether a deal is worth pursuing before you ever pick up the phone.
+  Plug in any property's numbers and the skill gives you the ceiling (0.70 × ARV − repairs), the 55–60% offer range
+   under it, the friction in between, and the contract price that leaves your $10,000 fee. 70% is a cap, not an offer
+   price; the fee is deducted once. It also outputs a Deal Scorecard so you know whether a deal is worth pursuing
+   before you ever pick up the phone.
 
-  ARV Estimation
-  Get guided through pulling and evaluating comparable sales — the same criteria a hard money lender or end buyer's
-  appraiser will use. The skill walks you through finding comps within the right radius, timeframe, and property
-  profile, then calculates a defensible ARV from price-per-sqft data.
+  ARV Estimation (binding standard)
+  Comping is rule-based, not vibes-based. ARV = subject sqft × p75 $/sqft of at least 3 arm's-length closed sales in
+  the same neighbourhood, within 1.5 mi, inside a 6–12 month window, within ±30% sqft, × 0.88. Under 3 comps the
+  answer is UNPRICED — never a widened radius, never an average across tiers. The rulebook is comping/COMPING.md;
+  comping/comp.py runs it, enforces six checks and proves each one can fail.
+
+      python3 comping/comp.py --selftest      # 6 checks, 6 injected defects, economics regressions
+      python3 comping/comp.py --exclusions    # not comps: AMI-restricted, new builds, quitclaims, asking prices
+      python3 comping/comp.py --comps <csv> --subject '<json>' --as-of YYYY-MM-DD --repairs <graded>
 
   Offer & Negotiation
   Generates a ready-to-use seller conversation script tailored to your numbers, with negotiation anchors and a Purchase
