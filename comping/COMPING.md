@@ -48,7 +48,7 @@ built); **MLS/agent remarks win on condition language**. If sources genuinely di
 state the conflict — never silently pick one. `references/data-integrity.md` §provenance.
 
 Comp universe first, then the ladder per subject. Constants are in `scripts/comp.py`
-(`RADIUS_LADDER`, `MIN_COMPS`, `SQFT_BAND`, `HAIRCUT` in `scripts/comp.py`).
+(`RADIUS_LADDER`, `MIN_COMPS`, `SQFT_BAND` in `scripts/comp.py`).
 
 **Comp universe screen — drop a sale if any of these is true:**
 
