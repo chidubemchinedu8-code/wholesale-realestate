@@ -918,3 +918,37 @@ appeared the moment it ran:
 reader of it — the check, the CONF line, the comp table header and row — must say
 so out loud rather than print a zero. A measurement that was not taken is reported
 as not taken. Guarded by test 9q.
+
+## D-43 — `update_values` wrote 48 rows and silently dropped 20 of them
+
+Writing the 222 sweep rows into `DAYTON LEADS` in six calls, one call reported
+`updated_range: A41:K88 / updated_rows: 48` and then left rows **A89:K108 empty**.
+The next call started at A89 as instructed, so nothing was reported wrong: every
+individual call succeeded, every returned range looked contiguous with its request,
+and the sheet ended up with a 20-row hole plus a duplicate tail. The hole was only
+visible by re-reading column A and finding twenty blanks mid-block.
+
+Cause: the 48-row call was a retry of an earlier 48-row call whose payload carried a
+long-form `B`-column footnote at the front. The retry was accepted, its stated range
+was honoured, but the row slice that landed did not include the first 20 logical rows.
+`update_rows` is reported from the written span, not from the payload length, so it
+cannot be used as a receipt.
+
+**Rule:** after any multi-call block write, **count the rows back out of the sheet** —
+`count(A)` over the block range and a `group by` on the verdict column — and compare
+against the source. Never trust `updated_rows` as proof of a complete write, and never
+let a retry reuse a payload that was edited between attempts. Recovery here was
+`clear_values A42:K320` and a clean rewrite from one regenerated array.
+
+## D-44 — `clear_values` on column A alone does not clear the row
+
+Inserting divider rows above the method footnotes, I wrote a single-column block
+(`A41:A49`). Rows 42–46 had old 45405 method prose sitting in **column B**, and
+because only column A was written, that prose stayed put and now read as if it were
+the second half of my new divider text — a heading in A with unrelated 45405 numbers
+beside it in B. Nothing errored; the sheet simply became nonsense in one column.
+
+**Rule:** a "divider" is not a column — it is a **row**. Any block that introduces a
+section must be written as a full `A:K` range, or the rows must be cleared across all
+eleven columns first. The displaced text is preserved verbatim in
+`state/comps/DAYTON_45405_DISPLACED_NOTES.md` and restored below the sweep block.
