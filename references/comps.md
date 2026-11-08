@@ -166,3 +166,23 @@ spread. That number is the finding. It explains why two comps can never set a
 median, and it lets a reader see that the verdict flips across the band
 (MAO $22,660 at the low comp, $81,502 at the high one). Quote the spread, not
 just the word UNPRICED.
+
+**Never build a comp set by joining two neighbourhoods.** The 4074 Middlehurst
+row originally quoted three MAOs ($62,443 / $88,510 / $108,956) built from
+2016 Kipling Dr — in the subject's own Cornell Heights — plus 1740 Burbank Dr,
+**1.16 mi away in Upper Dayton View**. That is a comp set stitched across a
+neighbourhood split, and it produced confident numbers from it. Every one of the
+six verified 45406 sales in band turned out to be *updated* or *maintained*;
+**not one was a full renovation**. Cornell Heights has only two sales in 180
+days.
+
+The correct answer was a clean `UNPRICED` with no band at all. A band is a
+convenience that may only be offered when the underlying pool is legitimate;
+attaching one to an illegal pool makes an unpriced deal look underwritten. When
+a band is withdrawn, say so in the flags and leave the retired numbers visible
+as retired — do not quietly delete them, because the operator may already have
+used them.
+
+The six verified sales still do useful work as an **as-is floor**: updated homes
+$85–$137/sf, maintained $80–$85/sf, which for a 1,259 sf house is roughly
+$103,000–$151,000. A floor is a legitimate output; an ARV is not available.
