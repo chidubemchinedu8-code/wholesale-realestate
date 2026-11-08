@@ -1,0 +1,30 @@
+address,beds,sqft,ask,tier,repairs,arv,ceiling,mao,verdict,conf,refusal_reason
+633 Huffman Ave,3,1683,44900,heavy,84150,194995,52346,42346,NO(above MAO),spread 21.8%  n=6,
+124 N Harbine Ave,2,812,65000,moderate,28420,141958,70951,60951,NO(above MAO),spread 16.3%  n=5,
+141 S Torrence St,3,1458,74900,moderate,51030,187719,80373,70373,NO(above MAO),spread 22.2%  n=6,
+237 N Irwin St,3,1246,74900,moderate,43610,160424,68687,58687,NO,spread 22.2%  n=6,
+3111 E 5th St,2,1192,89900,moderate,41720,167637,75626,65626,NO,spread 29.6%  n=10,
+35 N Philadelphia St,3,1072,90000,moderate,37520,157147,72483,62483,NO,spread 21.9%  n=5,
+44 Springfield St,4,1429,99000,moderate,50015,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+124 S Philadelphia St,3,1334,109900,light,26680,171754,93548,83548,NO,spread 22.2%  n=6,
+155 N Quentin Ave,3,998,112900,moderate,34930,146300,67480,57480,NO,spread 21.9%  n=5,
+240 Bierce Ave,3,1658,119000,moderate,58030,192098,76439,66439,NO,spread 21.8%  n=6,
+57 S Torrence St,4,1971,124900,moderate,68985,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+1807 Gondert Ave,3,1040,129000,moderate,36400,152456,70319,60319,NO,spread 21.9%  n=5,
+1655 Suman Ave,2,984,129900,light,19680,159856,92219,82219,NO,spread 23.5%  n=7,
+624 Greenlawn Ave,2,1140,135000,moderate,39900,167116,77081,67081,NO,spread 24.8%  n=9,
+125 Pleasant St,2,1260,137000,light,25200,162227,88359,78359,NO,spread 22.2%  n=6,
+135 Drummer Ave,2,1400,149000,moderate,49000,180252,77176,67176,NO,spread 22.2%  n=6,
+921 Huffman Ave,3,2034,150000,moderate,71190,219854,82708,72708,NO,spread 16.9%  n=5,
+304 Sheridan Ave,2,862,150000,moderate,30170,145368,71588,61588,NO,spread 23.3%  n=6,
+1704 Mclain St,5,1742,159000,moderate,60970,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 5 beds - the bed floor cannot be met, so ther"
+941 Springfield St,2,942,165000,moderate,32970,158859,78231,68231,NO,spread 23.3%  n=6,
+148 Stainton Ave,4,1344,167000,moderate,47040,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+945 Springfield St,2,858,170000,moderate,30030,144693,71255,61255,NO,spread 23.3%  n=6,
+139 Columbus St,3,1464,172900,moderate,51240,188492,80704,70704,NO,spread 22.2%  n=6,
+67 Burlington Ave,3,1400,174000,moderate,49000,180252,77176,67176,NO,spread 22.2%  n=6,
+103 S Sperling Ave,4,2200,180000,moderate,77000,,,,UNPRICED,,"no same-neighbourhood sale within +-30% sqft (1,540-2,860 sf)"
+719 Kirk Lynne St,3,1564,184900,moderate,54740,201367,86217,76217,NO,spread 22.2%  n=6,
+118 Linden Ave,4,2582,199000,moderate,90370,,,,UNPRICED,,"no same-neighbourhood sale within +-30% sqft (1,807-3,356 sf)"
+2610 E 4th St,4,1741,230000,moderate,60935,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+2105 E 5th St,3,2636,235000,moderate,92260,,,,UNPRICED,,"no same-neighbourhood sale within +-30% sqft (1,845-3,426 sf)"

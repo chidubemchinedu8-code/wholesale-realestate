@@ -1,0 +1,93 @@
+address,sold,price,sqft,beds,condition,exclusion,evidence
+15 Drury St,2026-06-12,181000,1464,3,renovated,,"beautifully renovated every detail, new front porch/deck"
+50 Murray Hill Dr,2026-07-29,185000,1262,3,renovated,,"brand new roof deck boards, Pella windows, LVP, updated bath"
+756 Alexander Dr,2026-09-11,119700,864,3,renovated,,"kitchen refreshed stylish cabinetry SS, remodeled bathroom"
+41 N Westview Ave,2026-06-12,150000,858,3,renovated,,"beautifully updated, granite, white shaker, finished walkout"
+1717 Speice Ave,2026-08-14,158000,1107,3,renovated,,"brand new flooring, freshly remodeled kitchen"
+715 Gondert Ave,2026-08-06,200000,1494,3,renovated,,"beautifully restored, new shaker cabinets quartz, renovated baths"
+1919 Suman Ave,2026-08-07,165000,864,4,renovated,,"completely renovated kitchen, brand new flooring LVP"
+15 Parnell Ave,2026-10-30,159900,1517,4,renovated,,"beautifully renovated, remodeled kitchen/baths new windows/furnace"
+127 Stainton Ave,2026-10-16,155000,1434,3,renovated,,"charming renovated, granite, white cabinetry, SS"
+21 S Philadelphia St,2026-10-14,115000,1700,3,renovated,,"100% move-in ready, brand new roof flooring paint"
+421 Alexander Dr,2026-05-27,135000,831,2,renovated,,"thoughtfully updated, new roof/furnace/AC/windows"
+1926 Speice Ave,2026-07-02,164800,990,3,maintained,,"updated cape, new furnace/AC 2023, fresh paint"
+231 N Westview Ave,2026-06-12,160000,960,3,maintained,,cute and well maintained
+117 N Quentin Ave,2026-10-29,80000,884,2,maintained,,"major mechanicals updated, tenant occupied"
+1401 Huffman Ave,2026-07-31,125000,1584,3,dated,,"just needs cosmetic updating, as is"
+1413 Huffman Ave,2026-05-19,125000,1092,3,dated,,"estate, as is, furnace 2025 roof 2024"
+65 S Sperling Ave,2026-05-20,57000,1380,2,distressed,,"DIY dream, diamond in the rough"
+712 Huffman Ave,2026-10-07,75000,963,2,dated,,"classic cape, original woodwork, carpet over hardwood"
+116 Burkhardt Ave,2026-06-25,68000,1456,3,dated,,"estate settlement, as-is"
+1425 Huffman Ave,2026-08-31,70000,1296,3,dated,,"could benefit from some TLC, metal roof HVAC 2020"
+127 S Delmar Ave,2026-10-16,87000,1535,3,maintained,,"some updates HVAC/bath/panel, priced to sell"
+45 Drummer Ave,2026-10-06,105000,1496,3,maintained,,"95% furnace, updated vinyl windows, new flooring"
+3802 E 4th St,2026-09-02,87000,816,3,dated,,"ranch, full basement, no upgrade claim"
+125 Bircher Ave,2026-09-01,87500,804,2,unknown,,
+1530 Gummer Ave,2026-09-01,85000,1422,3,unknown,,
+690 Cosler Dr,2026-09-01,45000,1160,2,unknown,,
+41 La Belle St,2026-09-01,207500,1598,3,unknown,,
+717 Parkview Ave,2026-09-01,135000,1270,3,unknown,,
+639 Huffman Ave,2026-09-01,110000,1589,3,unknown,,
+135 S Terry St,2026-09-01,135000,1781,3,unknown,,
+129 Henry St,2026-09-01,150000,968,2,unknown,,St Annes Hill
+138 Henry St,2026-09-01,272000,1864,3,unknown,,St Annes Hill
+149 Mcclure St,2026-09-01,260000,1476,2,unknown,,St Annes Hill
+51 Centre St,2026-09-01,299500,2059,2,unknown,,St Annes Hill
+116 Mcclure St,2026-07-02,178000,874,2,renovated,,St Annes Hill bungalow
+663 Greenlawn Ave,2026-09-01,155000,1183,2,unknown,,
+263 S Hedges St,2026-09-01,92500,1836,4,unknown,,
+250 S Harbine Ave,2026-09-01,109000,792,3,unknown,,
+240 S Torrence St,2026-09-01,103000,1506,3,unknown,,
+43 York Ave,2026-09-01,75000,1478,3,unknown,,
+26 Drury St,2026-09-01,127700,1056,3,unknown,,
+123 S Sperling Ave,2026-09-01,68350,1268,3,unknown,,
+3405 E 5th St,2026-09-01,85000,1008,3,unknown,,
+3520 E 4th St,2026-09-01,115000,1050,4,unknown,,
+23 Murray Dr,2026-09-01,150000,1131,3,unknown,,
+51 S Cherrywood Ave,2026-09-01,180000,1539,4,unknown,,
+24 N Quentin Ave,2026-09-01,80000,1812,3,unknown,,
+1333 Radio Rd,2026-09-01,133000,768,3,unknown,,
+335 N Garland Ave,2026-09-01,130000,864,3,unknown,,
+261 N Delmar Ave,2026-09-01,136000,872,2,unknown,,
+254 N Cherrywood Ave,2026-09-01,115000,998,3,unknown,,
+214 N Westview Ave,2026-09-01,128000,1056,3,unknown,,
+49 La Belle St,2026-09-01,170000,2100,4,unknown,,
+676 Shedborne Ave,2026-09-01,45000,864,3,unknown,,
+49 S Terry St,2026-09-01,210000,2660,4,unknown,,
+18 Potomac St,2026-09-01,224500,1712,2,unknown,,
+1708 Rangeley Ave,2026-09-01,60000,1069,3,unknown,,
+449 Ostrander Dr,2026-09-01,120000,1134,3,unknown,,
+17 La Belle St,2026-09-01,168900,1796,4,unknown,,
+120 Livingston Ave,2026-09-01,68500,1034,3,unknown,,
+1732 Brownell Rd,2026-09-01,67500,1105,3,unknown,,
+433 Alexander Dr,2026-09-01,90000,990,3,unknown,,
+2127 Speice Ave,2026-09-01,83000,1064,3,unknown,,
+246 N Cherrywood Ave,2026-10-23,142000,1398,4,maintained,,"granite countertops, classic white cabinetry, move-in ready"
+123 Livingston Ave,2026-09-14,114500,1420,3,unknown,,
+814 Gondert Ave,2026-10-02,109000,1083,2,unknown,,
+1723 Gondert Ave,2026-10-30,145000,991,3,unknown,,
+1634 Huffman Ave,2026-07-28,115000,1014,3,unknown,,
+2136 Speice Ave,2026-10-23,124500,1334,4,unknown,,
+1946 Gondert Ave,2026-07-09,112500,944,3,maintained,,updated kitchen open shelving
+3911 E 4th St,2026-09-25,180000,1520,3,maintained,,"original details, brick fireplace, 4 lots"
+102 S Findlay St,2026-06-23,140000,1657,3,maintained,,"complete new roof 2026, HVAC 2016"
+1117 Blakley Dr,2026-07-28,111500,947,3,maintained,,"cozy cape, ready to welcome"
+153 High St,2026-09-30,249900,2106,3,new,new_build,home built 2014 after fire
+108 Boltin St,2026-10-20,52000,1672,3,dated,multifamily,"duplex rented, needs updating"
+100 N Irwin St,2026-06-05,20000,3586,6,distressed,multifamily,"4-unit, contained fire damage"
+57 Drummer Ave,2026-07-16,221000,2070,6,renovated,multifamily,"duplex midterm rental, rented by room"
+3213 E 5th St,2026-09-28,170000,1950,5,renovated,multifamily,fully remodeled duplex 3bd+2bd
+321 S Harbine Ave,2026-07-31,415000,4680,12,unknown,multifamily,6-unit brick
+59 Parnell Ave,2026-09-01,91000,2352,6,unknown,multifamily,6bd 4ba
+110-112 S June St,2026-09-01,103000,4100,6,unknown,multifamily,4100 sf duplex
+100 Boltin St,2026-09-01,30000,4344,9,unknown,multifamily,4344 sf 9bd
+1303 Huffman Ave,2026-09-01,188000,2920,6,unknown,multifamily,6bd 2ba
+1315 Chardon Ct,2026-09-01,275000,2800,4,unknown,multifamily,4bd 4ba
+218 N Delmar Ave,2026-09-01,94000,4988,3,unknown,multifamily,4988 sf
+3705 E 3rd St,2026-09-01,150000,2820,6,unknown,multifamily,6bd 2ba
+808 Huffman Ave,2026-09-01,159900,2664,6,unknown,multifamily,6bd 2ba
+24-26 More Ave,2026-09-01,160000,2028,4,unknown,multifamily,duplex
+1528-1530 Mclain St,2026-09-21,82000,2079,4,unknown,multifamily,duplex
+1528 McLain St,2026-09-01,124640,2079,4,unknown,multifamily,duplicate of 1528-1530
+1620 Gondert Ave #1618,2026-06-12,140000,2384,4,unknown,multifamily,duplex
+1809 Suman Ave,2026-07-22,42130,768,2,unknown,non_arms_length,court ordered auction PSO

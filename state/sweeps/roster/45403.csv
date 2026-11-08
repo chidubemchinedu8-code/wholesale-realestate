@@ -1,0 +1,70 @@
+address,ask,beds,baths,sqft,type,condition_signal,verdict,reject_reason
+1619-1625 Tuttle Ave,600000,10,10,8000,Multifamily,"10 units, 1BR each, updated windows/roof/panels",REJECT,multifamily_needs_2_4unit_comps
+1655 Suman Ave,129900,2,1,984,SFR,"classic bungalow, hardwood, soaking tub",CANDIDATE,
+3111 E 5th St,89900,2,1,1192,SFR,no condition detail in listing,CANDIDATE,
+19-21 S Van Lear,270000,4,3,2545,Duplex,"rehabbed top to bottom, both units 1250 sf",REJECT,multifamily_needs_2_4unit_comps
+212 Sherman St,129000,2,1,1080,SFR,"beautifully renovated top to bottom, granite, new plumbing",REJECT,turnkey_retail_ready
+921 Huffman Ave,150000,3,2,2034,SFR,"loaded with updates, second kitchen upstairs",CANDIDATE,
+2610 E 4th St,230000,4,2,1741,SFR,"refreshed, attic flexible",POTENTIAL,
+1638 Darst Ave,129950,2,1,954,SFR,move-in ready bungalow,REJECT,turnkey_retail_ready
+315 Sheridan Ave,120000,2,1,811,SFR,"renovated, tenant at $1000/mo through Nov 2027",REJECT,landlord_model_occupied
+1807 Gondert Ave,129000,3,1,1040,SFR,"needs a little love, good bones, new roof 2025; TITLE SAYS 45410",CANDIDATE,
+812 Huffman Ave,149000,4,2,1960,Duplex,"stacked duplex, 2bd/1ba each, one occupied",REJECT,multifamily_needs_2_4unit_comps
+125 Pleasant St,137000,2,1,1260,SFR,"updated, new flooring main level",CANDIDATE,
+2105 E 5th St,235000,3,2,2636,SFR,"1870 historic brick, carriage house, roof 2 yrs",POTENTIAL,
+315 Blackwood Ave,120000,2,2,896,SFR,"clean and neat, bath 2024, furnace/ac 2009",REJECT,turnkey_retail_ready
+115 Livingston Ave,145000,3,1,1624,SFR,"renovated, tenant at $1450/mo",REJECT,landlord_model_occupied
+48 S Monmouth St,70000,4,4,4502,Multifamily,"4 units 1bd, needs cosmetic/plumbing/electrical",REJECT,multifamily_needs_2_4unit_comps
+113 Centre St,314900,3,1.5,1817,SFR,"Huffman Historic, updated inside/out, new porch",REJECT,above_market_arv_band
+413 Briarwood Ave,435000,12,6,4608,Multifamily,"6 units 2bd, NOI $22,738",REJECT,multifamily_needs_2_4unit_comps
+141 S Torrence St,74900,3,1.5,1458,SFR,"as-is, build equity through cosmetic updates",CANDIDATE,
+154 High St #152-154,235000,1,1,1148,Duplex,"two 1bd units, new roof 2026, updated since 2023",REJECT,multifamily_needs_2_4unit_comps
+304 Sheridan Ave,150000,2,1,862,SFR,no condition detail in listing,CANDIDATE,
+426-428 Bantz Ct,154900,4,2.5,1800,Duplex,"2 units, new roof, one occupied",REJECT,multifamily_needs_2_4unit_comps
+132 Centre St,249000,3,2,1812,SFR,"1875 updated top to bottom, spa bath",REJECT,turnkey_retail_ready
+152 High St,235000,2,2,1148,Duplex,"DUPLICATE of 154 High St listing (same property, 69th row); not a separate property",REJECT,duplicate_listing
+64 Huffman Ave,369900,4,2.5,2986,SFR,"fully remodeled Victorian, HVAC/roof 2019",REJECT,above_market_arv_band
+23 N Cherrywood Ave,165000,3,1,1000,SFR,"move-in ready brick ranch, fresh paint",REJECT,turnkey_retail_ready
+3007 E 4th St,179999,3,2,1778,SFR,"fully updated 3-story, granite",REJECT,turnkey_retail_ready
+3206 E 5th St,99900,3,1,1368,SFR,"absolutely move-in ready, roof/siding/windows 2013",REJECT,turnkey_retail_ready
+240 Bierce Ave,119000,3,1.5,1658,SFR,"wood flooring, no renovation claim",CANDIDATE,
+324 S Wright Ave,139000,3,1,1040,SFR,"FSBO, complete renovation + new roof",REJECT,turnkey_retail_ready
+57 S Torrence St,124900,4,2.5,1971,SFR,"freshly painted exterior, newer roof, vinyl windows",CANDIDATE,
+710 Greenlawn Ave,178000,3,1.5,1304,SFR,"fully updated kitchen quartz, brick fireplace",REJECT,turnkey_retail_ready
+1620 E 5th St,234900,5,1,1380,Commercial,"salon/spa 5 rooms, zoned commercial, income $3250/mo",REJECT,commercial_use
+101 Mcclure St,435000,3,3,2902,SFR,completely remodeled St Annes Hill,REJECT,above_market_arv_band
+40 S Torrence St,245000,7,2.5,2830,SFR,"updated kitchen, newer flooring, 7 bed",REJECT,above_market_arv_band
+432 Alexander Dr,185000,4,1.5,990,SFR,"fully remodeled, new HVAC/roof/panel",REJECT,turnkey_retail_ready
+612-614 S Smithville Rd,179900,4,2,2016,Duplex,"2 units 2bd/1ba, one at $950/mo",REJECT,multifamily_needs_2_4unit_comps
+129 Mcclure St,299900,4,2,1588,SFR,"4bd St Annes Hill, updated vinyl flooring",REJECT,above_market_arv_band
+27 Davis Ave,180000,4,4,4479,Multifamily,quad unit,REJECT,multifamily_needs_2_4unit_comps
+42 Gerlaugh Ave,115000,4,1.5,1739,SFR,"currently rented, tenants would like to stay",REJECT,landlord_model_occupied
+1519 E 5th St,265000,1,1.5,1836,Commercial,"office/mixed use, zoned multiple commercial",REJECT,commercial_use
+719 Cosler Dr,129900,3,1,864,SFR,"updated cape, new LVP, AC before closing",REJECT,turnkey_retail_ready
+624 Greenlawn Ave,135000,2,1,1140,SFR,finished bonus rooms in basement,CANDIDATE,
+1704 Mclain St,159000,5,2,1742,SFR,"updates 2015-2017: roof, siding, electrical, plumbing",CANDIDATE,
+124 S Philadelphia St,109900,3,1.5,1334,SFR,"LVP, HVAC 2024, Bosch dishwasher 2026",CANDIDATE,
+1743 Huffman Ave,164900,2,1,876,SFR,"beautifully renovated 2026, new roof/HVAC/plumbing",REJECT,turnkey_retail_ready
+17-19 Bell St,79000,4,2,2496,Duplex,duplex 2bd each,REJECT,multifamily_needs_2_4unit_comps
+719 Kirk Lynne St,184900,3,1,1564,SFR,no condition detail in listing,CANDIDATE,
+633 Huffman Ave,44900,3,1,1683,SFR,no condition detail; lowest ask in ZIP other than land,CANDIDATE,
+155 N Quentin Ave,112900,3,1,998,SFR,no condition detail in listing,CANDIDATE,
+135 Drummer Ave,149000,2,1,1400,SFR,no condition detail in listing,CANDIDATE,
+124 N Harbine Ave,65000,2,1,812,SFR,no condition detail in listing,CANDIDATE,
+423 Briarwood Ave,575000,10,10,6384,Multifamily,10 units,REJECT,multifamily_needs_2_4unit_comps
+139 Columbus St,172900,3,2,1464,SFR,no condition detail in listing,CANDIDATE,
+237 N Irwin St,74900,3,1,1246,SFR,no condition detail in listing,CANDIDATE,
+35 N Philadelphia St,90000,3,2,1072,SFR,no condition detail in listing,CANDIDATE,
+44 Springfield St,99000,4,1.5,1429,SFR,no condition detail in listing,CANDIDATE,
+103 S Sperling Ave,180000,4,1,2200,SFR,no condition detail in listing,CANDIDATE,
+67 Burlington Ave,174000,3,1.5,1400,SFR,no condition detail in listing,CANDIDATE,
+148 Stainton Ave,167000,4,2,1344,SFR,no condition detail in listing,CANDIDATE,
+941 Springfield St,165000,2,1,942,SFR,no condition detail in listing,CANDIDATE,
+945 Springfield St,170000,2,1,858,SFR,no condition detail in listing,CANDIDATE,
+118 Linden Ave,199000,4,2,2582,SFR,no condition detail in listing,CANDIDATE,
+1613 Gummer Ave,269900,4,4,4480,Multifamily,4480 sf 4bd/4ba - multi-unit indicated,REJECT,multifamily_needs_2_4unit_comps
+210 N Cherrywood Ave,627000,8,4,6696,Multifamily,6696 sf 8bd/4ba - multi-unit,REJECT,multifamily_needs_2_4unit_comps
+3020 E 3rd St,224000,3,4,5390,Multifamily,5390 sf 3bd/4ba - multi-unit,REJECT,multifamily_needs_2_4unit_comps
+0 Linden Ave,30000,0,0,0,Land,"vacant lot 7,392 sf",REJECT,land_no_structure
+00 Huffman Ave,10000,0,0,0,Land,"vacant lot 7,505 sf",REJECT,land_no_structure
+1323 Huffman Ave,15000,0,0,0,Land,"vacant lot 6,395 sf",REJECT,land_no_structure
