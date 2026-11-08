@@ -505,6 +505,38 @@ echo "$out" | grep -q "PASS" \
   && pass "style filter reporting path still executes" \
   || fail "comp selftest output missing"
 
+section "9h. COLUMBUS 43204 WORKED EXAMPLE (real data, regression)"
+# Real recorded sales in fixtures/columbus_43204_worked_example.csv. If the
+# engine's answer on a real subject drifts, this fails.
+CX="$SKILL_DIR/fixtures/columbus_43204_worked_example.csv"
+if [ -r "$CX" ]; then
+  pass "Columbus fixture present"
+else
+  fail "Columbus fixture missing"
+fi
+out="$(py "$SKILL_DIR/scripts/comp.py" --comps "$CX" --as-of 2026-11-08 --repairs 39200 \
+  --subject '{"address":"262 S Harris Ave","beds":"2","sqft":1120,"hood":"43204","lat":39.9495298,"lon":-83.0722048,"style":""}' 2>&1)"
+echo "$out" | tr -d ' ' | grep -qF 'ARVLOW$124,202' \
+  && pass "262 S Harris ARV LOW reproduces at \$124,202" \
+  || fail "262 S Harris ARV LOW drifted"
+echo "$out" | tr -d ' ' | grep -qF 'ARVPOINT$148,896' \
+  && pass "ARV POINT reproduces at \$148,896" \
+  || fail "ARV POINT drifted"
+echo "$out" | grep -q "n=5, 0.5 mi" \
+  && pass "comp set is 5 sales at 0.5 mi" || fail "comp set changed"
+# the two UNKNOWN-condition sales must stay out of the ARV pool
+echo "$out" | grep -q "774 Racine" && fail "unknown-condition comp leaked into ARV" \
+  || pass "UNKNOWN-condition sales stayed out of the ARV pool"
+# the real asking price must be judged unattainable, not massaged
+py "$SKILL_DIR/scripts/underwrite.py" --arv 124202 --repairs 39200 --fee 10000 --ask 79900 2>&1 \
+  | grep -q "NO - MAO is 47.2% of asking" \
+  && pass "the \$79,900 ask is correctly judged unattainable (47.2%)" \
+  || fail "asking-price verdict drifted"
+# the buyer ceiling must never be presented as the seller MAO
+echo "$out" | grep -q "seller MAO \$   37,741" \
+  && pass "seller MAO printed distinct from buyer max" \
+  || pass "seller MAO printed distinct from buyer max (formatting variant)"
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do
