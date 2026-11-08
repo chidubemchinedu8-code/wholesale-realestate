@@ -3,4 +3,4 @@ address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
 1411 S Broadway St,2026-08-21,95500,1404,45417-PATTERSON,39.7366579,-84.2156207,COLONIAL,3,renovated,
 512 Campbell St,,149000,1132,45417-EDGEMONT,39.7406308,-84.2063254,COLONIAL,3,renovated,date_unverified
 669 Clegg St,,160000,1228,45417-EDGEMONT,39.7399382,-84.2060261,CRAFTSMAN,3,renovated,date_unverified
-420 Bolander Ave,2026-06-10,35860,1438,45417-EDGEMONT,39.7417341,-84.1989377,COLONIAL,3,court_ordered,auction_not_arms_length
+420 Bolander Ave,2026-06-10,35860,1438,45417-EDGEMONT,39.7417341,-84.1989377,COLONIAL,3,court_ordered,non_arms_length

@@ -104,3 +104,45 @@ Say so in the verdict, not in a footnote.
 
 An ARV is a **market-value estimate**, not an appraisal, and not an offer. Every report
 says this in those words.
+
+## Two data defects found in the wild (2026-11-08, Dayton)
+
+Both were found by re-reading the source pages rather than trusting the comp
+file. Both had already survived a "clean" preflight, so neither is theoretical.
+
+**A comp file must never carry a hand-typed sold date.** A date is a fact about
+a parcel; it comes off the property page or it is not a date. Two dates in the
+45410 file were typed from memory: `164 Edgar Ave` 2026-09-15, and
+`40 Indiana Ave` 2026-08-01. Re-fetching the sold list showed:
+
+- **`164 Edgar Ave` does not exist in 45410's sold list at all.** The nearest
+  real properties are 32 Edgar ($144,900, 1,541 sf, 3 bd), 40 Edgar ($170,000,
+  1,415 sf, 3 bd) and 416-418 Edgar (a 6-bd duplex). A phantom comp had been
+  shaping a comp set.
+- **`40 Indiana Ave` closed 2026-08-05, not 2026-08-01.** Four days wrong is
+  still wrong, and wrong dates move sales in and out of the 180-day window.
+
+The rule: an undated row is dropped by the loader, so if a row is deliberately
+left undated it must be *marked* in the exclusion column (`date_unverified`) —
+otherwise it disappears silently and the comp set looks thicker than it is.
+Section 9n of the test suite now enforces both halves.
+
+**An exclusion tag the engine does not recognise must refuse the file, not be
+ignored.** The 45417 file tagged a court-ordered auction sale
+`auction_not_arms_length`. The engine's recognised reasons included
+`non_arms_length`, so the tag did not match, the sale was **not** excluded, and
+a $35,860 court-ordered transfer joined the ARV pool as an ordinary open-market
+comp. It only stayed out of the final maths because two other comps were
+undated, not because anything caught it.
+
+Fixed two ways: `EXCLUSION_ALIASES` maps the common misspellings
+(`auction_not_arms_length`, `sheriff_sale`, `foreclosure`, `land_bank`,
+`income_restricted`, …) onto the real reasons, and `load_comps` now raises on
+any tag that is still unknown. A comp file that cannot be read unambiguously
+gets corrected — never averaged over.
+
+**Related bug, same round:** an unpriced row with a graded repair figure always
+reported `FAIL no repair number without a grade`, because the check demanded a
+ceiling that an unpriced deal can never have. That is dangerous: a permanent
+false failure trains the operator to ignore the one check that stops a ceiling
+being invented. An unpriced row now passes when it quotes no ceiling.

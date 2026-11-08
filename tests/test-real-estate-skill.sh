@@ -682,6 +682,93 @@ else
   fail "a ZIP is logged as discovered somewhere other than Zillow: $SRCW"
 fi
 
+section "9m. AN UNPRICED ROW CANNOT BE FAILED FOR LACKING A CEILING"
+# Regression: check_6 demanded a ceiling whenever repairs were graded, but an
+# unpriced row never has one by design. Every unpriced subject run with
+# --repairs therefore showed a FAIL, which pressures the next run into
+# inventing a ceiling on a deal that has no ARV.
+UPC="$(mktemp)"
+cat > "$UPC" <<'CSV'
+address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
+1 Solo St,2026-08-01,120000,1400,SYNTH-9,0.10,0.00,TRADITIONAL,3,renovated,
+CSV
+OUT="$(py "$SKILL_DIR/scripts/comp.py" \
+  --subject '{"address":"Subject St","beds":"3","sqft":1400,"hood":"SYNTH-9","lat":0,"lon":0}' \
+  --comps "$UPC" --ask 50000 --repairs 30000 2>&1)"
+echo "$OUT" | grep -q "UNPRICED" \
+  && pass "single renovated comp leaves the subject UNPRICED" \
+  || fail "a one-comp set produced a price"
+echo "$OUT" | grep -q "graded, but the row is UNPRICED so no ceiling is quoted" \
+  && pass "a graded repair figure on an unpriced row is PASS, not FAIL" \
+  || fail "unpriced + graded repairs is still reported as a failure"
+echo "$OUT" | grep -q "FAIL " \
+  && fail "an unpriced row still trips a check" \
+  || pass "no check FAILS on a clean unpriced row"
+rm -f "$UPC"
+
+section "9n. NO SILENTLY UNDATED COMP, NO UNKNOWN EXCLUSION TAG"
+# Two hand-typed dates were found in the 45410 file, and the 45417 file used
+# an exclusion spelling the engine did not recognise - which made a
+# court-ordered auction sale count as a normal ARV comp. Both are now caught.
+if py - <<'PYE'
+import csv, datetime, glob, sys
+bad = []
+for f in sorted(glob.glob("state/comps/*.csv")):
+    for r in csv.DictReader(open(f, encoding="utf-8")):
+        a, d = r.get("address"), (r.get("sold") or "").strip()
+        ex = (r.get("exclusion") or "").strip()
+        # An undated row is dropped by the loader. That is acceptable ONLY
+        # when the file says so out loud; otherwise the row vanishes and
+        # nobody learns the comp set was thinner than it looked.
+        if not d or d.lower() in ("date_unverified", "unverified", "tbd"):
+            if not ex:
+                bad.append(f"{f}:{a} undated but not marked in the exclusion column")
+            continue
+        try:
+            datetime.date.fromisoformat(d)
+        except ValueError:
+            bad.append(f"{f}:{a} impossible date {d!r}")
+for b in bad:
+    print("  BAD", b)
+sys.exit(1 if bad else 0)
+PYE
+then pass "every undated comp is marked, every date is a real calendar date"
+else fail "a comp is undated without a mark, or carries an impossible date"; fi
+
+if py - <<'PYE'
+import sys
+sys.path.insert(0, "scripts")
+import comp
+bad = [k for k, v in comp.EXCLUSION_ALIASES.items()
+       if v not in comp.EXCLUSION_REASONS]
+print("  BAD aliases:", bad)
+sys.exit(1 if bad else 0)
+PYE
+then pass "every exclusion alias resolves to a real reason"
+else fail "an exclusion alias points at a reason that does not exist"; fi
+
+if py - <<'PYE'
+import os, subprocess, sys, tempfile
+fd, tmp = tempfile.mkstemp(suffix=".csv")
+os.close(fd)
+with open(tmp, "w") as fh:
+    fh.write("address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion\n")
+    fh.write("9 Nope St,2026-08-01,90000,1400,SYNTH-9,0.1,0,TRADITIONAL,3,"
+             "renovated,mystery_tag\n")
+out = subprocess.run(
+    [sys.executable, "scripts/comp.py",
+     "--subject",
+     '{"address":"X","beds":"3","sqft":1400,"hood":"SYNTH-9","lat":0,"lon":0}',
+     "--comps", tmp, "--ask", "50000"],
+    capture_output=True, text=True)
+os.remove(tmp)
+text = out.stdout + out.stderr
+print("  ", " ".join(text.split())[:160])
+sys.exit(0 if "not a known reason" in text else 1)
+PYE
+then pass "an unrecognised exclusion tag refuses the run instead of joining the pool"
+else fail "an unknown exclusion tag is silently treated as a usable comp"; fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do

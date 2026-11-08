@@ -127,3 +127,41 @@ number downstream is suspect.
 Never state or imply that a buyer has approved a deal unless that approval was
 received. "Fits the stated buy box" is the strongest claim available without a
 specific buyer's written interest.
+
+## Comp traps — verified the hard way, 2026-11-08 (Dayton)
+
+These four patterns all produced a *plausible* ARV that was wrong. Check each one
+before a comp set is accepted.
+
+**1. New construction is not renovation.** In 45406 the 2025-built homes at
+2047 / 2052 / 2062 / 2068 Ravenwood Ave sold for $119–$121/sf against a
+renovated-band of $85–$138/sf. They are Montgomery County Land Bank
+"Welcome Home Ohio" builds — a different product with a new-build warranty,
+sold under an income-eligibility programme. Including them lifts ARV by roughly
+37%. Tag them `exclusion=new_build`; the engine already drops them.
+
+**2. The nearest sale is often the condition floor, not the ARV.** 2233 Deering
+Ave sits 116 feet from a 45406 subject, the same size, and sold for $96,000 —
+$69.51/sf. It is a dated 1952 with original wood floors. Distance makes a sale
+*relevant*, never *equivalent*. Read the listing copy for condition words
+before it enters the pool: "original", "vintage", "dated", "bring it back to
+life", "as-is" all mean floor. Only "renovated", "remodeled", "updated
+throughout", "new kitchen and baths", "move-in ready" qualify for ARV.
+
+**3. A low $/sf can mean a solid house, not a distressed one.** 21 S Philadelphia
+St (45403) closed $115,000 for 1,700 sf = $68/sf, described as "100% move-in
+ready" with a brand-new roof. That is below nearly every neighbouring sale. A
+single such comp drags the median and blows the spread out (31.4% on 3206 E 5th
+St). When one comp sits far below the rest, check whether it is simply the
+cheapest *good* house — that is market evidence, not an error, and it belongs in
+the pool while the spread is reported honestly.
+
+**4. ZIPs split by condition before they split by geography.** 45406 dated stock
+trades $61–$76/sf; updated stock trades $85–$138/sf. 45410 splits geographically
+instead — Walnut Hills versus Hearthstone/Oakland 1.6 mi east, with almost no
+cross-over. Price a ZIP's submarket, never the ZIP average, and never borrow
+comps across a split.
+
+**Never** widen the radius, average a short set, or reinstate an outlier to
+manufacture the third comp. `UNPRICED` plus an explicit sensitivity band is the
+honest answer, and it is what `comp.py` refuses to do anything else about.

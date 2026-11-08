@@ -81,6 +81,34 @@ EXCLUSION_REASONS = {
     "different_tier": "Different market tier (mansion vs distressed rowhouse)",
 }
 
+# Spellings that mean an existing reason. A CSV written by hand drifts - the
+# 45417 file said "auction_not_arms_length", which the engine did not know and
+# so treated a COURT-ORDERED AUCTION SALE as an ordinary open-market comp.
+# Normalising aliases here is safer than trusting every future typist.
+EXCLUSION_ALIASES = {
+    "auction_not_arms_length": "non_arms_length",
+    "auction": "non_arms_length",
+    "sheriff_sale": "non_arms_length",
+    "court_ordered": "non_arms_length",
+    "quitclaim": "non_arms_length",
+    "foreclosure": "non_arms_length",
+    "new_build_2025": "new_build",
+    "income_restricted": "deed_restricted",
+    "ami_restricted": "deed_restricted",
+    "land_bank": "deed_restricted",
+    "active": "not_sold",
+    "pending": "not_sold",
+    "cancelled": "not_sold",
+    "expired": "not_sold",
+}
+
+
+def normalise_exclusion(value: str) -> str:
+    key = (value or "").strip().lower()
+    if not key:
+        return ""
+    return EXCLUSION_ALIASES.get(key, key)
+
 STATUS_PRICED = "PRELIMINARY - not an offer"
 STATUS_NONE = "NO COMPS"
 
@@ -457,6 +485,15 @@ def check_6_repairs_graded(row: Priced) -> tuple[bool, str]:
     if row.repairs is None:
         ok = row.repairs_status == "UNGRADED" and row.ceiling is None
         return ok, "ungraded repairs left blank, no ceiling quoted"
+    # A graded repair figure is not the same thing as a quoteable ceiling.
+    # No ARV means no ceiling, so an unpriced row can never show one - and
+    # must not be failed for the absence. Failing it here would push the next
+    # run into inventing a ceiling for an unpriced deal, which is precisely
+    # the drift this check exists to prevent.
+    if row.result.arv is None:
+        ok = row.ceiling is None
+        return ok, (f"repairs ${row.repairs:,.0f} graded, but the row is "
+                    f"UNPRICED so no ceiling is quoted")
     ok = row.repairs_status != "UNGRADED" and row.ceiling is not None
     return ok, f"repairs ${row.repairs:,.0f} graded, ceiling quoted"
 
@@ -537,8 +574,19 @@ def load_comps(path: str, as_of: date) -> list[Comp]:
                 style=(r.get("style") or "").strip().upper(),
                 beds=(r.get("beds") or "").strip(),
                 condition=(r.get("condition") or "").strip().lower(),
-                exclusion=(r.get("exclusion") or "").strip(),
+                exclusion=normalise_exclusion(r.get("exclusion") or ""),
             ))
+    # An exclusion tag the engine does not recognise used to be treated as an
+    # ordinary usable sale, which silently admits a court-ordered auction or a
+    # land-bank build into the ARV pool. Refuse instead: a comp file that
+    # cannot be read unambiguously gets fixed, not averaged.
+    for c in comps:
+        if c.exclusion and c.exclusion not in EXCLUSION_REASONS:
+            raise SystemExit(
+                f"COMP FILE ERROR: {c.address} has exclusion "
+                f"'{c.exclusion}', which is not a known reason.\n"
+                f"  known: {', '.join(sorted(EXCLUSION_REASONS))}\n"
+                f"  If it is a new kind of exclusion, add it to EXCLUSION_REASONS.")
     return comps
 
 
