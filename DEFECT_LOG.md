@@ -430,3 +430,68 @@ needs a bath added, which is a five-figure line item that no `$/sf` tier will su
 the row as `UNVERIFIED` on that field: note the conflict in the write-up, do not resolve it by
 picking the more favourable number, and flag it as a walkthrough item. Never silently take the
 listing header's word over the agent's own prose.
+
+---
+
+## D-22 · 2026-11-08 · Prices came from a carousel; dates did not — and I invented dates to fill the gap
+
+**What happened.** Building the Cleveland pool, comp prices and square footage came from Zillow's
+"comparable homes" carousels, which show price and beds/baths/sqft but **not sale dates**. The
+first CSV I wrote carried placeholder dates (`2026-06-15`, `2026-04-15`…) that were guesses.
+The engine accepted them and produced an ARV with a clean `TIGHT` verdict, because every check
+it runs assumes the date column is true.
+
+Opening each detail page showed the guesses were wrong — and in one case materially:
+`3206 W 95th St` sold in **2024**, not 2026. It was silently inside a 12-month window it should
+have been outside. It also turned out to be 1,040 sf above ground, not the 1,560 the card showed.
+
+**Why.** A comp card is a *summary*, and the fields it omits (sale date, above-grade area,
+property type) are exactly the fields the gates depend on.
+
+**Prevention.**
+1. **Never populate a comp row from a carousel.** Cards are for lead *discovery* only. Every
+   row that enters the CSV must be sourced from a detail page or price-history table.
+2. **A placeholder date is a fabricated fact.** If the date is unknown, the row does not go in
+   the file — not with `2026-01-01`, not with an estimate. The engine cannot detect it and the
+   output will look confident. This is the same class of error as D-1: a plausible number with
+   no basis.
+3. **Verify `Finished area above ground` on every comp AND the subject.** List-card `sqft` may
+   include a finished basement. The subject here reads 2,160 sf; only 1,440 is above grade. On
+   a $/sf median that difference is **$86,000 of ARV**.
+
+---
+
+## D-23 · 2026-11-08 · Duplexes in the SFR carousels
+
+**What happened.** Two of the six most promising "comparable homes" for a single-family subject
+were **duplexes**: `3314 W 86th St` ($165,000 / 2,056 / $80/sf) and `2040 W 99th St`
+($147,500 / 1,872 / $79/sf). Both render as ordinary house cards in the carousel. Both are
+`Home type: Duplex, Multi Family` with no lot in the sale.
+
+**Why it bites.** Duplexes trade at a *lower* $/sf than nearby SFRs, so including them drags a
+median down and understates ARV — the opposite of the usual optimism bias, which makes it easy
+to miss. And they are a different asset, priced off rent rolls rather than comps.
+
+**Prevention.** Property type must be read on the **detail page** for every comp, never inferred
+from the card. The comp CSV has an `exclusion` column for exactly this; use `condo` (the schema's
+catch-all for multi-unit/attached product) rather than deleting the row, so the exclusion is
+visible in the engine output and can be audited.
+
+---
+
+## D-24 · 2026-11-08 · A negative ceiling is a finding, not a formatting problem
+
+**What happened.** At the HEAVY grade the Cleveland subject produced
+`CEILING $−2,070` and `CONTRACT FOR $10K FEE $−12,070`. It would be easy to quietly drop that
+grade, report the LIGHT number, and move on.
+
+**Why it matters.** A negative ceiling says something specific and useful: **the repairs exceed
+what the finished asset can carry**, so no purchase price makes the deal work — not $1. Printing
+only the LIGHT row would have hidden the only conclusion that actually holds across the
+plausible grade range.
+
+**Prevention.** When a grade returns a ceiling ≤ 0, report it explicitly and label the deal
+dead at that grade. Do not omit grades that fail; the spread across grades is the honest
+statement of how much the walkthrough is worth.
+
+**Fix lives in.** `state/comps/CLEVELAND_44102_3216_W95TH.md`.
