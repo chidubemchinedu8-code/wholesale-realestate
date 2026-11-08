@@ -1,0 +1,17 @@
+address,hood,beds,sqft,ask,tier,repairs,arv,ceiling,mao,verdict,conf
+10111 Edgewater Dr,UNVERIFIED,5,4300,1600000,,, ,,,"NO - retail, 4x buy-box ceiling",price_only
+11006 Edgewater Dr,UNVERIFIED,5,,5500000,,, ,,,"NO - retail, far above ARV band",price_only
+11616 Edgewater Dr,UNVERIFIED,4,3020,749900,,, ,,,"NO - retail; price cut $39,100 (10/15) noted but $/sf still retail",price_only
+1416 W 57th St,UNVERIFIED,2,2950,490000,,, ,,,"NO - multi-family at retail",price_only
+1350 W 69th St,UNVERIFIED,4,5460,470000,,, ,,,"NO - retail; 5,460 sf is an outlier parcel",price_only
+6915 Franklin Blvd,UNVERIFIED,6,3583,535000,,, ,,,"NO - multi-family, retail",price_only
+1303 W 106th St,UNVERIFIED,6,3108,350000,,, ,,,"NO - multi-family, retail",price_only
+9519 Baltic Rd,UNVERIFIED,4,2000,274900,,, ,,,"NO - retail",price_only
+1288 W 108th St,UNVERIFIED,3,1354,194000,,, ,,,"NO - retail; ARV band unreachable at this ask",price_only
+3489 W 60th St,UNVERIFIED,4,2044,185000,,, ,,,"NO - multi-family, retail",price_only
+7316 Dudley Ave,UNVERIFIED,3,2043,180000,,, ,,,"NO - retail",price_only
+3643 W 48th St,UNVERIFIED,4,2492,150000,,, ,,,"NO - multi-family, retail",price_only
+7408 Wentworth Ave,UNVERIFIED,5,1600,129000,,, ,,,"NO - multi-family, retail",price_only
+9825 Macon Ave,UNVERIFIED,3,,118500,,, ,,,"POTENTIAL - price cut $11,000 10/4+; sqft missing, condition unread",price_only
+3198 W 84th St,UNVERIFIED,3,1359,99900,,, ,,,"POTENTIAL - cheapest 3bd SFR on page 1; ARV unestablished",price_only
+3261 W 58th St,STOCKYARDS,4,,59900,,, ,,,"POTENTIAL - best page-1 candidate; hood VERIFIED (Zillow ## Neighborhood block), coords 41.46519/-81.725494; sqft and condition NOT yet read off page 1",hood_verified

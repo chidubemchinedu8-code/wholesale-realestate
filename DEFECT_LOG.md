@@ -986,3 +986,28 @@ Recovery is only possible from Google Sheets **File → Version history** in the
    re-read of the surviving `#` column diffed against the original registry.
 3. Before any destructive operation, export **every row**, not just the rows targeted for
    deletion. A backup scoped to the deletion set cannot detect collateral damage.
+
+## D-46 — a Zillow URL built from a Redfin id silently served a different state
+
+While starting the Cleveland sweep I had a sold row from the Redfin 44102 sold feed with no
+usable href (photo id `5214502`, address `1364 W 58th St`). I constructed a Zillow homedetails
+URL by reusing the Zillow `zpid` pattern from a *different* property's link. It resolved
+**HTTP 200 with a complete, internally consistent page for `9955 Westview Dr APT 211,
+Pompano Beach, FL 33076`** — Broward County, Florida: a 1990 apartment, $217,600 estimate,
+`Neighborhood: 33076`, Curved/S-Tile roof, HOA $315/mo.
+
+Nothing about the response announced the substitution. It was a real Zillow page for a real
+property. Every field was populated. Had I read only the tax history, the $/sf, or the
+`## Neighborhood` block without checking the address, I would have priced a Cleveland
+subject off a Florida condo — and the `## Neighborhood: 33076` line would even have *passed*
+as "hood verified with a named source".
+
+**Rules:**
+1. **Never synthesise a homedetails URL from an id copied out of another source.** Redfin
+   home ids, Redfin photo ids and Zillow zpids are different namespaces. Use the href the
+   source page actually published, or search by address.
+2. **Every fetched property page must have its address re-confirmed against the subject
+   before any field on it is used.** The page `<title>` and the trailing breadcrumb both
+   carry city/state/ZIP — check them against the subject, not just against each other.
+3. A suspiciously convenient comp is a reason to re-read the address, not a reason to
+   price. This is D-32 (wrong-house collisions) generalised past one character.
