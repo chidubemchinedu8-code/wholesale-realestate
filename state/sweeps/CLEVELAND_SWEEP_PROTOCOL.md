@@ -238,3 +238,30 @@ Do not widen the band, do not borrow a duplex, do not reinstate the 2003 build.
 Screen order with this gate inserted:
 
 **type → assignable → ARV band → condition → comps**
+
+## 11. Channel 2 — county GIS is live (D-49)
+
+The county endpoint works. **Query it before grinding more retail comps.**
+
+```
+/query?where=parcel_zip IN (44102,44109,44111)
+       AND foreclosure_flag=1 AND lender='NO LENDER'
+       AND total_res_liv_area BETWEEN 1200 AND 2600
+&returnCountOnly=true&f=json
+```
+
+**Field traps (all fail with 400, never with a wrong number):**
+- `parcel_zip` is a **Double** → `parcel_zip=44102`, never `'44102'`
+- `foreclosure_flag` is an **int** → `=1`, never `'Y'`
+- `lender='NO LENDER'` is the **free-and-clear flag** — the strongest single signal in the dataset
+- `grand_total_balance` is **county tax owed, not mortgage**. Do not read it as debt on the house.
+
+**And the sizing rule that decides whether a deal can exist at all:**
+
+```
+MAO = sf × (0.70 × hood_$psf − repair_$psf) − fee
+```
+At $121.25/sf and MODERATE repairs that is **`sf × $49.875 − $10,000`**. ARV and repairs both
+scale with footage, so **buy big and cheap, not small and cheap.** A 990 sf subject can never pay a
+$10,000 fee; a 2,400 sf subject supports ~$110,000. This is why an ask-per-foot sort is the wrong
+sort for this business.

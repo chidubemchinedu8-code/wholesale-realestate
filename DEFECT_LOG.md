@@ -1073,3 +1073,42 @@ contracted the way the business contracts.
 3. Phrases that make a row **not assignable**: "no assignments", "no reassignments",
    "no wholesalers", "buyer may not assign", "no contract assignment".
 4. A `no` is a **REJECT at the structure step**, before comps — not a reason to discount.
+
+---
+
+## D-49 — "The county blocks us" was false; the endpoint was simply wrong
+
+**Where.** `references/off-market.md`, `wholesale-realestate.md` line 21, and `references/market-research.md`
+all state Cuyahoga County GIS is unreachable from this sandbox.
+
+**What the record said.** *"`gis.cuyahogacounty.gov` ArcGIS layer — **Blocked** — TLS handshake
+closed by egress policy, not by the county."* With the explicit warning: *"Do not report 'the
+county has no data' when the truth is 'this sandbox cannot reach the county.'"*
+
+**What is actually true.** The host is reachable and returns live JSON, tested 2026-11-08:
+
+```
+https://gis.cuyahogacounty.gov/server/rest/services/CCFO/Parcel_Fabric_Taxparcels/FeatureServer/0/query
+```
+
+The failure was **the URL path, not the network.** The repo recorded
+`gis.cuyahogacounty.gov/arcgis/rest/services` — a path that has never existed on this server. It
+404s instantly. A 404 is a *successful TLS handshake*. The original diagnosis saw a dead URL,
+never saw a successful query, and wrote down "blocked by egress policy" as the cause. A 404 and a
+dropped handshake are not distinguishable if you only record "it did not work".
+
+**What that cost.** The off-market gold flag — `foreclosure_flag=1 AND lender='NO LENDER'` — was
+sitting behind a working endpoint for the entire session. 116 free-and-clear, county-foreclosing
+houses of 1,200–2,600 sf in the three ZIPs already swept. Every turn spent grinding retail MLS
+comps at $121/sf was spent in the channel the arithmetic had already condemned.
+
+**Rules:**
+1. **Distinguish "unreachable" from "wrong URL".** Record the HTTP status. A 404 is reachable.
+   A TLS failure is not. They must never collapse into the same note.
+2. **A reachability claim is a claim like any other** — it needs the status code that produced
+   it, not just the conclusion.
+3. **Never generalise a path failure to a host.** Test `/server/rest/services` before declaring a
+   county's ArcGIS dead.
+4. Field-type traps found in the same pass: `parcel_zip` is a **Double**, `foreclosure_flag` is an
+   **integer**, and `grand_total_balance` is **county tax owed, not mortgage debt**. Each one
+   silently returns a 400 rather than a wrong answer — which is the good failure mode.
