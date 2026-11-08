@@ -100,3 +100,52 @@ python3 scripts/comp.py \
 ```
 
 Exit 0 = priced, 3 = UNPRICED, 1 = comp-file error.
+
+---
+
+## Pass 3 - seven further leads off the 118-listing 45405 ZIP feed (2026-11-08)
+
+The `/dayton-oh-45405/fairview/` URL **silently redirects to the whole-ZIP feed**, which
+serves 118 listings. That feed, plus the "similar homes" carousels on the detail pages of
+leads already in the book, produced seven more priceable subjects. All seven were gated
+on hood before they were priced, and all seven passed as **North Riverdale**.
+
+| Subject | Sqft | Ask | ARV | Median | n / radius | Spread | Repairs | Ceiling | MAO | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 27 Cliff St (FSBO) | 1,466 | $60,000 | $181,156 | $123.57 | 3 / 0.25 mi | 6.8% TIGHT | MOD $51,310 | $75,499 | **$65,499** | **PASS (+$5,499)** |
+| 104 E Beechwood Ave | 1,479 | $80,000 | $179,961 | $121.68 | 4 / 0.25 mi | 5.8% TIGHT | HEAVY $73,950 | $52,023 | $42,023 | NEGOTIATE |
+| 55 Ashwood Ave | 1,488 | $85,000 | $181,056 | $121.68 | 6 / 0.75 mi | 10.2% TIGHT | MOD $52,080 | $74,659 | $64,659 | NEGOTIATE |
+
+### Why only three of the cheap ones were priced
+
+- **420 Geyer St** ($85,000, 3/1, 1,128 sf) - OSM puts it in **McPherson Town Historic
+  District / Riverdale**, not North Riverdale. Not pooled.
+- **1315 Riverside Dr** ($76,900) - OSM: **Riverdale**. Not pooled.
+- **129 Marathon Ave** ($55,000, 153 DOM) - OSM: **Fairview**. Not pooled.
+- **252 Marathon Ave** ($60,000) - OSM: **Fairview**. Not pooled.
+- **421 Delaware Ave** ($79,000, 4bd) - OSM: **Daytonview**, and the 4-bed floor bites.
+- **228 W Fairview Ave** ($175,000) - 3 DOM, priced like a finished product, not a deal.
+
+### Grade notes that change the answer
+
+**27 Cliff St** is the first row in this book that clears the bar on the *asking price*
+with no negotiation: MAO $65,499 against a $60,000 ask. Treat it as conditional, not
+banked. The FSBO listing publishes no condition detail whatsoever, so the moderate grade
+is an assumption. At HEAVY ($73,300) the MAO collapses to $43,509 and the row inverts.
+Grading it correctly is worth $22,000 of negotiating room.
+
+**104 E Beechwood** says "needs complete repair and total renovation" and "beware while
+walking through the property". That is a gut job and it is graded heavy. Its 87 DOM
+overstates motivation: it was off market from 4/1 to 8/13, so it has 73 days of true
+marketing.
+
+### Reproduce
+
+```bash
+python3 scripts/comp.py \
+  --comps state/comps/dayton_45405_northriverdale_comps.csv \
+  --subject '{"sqft":1466,"hood":"45405-NORTH RIVERDALE","lat":39.7925696,"lon":-84.2156301,"style":"TRADITIONAL","beds":3}' \
+  --as-of 2026-11-08 --window 365
+# then feed the printed ARV back in literally:
+python3 scripts/comp.py ... --tier moderate --repairs 51310 --offer <ARV> --ask 60000
+```
