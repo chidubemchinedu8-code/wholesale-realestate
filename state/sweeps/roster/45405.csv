@@ -1,0 +1,115 @@
+address,ask,beds,baths,sqft,type,condition_signal,verdict,reject_reason
+2069 Rustic Rd,189000,3,1.5,1772,SFR,2026 full update plumbing furnace CA bath bamboo floors,REJECT,turnkey_retail_ready
+512 W Fairview Ave,156750,3,1,1008,SFR,"2026 renovated kitchen bath furnace AC garage door, roof/windows 2016",REJECT,turnkey_retail_ready
+4020 Daleview Ave,119500,2,1,912,SFR,new kitchen bath LVP new HVAC 2026,REJECT,turnkey_retail_ready
+152 Northwood Ave,115000,3,2,1034,SFR,"waiting for your touches; estate sale as-is; NO FHA/VA",CANDIDATE,
+428 Sandhurst Dr,95000,2,1,1043,SFR,original woodwork and original cabinetry,DATED_CANDIDATE,
+205 Redwood Ave,114900,2,1,776,SFR,new roof HVAC electrical 2026 - rest unstated,CANDIDATE,
+228 W Fairview Ave,175000,3,1.5,1536,SFR,,POTENTIAL,
+420 Geyer St,85000,3,1,1128,SFR,,CANDIDATE,
+49 Pointview Ave,39900,3,1.5,1778,SFR,,CANDIDATE,
+40 E Maplewood Ave,150000,3,2,1934,SFR,new cabinets countertops stainless sink,POTENTIAL,
+2326 Parkland Ave,65000,3,1,1248,SFR,as-is seller makes no repairs,CANDIDATE,
+500 W Parkwood Dr,149900,6,2,2704,DUPLEX,duplex 21360 gross annual rent,REJECT,duplex_needs_2_4unit_comps
+111 Forest Ave,119900,3,1,1992,SFR,"gutted and framed out, new roof - SHELL",CANDIDATE,
+101 E Fairview Ave,124900,3,2,1443,SFR,fresh paint updated flooring updated bath,POTENTIAL,
+152 E Parkwood Dr,39900,3,1,1240,SFR,cash only as-is fixer,CANDIDATE,
+220 W Siebenthaler Ave,289900,8,4,7650,MULTI,multifamily 2.7 acre,REJECT,multifamily_above_band
+434 Forest Ave,135000,4,2,2142,SFR,"original woodwork, decorative fireplace, WH 2018",POTENTIAL,
+21-23 Rockwood Ave,185000,6,3,2564,DUPLEX,fully renovated duplex,REJECT,duplex_needs_2_4unit_comps
+3124 Valerie Arms Dr,104900,2,2,1179,CONDO,condo,REJECT,condo_out_of_scope
+31 Pioneer St,25000,6,2,1989,SFR,needs some love as-is,CANDIDATE,
+119 W Norman Ave,80000,3,1,1681,SFR,some updates and personal touches,CANDIDATE,
+209 W Norman Ave,80000,3,1,1640,SFR,,CANDIDATE,
+2414 N Main St,169900,5,5,3920,MULTI,partial updates as-is,REJECT,multifamily_above_band
+252 Marathon Ave,60000,2,1,798,SFR,,CANDIDATE,
+25 Redwood Ave,125000,3,2.5,1314,SFR,"plaster walls, hardwood, sunroom",POTENTIAL,
+226 McDaniel St #190,119900,1,1,580,CONDO,converted school condo,REJECT,condo_out_of_scope
+205 E Maplewood Ave,199000,6,2,2660,DUPLEX,duplex 1100/mo per side,REJECT,duplex_needs_2_4unit_comps
+513 W Fairview Ave,99900,3,1,1430,SFR,updated kitchen and bathroom tile,POTENTIAL,
+4334 Dorset Dr,273000,3,3,2613,SFR,updated kitchen finished lower level,REJECT,above_market_arv_band
+422 E Bruce Ave,319000,8,4,,MULTI,4-unit fully renovated,REJECT,multifamily_above_band
+2005 Riverside Dr,129900,4,3,840,TRI,3-unit 1000+600 rents,REJECT,multifamily_needs_3unit_comps
+18 Redwood Ave,159900,4,2,2304,DUPLEX,section 8 duplex 875/unit new roof,REJECT,duplex_needs_2_4unit_comps
+66 Redder Ave,99900,4,2,1274,SFR,,POTENTIAL,
+53 Bennington Dr,274900,4,4,3948,MULTI,4-plex 3200/mo,REJECT,multifamily_above_band
+324-326 W Grand Ave,274900,6,3,3290,DUPLEX,Tudor duplex Grafton Hill,REJECT,duplex_needs_2_4unit_comps
+230 E Fairview Ave,24900,2,1,948,SFR,substantial repairs stated; wholesale/assignment language,CANDIDATE,
+325 Cherry Dr,1,3,1,1224,SFR,court ordered auction Nov 11 2026,REJECT,court_ordered_auction
+35 Santa Clara Ave,84900,4,2,1680,SFR,tenant occupied lease to May 2027 1020/mo,REJECT,landlord_model_occupied
+46 Pointview Ave,85000,3,1.5,1388,SFR,tenant occupied,REJECT,landlord_model_occupied
+2808 N Main St,150000,4,1.5,1858,SFR,updated LVP electric WH plumbing kitchen,POTENTIAL,
+137 W Norman Ave,20000,6,2,2456,SFR,full rehab; 36413 back taxes,CANDIDATE,
+2805 N Main St,129000,6,2,3024,MULTI,main residence plus apartment as-is,REJECT,multifamily_needs_2_4unit_comps
+124 Victor Ave,39999,3,1,1566,SFR,remediation after upstairs leak floors/plaster/drywall removed,CANDIDATE,
+212 Marathon Ave,119900,4,2,1469,SFR,month-to-month tenant 1295/mo newer AC roof 2y,REJECT,landlord_model_occupied
+421 Delaware Ave,79000,4,2,1784,SFR,"original woodwork, hardwood - needs polish",CANDIDATE,
+115 E Norman Ave,237900,1,1,4176,MULTI,4-plex 4x750/mo,REJECT,multifamily_above_band
+61 Drake Ave,99000,4,2,1514,SFR,,POTENTIAL,
+83-85 W Hudson Ave,149900,6,2,2922,DUPLEX,duplex,REJECT,duplex_needs_2_4unit_comps
+455 Forest Ave,750000,21,11,12074,MULTI,apartment building,REJECT,multifamily_above_band
+300 W Grand Ave #3,55000,2,1,918,CONDO,condo,REJECT,condo_out_of_scope
+2916 Philadelphia Dr,158000,4,2,1638,SFR,Harrison Township - outside city hood system,POTENTIAL,
+144 Niagara Ave,120000,3,1,1055,SFR,,POTENTIAL,
+73 Pointview Ave,90000,4,2,2112,SFR,,POTENTIAL,
+127 E Norman Ave,75000,3,1,1188,SFR,,CANDIDATE,
+2662-2678 N Main St,849900,24,18,17592,MULTI,apartment complex,REJECT,multifamily_above_band
+45 E Parkwood Dr,46997,2,1,976,SFR,,CANDIDATE,
+119 Victor Ave,109900,3,2,1712,SFR,,POTENTIAL,
+251 Castlewood Ave,69900,2,1,912,SFR,,CANDIDATE,
+55 Ashwood Ave,85000,3,1,1488,SFR,,CANDIDATE,
+26 Fer Don Rd,115000,3,1,924,SFR,,POTENTIAL,
+211 Odlin Ave,149999,3,1.5,1664,SFR,,POTENTIAL,
+112-118 Bennington Dr,269500,4,4,2358,MULTI,4-unit,REJECT,multifamily_above_band
+63 McOwen St,90000,6,2,2102,SFR,,CANDIDATE,
+218 E Parkwood Dr,85000,3,1.5,1144,SFR,,CANDIDATE,
+97 99 Fernwood Ave,50000,2,2,1224,SFR,two addresses on one listing,CANDIDATE,
+334 Fountain Ave,145000,3,1.5,1352,SFR,,POTENTIAL,
+111 W Norman Ave,155000,3,2.5,1569,SFR,,POTENTIAL,
+20 Pointview Ave,159500,4,2,2688,SFR,,POTENTIAL,
+24 W Beechwood Ave,210000,6,3,2936,SFR,,REJECT,above_market_arv_band
+2212 N Main St,60000,0,1,4000,COMM,studio 4000sf commercial-style,REJECT,not_residential
+129 Marathon Ave,55000,3,1,1368,SFR,,CANDIDATE,
+104 E Beechwood Ave,80000,3,1.5,1479,SFR,,CANDIDATE,
+532 Forest Ave,59500,3,2.5,2295,SFR,,CANDIDATE,
+1501 Viola Ave,122500,3,1.5,1952,SFR,,POTENTIAL,
+3050 Valerie Arms Dr,1150000,24,24,19212,MULTI,apartment complex,REJECT,multifamily_above_band
+123 Delaware Ave,134999,3,2,1352,SFR,,POTENTIAL,
+361 Kenwood Ave,102000,3,1.5,1470,SFR,,POTENTIAL,
+2015 N Main St,27000,3,2,2016,SFR,Santa Clara subdiv Elmwood per hood doc,CANDIDATE,
+129 E Hudson Ave,114950,2,1,1024,SFR,,POTENTIAL,
+28 McDaniel St,344900,3,2,1900,SFR,,REJECT,above_market_arv_band
+1315 Riverside Dr,76900,3,2,1364,SFR,,CANDIDATE,
+1127-1133 Linda Vista Ave,254900,4,4,4444,MULTI,4-unit,REJECT,multifamily_above_band
+130 Knecht Dr,145000,2,1.5,1040,SFR,Montgomery County Land Bank full renovation,REJECT,turnkey_retail_ready
+611-613 Delaware Ave,252900,7,2.5,3087,DUPLEX,duplex unit 613 fully remodeled,REJECT,duplex_needs_2_4unit_comps
+225 W Nottingham Rd,185000,3,1.5,1488,SFR,single-story Catalpa Woods,REJECT,above_market_arv_band
+205 E Siebenthaler Ave,111400,3,1.5,1275,SFR,tenant lease to 6/30/27 fully updated,REJECT,landlord_model_occupied
+23 E Parkwood Dr,134000,3,1.5,1578,SFR,,POTENTIAL,
+428 Geyer St,70000,3,1,1604,SFR,,CANDIDATE,
+40 Maylan Dr,99900,4,4,1300,MULTI,4-unit,REJECT,multifamily_needs_2_4unit_comps
+152 Santa Clara Ave,264900,8,4,5664,MULTI,multifamily,REJECT,multifamily_above_band
+10-12 Marie Ave,185000,4,2,2200,DUPLEX,duplex,REJECT,duplex_needs_2_4unit_comps
+3303 Riverside Dr,599000,12,10,8600,MULTI,multifamily,REJECT,multifamily_above_band
+15 Ridge Ave,265000,4,4,4032,MULTI,multifamily,REJECT,multifamily_above_band
+41 Pointview Ave,179900,4,2,1367,SFR,,REJECT,above_market_arv_band
+3303 N Main St,165000,4,3,2388,SFR,,POTENTIAL,
+4041 Old Riverside Dr,79900,2,1,751,SFR,,CANDIDATE,
+78 Vincent St,99900,3,2.5,1618,SFR,,POTENTIAL,
+24 Fernwood Ave,245000,4,1,4500,MULTI,4500sf,REJECT,multifamily_above_band
+3855 Addison Ave,145900,3,1,893,SFR,,POTENTIAL,
+603 Rockford Ave,230900,4,4,5760,MULTI,multifamily,REJECT,multifamily_above_band
+32-34 Waverly Ave,169000,6,2,2280,DUPLEX,duplex,REJECT,duplex_needs_2_4unit_comps
+9 Glenwood Ave,178000,3,1.5,2040,SFR,,POTENTIAL,
+4822 Philadelphia Dr,1290000,18,18,9216,MULTI,apartment complex,REJECT,multifamily_above_band
+226 McDaniel St #130,115000,1,1,750,CONDO,converted school condo,REJECT,condo_out_of_scope
+2819 Woodway Ave,199000,2,1.5,1307,SFR,,REJECT,above_market_arv_band
+15 Wampler Ave,695000,6,3,6696,MULTI,estate,REJECT,multifamily_above_band
+127 Iroquois Ave,124500,3,1,1537,SFR,,POTENTIAL,
+100-108-112 E Nottingham Rd,599900,1,1,1540,MULTI,portfolio/commercial,REJECT,multifamily_above_band
+226 McDaniel St #30,109900,1,1,751,CONDO,converted school condo,REJECT,condo_out_of_scope
+51-53 Camden Ave,14000,,,,LAND,vacant lot,REJECT,land_no_structure
+50-52 Camden Ave,16000,,,,LAND,vacant lot,REJECT,land_no_structure
+41-43 Camden Ave,15000,,,,LAND,listed in 45424 not 45405,REJECT,land_no_structure
+3901 Old Riverside Dr,10000,,,,LAND,vacant lot,REJECT,land_no_structure
+0 Philadelphia Dr,689900,,,,LAND,20.78 acres,REJECT,land_no_structure

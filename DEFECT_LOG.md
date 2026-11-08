@@ -798,3 +798,38 @@ the column order changed.
 
 **Rule:** a coverage denominator must be re-counted from the live source on
 the day it is reported. Never carry a stored denominator forward.
+
+## D-37 — subject coordinates were never sourced; 45405 radius checks were vacuous
+
+`state/comps/_geo_45405.csv` contains a header and **zero rows**. Every 45405
+subject therefore ran `comp.py` with coordinates supplied by the caller rather
+than sourced from a geocoder.
+
+In the 45405 sweep the first batch passed the *comp pool's first row*
+(`44 E Beechwood Ave`, 39.7902448/-84.2120874) as the subject location for all
+34 leads. The engine then measured distance from that point, reported
+"radius 0.25 mi", and priced every subject off the same three Beechwood comps —
+including subjects on the far side of the ZIP. The output looked completely
+normal: valid ARV, all nine checks PASS.
+
+Caught by reading the comp set and noticing all four subjects had identical
+comps. No number from that batch was published.
+
+**Rule:** a subject needs a sourced coordinate before its radius means
+anything. `_geo_45405.csv` must be populated from a real geocoder before any
+45405 radius claim is made again. Until then, 45405 pricing is
+neighbourhood-band sensitivity, not radius-selected comps.
+
+## D-38 — batched comp.py returned UNPRICED for 12% of leads with no error
+
+A batch harness wrote each comp pool to `/tmp` with `csv.DictWriter(open(...))`
+and spawned the engine subprocess without closing the file. On some runs the
+engine read a truncated CSV, found no usable sale, and returned
+`NO COMPS ... UNPRICED` with exit code 3 and all checks PASS.
+
+22 of 34 leads came back UNPRICED. Running one of them by hand produced
+`ARV $154,217` immediately. After adding a `with` block, 12 of those priced.
+
+**Rule:** a batch that returns a high UNPRICED rate is suspect, not conclusive.
+Close every file before spawning the subprocess, and reconcile at least one
+lead manually before reporting a batch.
