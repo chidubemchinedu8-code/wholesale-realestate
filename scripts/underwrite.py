@@ -65,6 +65,11 @@ def underwrite(arv: float, repairs: float = 0.0, fee: float = WHOLE_FEE_DEFAULT,
             out["ATTAINABLE?"] = "YES - MAO clears asking"
         elif pct >= 80:
             out["ATTAINABLE?"] = f"MAYBE - MAO is {pct:.1f}% of asking, needs a real cut"
+        elif pct >= 70:
+            # 70-80% of asking is a wholesale negotiation: a real gap, but a gap
+            # a motivated seller can close. Calling this NO was too blunt.
+            out["ATTAINABLE?"] = (f"MAYBE-HARD - MAO is {pct:.1f}% of asking, "
+                                  f"a {100 - pct:.1f}% cut is needed")
         else:
             out["ATTAINABLE?"] = f"NO - MAO is {pct:.1f}% of asking, not a negotiation"
     if open_pct_of_mao is not None:
