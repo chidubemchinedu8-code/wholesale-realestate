@@ -187,6 +187,24 @@ agreed.
 
 ---
 
+## 6b. The second negotiation: the end buyer
+
+The assignment fee is negotiated too, and the seller-side chapter does not apply.
+
+- **The buyer's anchor is the spread, not the price.** They will compute
+  `ARV − repairs − your contract price` and call that "my profit". If you let them
+  set that number first you are negotiating your own fee against their anchor.
+- **Show the deal as a completed property, not a contract.** Present the ARV, the
+  repair scope and the projected all-in. The fee is then a line item in a return,
+  not a toll they are being charged.
+- **The buyer's BATNA is the other deal you have, not the other deal they have.**
+  A buyer with three other assignments in the same ZIP has real leverage. Know
+  which buyers are actually short of inventory.
+- **Do not reveal your contract price until the fee is agreed.** It is the one
+  number that converts your fee into "money for nothing" in their mind.
+- **Scarcity only if true.** §5 applies with no exceptions. A phantom competing
+  buyer is how a buyer list of forty becomes a list of twelve.
+
 ## 7. Psychology that costs you money
 
 - **Sunk cost.** A second call on a dead deal because you already spent six hours
@@ -216,10 +234,17 @@ agreed.
 
 ## 9. Mechanical gate
 
-Run `bash scripts/negotiate.py --check` before any seller call. It verifies a
-written target, reservation, BATNA and trade menu exist, and refuses to print a
-talk track without them. Same principle as the rest of this repo: **no written
-BATNA, no conversation.**
+Run `bash scripts/negotiate.py --check` before any seller call. It refuses to
+print a talk track without a target, a reservation, a real BATNA, their BATNA,
+their deadline and three trade variables. Same principle as the rest of this
+repo: **no written BATNA, no conversation.**
+
+**What the gate does not do.** It checks that the fields are present and
+non-vacuous; it cannot check that they are *true*. Three plausible words satisfy
+it. It is a speed bump against the real failure — starting a call because the
+phone rang — not a verification. The comps are the only part of this repo a
+machine can actually check, and that is why the ARV is the part that is gated
+hardest.
 
 ## Sources
 
