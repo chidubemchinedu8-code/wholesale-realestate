@@ -149,3 +149,50 @@ python3 scripts/comp.py \
 # then feed the printed ARV back in literally:
 python3 scripts/comp.py ... --tier moderate --repairs 51310 --offer <ARV> --ask 60000
 ```
+
+---
+
+## Pass 4 - Fairview pool built and REFUSED (2026-11-08)
+
+`state/comps/dayton_45405_fairview_comps.csv` now exists. It contains **every 45405
+transaction on the Fairview sold feed** - five rows - and the engine will not price
+anything off it. That is the correct answer, not a gap to be filled.
+
+| Comp | Sold | Price | Sqft | $/sf | Bd | Condition |
+|---|---|---|---|---|---|---|
+| 2041 Mayfair Rd | 2026-08-21 | $155,000 | 1,488 | $104.17 | 4 | maintained |
+| 510 W Fairview Ave | 2026-10-19 | $60,000 | 1,008 | $59.52 | 3 | maintained |
+| 2064 Rustic Rd | 2026-11-06 | $50,100 | 1,312 | $38.19 | 2 | dated |
+| 618 W Fairview Ave | 2026-04-02 | $56,600 | 1,350 | $41.93 | 4 | dated |
+| 2024 Rustic Rd | 2026-05-14 | $20,000 | 1,296 | $15.43 | 3 | shell |
+
+**Zero rows are `renovated`.** Fairview's 45405 sales are $15-$104/sf and the two
+highest are a 4-bed (above a 3-bed subject's bed floor is fine, but it is the ONLY
+3+-bed sale above $100/sf) and the rest are $15-$60/sf distressed trades.
+
+### What that means
+
+`MIN_COMPS=3` cannot be met from a renovated cohort in Fairview, so **every Fairview
+subject stays UNPRICED**: 144 Niagara Ave ($120,000), 129 Marathon Ave ($55,000, 153 DOM),
+252 Marathon Ave ($60,000), 35 Santa Clara Ave ($84,900).
+
+Substituting North Riverdale comps would produce a number - roughly $120-$132/sf against
+Fairview's own $38-$104/sf - and that number would be wrong by roughly 2-3x. This is
+exactly defect D-1 restated. Do not do it.
+
+### Cost of the finding
+
+Fairview is the second-largest active hood in the 45405 feed and it is **unpriceable by
+this method**. That is a real limitation of the ARV model, not a data-collection failure:
+the neighbourhood has no renovated-sale cohort to anchor to. If renovators start trading
+there, the pool becomes buildable - so re-mine `/fairview-dayton-oh/sold/` periodically
+rather than treating this as permanently closed.
+
+### Reproduce
+
+```bash
+python3 scripts/comp.py --comps state/comps/dayton_45405_fairview_comps.csv \
+  --subject '{"sqft":1055,"hood":"45405-FAIRVIEW","lat":39.7798360,"lon":-84.2117102,"style":"TRADITIONAL","beds":3}' \
+  --as-of 2026-11-08 --window 365
+# -> exit 3, "NO COMPS ... do not widen further, do not average"
+```
