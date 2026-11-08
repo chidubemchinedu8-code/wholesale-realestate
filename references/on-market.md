@@ -1,17 +1,32 @@
 # On-market sourcing (primary channel)
 
-Sources: Zillow and Redfin. Scan **by ZIP**, never by browsing a whole city.
+## Source priority — Zillow first, Redfin second
+
+**Zillow is the primary manual discovery reference. Redfin is a secondary
+cross-check.** Discovery happens on Zillow property pages, read by a human (or by
+a fetcher reading the page as a human would). Redfin is opened afterwards to
+confirm or contradict what Zillow showed — DOM, sold records, agent detail.
+
+Do not invert this. Do not treat "the Zillow filter URL failed" as "Zillow is
+unusable": the filter form is unreliable, the property page is not. And do not
+report a figure as confirmed because Redfin repeated it — one portal repeating
+another portal is not a second source.
+
+Neither site is licensed data. Everything read here is `REPORTED`. See
+`references/data-access.md` for what a licensed feed would change.
+
+Scan **by ZIP**, never by browsing a whole city.
 
 ## Source reality — tested, not assumed
 
 | Source | Works | Does not work |
 |---|---|---|
-| Redfin `zipcode/<ZIP>/filter/include=sold-6mo` | Sold filters, bed filters, city-level `max-price`/`min-beds`, detail pages with MLS#, DOM, agent name/email/phone | Multi-family filter silently fails on several ZIPs; only ~24 results per page and the tail lazy-loads |
-| Redfin `recently-sold` | Sold list with dates and prices | No radius filter — it is ZIP-bounded |
-| Zillow property pages | Zestimate, rent estimate, price history, MLS number, comp blocks | — |
-| Zillow ZIP-level filters | — | `/25000-115000_price/` style filters return unfiltered results. Do not trust a Zillow filter URL |
+| **Zillow property pages (primary)** | Zestimate, rent estimate, price history, MLS number, comp blocks, beds/baths/sqft/lot, features | — |
+| **Zillow ZIP-level filters (primary)** | — | `/25000-115000_price/` style filters return unfiltered results. Do not trust a Zillow filter URL |
+| **Redfin `zipcode/<ZIP>/filter/include=sold-6mo` (cross-check)** | Sold filters, bed filters, city-level `max-price`/`min-beds`, detail pages with MLS#, DOM, agent name/email/phone | Multi-family filter silently fails on several ZIPs; only ~24 results per page and the tail lazy-loads |
+| **Redfin `recently-sold` (cross-check)** | Sold list with dates and prices | No radius filter — it is ZIP-bounded |
 | Realtor.com | — | `type-sold` ignored, serves a reCAPTCHA. Not used |
-| MLS direct | — | No login. Redfin/Zillow sold data *is* MLS-sourced; say "read through a public site", never "MLS access" |
+| MLS direct | — | No licence, no credentials. Zillow/Redfin sold data *is* MLS-sourced; say "read through a public site", never "MLS access". Licensing route: `references/data-access.md` |
 
 If a filter silently fails, **notice it and say so**. The failure mode that cost a
 whole Akron screen was generalising "Zillow's filters are broken" into "Zillow is

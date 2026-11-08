@@ -1,6 +1,6 @@
 ---
 name: wholesale-realestate
-version: 2.1.0
+version: 2.2.0
 description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
@@ -28,7 +28,7 @@ references are the detail and they change.
 | Step | Reference |
 |---|---|
 | ZIP research, ranking, scan bookkeeping | `references/market-research.md` |
-| On-market scan (Zillow/Redfin) | `references/on-market.md` |
+| On-market scan (**Zillow primary, Redfin cross-check**) | `references/on-market.md` |
 | Off-market scan (PropWire / county GIS) | `references/off-market.md` |
 | Comps to the five-comp standard | `references/comps.md` |
 | Photos and condition | `references/condition.md` |
@@ -36,6 +36,7 @@ references are the detail and they change.
 | Buyer ceiling, buyer max, seller MAO, fee | `references/underwriting.md` |
 | Qualification gate, verdict, report format | `references/qualification.md` |
 | Labels, provenance, anti-hallucination | `references/data-integrity.md` |
+| Licensing, MLS/RESO routes, buying data | `references/data-access.md` |
 | Deeper comp arithmetic (neighbourhood gate, radius ladder) | `comping/COMPING.md` |
 
 ## The pipeline
@@ -86,6 +87,8 @@ Each has `--selftest`, and each selftest must pass before a number is quoted.
 16. **A previously scanned property is not a new opportunity.** Check the ledger.
 17. **Stop on missing evidence.** Unverified title, occupancy, access or structure caps a property at `POTENTIAL`.
 18. **Never invent.** Address, URL, sold price, date, sqft, beds, DOM, owner, phone, equity, motivation, repair observation, buyer approval.
+19. **Licensed data prices deals, it does not find them.** NAR model rules §4.4.1 forbid using MLS data for business solicitation, so no MLS licence can be a sourcing engine. Sourcing = county records + public sites + investor data. Valuation = licensed MLS. Never cross the line.
+20. **Zillow is the primary manual discovery reference; Redfin is a secondary cross-check.** Neither is licensed data. Two portals agreeing is not verification — see `references/data-access.md`.
 
 ## Red Flags
 
@@ -103,7 +106,9 @@ Each of these has already cost real money in this workflow.
 | "The spread is $70K, that's profit" | Gross. Commission, closing, holding, financing are not in it |
 | "Buyer max is my offer" | Buyer max is the cap. Your offer is below your MAO |
 | "Fee first, then see if it works" | Lower the offer, never inflate the fee |
-| "Zillow filters didn't apply, so Zillow is unusable" | Its filters fail; its property pages work |
+| "Zillow filters didn't apply, so Zillow is unusable" | Its filters fail; its property pages work. Zillow is the primary discovery reference |
+| "Redfin confirmed it, so it's verified" | Two portals repeating one feed is not a second source. Licensed MLS is |
+| "I'll buy MLS data and use it for seller outreach" | NAR §4.4.1: MLS data may not be used for business solicitation. It prices deals, it does not find them |
 | "No same-ZIP comps, use the next ZIP" | Then say the ARV is unsupported. Do not borrow a submarket |
 | "Photos look fine so the roof is fine" | Photos cannot prove a roof, foundation, wiring, plumbing |
 | "I'll fill the empty columns later" | `UNKNOWN` is the answer. Later never comes |

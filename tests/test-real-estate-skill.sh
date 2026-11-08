@@ -333,6 +333,53 @@ else
   fail "no append-only rule"
 fi
 
+section "9e. SOURCE HIERARCHY AND DATA-LICENSING LIMITS"
+# Zillow is primary discovery, Redfin is cross-check. Order matters.
+if grep -q "Zillow is the primary manual discovery reference" "$SKILL_DIR/references/on-market.md"; then
+  pass "on-market.md states Zillow is the primary discovery reference"
+else
+  fail "source hierarchy (Zillow primary / Redfin cross-check) is not stated"
+fi
+if grep -qi "Redfin is a secondary" "$SKILL_DIR/references/on-market.md"; then
+  pass "Redfin is explicitly demoted to secondary cross-check"
+else
+  fail "Redfin not demoted to cross-check"
+fi
+# the cross-check must not be mistakable for independent verification
+if tr '\n' ' ' < "$SKILL_DIR/references/on-market.md" | tr -s ' ' | grep -qi "one portal repeating another portal is not a second source"; then
+  pass "a portal echoing a portal is not treated as verification"
+else
+  fail "no rule against treating Redfin as independent verification"
+fi
+# the licensing constraint that shapes the whole recommendation must be recorded
+if [ -r "$SKILL_DIR/references/data-access.md" ]; then
+  pass "data-access reference exists"
+else
+  fail "references/data-access.md missing"
+fi
+if tr '\n' ' ' < "$SKILL_DIR/references/data-access.md" | tr -s ' ' | grep -qi "business solicitation"; then
+  pass "NAR 4.4.1 solicitation prohibition is recorded"
+else
+  fail "MLS data may not be used for solicitation - rule missing"
+fi
+if tr '\n' ' ' < "$SKILL_DIR/references/data-access.md" | tr -s ' ' | grep -qi "automated valuation"; then
+  pass "valuation use (Policy 7.90) is recorded as permitted"
+else
+  fail "no record that valuation use is permitted"
+fi
+# and it must be reachable from the routing table, not orphaned
+if grep -q "references/data-access.md" "$SKILL_DIR/SKILL.md"; then
+  pass "data-access is wired into the SKILL.md reference table"
+else
+  fail "data-access.md is orphaned"
+fi
+# a new data source cannot be adopted without the capability check
+if grep -q "Adding a source" "$SKILL_DIR/references/data-access.md"; then
+  pass "new-source checklist present"
+else
+  fail "no adoption checklist"
+fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do
