@@ -80,6 +80,10 @@ JV_SPLIT = 0.50
 ARV_MEDIAN_ABS_ERROR = 0.40
 ARV_WITHIN_20 = 0.21
 BACKTEST_BASIS = "Cuyahoga 44102 walk-forward, n=43, 2025-01..2026-02"
+# Markets the error figure above was actually measured in. The band MUST NOT be
+# printed outside them - dispersion is a local property, and a confidently
+# printed band on an unbacktested market is worse than no band (D-29).
+BACKTEST_MARKETS = ("44102",)
 
 # Repair tiers, $/sqft of living area. Moderate is the placeholder when
 # condition is unconfirmed - see references/repairs.md.
@@ -868,15 +872,25 @@ def cmd_arv(args) -> int:
         print(f"MEDIAN     ${result.median_ppsf:>9,.2f}/sf")
         print(f"CONF       {result.confidence}  spread {result.ppsf_spread}%  n={result.n}  "
               f"radius {result.radius} mi")
-        # Report the error this method was measured to have, not a vibe.
-        lo, hi = int(result.arv * (1 - ARV_MEDIAN_ABS_ERROR)), int(result.arv * (1 + ARV_MEDIAN_ABS_ERROR))
-        print(f"ARV BAND   ${lo:>9,}  -  ${hi:,}   (+-{ARV_MEDIAN_ABS_ERROR:.0%} median abs "
-              f"error, {BACKTEST_BASIS})")
-        print(f"           {ARV_WITHIN_20:.0%} of backtested sales landed within +-20% of the "
-              f"estimate. Treat the point figure as the middle, not the answer.")
+        # Report the error this method was measured to have, not a vibe - but only
+        # in a market where it was actually measured. Do not import a band.
+        hood = (result.hood or "")
+        measured = any(m in hood for m in BACKTEST_MARKETS)
+        if measured:
+            lo = int(result.arv * (1 - ARV_MEDIAN_ABS_ERROR))
+            hi = int(result.arv * (1 + ARV_MEDIAN_ABS_ERROR))
+            print(f"ARV BAND   ${lo:>9,}  -  ${hi:,}   (+-{ARV_MEDIAN_ABS_ERROR:.0%} median abs "
+                  f"error, {BACKTEST_BASIS})")
+            print(f"           {ARV_WITHIN_20:.0%} of backtested sales landed within +-20% of the "
+                  f"estimate. Treat the point figure as the middle, not the answer.")
+        else:
+            print("ARV BAND   NONE - no backtest exists for "
+                  f"{hood or 'this market'}. The error is UNMEASURED.")
+            print("           Do not quote the point figure as precise. Do not import the "
+                  "Cuyahoga band; dispersion is local (D-29).")
         if result.n < 5:
-            print(f"WARN       n={result.n} comps. Below 5 the error is wider than the "
-                  f"band above; n=3 is the floor, not a target.")
+            print(f"WARN       n={result.n} comps. Below 5 the error is wider than any "
+                  f"band; n=3 is the floor, not a target.")
         print(f"BASIS      {result.basis}")
         if args.repairs is not None:
             bmax = buyer_max(result, args.repairs)

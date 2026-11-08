@@ -641,3 +641,66 @@ the sale that most resembles the subject is the one thing the engine cannot use.
 spread on this exact floorplan ($50K dated vs $145K finished) is precisely why two points cannot
 carry a number. Report it as unpriced, publish the near-misses so a human can see the shape of
 the evidence, and state the conditional arithmetic explicitly labelled as **not an ARV**.
+
+---
+
+## D-31 · 2026-11-08 · Two neighbourhood labels can be one market — but say so out loud
+
+**What happened.** `comp.py` matches hood labels **literally**, so `9453 McKinney` (Outer
+Drive-Hayes) refused to price with only 2 in-band renovated comps. Two more verified renovated
+sales — 16918 Chandler Park ($165,000/1,064 sf) and 4890 Grayton ($175,000/1,060 sf) — sat in
+the adjacent **East English Village**. Pooling the two labels produced n=3 and an ARV of $134,398.
+
+**Why this is dangerous.** "Pool until you get three" is the single most reliable way to
+manufacture a comp set. The safeguard cannot be a rule against pooling; it has to be a
+**justification you can inspect**:
+
+1. adjacent, 0.4–1.05 mi, one ZIP
+2. one buyer pool — East English Village is the stronger hood, so pooling pulls the ARV **up**
+3. the pooled $/sf spread is narrow (6.3%), i.e. the labels are not behaving as different markets
+4. **the failure mode is safe:** if the pooled set is wrong, the ARV *falls*, which loses deals
+   rather than money
+
+**Prevention.** When a hood label is unified, write down all four tests and state both readings —
+the strict one (UNPRICED here) and the pooled one ($134,398). Never quietly rename a comp's
+neighbourhood in the CSV to force a match; keep the true label in the row so the pooling is
+auditable and reversible.
+
+---
+
+## D-32 · 2026-11-08 · Wrong-house collisions in public records are one character apart
+
+**What happened.** Searching public records for `9453 McKinney` returned parcel `21068303`
+correctly — and next to it, plainly wrong data:
+
+- a search result claiming the property was **"sold for $7,095 on June 11, 2013"** (that belongs
+  to a *different* McKinney Street house)
+- a "28 residents" count on a single-family bungalow
+- **`10000 McKinney` does not exist** — the subject's block runs 9419, 9425, 9452, 9453 only
+
+**Why it bites.** Detroit's parcel IDs are short numeric strings distinguished by a digit or two,
+and every aggregator site (`spokeo`, `clustrmaps`, `spokeo`-style people-search pages) happily
+returns a neighbour's sale history under the searched address. Any of these would have put a
+fake 2013 sale, or an inflated resident count implying a rental/rooming use, into the file.
+
+**Prevention.** A public-records hit is corroboration only, never evidence on its own: confirm the
+**parcel number** matches, read the sale on a source that shows the address *and* parcel
+together, and sanity-check that the property count on the block is plausible. The winning source
+here was **Redfin's sold search with a square-footage filter** (`min-sqft`/`max-sqft`), which is
+the closest thing to an MLS comp query available without a subscription — and it is what actually
+found the third and fourth comps. Wayne County's parcel FeatureServer was a dead end (below).
+
+---
+
+## D-33 · 2026-11-08 · Wayne County publishes parcels, not sales — no Detroit backtest is possible yet
+
+**What happened.** Chasing a Cuyahoga-style bulk dataset for Detroit, I found the Wayne County
+parcel layer (`services1.arcgis.com/.../Wayne_County_Parcel_Shape_File/FeatureServer/0`). Its
+entire schema is `ownername1, propstreet, propcity, propstate, propzip, packedParc` — **no sale
+price, no sale date, no appraised value, no living area**, and `dataLastEditDate` is **2018**.
+Detroit's open data portal carries the same shapefile ("information is as of 2015").
+
+**Consequence, stated plainly:** the 44102 walk-forward backtest cannot be reproduced for 48224
+from open data. Every Detroit comp was hand-verified one listing at a time. That is why 48224
+gets `ARV BAND NONE` and why the Detroit numbers should be trusted less than the Cleveland ones —
+not because the method differs, but because the **error for this market is unmeasured**.

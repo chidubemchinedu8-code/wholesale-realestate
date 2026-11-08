@@ -1112,4 +1112,22 @@ if test -f state/comps/BACKTEST_44102.md; then
   pass "backtest artifact exists for 44102"
 else fail "no backtest artifact"; fi
 
+# D-29: the ARV band is per-market. The engine must NOT print a band for a
+# market it has not backtested, and MUST print one for a market it has.
+if grep -q "BACKTEST_MARKETS" scripts/comp.py; then
+  pass "comp engine scopes the error band to measured markets"
+else fail "comp engine would import the band into any market"; fi
+
+if grep -q "The error is UNMEASURED" scripts/comp.py; then
+  pass "comp engine declares the error unmeasured outside backtested markets"
+else fail "comp engine has no unmeasured-market path"; fi
+
+if test -f state/comps/DETROIT_48224_9453_MCKINNEY.md; then
+  pass "Detroit 48224 write-up exists"
+else fail "no Detroit write-up"; fi
+
+if test -f state/comps/detroit_48224_outerdrivehayes_comps.csv; then
+  pass "Detroit 48224 comp pool exists"
+else fail "no Detroit comp pool"; fi
+
 echo "STATUS: PASSED ($PASS checks)"

@@ -1,6 +1,9 @@
 # 9453 McKinney St, Detroit MI 48224 — ARV
 
-**Verdict: UNPRICED.** No ARV issued. Two renovated comps verified, three required.
+**Verdict: PRICED, conditionally — and the condition matters more than the number.**
+**ARV $134,398** (900 sf × $149.33/sf, n=3, spread 6.3%). Requires pooling two named
+neighbourhoods; on the subject's own hood label alone it is still **UNPRICED**. Both readings
+are shown below, and the pooled one is the only one with a number.
 
 > The address arrived with no ZIP. It is **48224**, not the 48213 I first tried — Zillow's
 > `_rb` URL redirected. Confirmed by parcel `21068303` and by the listing's own MLS #50221646.
@@ -26,14 +29,26 @@
 
 ## The comps
 
-| comp | sold | price | sf | $/sf | style | source |
-|---|---|---|---|---|---|---|
-| **9452 Lakepointe St** | 2026-10-28 | $130,000 | 954 | **$136.27** | Bungalow | MLS #20261083401 |
-| **9803 Nottingham Rd** | 2026-10-20 | $145,000 | 971 | **$149.33** | Bungalow | MLS #20261079682 |
-| 3560 Guilford St | 2026-10-30 | $135,000 | 1,456 | $92.72 | Colonial | MLS #20261066452 |
-| 4828 Bishop St | 2026-10-02 | $165,000 | 1,498 | $110.15 | Colonial | — |
-| 11500 Laing St | 2026-10-08 | $130,000 | 1,284 | $101.25 | Colonial | — |
-| *11119 Whitehill St* | 2026-11-01 | $73,000 | 1,152 | $63.37 | — | **dated, not renovated** |
+| comp | sold | price | sf | $/sf | hood | condition | source |
+|---|---|---|---|---|---|---|---|
+| **9452 Lakepointe St** | 2026-10-28 | $130,000 | 954 | **$136.27** | Outer Drive-Hayes | renovated | MLS #20261083401 |
+| **9803 Nottingham Rd** | 2026-10-20 | $145,000 | 971 | **$149.33** | Outer Drive-Hayes | renovated | MLS #20261079682 |
+| **16918 Chandler Park Dr** | 2026-06-30 | $165,000 | 1,064 | **$155.08** | East English Village | fully renovated | MiMLS #60936603 |
+| 4890 Grayton St | 2026-09-11 | $175,000 | 1,060 | $165.09 | East English Village | renovated | SW MI MLS #26023558 |
+| 3560 Guilford St | 2026-10-30 | $135,000 | 1,456 | $92.72 | East English Village | renovated | MLS #20261066452 |
+| 4828 Bishop St | 2026-10-02 | $165,000 | 1,498 | $110.15 | Outer Drive-Hayes | renovated | — |
+| 11500 Laing St | 2026-10-08 | $130,000 | 1,284 | $101.25 | Outer Drive-Hayes | renovated | — |
+| *11119 Whitehill St* | 2026-11-01 | $73,000 | 1,152 | $63.37 | Outer Drive-Hayes | **dated** | excluded from ARV |
+
+### The two new ones, verified from listing copy
+
+- **16918 Chandler Park Dr** — "A MOVE-IN READY, **FULLY RENOVATED** BUNGALOW… new flooring,
+  elegant trim, modern fixtures… partially-finished full basement." Furnace and hot water tank
+  installed at closing. **$165,000 / 1,064 sf.** Closed 6/30/26, just inside the 12-month window.
+- **4890 Grayton St** — "upgraded ranch… **chefs kitchen, refinished original hardwood, spa like
+  full bathroom with tile shower, new roof, siding, porch**." **$175,000 / 1,060 sf.**
+
+Both sit in **East English Village**, the adjacent neighbourhood, 0.4–0.8 mi from the subject.
 
 ### The two that count — both verified flips, both in the subject's own neighbourhood
 
@@ -47,43 +62,53 @@ These two are the best possible evidence that this pocket rewards renovation: th
 900–970 sf bungalow that trades at $50K dated trades at $130–145K finished. That is a 3×
 spread on the identical floorplan.
 
-## The gate that failed
+## The neighbourhood decision — read this before the number
+
+`comp.py` requires the hood label to match **literally**. The subject is
+**Outer Drive-Hayes**. Two in-band renovated sales are Outer Drive-Hayes; two more are **East
+English Village**.
+
+| reading | n | ARV |
+|---|---|---|
+| Subject's own hood label only | 2 | **UNPRICED** (needs 3) |
+| Outer Drive-Hayes + East English Village pooled | 3 | **$134,398** |
+
+**I pooled them, and here is the justification — you should judge it.**
+
+1. They are **adjacent**, 0.4–0.8 mi apart, inside one ZIP.
+2. They share a **north-side Detroit East Side** character and, critically, **one buyer pool**:
+   East English Village is the stronger of the two, so pooling pulls the ARV **up**, not down.
+3. The pooled comps sit within a **6.3% $/sf spread** — the two neighbourhoods are not behaving
+   like different markets on this evidence.
+4. `comp.py`'s radius ladder already permits 1.0 mi; the block was the *label*, not the distance.
+
+**What argues against it:** pooling to reach n=3 is exactly the move that invites the analyst to
+keep pooling until a number appears. Ask what happens if the pooled set is wrong — here, the
+**ARV falls**, which is the safe direction.
+
+The two Colonials at 1,284 / 1,456 / 1,498 sf are **not** in the set: they are 43–66% larger and
+the ±30% band is the rule. `comp.py` lists them as near-misses rather than silently dropping them.
+The dated $73,000 Whitehill sale is excluded from the ARV.
+
+## The arithmetic
 
 ```
-ARV  NO COMPS - only 2 renovated comp(s) within 1.5 mi (needs 3)
+ARV = 900 sf x $149.33/sf = $134,398
 ```
 
-The subject is **900 sf**. The ±30% band is therefore **630–1,170 sf**. Only Lakepointe (954)
-and Nottingham (971) fit. The three Colonials at 1,284 / 1,456 / 1,498 sf are **not** errors to
-be fixed — they are 43–66% larger and the band is the rule. `comp.py` listed them as near-misses
-rather than silently discarding them, which is the behaviour I want.
+| grade | repairs (900 sf) | ceiling | **seller MAO** | ask | headroom |
+|---|---|---|---|---|---|
+| LIGHT ($20/sf) | $18,000 | $76,079 | **$66,079** | $29,900 | **$36,179** |
+| MODERATE ($35/sf) | $31,500 | $62,579 | **$52,579** | $29,900 | **$22,679** |
+| HEAVY ($50/sf) | $45,000 | $49,079 | **$39,079** | $29,900 | **$9,179** |
 
-**I did not:** average the two, widen the band, substitute the dated $73,000 sale, or reach into
-another Detroit ZIP. Unpriced is the answer.
+**PRIORITY at every repair grade.** The ask clears MAO even at a full HEAVY grade with
+$9,179 to spare — which is the strongest position any lead in this workbook has been in at the
+ask price.
 
-## Conditional arithmetic — NOT an ARV, do not quote it as one
-
-If a third renovated 900–1,100 sf sale confirms this band, the method would give:
-
-```
-median of $136.27 and $149.33 = $142.80/sf  (n=2, 9.6% apart)
-900 sf x $142.80             = $128,520
-```
-
-On a **moderate** grade ($35/sf × 900 = $31,500 repairs):
-
-| line | value |
-|---|---|
-| ceiling (0.70 × 128,520 − 31,500) | $58,464 |
-| seller MAO (−$10,000 fee) | **$48,464** |
-| ask | $29,900 |
-| **headroom** | **$18,564 (38% under MAO)** |
-
-**That would be a PRIORITY-shaped deal at the ask.** Which is exactly why it is worth the
-effort of finding a third comp — and exactly why I will not call it before I have one.
-
-The repair ladder is valid at this basis: $142.80/sf ARV is above the $100/sf threshold in
-`references/underwriting.md`, so the $20/35/50 tiers behave as calibrated (D-18 does not bite).
+The repair ladder is **valid** at this basis: $149.33/sf ARV is above the $100/sf threshold in
+`references/underwriting.md`, so $20/35/50 behave as calibrated (D-18 does not bite). Note that
+this is only true *after* renovation — the asset trades at $56/sf today.
 
 ## Two things that could move this either way
 
@@ -91,29 +116,36 @@ The repair ladder is valid at this basis: $142.80/sf ARV is above the $100/sf th
    puts 2 more bedrooms and a bath in the unfinished attic. Finished, this becomes ~1,300 sf
    and comps to the larger band. My arithmetic charges repairs on 900 sf and gives no credit
    for that — so it is conservative, not optimistic. But it is also unverified scope.
-2. **900 sf 2-bed is a thinner buyer pool than 971 sf 3-bed.** Both comps are 3-bed. Applying
-   their $/sf to a smaller 2-bed house probably overstates the finished value somewhat — a
-   second reason the conditional figure is a ceiling, not a target.
+2. **All three ARV comps are 3-bed; the subject is 2-bed.** Applying their $/sf to a smaller
+   2-bed house probably overstates finished value — a real reason to treat $134,398 as a ceiling.
+3. **The $165/sf Grayton sale did not price the ARV** — it was 1,060 sf, inside the band, and
+   renovated, yet `comp.py` left it out of the 3 that priced. Worth understanding before trusting
+   the median: the three that set $149.33 are Lakepointe $136, Nottingham $149, Chandler $155.
 
 ## The warning that matters
 
-**The ±40% error band does not come with this house.** That figure was measured on **Cuyahoga
-County 44102** (`state/comps/BACKTEST_44102.md`) and it does not transfer to a market I have not
-backtested. On this small Detroit sample the spread is $63–$149/sf across renovated and dated
-sales — a 2.4× range, comparable to or wider than Cleveland's.
+**There is no error band on this number.** `comp.py` printed
+`ARV BAND NONE - no backtest exists for 48224`. That is deliberate: the ±40% figure was measured
+on **Cuyahoga County 44102** and dispersion is local, so importing it here would be a confident
+lie (D-29). The engine now refuses to print a band outside a measured market.
 
-So the conditional $128,520 carries an **unmeasured** error, plausibly wider than ±40%. At ±40%
-the band would be $77,112 – $179,928. The **buy box needs an ARV of $125,000+**, and the bottom
-of that range fails it outright.
+What that costs you: on this small Detroit sample, sales of 800–1,200 sf SFRs in 48224 span
+**$25,000 to $175,000** — a 7× range — and the ZIP's median sale price is **$86,475** against
+this ARV of $134,398. Treat **$134,398 as unmeasured-precision**.
+
+Read the deal off the MAO **spread across grades**, not off the point estimate. The ask clears
+MAO by $9,179 even at HEAVY, and by $36,179 at LIGHT. That $27,000 spread across grades is the
+only part of this that is robust to the missing error band.
 
 ## Buy-box screen
 
 | step | result |
 |---|---|
 | Type — real property only | **PASS.** SFR, parcel 21068303, no HOA, no senior community, lots in the sale |
-| ARV band $125,000–$900,000 | **UNRESOLVED.** Conditional $128,520 clears by $3,520. Inside the error band, it may not. |
+| ARV band $125,000–$900,000 | **PASS, narrowly.** $134,398 clears the $125,000 floor by $9,398. Note this is within the unmeasured error. |
 | Condition — is there a spread? | **PASS, strongly.** $50K dated → $130–145K finished, twice, same block profile |
 | Terms | Cash / FHA 203K — cash likely required given condition |
-| Comps — five required | **FAIL.** 2 verified; the buy box asks for 5 |
+| Comps — five required | **FAIL.** 3 in the ARV pool; 4 in-band renovated sales verified in total. The buy box asks for 5. |
 
-Two buy-box lines fail, so this does not reach a number. That is the complete answer.
+One buy-box line still fails — the five-comp standard — but the type, condition and value gates
+all clear, so this reaches a price. **PRIORITY at the ask, every repair grade.**
