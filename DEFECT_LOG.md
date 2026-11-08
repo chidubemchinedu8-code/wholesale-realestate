@@ -547,3 +547,26 @@ comp or "last sale" reference inherits a number that was never a market price fo
 the last transfer** — the subject's own comp `3235 W 94th` appears twice, $60,000 then $146,000.
 The county layer has **no transaction-type flag**, so this screen is a proxy and must be stated
 as one. Never treat a high-$/sf or round-million figure as a comp without reading the deed.
+
+---
+
+## D-27 · 2026-11-08 · A pricing backtest does not prove a strategy
+
+**What happened.** Having measured the ARV's error, it was tempting to stop there and say "the
+method works." Two things were missing and both are decision-level:
+
+1. **Accuracy ≠ profitability.** A symmetric ±40% estimator is *usable* only because the 70% rule
+   absorbs it. Run the same 39 sales as actual buy decisions and the screen is 72% profitable
+   with a +30.8% median return — but that result comes from the **margin**, not the accuracy.
+   Had `BUYER_PCT` been 0.85, the same ARV error would have lost money on most deals.
+2. **The profit formula cancelled the repairs out.** `profit = ARV_true − 0.70×ARV_est` is only
+   true if the budgeted repairs equal the actual repairs. ARV error is mean-zero; **repair error
+   is a one-way ratchet** — the floor is zero and the ceiling is open. At a 50% overrun the win
+   rate falls 72% → 54% and the median return +30.8% → +5.9%.
+
+**Prevention.** Never report a pricing statistic as evidence that a strategy works. Backtest at
+the decision level, and state the assumptions that the algebra quietly cancelled. When a formula
+simplifies beautifully, check what it deleted.
+
+**Fix lives in.** `state/comps/BACKTEST_44102.md` ("Does the method make money?"),
+`state/backtest/decision_test.py`, `state/backtest/repair_risk_test.py`.

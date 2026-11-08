@@ -138,6 +138,53 @@ One number, honestly labelled, per the standing rule: **an ARV of $172,328 ± 40
 valuation, it is a range with a point estimate in the middle.** The buy box survives on the
 bottom of the range, and that is the only part of it I would defend.
 
+## Does the method make money? (the question that actually matters)
+
+Pricing accuracy is not the same as profitability, so the same 39 priced sales were run
+through the buy box as actual decisions. With
+`offer = 0.70×ARV_est − repairs − $10k`, realised
+`profit = ARV_true − offer − repairs − $10k`, which simplifies to
+**`profit = ARV_true − 0.70×ARV_est`** — repairs and the fee cancel by construction.
+
+| | result |
+|---|---|
+| deals taken | 39 |
+| profitable | **28 (72%)** |
+| lost money | 11 (28%) |
+| median return on value | **+30.8%** |
+| worst deal | **−82%** |
+| break-even error | **+42.9%** |
+
+**72% win rate, and that is entirely a consequence of the symmetric error.** A well-centred
+estimator plus a 30% margin gives a positive-expectancy screen. The margin is doing the work;
+the accuracy is not. Note the asymmetry the method can live with: an ARV that is 40% *too low*
+costs a missed deal, an ARV 40% *too high* on a 70% offer still breaks even at 42.9%. The 70%
+rule is a shock absorber for exactly the dispersion measured above.
+
+**One real safeguard found by sensitivity:** buying at 70% → 72% profitable; at **60% → 92%**;
+at 55% → 97%. The offer ladder's `0.55–0.60` target band is therefore not arbitrary — it is the
+part of the range that survives the error. `BUYER_PCT = 0.70` should stay a **hard ceiling** and
+never become the normal entry point.
+
+### The assumption that breaks it
+
+The simplification `profit = ARV_true − 0.70×ARV_est` holds **only if the repairs budgeted equal
+the repairs actually needed.** That hides the bigger risk:
+
+| repair overrun | profitable | median return |
+|---|---|---|
+| 0% | 72% | +30.8% |
+| 25% | 62% | +18.8% |
+| 50% | **54%** | +5.9% |
+| 100% | **41%** | −19.8% |
+
+**ARV error is symmetric; repair error is a one-way ratchet.** You cannot come in 30% *under* a
+gutted kitchen — the floor is zero and the ceiling is open. On a 1,440 sf subject at $35/sf the
+budget is $50,400, and a 50% overrun is $25,200 of loss against a MAO of $9,530.
+
+So: the ARV is fit for purpose as a **screening** number. It is not fit to be the last number
+before a contract. The repair grade on a walkthrough is the decision, not the ARV.
+
 ## Limits of this backtest — read before quoting it
 
 1. **It tests the $/sf method, not the condition grade.** The county data has no condition
