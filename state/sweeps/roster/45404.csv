@@ -1,0 +1,49 @@
+address,ask,beds,baths,sqft,type,condition_signal,verdict,reject_reason
+1244 Leonhard St,135000,3,1,1062,SFR,"new roof/AC/WH 2025, fully updated kitchen",REJECT,turnkey_retail_ready
+1047 Gerhard St,189000,3,2,1164,SFR,"FSBO, new AC 2026, roof 2020; FSBO text says 45410",REJECT,turnkey_retail_ready
+1031 Gerhard St,169900,3,1,1054,SFR,"cute, wood floors, nicely painted",REJECT,turnkey_retail_ready
+930 Webster St,70000,4,3,1536,Duplex,"renovation begun: new siding, windows, framing, partial electric/plumbing",CANDIDATE,
+6 Brighton St,180000,3,2,1715,SFR,"brick cape, retro-updated bath, large rooms",POTENTIAL,
+4290 Old Troy Pike,175000,3,1,1234,SFR,no condition detail in listing,CANDIDATE,
+1605 Mack Ave,249900,4,2,2027,SFR,no condition detail in listing,POTENTIAL,
+1312 Valley St,95000,2,1,674,SFR,no condition detail in listing,CANDIDATE,
+1502-1508 Chapel St,299900,8,4,6048,Multifamily,6048 sf 8bd/4ba - four units,REJECT,multifamily_needs_2_4unit_comps
+1111 Troy St,459999,4,4,2208,SFR,"4bd/4ba 2208 sf, priced far above band",REJECT,above_market_arv_band
+2431 Guernsey Dell Ave,159500,3,1,988,SFR,no condition detail in listing,CANDIDATE,
+2411 Troy St,189900,4,2,1856,SFR,no condition detail in listing,POTENTIAL,
+2224 Brandt Pike,229900,4,1,1625,SFR,no condition detail in listing,POTENTIAL,
+417 Brandt St,145000,2,1,886,SFR,no condition detail in listing,CANDIDATE,
+551 Maryland Ave,205000,3,1.5,1230,SFR,no condition detail in listing,POTENTIAL,
+1713-1715 Mack Ave,217000,6,2,2378,Duplex,6bd/2ba two unit indicated,REJECT,multifamily_needs_2_4unit_comps
+4405 Old Troy Pike,185000,3,2,1904,SFR,no condition detail in listing,POTENTIAL,
+151 Grove Ave,514999,3,1,12606,Commercial,"12,606 sf on 3bd record - commercial/industrial scale",REJECT,commercial_use
+629 Little Meadow Dr,289900,3,2,2589,SFR,no condition detail in listing,POTENTIAL,
+544 Troy St,114900,3,1.5,1876,SFR,no condition detail in listing,CANDIDATE,
+611 Maryland Ave,185000,4,2,1558,SFR,no condition detail in listing,POTENTIAL,
+27 Rita St,599000,16,8,4794,Multifamily,16bd/8ba - 8 units,REJECT,multifamily_needs_2_4unit_comps
+1428 Valley St,119000,2,1,648,SFR,no condition detail in listing,CANDIDATE,
+4402 Coneflower Dr,380000,5,4,2540,SFR,2020s subdivision build,REJECT,above_market_arv_band
+445 Hunter Ave,465000,12,7,4560,Multifamily,12bd/7ba - 6 units,REJECT,multifamily_needs_2_4unit_comps
+311 Hart St,65000,1,1,562,SFR,1 bed 562 sf - ARV floor cannot be met,REJECT,one_bed_arv_floor
+1539 Chapel St,119000,2,1,674,SFR,no condition detail in listing,CANDIDATE,
+4238 Weeping Willow Dr,294730,3,2,1366,SFR,new-build subdivision (Zillow source),REJECT,new_construction
+532 Deeds Ave,85000,2,1,850,SFR,no condition detail in listing,CANDIDATE,
+609 Troy St,184900,3,2,1730,SFR,no condition detail in listing,POTENTIAL,
+434 Grove Ave,119000,2,1,844,SFR,no condition detail in listing,CANDIDATE,
+233 Notre Dame Ave,169900,3,2,1056,SFR,no condition detail in listing,POTENTIAL,
+1309 Leonhard St,99900,4,1.5,1290,SFR,no condition detail in listing,CANDIDATE,
+Spruce with Full Basement Plan,299990,3,2,1366,SFR,"UNBUILT new-construction plan, not a property",REJECT,new_construction
+221 Alton Ave,179900,4,2,0,SFR,no sqft listed; no condition detail,POTENTIAL,
+1012 Saint Adelbert Ave,105000,3,2,1344,SFR,no condition detail in listing,CANDIDATE,
+1225 Lamar St,109900,2,1,1044,SFR,no condition detail in listing,CANDIDATE,
+260 Alton Ave,209000,3,2,1648,SFR,no condition detail in listing,POTENTIAL,
+4500 Cardinal Flower,325080,3,2,1533,SFR,new-build subdivision (Zillow source),REJECT,new_construction
+4501 Cardinal Flower Dr,357230,5,3,2541,SFR,new-build subdivision (Zillow source),REJECT,new_construction
+Hazel with Full Basement Plan,358990,5,3,2541,SFR,UNBUILT new-construction plan,REJECT,new_construction
+4318 Weeping Willow Dr,299835,4,2.5,1680,SFR,NEW CONSTRUCTION subdivision,REJECT,new_construction
+4491 Cardinal Flower,332275,4,2.5,1903,SFR,NEW CONSTRUCTION Cedar floorplan,REJECT,new_construction
+Elder with Full Basement Plan,343990,4,2.5,2203,SFR,"READY TO BUILD plan, not a property",REJECT,new_construction
+Cedar with Full Basement Plan,317990,4,2.5,1903,SFR,"READY TO BUILD plan, not a property",REJECT,new_construction
+Birch with Full Basement Plan,304990,4,2.5,1680,SFR,"READY TO BUILD plan, not a property",REJECT,new_construction
+Tupelo with Full Basement Plan,319990,3,2,1533,SFR,"READY TO BUILD plan, not a property",REJECT,new_construction
+2460 Bushnell Ave,30000,0,0,0,Land,"vacant lot 6,438 sf",REJECT,land_no_structure

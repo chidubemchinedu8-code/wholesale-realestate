@@ -1,0 +1,26 @@
+address,beds,sqft,ask,tier,repairs,arv,ceiling,mao,verdict,conf,refusal_reason
+930 Webster St,4,1536,70000,heavy,76800,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 4 beds - the bed floor cannot be met, so ther"
+532 Deeds Ave,2,850,85000,moderate,29750,148833,74433,64433,NO,spread 15.9%  n=3,
+1312 Valley St,2,674,95000,moderate,23590,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+1309 Leonhard St,4,1290,99900,moderate,45150,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 4 beds - the bed floor cannot be met, so ther"
+1012 Saint Adelbert Ave,3,1344,105000,moderate,47040,182867,80967,70967,NO,spread 20.1%  n=4,
+1225 Lamar St,2,1044,109900,moderate,36540,165915,79600,69600,NO,spread 24.0%  n=4,
+544 Troy St,3,1876,114900,moderate,65660,242711,104238,94238,NO,spread 20.1%  n=3,
+1428 Valley St,2,648,119000,moderate,22680,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+1539 Chapel St,2,674,119000,moderate,23590,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+434 Grove Ave,2,844,119000,moderate,29540,147782,73907,63907,NO,spread 15.9%  n=3,
+417 Brandt St,2,886,145000,moderate,31010,155136,77585,67585,NO,spread 15.9%  n=3,
+2431 Guernsey Dell Ave,3,988,159500,moderate,34580,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+233 Notre Dame Ave,3,1056,169900,moderate,36960,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC
+4290 Old Troy Pike,3,1234,175000,moderate,43190,176150,80115,70115,NO,spread 24.3%  n=3,
+221 Alton Ave,4,1600,179900,moderate,56000,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 4 beds - the bed floor cannot be met, so ther"
+6 Brighton St,3,1715,180000,moderate,60025,233346,103317,93317,NO,spread 16.9%  n=4,
+609 Troy St,3,1730,184900,moderate,60550,235387,104221,94221,NO,spread 16.9%  n=4,
+4405 Old Troy Pike,3,1904,185000,moderate,66640,246334,105794,95794,NO,spread 20.1%  n=3,
+611 Maryland Ave,4,1558,185000,moderate,54530,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 4 beds - the bed floor cannot be met, so ther"
+2411 Troy St,4,1856,189900,moderate,64960,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 4 beds - the bed floor cannot be met, so ther"
+551 Maryland Ave,3,1230,205000,moderate,43050,175579,79855,69855,NO,spread 24.3%  n=3,
+260 Alton Ave,3,1648,209000,moderate,57680,224230,99281,89281,NO,spread 16.9%  n=4,
+2224 Brandt Pike,4,1625,229900,moderate,56875,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 4 beds - the bed floor cannot be met, so ther"
+1605 Mack Ave,4,2027,249900,moderate,70945,,,,UNPRICED,,"every same-neighbourhood sale has fewer than 4 beds - the bed floor cannot be met, so ther"
+629 Little Meadow Dr,3,2589,289900,moderate,90615,,,,UNPRICED,,no radius up to 1.5 mi produced a clean comp set: fewer than 3 sales within 1.5 mi. UNPRIC

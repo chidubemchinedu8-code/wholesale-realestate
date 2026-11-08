@@ -1,0 +1,70 @@
+address,sold,price,sqft,beds,condition,exclusion,evidence
+1304 Valley St,2026-05-29,135900,1051,2,renovated,,"FULLY renovated, new flooring/windows, granite, both baths updated"
+32 Beatrice Dr,2026-10-19,150000,1040,2,maintained,,"needs cash or FHA 203k, well-maintained brick ranch"
+185 Alton Ave,2026-10-01,178543,2142,3,maintained,,"well loved, updated bath, finished basement"
+622 Dawes Ave,2026-10-21,115000,1078,2,maintained,,more than meets the eye
+241 Hypathia Ave,2026-09-14,180900,978,2,renovated,,"MOVE-IN READY immaculate, refinished hardwood, finished basement"
+149 Community Dr,2026-05-18,79000,1043,2,maintained,,kitchen updated 2023 custom cabinetry granite
+751 Sagamore Ave,2026-09-01,50000,840,2,unknown,,
+2120 Bickmore Ave,2026-09-01,140900,912,2,unknown,,
+185 Grove Ave,2026-09-01,184900,1420,3,unknown,,
+507 Monticello Ave,2026-09-01,70720,904,2,unknown,,
+4052 Old Troy Pike,2026-09-01,285000,1432,3,unknown,,
+2056 Stegman Ave,2026-09-01,117000,728,2,unknown,,
+115 Baltimore St,2026-09-01,40000,1397,2,distressed,,
+608 Homecrest Ave,2026-09-01,196000,960,3,unknown,,
+941 Milburn Ave,2026-09-01,25000,696,1,unknown,,
+952 Milburn Ave,2026-09-01,133000,842,2,unknown,,
+329 Grove Ave,2026-09-01,99651,938,2,unknown,,
+423 Deeds Ave,2026-09-01,164000,1271,3,unknown,,
+2077 Stanview Ave,2026-09-01,53000,1176,3,dated,,
+3125 Old Troy Pike,2026-09-01,79900,846,2,unknown,,
+1409 Lamar St,2026-09-01,62000,1217,3,unknown,,
+82 Notre Dame Ave,2026-09-01,221000,1540,3,unknown,,
+429 Rohrer Blvd,2026-09-01,27610,799,2,distressed,,
+930 Leo St,2026-09-01,103000,1144,3,unknown,,
+200 Hart St,2026-09-01,63000,1304,3,dated,,
+205 Rita St,2026-09-01,63500,1162,3,unknown,,
+2035 Stapleton Ct,2026-09-01,80500,1214,3,unknown,,
+2167 Bickmore Ave,2026-09-01,230000,1667,3,unknown,,
+634 Mentor Ave,2026-09-01,295000,1870,3,renovated,,
+636 Hillrose Ave,2026-09-01,224900,2376,4,unknown,,
+525 Recess Dr,2026-09-01,415000,2896,4,unknown,different_tier,2020s executive subdivision
+505 Reading Rd,2026-09-01,390000,3624,5,unknown,different_tier,2020s executive subdivision
+2612 Brandt Pike,2026-09-01,65010,874,2,unknown,,
+17 Community Dr,2026-09-01,90000,925,2,unknown,,
+405 Elverne Ave,2026-09-01,180000,1028,3,renovated,,
+436 Marjorie Ave,2026-09-01,239000,1824,3,unknown,,
+917 Minnesota Ave,2026-09-01,173000,1073,3,unknown,,
+736 Sagamore Ave,2026-09-01,125900,576,2,renovated,,"very small sf, $218/sf"
+640 Prince Albert Blvd,2026-09-08,119000,561,1,renovated,,nice and updated
+1441 Valley St,2026-09-24,162500,1108,3,maintained,,"classic character, brick fireplace"
+310 Brandt St,2026-06-08,147000,1389,3,renovated,,"move-in ready, refinished hardwood, new flooring"
+413 Brandt St,2026-07-31,69900,758,1,maintained,,"newer roof, updated panel, fresh paint"
+215 Edmund St,2026-10-01,30000,1515,3,distressed,,distressed mid-renovation/demolition
+96 Notre Dame Ave,2026-10-21,65000,1393,3,dated,,with some TLC
+203 Alaska St,2026-08-10,218000,1685,3,renovated,,beautifully updated and refreshed
+257 Alaska St,2026-07-10,185000,1296,3,renovated,,totally updated
+175 Rita St,2026-09-30,210000,2241,3,maintained,,"stately, cherry hardwood"
+139 Grove Ave,2026-10-06,71000,1214,3,dated,,"solid construction long-time owner, updated laminate"
+1515 Chapel St,2026-10-01,40000,762,2,distressed,,needs complete electrical rewire
+29 Barcelona,2026-07-31,110560,973,2,dated,,"as-is, home-business potential"
+612 Willow St,2026-10-19,70100,806,2,maintained,,"remodeled bathroom, updates throughout"
+4341 Purple Aster Ct,2026-06-01,335000,1900,4,new,new_build,Cedar model <3 years old
+2317 Bushnell Ave,2026-08-06,67000,790,2,unknown,,
+805 Sagamore Ave,2026-06-02,115000,936,3,unknown,,
+34 Ingleside Ave,2026-10-09,165000,1296,3,unknown,,
+312 Prince Albert Blvd,2026-05-28,110000,588,2,unknown,,
+1241 Harker St,2026-10-15,75000,1022,3,unknown,,
+421 Marjorie Ave,2026-06-03,130000,1248,3,unknown,,
+408 Hypathia Ave,2026-07-21,104500,988,2,unknown,,
+2133 Stegman Ave,2026-06-04,45000,720,2,unknown,,
+233 Alton Ave,2026-08-14,180000,1654,3,unknown,,
+213 Baltimore St,2026-08-17,160000,1508,3,unknown,,
+1316 N Keowee St,2026-10-14,40000,1008,1,unknown,,
+1716 Mack Ave,2026-09-21,215000,1680,3,unknown,,
+3583 Golden Meadows Ct,2026-09-01,335000,3564,8,unknown,multifamily,8bd 4ba
+440 Maryland Ave,2026-09-01,130000,14238,12,unknown,multifamily,14238 sf 12bd
+69 Notre Dame Ave,2026-07-17,165000,2072,4,unknown,multifamily,duplex
+1517 Chapel St,2026-08-07,110000,2478,4,unknown,multifamily,duplex
+930 Webster St #932,2026-06-04,44000,1536,4,distressed,multifamily,duplex blank canvas
