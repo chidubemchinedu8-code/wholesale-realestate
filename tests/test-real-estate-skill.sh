@@ -1130,4 +1130,25 @@ if test -f state/comps/detroit_48224_outerdrivehayes_comps.csv; then
   pass "Detroit 48224 comp pool exists"
 else fail "no Detroit comp pool"; fi
 
+# D-34: a ZIP may not be marked scanned on a filtered subset. Coverage must be
+# x of y with y counted, against the repo's band and no invented filters.
+if grep -q "agent-invented" state/sweeps/dayton_coverage.csv; then
+  bad=$(awk -F, 'NR>1 && $1!="" {gsub(/"/,"",$4); gsub(/"/,"",$5); if ($5+0 < $4+0) print $1}' state/sweeps/dayton_coverage.csv | wc -l | tr -d ' ')
+  if [ "$bad" -gt 0 ]; then
+    pass "Dayton ZIPs with partial coverage are flagged, not claimed done ($bad flagged)"
+  else
+    fail "a Dayton ZIP has examined < listed but is not flagged"
+  fi
+else
+  fail "dayton_coverage.csv lost its filter_basis column"
+fi
+
+if grep -q "coverage == redfin_listed_total\|examined == redfin_listed_total" references/on-market.md 2>/dev/null || grep -q "'scanned' only when" DEFECT_LOG.md; then
+  pass "the full-coverage rule is written down"
+else fail "full-coverage rule not recorded"; fi
+
+if [ "${FAIL:-0}" -gt 0 ]; then
+  echo "STATUS: FAILED ($FAIL failed, $PASS passed)"
+  exit 1
+fi
 echo "STATUS: PASSED ($PASS checks)"

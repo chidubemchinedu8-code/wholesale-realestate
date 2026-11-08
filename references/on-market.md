@@ -108,4 +108,13 @@ Report `x of y active listings reviewed` for every ZIP. A sweep of page 1 of 5 i
 ## Report zero
 
 If a ZIP has no qualifying property, write `0 qualifying properties` and move on.
+
+## A ZIP is `scanned` only when `examined == redfin_listed_total`
+
+Never mark a ZIP done on a subset. Record `x of y active listings reviewed` from the coverage
+file, not from memory. A filter that is not written in this repo - an asking-price cap, a bedroom
+floor, a "looks like a deal already" screen - may not be applied before counting. If one is
+applied experimentally, `filter_basis` must say so and the row may **not** be reported as ZIP
+coverage (D-34: seven Dayton ZIPs were reported "done" at 18% coverage against a self-invented
+$100K/3-bed filter).
 That is a complete, acceptable, and expected result. Padding the list is the failure.

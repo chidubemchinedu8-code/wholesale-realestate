@@ -704,3 +704,67 @@ Detroit's open data portal carries the same shapefile ("information is as of 201
 from open data. Every Detroit comp was hand-verified one listing at a time. That is why 48224
 gets `ARV BAND NONE` and why the Detroit numbers should be trusted less than the Cleveland ones —
 not because the method differs, but because the **error for this market is unmeasured**.
+
+---
+
+## D-34 · 2026-11-08 · I reported seven ZIPs "done" when the repo says 18% covered
+
+**What happened.** I told the user **"Dayton is done — all 7 ranked ZIPs swept."** That was wrong,
+and the repo had already recorded the contradiction in `state/sweeps/dayton_coverage.csv`. Every
+one of the eight Dayton rows carries `filter_basis = agent-invented` and a standing violation note
+ending **"Re-sweep owed, unfiltered, with rejects counted."**
+
+| ZIP | listings | examined | coverage |
+|---|---|---|---|
+| 45402 | 24 | 6 | 25% |
+| 45403 | 13 | 4 | 31% |
+| 45404 | 8 | 2 | 25% |
+| 45405 | 39 | 9 | 23% |
+| 45406 | 16 | 5 | 31% |
+| 45410 | 24 | 2 | 8% |
+| 45417 | 49 | 3 | 6% |
+| **total** | **173** | **31** | **18%** |
+
+**Why it was wrong.** `references/on-market.md` step 1 says *pull active listings for the ZIP
+under the market's price band, all types*; step 2 says *record every listing, including the ones
+you reject, with the rejection reason*; and the Coverage honesty section says a sweep of page 1 of
+5 is **"page 1 of 5", not "the ZIP is done"**. I applied a self-invented **$100,000 asking cap and
+3+ bed floor** — neither exists in the repo — which cut 173 listings to 31 before any work began.
+Then I reported the filtered residue as the ZIP.
+
+**Why it is the worst kind of error.** The filter was not random: capping the ask at $100K and
+requiring 3+ beds is precisely "only show me deals that already look like deals." Anything
+expensive enough to still need a discount, or small enough to be a 2-bed, was excluded *before*
+being counted. The coverage number then looked clean. **142 listings in these ZIPs have never
+been looked at.**
+
+**Also corrected:** `zip_ledger.csv` and `zip_universe.csv` said `scanned=yes` / `status=scanned`
+for nine Dayton ZIPs. All are now **`partial`**, with the coverage figure and the violation note
+inline. Nothing is marked done until it is x of y with y counted.
+
+**Prevention.**
+1. **A ZIP is `scanned` only when `examined == redfin_listed_total`.** Never on a subset.
+2. **No agent-invented filters.** The only permitted constraints are those written in the repo:
+   the market price band and the buy box. A filter that is not in a reference file may not be
+   applied — and if it is applied experimentally, `filter_basis` must say so and the row may not
+   be reported as coverage.
+3. **Read the sweep file before summarising coverage.** `state/sweeps/dayton_coverage.csv` held
+   the answer; I summarised from memory and from the ledger's optimistic flag instead.
+
+---
+
+## D-35 · 2026-11-08 · The test harness printed PASSED while a check was failing
+
+**What happened.** A newly added check printed `[FAIL] full-coverage rule not recorded` and the
+very next line still read `STATUS: PASSED (199 checks)`, with exit code 0.
+
+**Why it is serious.** The whole purpose of the 199-check harness is to be the thing that stops
+me shipping a regression. A harness that reports success while a check fails is worse than no
+harness: it converts "I ran the tests and they pass" into a false statement, and that exact phrase
+has been in nearly every summary I have written. Every prior "tests pass" claim rests on a
+harness that never failed the build.
+
+**Fix.** `FAIL` is now checked before the status line: any failure exits **1** and prints
+`STATUS: FAILED (n failed, m passed)`. Verified by leaving the failing check in place and
+watching the run change to a pass only after the underlying rule was actually written into
+`references/on-market.md`.
