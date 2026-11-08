@@ -724,6 +724,48 @@ printf '%s' "$REGOUT" | grep -q "INDICATIVE ARV: NONE" \
   || fail "the indicative engine priced from no admissible comps"
 rm -f "$REG"
 
+section "9l2b. DEFECT LOG IS INSTITUTIONAL MEMORY AND PREFLIGHT GUARDS IT"
+# Regression 2026-11-08: eleven real defects were found in one session and the fixes
+# were scattered across an audit file, a correction memo and a sheet legend. A new
+# agent had no single place to learn from them. DEFECT_LOG.md is that place, it is
+# append-only, and the preflight fails if it is trimmed or deleted.
+if [ -r "$SKILL_DIR/DEFECT_LOG.md" ]; then
+  pass "DEFECT_LOG.md exists"
+else
+  fail "DEFECT_LOG.md missing"
+fi
+if [ -r "$SKILL_DIR/references/hood-verification.md" ]; then
+  pass "the hood-verification gate exists as a first-class reference"
+else
+  fail "references/hood-verification.md missing"
+fi
+if grep -q "A ZIP IS NOT A NEIGHBOURHOOD" "$SKILL_DIR/MEMORY.md" 2>/dev/null; then
+  pass "memory carries the ZIP-is-not-a-hood rule"
+else
+  fail "memory does not carry the ZIP-is-not-a-hood rule"
+fi
+# The guard must actually fail when the log is trimmed, or it is decoration.
+DL="$SKILL_DIR/DEFECT_LOG.md"
+if [ -r "$DL" ]; then
+  cp "$DL" "$DL.bak"
+  head -4 "$DL.bak" > "$DL"
+  DEFOUT="$(bash "$SKILL_DIR/scripts/preflight.sh" 2>&1 || true)"
+  if printf '%s' "$DEFOUT" | grep -q "append-only, never trimmed"; then
+    pass "a trimmed defect log makes the preflight FAIL"
+  else
+    fail "preflight accepts a trimmed defect log"
+  fi
+  mv "$DL.bak" "$DL"
+  # Same pipefail trap as 9l3: grep -q closes the pipe early, SIGPIPE kills
+  # preflight, and pipefail reports failure. Capture first, grep second.
+  RESTORED="$(bash "$SKILL_DIR/scripts/preflight.sh" 2>&1 || true)"
+  if printf '%s' "$RESTORED" | grep -q "PREFLIGHT PASSED"; then
+    pass "the defect log is restored and the preflight passes again"
+  else
+    fail "preflight still failing after restoring the defect log"
+  fi
+fi
+
 section "9l3. THE SOURCING FILTER MUST COME FROM THE REPO, NOT THE AGENT"
 # Regression 2026-11-08: a Dayton sweep ran against a $100,000 maximum ASKING
 # price and a 3+ bed floor. Neither is in this repo. The preflight fails if a

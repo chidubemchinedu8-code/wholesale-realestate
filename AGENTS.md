@@ -6,8 +6,12 @@ ARV, repairs, buyer max, MAO, offers, assignments, or deal qualification:
 
 1. Read `SKILL.md` in full.
 2. Run `bash scripts/preflight.sh`. It must print PREFLIGHT PASSED.
-3. Read the reference for the step you are on.
-4. Follow the procedure. Do not improvise, and do not rely on conversation
+3. **Read `DEFECT_LOG.md`.** Every mistake this system has already made is there with
+   the fix. Repeating one is the only genuinely avoidable error.
+4. Before pricing ANY property, read `references/hood-verification.md`. A ZIP is not a
+   neighbourhood, and a wrong-hood ARV is worse than a blank.
+5. Read the reference for the step you are on.
+6. Follow the procedure. Do not improvise, and do not rely on conversation
    memory, an older version, or assumptions about preferences.
 
 If `SKILL.md` or the preflight is missing, broken, or failing: **STOP.** Report

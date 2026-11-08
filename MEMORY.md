@@ -15,6 +15,14 @@
 - **ARV needs >=3 comps (`comping/COMPING.md` §0, `comp.py` MIN_COMPS=3). FIVE is the separate submission standard (`SKILL.md` rule 2, `comps.py`). `COMPING.md` governs ARV arithmetic.** Do not confuse the two [added: 2026-11-08]
 - **DO NOT INVENT SOURCING FILTERS.** A Dayton sweep ran on a $100,000 max ASKING price and a 3+ bed floor — neither exists in the repo. The buy box caps the ARV ($125k-$900k) and the 70% ceiling, never the asking price. `on-market.md` requires ALL ACTIVE LISTINGS, ALL TYPES per ZIP, every one recorded with a reject reason, and `x of y` coverage reported. Coverage of 31/31 was withdrawn because it measured a self-selected subset. `AUDIT.md` A-7 [added: 2026-11-08]
 
+- **A ZIP IS NOT A NEIGHBOURHOOD.** Dayton 45405 contains 14+ hoods whose medians differ by 2x (Grafton Hill $128,435 vs Southern Dayton View $48,455). Nine leads were priced off the wrong pool in one pass. No subject is priced until its hood is established from a named source and that source is written next to the number. `references/hood-verification.md` [added: 2026-11-08]
+- **`DEFECT_LOG.md` is append-only institutional memory** — read it after preflight, every session. Never trim it. Preflight fails if it drops below 10 entries [added: 2026-11-08]
+- **Zillow hood URLs silently redirect to the full ZIP feed** when the slug is not a real region. `/dayton-oh-45405/fairview/` returns all 118 listings of 45405. Check the page title names the hood [added: 2026-11-08]
+- **Hood SOLD feeds are not hood-coherent** (Fairview sold → 45406 rows; Grafton Hill sold → Brookville 45309). Active feeds usually are. Never pool a sold feed wholesale [added: 2026-11-08]
+- **A wrong-hood ARV is worse than a blank.** A blank gets re-worked; a wrong number gets quoted to a seller [added: 2026-11-08]
+- **Verdicts are arithmetic, not judgement** (see DEFECT_LOG D-5): PASS = at/under MAO with 5-20% headroom; PRIORITY = at/under MAO with 20%+; MARGINAL = within 5% of MAO either side or under ceiling; NEGOTIATE = at/above ceiling [added: 2026-11-08]
+- **`comp.py --tier` alone computes economics with $0 repairs.** Always pass `--tier` AND `--repairs sqft*rate` to get a real ceiling [added: 2026-11-08]
+
 ## Index
 
 - [[wholesale-realestate]] — the full operating procedure: preflight, pipeline, hard rules, red flags, report contract

@@ -33,7 +33,7 @@ else
   fail "frontmatter name is '$name', expected wholesale-realestate"
 fi
 
-refs="market-research on-market off-market comps condition repairs underwriting qualification data-integrity data-access negotiation"
+refs="market-research on-market off-market comps condition repairs underwriting qualification data-integrity data-access negotiation hood-verification"
 missing=0
 for r in $refs; do
   if [ -r "$SKILL_ROOT/references/$r.md" ]; then
@@ -44,9 +44,24 @@ for r in $refs; do
   fi
 done
 if [ "$missing" -eq 0 ]; then
-  pass "all 10 references present and readable"
+  pass "all 11 references present and readable"
 else
   fail "$missing reference file(s) missing — README says which steps you cannot run"
+fi
+
+# The defect log is institutional memory: every mistake the system has made, and what
+# prevents it recurring. It must exist and must not be empty, or a new agent has no way
+# to learn from a previous session's errors.
+if [ -r "$SKILL_ROOT/DEFECT_LOG.md" ]; then
+  defects=$(grep -c '^## D-' "$SKILL_ROOT/DEFECT_LOG.md" 2>/dev/null || true)
+  empty=$(grep -c '^## D-' "$SKILL_ROOT/DEFECT_LOG.md" 2>/dev/null | head -1)
+  if [ "$defects" -ge 10 ] 2>/dev/null; then
+    pass "defect log present ($defects logged defects)"
+  else
+    fail "DEFECT_LOG.md has only $defects entries — it is append-only, never trimmed"
+  fi
+else
+  fail "DEFECT_LOG.md missing — institutional memory is gone"
 fi
 
 scripts="underwrite.py zip_ledger.py gate.py comps.py rank_listing.py comp.py anchor.py negotiate.py"

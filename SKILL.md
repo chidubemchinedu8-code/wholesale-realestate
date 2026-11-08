@@ -1,6 +1,6 @@
 ---
 name: wholesale-realestate
-version: 3.3.0
+version: 3.4.0
 description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, negotiating with a seller or buyer (anchoring, concessions, influence), assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
@@ -19,7 +19,12 @@ bash scripts/preflight.sh
 ```
 
 It verifies every file is present, prints the version, and runs all six script
-selftests. If it fails, **STOP** and report exactly what is missing. Do not fall
+selftests.
+
+**Then read `DEFECT_LOG.md`.** It is the append-only record of every mistake this
+system has made and what now prevents it — wrong-hood ARVs, hood URLs that silently
+do not filter, contaminated sold feeds, hand-estimated comp coordinates. Each entry
+cost hours to find. Reading the log is the cheapest hour you will spend. If it fails, **STOP** and report exactly what is missing. Do not fall
 back to generic property browsing, and do not work from memory of this file.
 
 Then read the reference for the step you are on. Do not work from memory; the
@@ -38,6 +43,7 @@ references are the detail and they change.
 | Labels, provenance, anti-hallucination | `references/data-integrity.md` |
 | Licensing, MLS/RESO routes, buying data | `references/data-access.md` |
 | **Seller call, anchoring, concessions, influence** | `references/negotiation.md` |
+| **Neighbourhood verification (the ARV gate) — read before pricing anything** | `references/hood-verification.md` |
 | Deeper comp arithmetic (neighbourhood gate, radius ladder) | `comping/COMPING.md` |
 
 ## The pipeline
