@@ -1,0 +1,111 @@
+address,ask,beds,baths,sqft,type,dom_signal,condition_signal,verdict,reject_reason
+1451 W Stewart St,130000,3,1,1073,SFR,NEW 18h,beautifully updated newer roof,REJECT,turnkey_retail_ready
+1541 W Stewart St,130000,3,1,1159,SFR,NEW 18h,beautifully updated newer roof,REJECT,turnkey_retail_ready
+4416 Midway Ave,134900,2,1,1160,SFR,NEW 24h,newer LVP open layout updated,REJECT,turnkey_retail_ready
+1145 Graystone Dr,118500,3,1,864,SFR,,updated flooring trim paint within year,REJECT,turnkey_retail_ready
+65 Gramont Ave,122000,3,1,1282,SFR,,renovated Oct 2024 roof siding windows furnace 2022,REJECT,turnkey_retail_ready
+4615 Dayview Ave,119998,3,1,1152,SFR,,beautifully updated and renovated 2026,REJECT,turnkey_retail_ready
+126 Holland Ave,159495,3,2,1000,SFR,,meticulously renovated top to bottom,REJECT,turnkey_retail_ready
+1511 Azalea Dr,127400,3,1,864,SFR,,stripped to studs completely remodeled,REJECT,turnkey_retail_ready
+912 Angier Dr,176900,3,2.5,1508,SFR_new,123d,new construction 2026,REJECT,new_construction
+2304 Della Dr,171900,3,2,1355,SFR_new,122d,new construction 2026,REJECT,new_construction
+2508 Heartsoul Dr,176900,3,2.5,1508,SFR_new,,new construction 2026,REJECT,new_construction
+2206 Della Dr,171900,3,2,1355,SFR_new,,new construction 2026,REJECT,new_construction
+1023 Bunche Dr,176900,3,2.5,1508,SFR_new,,new construction 2025,REJECT,new_construction
+625 Fleetfoot Ave,78000,3,1,1305,SFR,,"needs TLC; furnace NOT functioning; wh 2026; CASH buyers",CANDIDATE,
+705 Osmond Ave,79900,3,1.5,792,SFR,,sold as-is; previously rented 1234/mo sec8,CANDIDATE,
+321 Alicia Rd,78500,2,1,1130,SFR,,kitchen REMOVED after plumbing leak,CANDIDATE,
+1351 Steiner Ave,57000,2,1,835,SFR,,renovations begun not finished,CANDIDATE,
+1340 Bancroft St,47900,3,1,878,SFR,,,CANDIDATE,
+252 Brooklyn Ave,65000,3,1,1028,SFR,,,CANDIDATE,
+361 Adelite Ave,19900,3,1,1148,SFR,,,CANDIDATE,
+58 Anna St,29900,2,1,1344,SFR,,,CANDIDATE,
+946 Gard Ave,45000,2,1,858,SFR,,,CANDIDATE,
+1201 Kammer Ave,79900,2,1,926,SFR,,,CANDIDATE,
+2504 Germantown St,75000,2,1,886,SFR,,,CANDIDATE,
+822 Sunlight Ave,99900,2,1,732,SFR,,,CANDIDATE,
+44 Bluecrest Ave,92900,3,1,1016,SFR,,,CANDIDATE,
+115 Huron Ave,44250,2,1,720,SFR,,,CANDIDATE
+34 N Halloway St,77900,2,1,720,SFR,158d,tenant in place 775/mo through Nov 2026,REJECT,landlord_model_occupied
+3340 Delphos Ave,50000,2,1.5,778,SFR,,,CANDIDATE,
+764 Sayre Ave,65000,2,1,727,SFR,,,CANDIDATE,
+528 Huron Ave,60000,2,2,828,SFR,,,CANDIDATE,
+724 Dennison Ave,85000,2,1,780,SFR,,,CANDIDATE,
+29 S Lansdowne Ave,72500,2,1,798,SFR,,,CANDIDATE,
+165 Paige Ave,49900,1,1,530,SFR,,,REJECT,1bed_arv_floor_unreachable
+273 Brooklyn Ave,1,2,1,888,SFR,,,REJECT,nominal_price_not_arms_length
+608 N Kilmer St,1,3,1,784,SFR,,,REJECT,nominal_price_not_arms_length
+657 Randolph St,1,3,1,1274,SFR,,,REJECT,nominal_price_not_arms_length
+460 Dearborn Ave,69900,4,2,1880,DUPLEX,,two 2bd/1ba units recent windows roof siding,REJECT,duplex_needs_2_4unit_comps
+464-466 Dearborn Ave,139000,4,2,1880,DUPLEX,,,REJECT,duplex_needs_2_4unit_comps
+685 Randolph St,155000,4,2,2142,DUPLEX,,2 per side rents 900+900,REJECT,duplex_needs_2_4unit_comps
+738 Almond Ave,118000,3,1,998,SFR,,,POTENTIAL,
+544 Liscum Dr,154900,3,2.5,1738,SFR,,,POTENTIAL,
+3313 Lakeview Ave,195000,3,2,1431,SFR,,,POTENTIAL,
+918 Angier Dr,171900,3,2,1355,SFR,,,POTENTIAL,
+1616 Oakridge Dr,65000,4,1,1304,SFR,,,POTENTIAL,
+5116 Rucks Rd,104800,3,1,864,SFR,,,POTENTIAL,
+5124 Rucks Rd,84400,3,1,864,SFR,,,POTENTIAL,
+4420 Engleka Ct,109900,3,1,988,SFR,,,POTENTIAL,
+365 Bolander Ave,147900,3,1.5,1282,SFR,,,POTENTIAL,
+330 Bolander Ave,79000,3,2,1628,SFR,,already tracked - UNPRICED,CANDIDATE,
+162 Lorenz Ave,80000,3,1,1344,SFR,,already tracked - UNPRICED,CANDIDATE,
+213 Anna St,104900,4,1.5,1875,SFR,,,POTENTIAL,
+123 N Ardmore Ave,124000,3,1,1085,SFR,,,POTENTIAL,
+3810 Germantown Pike,168000,4,1,1419,SFR,,,POTENTIAL,
+121 Lawncrest Ave,65000,3,1.5,2098,SFR,,,POTENTIAL,
+4972 Hackett Dr,132900,3,1,945,SFR,,,POTENTIAL,
+147 N Woodward Ave,75000,3,1,908,SFR,,,CANDIDATE,
+1706 Clovis Ct,119900,3,2,1746,SFR,47d,,POTENTIAL,
+262 N Union Rd,250000,3,1,1731,SFR,,,REJECT,above_market_arv_band
+2520 Germantown St,17500,2,1.5,1163,SFR,,,CANDIDATE,
+322 Michael Ave,103900,3,2,1248,SFR,,,POTENTIAL,
+2525 Jerome Ave,219999,3,2,2532,SFR,,,REJECT,above_market_arv_band
+98 Miller Ave,19000,2,1,984,SFR,,,CANDIDATE,
+4881 Dayton Liberty Rd,332000,5,3,2190,SFR,,,REJECT,above_market_arv_band
+1805 Coretta Ct,130000,4,1.5,1586,SFR,,,POTENTIAL,
+5070 Germantown Pike,160000,2,1,1312,SFR,,,POTENTIAL,
+3114 Tubman Ave,111000,3,1,1052,SFR,,,POTENTIAL,
+5342 Tucson Dr,257500,3,2.5,2249,SFR,,,REJECT,above_market_arv_band
+5342 Dushore Dr,269900,3,2.5,1814,SFR,,,REJECT,above_market_arv_band
+747 Miller Ave,220000,3,2,1568,SFR,,,REJECT,above_market_arv_band
+3601 Lancashire Dr,145000,3,1.5,1056,SFR,,,POTENTIAL,
+63 Hallwood Ave,109500,3,1,1416,SFR,,,POTENTIAL,
+29 Hallwood Ave,120000,5,2,2136,SFR,,,POTENTIAL,
+6984 W 3rd St,290000,4,1.5,1755,SFR,,,REJECT,above_market_arv_band
+437 Ethel Ave,125000,3,2,1085,SFR,,,POTENTIAL,
+153 Whitmore Ave,145900,3,1.5,1721,SFR,,,POTENTIAL,
+432 N Gettysburg Ave,204900,4,4,2152,SFR,,,REJECT,above_market_arv_band
+229 Huron Ave,65000,2,1,,SFR,,,CANDIDATE,
+1338 Swisher Ave,99000,3,1,1092,SFR,,,POTENTIAL,
+4505 College View Dr,187500,3,2,1535,SFR,,,REJECT,above_market_arv_band
+53 N Lansdowne Ave,95000,1,2,936,SFR,,,REJECT,1bed_arv_floor_unreachable
+5026 Hackett Dr,119900,3,1,945,SFR,,,POTENTIAL,
+704 Clegg St,155000,3,1.5,1315,SFR,,,POTENTIAL,
+126 Brooklyn Ave,120000,3,2,1218,SFR,,,POTENTIAL,
+1503 Tampa Ave,190000,3,1,2174,SFR,,,REJECT,above_market_arv_band
+467 Groveland Ave,169900,4,1.5,1368,SFR,,,POTENTIAL,
+1390 Olt Rd,230000,2,1,749,SFR,,,REJECT,above_market_arv_band
+1621 Azalea Dr,132400,3,1,864,SFR,,,POTENTIAL,
+734 Tyson Ave,99000,3,1,912,SFR,,,POTENTIAL,
+201 S Kilmer St,102900,3,1,1168,SFR,,,POTENTIAL,
+4619 W 2nd St,129900,4,1,922,SFR,,,POTENTIAL,
+148 N Decker Ave,5000,,,,LAND,,vacant lot parcel R72 12802 0003,REJECT,land_no_structure
+2904 Lakeview Ave,50000,,,,LAND,,buildable lot 5031 sf,REJECT,land_no_structure
+2473 Lakeview Ave,20000,,,,LAND,,one of three lots,REJECT,land_no_structure
+72 Patton Ave,10000,,,,LAND,292d,5357 sf tiny house lot,REJECT,land_no_structure
+1515 Ingomar Ave,9000,,,,LAND,363d,house burned down plumbing remains,REJECT,land_no_structure
+0 Angier Dr,18000,,,,LAND,,0.30 ac Madden Hills buildable,REJECT,land_no_structure
+212 Kammer Ave,3200,,,,LAND,,,REJECT,land_no_structure
+0 Infirmary Rd,4500,,,,LAND,,,REJECT,land_no_structure
+1001 Stolz Ave,11000,,,,LAND,,,REJECT,land_no_structure
+137 Chain Ave,21500,,,,LAND,,,REJECT,land_no_structure
+1150 Olt Rd,32000,,,,LAND,,,REJECT,land_no_structure
+3911 Stony Hollow Dr,39900,,,,LAND,,,REJECT,land_no_structure
+0 Larkswood Dr,43500,,,,LAND,,,REJECT,land_no_structure
+249 Liscum Dr,50000,,,,LAND,,,REJECT,land_no_structure
+0 Red Rock Dr,65000,,,,LAND,,,REJECT,land_no_structure
+764 Miller Ave,92000,,,,LAND,,,REJECT,land_no_structure
+2250 Infirmary Rd,99900,,,,LAND,,,REJECT,land_no_structure
+00 Forestdale Ave,10000,,,,LAND,,,REJECT,land_no_structure
+860 Miller Ave,70000,,,,LAND,,7.6 acres,REJECT,land_no_structure

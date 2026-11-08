@@ -1,0 +1,65 @@
+address,sold,price,sqft,beds,baths,hood,condition,exclusion,evidence
+501 Conley St,2026-08-19,172000,1415,3,1,45417-CARILLON,renovated,,"nearly every inch updated; new roof, windows, HVAC, kitchen, bath, flooring"
+4614 Oakridge Dr,2026-10-09,123000,1322,3,1,45417-OAKRIDGE,renovated,,"beautifully renovated top to bottom; extra parcel included"
+3920 Cain Ct,2026-09-11,107000,912,3,1,45417-CAIN,renovated,,"newly upgraded bathroom and kitchen; new carpet, HVAC, roof"
+1305 S Edwin C Moses Blvd,2026-08-14,176000,1584,5,2,45417-MOSES,renovated,,"fully renovated; white shaker cabinets, quartz, new plumbing/sewer/gas"
+512 Campbell St,2026-10-07,149000,1132,3,1.5,45417-EDGEMONT,renovated,,
+117 Riegel St,2026-10-13,115000,1462,3,2,45417-EDGEMONT,renovated,,
+669 Clegg St,2026-06-18,160000,1228,3,1,45417-EDGEMONT,renovated,outside_window,
+4227 Oakridge Dr,2026-08-01,153000,1123,3,1.5,45417-OAKRIDGE,unknown,,
+751 Rosamond Dr,2026-09-01,217500,1714,3,2,45417-ROSAMOND,unknown,,
+701 Rosamond Dr,2026-09-01,189900,2142,4,2.5,45417-ROSAMOND,unknown,,
+648 Leland Ave,2026-09-01,159900,1016,3,1,45417-LANS DOWN,unknown,,
+304 N Upland Ave,2026-09-01,130000,948,3,2,45417-UPLAND,unknown,,
+1107 Rossiter Dr,2026-09-01,131100,936,3,1,45417-ROSSITER,unknown,,
+747 Heck Ave,2026-09-01,134500,1029,3,1,45417-HECK,unknown,,
+764 Heck Ave,2026-09-01,105000,1276,3,1,45417-HECK,unknown,,
+4767 Kirby Ln,2026-09-01,152000,864,3,1,45417-KIRBY,unknown,,
+235 S Lansdowne Ave,2026-09-01,165000,650,1,1.5,45417-LANSDOWNE,unknown,,
+5193 Fortman Dr,2026-09-01,118000,945,3,1,45417-FORTMAN,unknown,,
+927 Verona Rd,2026-09-01,100000,1464,3,2,45417-VERONA,unknown,,
+5230 Hoover Ave,2026-09-01,95000,1225,3,1.5,45417-HOOVER,unknown,,
+766 Goodlow Ave,2026-10-05,89900,1146,3,1.5,45417-GOODLOW,unknown,,
+6240 Carmin Ave,2026-09-01,93000,957,3,1,45417-CARMIN,unknown,,
+912 Randolph St,2026-08-17,93000,1652,2,1,45417-RANDOLPH,unknown,,
+1411 S Broadway St,2026-09-01,95500,1404,3,1,45417-BROADWAY,unknown,,
+96 Devonshire Ave,2026-09-01,82900,684,2,1,45417-DEVONSHIRE,unknown,,
+172 Olive Rd,2026-09-01,96500,875,3,1,45417-OLIVE,unknown,,
+358 Olive Rd,2026-10-21,138000,1056,3,2,45417-OLIVE,dated,,"lovingly maintained throughout the years"
+2356 Soldiers Home West Carrollton Rd,2026-08-13,160000,836,2,1,45417-WESTC,dated,,"septic just pumped; 1-acre lot"
+4850 Dayton Liberty Rd,2026-09-01,97500,1418,2,1,45417-LIBERTY,unknown,,
+940 Dennison Ave,2026-09-01,81000,972,3,1,45417-DENNISON,unknown,,
+625 Ruth Ave,2026-09-01,72000,1560,3,2,45417-RUTH,unknown,,
+142 Lorenz Ave,2026-09-01,65000,1477,3,2,45417-LORENZ,unknown,,
+2823 Revels Ave,2026-09-01,75500,884,2,1,45417-REVELS,unknown,,
+1435 Norville Ct,2026-10-14,80000,1025,2,1,45417-NORVILLE,unknown,,
+1303 Graystone Dr,2026-09-01,77500,864,3,1,45417-GRAYSTONE,unknown,,
+410 Leland Ave,2026-09-01,79000,872,2,1,45417-LELAND,unknown,,
+305 Brooklyn Ave,2026-09-25,70000,888,2,1,45417-BROOKLYN,unknown,,
+28 N Trenton St,2026-09-01,72000,1200,2,1.5,45417-TRENTON,unknown,,
+329 Roxbury Rd,2026-09-01,80000,1009,3,1,45417-ROXBURY,unknown,,
+3910 Midway Ave,2026-09-01,143000,1337,4,2,45417-MIDWAY,unknown,,
+4517 Kammer Ave,2026-09-01,59500,1053,3,1,45417-KAMMER,unknown,,
+528 Kammer Ave,2026-09-01,37000,782,2,1,45417-KAMMER,unknown,,
+1425 Swinger Dr,2026-09-01,42900,1020,3,1,45417-SWINGER,unknown,,
+1546 Tampa Ave,2026-09-01,60000,979,3,1,45417-TAMPA,unknown,,
+121 S West End Ave,2026-09-01,69900,772,3,1.5,45417-WESTEND,unknown,,
+5176 Rucks Rd,2026-09-01,46000,925,3,1,45417-RUCKS,unknown,,
+752 Whitmore Ave,2026-09-01,30000,1243,3,1,45417-WHITMORE,distressed,,
+4132 Shenandoah Dr,2026-09-10,58100,1004,3,1,45417-SHENANDOAH,unknown,,
+365 Adelite Ave,2026-09-14,26000,1220,3,1,45417-ADELITE,distressed,,
+4406 Oakridge Dr,2026-09-14,35000,1288,2,1,45417-OAKRIDGE,distressed,,
+137 Bluecrest Ave,2026-09-01,37500,1128,3,1,45417-BLUECREST,distressed,,
+6391 Howie St,2026-09-01,37070,1419,3,1,45417-HOWIE,distressed,,
+59 S Moss Ave,2026-09-01,23000,992,2,1,45417-MOSS,distressed,,
+816 N Gettysburg Ave,2026-09-01,40000,768,2,1,45417-GETTYSBURG,distressed,,
+1220 Glover Ave,2026-09-01,29095,1130,3,1,45417-GLOVER,distressed,,
+1421 Edison St,2026-09-01,33500,1160,2,1,45417-EDISON,distressed,,
+166 Reisinger Ave,2026-09-28,13082,1232,3,1,45417-REISINGER,distressed,non_arms_length,court-ordered auction 10% buyer premium
+2939 Melbourne Ave,2026-10-28,33110,1225,3,1,45417-MELBOURNE,distressed,non_arms_length,court-ordered auction
+27 & 29 Grosvenor Ave,2026-09-01,90000,2240,6,2,45417-GROSVENOR,unknown,multifamily,two addresses
+309-311 Leland Ave,2026-09-01,134900,1170,2,2,45417-LELAND,renovated,multifamily,two addresses
+1229 S Broadway St,2026-08-14,65000,2335,4,2,45417-BROADWAY,renovated,multifamily,turnkey side-by-side duplex
+6169 Dayton Farmersville Rd,2026-09-01,495000,4050,6,3.5,45417-FARMERSVILLE,unknown,out_of_band,
+1635 S Union Rd,2026-09-01,370000,981,3,1.5,45417-UNION,unknown,out_of_band,
+420 Bolander Ave,2026-06-10,35860,1438,3,1,45417-EDGEMONT,distressed,non_arms_length,
