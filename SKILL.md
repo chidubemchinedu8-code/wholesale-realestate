@@ -1,6 +1,6 @@
 ---
 name: wholesale-realestate
-version: 3.1.0
+version: 3.2.0
 description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, negotiating with a seller or buyer (anchoring, concessions, influence), assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
@@ -95,7 +95,7 @@ Each has `--selftest`, and each selftest must pass before a number is quoted.
 22. **Whatever narrows the comp pool must be printed.** A filter that changes the ARV without appearing in the report is an invisible decision. Style, radius, condition, bed floor and consistency band all name their effect and their count.
 23. **There is exactly one way to get an ARV: `sqft × MEDIAN $/sf`.** Not the average, not p75, not a tier, and **no haircut**. The p25–p75 spread is confidence, never a range of ARVs. Any haircut, discount factor or second formula is forbidden — it cannot be checked against a sale, so it can only move the number in a direction nobody measured.
 24. **The buyer's ceiling is not the seller's MAO.** `BUYER MAX = (ARV x 0.70) - repairs`; seller MAO = buyer max - fee - wholesaler costs. Never label the first one MAO. A non-positive MAO is not a thin deal, it is no deal — refuse, do not format it.
-25. **The arithmetic is unvalidated.** Every rule here is internally consistent and none has been checked against a real outcome. Say so before anyone stakes money on a number. See `AUDIT.md`.
+25. **Know which numbers are policy and which are measured.** The 0.70 cap is a confirmed policy (0.65–0.75 range, 0.70 used on every deal) — not a market measurement. The median $/sf ARV has never been checked against an actual resale. Say so before anyone stakes money on a number. See `AUDIT.md`.
 26. **No written BATNA, no seller call.** Target, reservation, your alternative to
     this deal, their alternative, their deadline and three non-price trade
     variables must exist in writing before the gate will print a talk track.

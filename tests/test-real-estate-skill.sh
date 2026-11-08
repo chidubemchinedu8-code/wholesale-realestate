@@ -626,6 +626,28 @@ else
   fail "duplicate negotiation material outside the repo: $dupes"
 fi
 
+section "9k. THE 0.70 CAP IS POLICY, AND THE RANGE IS NOT A DIAL"
+UW="$SKILL_DIR/references/underwriting.md"
+grep -q "0.65–0.75" "$UW" && pass "the 0.65-0.75 operating range is documented" \
+  || fail "the confirmed 0.65-0.75 range is not recorded"
+grep -q "0.70 is the deliberate" "$UW" && pass "0.70 is recorded as the midpoint, not a measurement" \
+  || fail "0.70 is not described as deliberate policy"
+# match on de-wrapped text: markdown line breaks split the sentence
+if tr '\n' ' ' < "$UW" | tr -s ' ' | grep -qi "never quote a 0.75 number as if it were the standard"; then
+  pass "the range cannot be used to pass a deal silently"
+else
+  fail "nothing stops 0.75 being used silently"
+fi
+# the engine must still use exactly one cap
+grep -q "BUYER_PCT = 0.70" "$SKILL_DIR/scripts/underwrite.py" \
+  && pass "underwrite.py holds a single 0.70 constant" \
+  || fail "the cap constant was changed or duplicated"
+if grep -qE "BUYER_PCT *= *0\.(65|75)" "$SKILL_DIR/scripts/underwrite.py"; then
+  fail "a 0.65/0.75 cap was hard-coded into the engine"
+else
+  pass "no alternate cap is hard-coded"
+fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do

@@ -274,11 +274,23 @@ matches the code. They do not prove the code matches reality.
 | S1-5 no location field | open — needs a `references/location.md` and a gate field |
 | S2-1 geometry assumptions | open — documented, not fixed |
 | S2-2 no time adjustment | open — documented, not fixed |
-| S2-3 unvalidated calibration | partly — the 0.88 haircut is DELETED, which removes 12% of the unexplained stack. The median x 0.70 cap is still unvalidated against a resale |
+| S2-3 unvalidated calibration | the 0.88 haircut is DELETED (removes 12% of the unexplained stack). **The 0.70 cap is RESOLVED as policy (2026-11-08): the operator confirmed 0.70 is a deliberate midpoint of a 0.65–0.75 operating range, chosen as the safe space, and will hold to it.** That makes it a stated buy-box rule, not a measured constant — which is the only claim this file ever made about it. Still genuinely open: the median $/sf basis itself has never been checked against an actual resale, and neither has any buyer's real maximum |
 | S2-4 test kind blur | open — labelled in this file, not yet split in the suite |
 
 
 ---
+
+## Resolution: the 0.70 cap (2026-11-08, user-directed)
+
+The audit asked whether 0.70 was measured. The operator's answer: it was never
+claimed to be measured. It is a deliberate operating range — 0.75 in a hot market
+with a known scope, 0.65 in a slow market or an unknown scope — and 0.70 is the
+safe-space midpoint, which is what the system will use.
+
+**So the finding is closed as a policy decision, not as a measurement.** The
+distinction matters and is kept in `references/underwriting.md`: a deal that only
+clears at 0.75 is reported as such, and 0.70 is never silently replaced. What
+remains unvalidated is upstream — the median $/sf ARV has no resale behind it.
 
 ## Post-audit correction: the 0.88 haircut (2026-11-08, user-directed)
 

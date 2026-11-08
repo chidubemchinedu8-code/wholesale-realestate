@@ -20,8 +20,22 @@ python3 scripts/underwrite.py --arv 200000 --repairs 25000 --fee 10000
 ## Step 1 — screening ceiling
 
 `ARV × 0.70`. This is RealVenture's stated screening guideline. It is **not** an offer
-and **not** proof a buyer will pay it. Label it `ASSUMED` — the 70% number is a
-buy-box policy, not a market measurement.
+and **not** proof a buyer will pay it — it is a buy-box policy, not a market
+measurement. **Confirmed by the operator (2026-11-08): 0.70 is the deliberate
+midpoint of a 0.65–0.75 range.** They describe it as the safe space: 0.75 when the
+market is hot and repair risk is known, 0.65 in a slow market or when the scope is
+uncertain. **The system uses 0.70 on every deal.** The range exists only so you can
+read a deal honestly when it sits on the boundary — it is not a dial to turn to make
+a bad deal pass.
+
+```
+HOT  / scope known     0.75   -> a deal at 0.75 is real, but the buyer's margin is thin
+STANDARD               0.70   -> every number this repo prints
+SLOW / scope uncertain 0.65   -> a deal that only clears at 0.65 is not a deal yet
+```
+
+When an offer only clears at 0.75, say so and say the cap used was 0.70. Never
+quote a 0.75 number as if it were the standard.
 
 ## Step 2 — buyer max contract price
 
