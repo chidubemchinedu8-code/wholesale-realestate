@@ -952,3 +952,37 @@ beside it in B. Nothing errored; the sheet simply became nonsense in one column.
 section must be written as a full `A:K` range, or the rows must be cleared across all
 eleven columns first. The displaced text is preserved verbatim in
 `state/comps/DAYTON_45405_DISPLACED_NOTES.md` and restored below the sweep block.
+
+## D-45 — batch row deletion drifted and destroyed four live pipeline rows
+
+Deleting the 19 `Dead` rows from `PIPELINE TRACKER` was done as a sequence of
+`delete_dimension` calls carrying **zero-based indices computed before the deletions
+started**. Every successful delete shifts every row below it up by one, so after the
+first few calls those indices pointed at different rows than intended. The calls all
+returned success and `grid_properties.row_count` fell by exactly one each time, so
+every individual operation looked correct while the *set* of deleted rows was wrong.
+
+Verified end state, by reading every `#` in column A and diffing against the original
+registry (IDs 1–121 minus the three pre-existing gaps #100/#105/#117 = 118 numbered rows):
+
+- numbered rows now present: **99**
+- rows deleted: **19** (matches the count requested)
+- of those, intended `Dead` rows: **15**
+- of those, **live rows destroyed: 4 — `#25`, `#90`, `#108`, `#121`**
+- `Dead` rows that survived because their index was never reached: **4 — `#21`, `#96`, `#98`, `#107`**
+
+No copy of `#25`, `#90`, `#108`, `#121` exists in this repository. The backup taken
+before the deletion (`state/backups/PIPELINE_TRACKER_dead_rows_2026-11-08.csv`) holds
+only the 19 `Dead` rows, by design — the live rows were never exported. `git log
+--all` finds no commit containing them, and no sweep or ledger file contains them.
+Recovery is only possible from Google Sheets **File → Version history** in the UI.
+
+**Rules:**
+1. Never batch `delete_dimension` from a precomputed index list. Delete **one row per
+   call, and immediately re-read the id in that row** before the next delete — or, safer,
+   delete strictly bottom-up in a single call over a contiguous range only when the rows
+   are provably contiguous.
+2. A falling `row_count` proves *a* row was deleted, never *which* one. The receipt is a
+   re-read of the surviving `#` column diffed against the original registry.
+3. Before any destructive operation, export **every row**, not just the rows targeted for
+   deletion. A backup scoped to the deletion set cannot detect collateral damage.
