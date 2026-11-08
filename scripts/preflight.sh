@@ -153,6 +153,69 @@ PYEOF
   fi
 fi
 
+# --- the buy box is the repo's, not the agent's -----------------------------
+# Failure this catches (2026-11-08): a Dayton sweep was run against a $100,000
+# maximum ASKING price and a 3+ bedroom floor. Neither exists in this repo.
+# references/underwriting.md constrains the ARV ($125,000-$900,000) and the 70%
+# ceiling; references/on-market.md says pull ALL TYPES under the market's price
+# band. An invented filter silently deletes real properties and then gets quoted
+# as complete coverage. So the buy box must be stated in the repo and the sweep
+# must be measured against it, not against a remembered one.
+if [ -r "$SKILL_ROOT/state/sweeps/dayton_coverage.csv" ]; then
+  if python3 - "$SKILL_ROOT" <<'PYEOF'
+import csv, sys, os, re
+root = sys.argv[1]
+# 1. the buy box must exist in the repo, with an ARV floor and ceiling
+u = os.path.join(root, "references", "underwriting.md")
+txt = open(u, encoding="utf-8").read() if os.path.exists(u) else ""
+has_arv_range = bool(re.search(r"ARV range.*\$\d", txt))
+has_ceiling = "70%" in txt
+# 2. no sweep file may carry an asking-price cap that the buy box does not state
+#    an ARV floor for. A price_cap column is allowed ONLY if labelled as derived.
+sweep = os.path.join(root, "state", "sweeps", "dayton_coverage.csv")
+rows = list(csv.DictReader(open(sweep, encoding="utf-8")))
+bad = []
+for r in rows:
+    cap = (r.get("price_cap") or "").strip()
+    if not cap:
+        continue
+    note = (r.get("filter_basis") or "").strip().lower()
+    if note not in ("repo", "derived", "operator"):
+        bad.append(r.get("zip") or "?")
+print("OK" if (has_arv_range and has_ceiling and not bad) else
+      f"BAD arv_range={has_arv_range} ceiling={has_ceiling} unlabelled_caps={bad}")
+PYEOF
+  then :; fi
+  BBOX="$(python3 - "$SKILL_ROOT" <<'PYEOF'
+import csv, sys, os, re
+root = sys.argv[1]
+u = os.path.join(root, "references", "underwriting.md")
+txt = open(u, encoding="utf-8").read() if os.path.exists(u) else ""
+has_arv_range = bool(re.search(r"ARV range.*\$\d", txt))
+has_ceiling = "70%" in txt
+sweep = os.path.join(root, "state", "sweeps", "dayton_coverage.csv")
+bad = []
+try:
+    for r in csv.DictReader(open(sweep, encoding="utf-8")):
+        cap = (r.get("price_cap") or "").strip()
+        if not cap:
+            continue
+        basis = (r.get("filter_basis") or "").strip().lower()
+        acknowledged = bool((r.get("deviation_note") or "").strip())
+        if basis not in ("repo","derived","operator") and not acknowledged:
+            bad.append(r.get("zip"))
+except Exception as e:
+    print("BAD unreadable sweep: %s" % e); raise SystemExit
+print("OK" if (has_arv_range and has_ceiling and not bad) else
+      "BAD arv_range=%s ceiling=%s unlabelled_caps=%s" % (has_arv_range, has_ceiling, bad))
+PYEOF
+)"
+  case "$BBOX" in
+    OK) pass "buy box comes from the repo and every price cap is labelled" ;;
+    *)  fail "sourcing filter is not traceable to the repo: ${BBOX#BAD }" ;;
+  esac
+fi
+
 echo
 if [ "$FAIL" -gt 0 ]; then
   echo "PREFLIGHT FAILED ($FAIL failure(s), $PASS pass(es))."

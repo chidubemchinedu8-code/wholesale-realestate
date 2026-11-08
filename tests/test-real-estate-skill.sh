@@ -724,6 +724,44 @@ printf '%s' "$REGOUT" | grep -q "INDICATIVE ARV: NONE" \
   || fail "the indicative engine priced from no admissible comps"
 rm -f "$REG"
 
+section "9l3. THE SOURCING FILTER MUST COME FROM THE REPO, NOT THE AGENT"
+# Regression 2026-11-08: a Dayton sweep ran against a $100,000 maximum ASKING
+# price and a 3+ bed floor. Neither is in this repo. The preflight fails if a
+# sweep carries a price cap that is neither repo-derived nor acknowledged.
+SWEEP="$SKILL_DIR/state/sweeps/dayton_coverage.csv"
+if [ -r "$SWEEP" ]; then
+  cp "$SWEEP" "$SWEEP.bak"
+  python3 - "$SWEEP" <<'PREF'
+import csv, sys
+p = sys.argv[1]
+rows = list(csv.DictReader(open(p, encoding="utf-8")))
+fields = list(rows[0].keys())
+rows[0]["price_cap"] = "100000"
+if "filter_basis" in fields: rows[0]["filter_basis"] = ""
+if "deviation_note" in fields: rows[0]["deviation_note"] = ""
+w = csv.DictWriter(open(p, "w", newline=""), fieldnames=fields)
+w.writeheader(); w.writerows(rows)
+PREF
+  # NOTE: this suite runs under pipefail, so preflight's exit 1 poisons the
+  # pipeline even when grep matches. Capture first, grep second.
+  PREFOUT="$(bash "$SKILL_DIR/scripts/preflight.sh" 2>&1 || true)"
+  if printf '%s' "$PREFOUT" | grep -q "not traceable to the repo"; then
+    pass "an unlabelled agent-invented price cap makes the preflight FAIL"
+  else
+    fail "preflight accepts an invented price cap"
+  fi
+  mv "$SWEEP.bak" "$SWEEP"
+  if head -1 "$SWEEP" | grep -q "filter_basis"; then
+    pass "the sweep records the basis of every filter it used"
+  else
+    fail "the sweep does not record where its filters came from"
+  fi
+  if grep -q "agent-invented" "$SWEEP"; then
+    pass "the invented filters are labelled as a deviation, not quietly kept"
+  else
+    fail "invented filters are not recorded as a deviation"
+  fi
+fi
 section "9m. AN UNPRICED ROW CANNOT BE FAILED FOR LACKING A CEILING"
 # Regression: check_6 demanded a ceiling whenever repairs were graded, but an
 # unpriced row never has one by design. Every unpriced subject run with

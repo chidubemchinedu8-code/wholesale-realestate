@@ -329,3 +329,65 @@ a second formula reappears in the engine.
 
 Lesson for the next audit: the dangerous numbers are not the ones the code
 computes, they are the constants it was told to use.
+
+---
+
+## A-7. Agent-invented sourcing filters — Dayton sweep (2026-11-08)
+
+**Severity: high. The filters were never in this repo, and coverage was reported against them.**
+
+A seven-ZIP Dayton sweep was run with five filters. Three were defensible; two were
+invented by the agent and presented as the standard:
+
+| Filter used | In the repo? |
+|---|---|
+| ZIPs 45402/03/04/05/06/10/17 | Yes — operator's list |
+| SFR only | No — `on-market.md` says pull **all types** |
+| **3+ bedrooms** | **No — nowhere in the repo** |
+| **$100,000 max asking (45404/45417: $110,000)** | **No — and the buy box sets no asking-price cap at all** |
+| Condition any | Yes — `underwriting.md` |
+
+### Why it is wrong
+
+`references/underwriting.md` constrains the **ARV** ($125,000–$900,000) and the **70%
+ceiling**. It never caps the asking price. A $100,000 ask cap silently assumes ~$143,000
+of ARV at a full 70% — that is a derived number, not a buy-box rule, and it was applied
+as if it were one.
+
+`references/on-market.md` requires: *"Pull active listings for the ZIP under the market's
+price band, **all types**"* and *"Record every listing's address, price, DOM, status,
+reductions, beds/baths/sqft, and URL — **including the ones you reject**, with the
+rejection reason"* and *"Report `x of y active listings reviewed` for every ZIP."*
+None of that was done. Rejects were not counted by reason; coverage was reported as
+`in_scope` (a self-selected subset) rather than `y` (all active listings).
+
+### The damage
+
+Live 45405 listings never examined, several inside the invented filter itself:
+
+- 2015 N Main St — **$27,000**, 3bd/2ba, 2,016 sf (inside the cap, never logged)
+- 66 Redder Ave — $99,900, 4bd/2ba, 1,274 sf, cut $15,000
+- 111 Forest Ave — $119,900, 3bd, 1,992 sf
+- 25 Redwood Ave — $125,000, 3bd/2.5ba, 1,314 sf
+- 2916 Philadelphia Dr — $158,000, 4bd, 1,638 sf
+
+And the ARV floor cuts the other way: the buy box's **$125,000 ARV floor** means
+sub-$125k ARVs are *outside* the buyer's stated box. The screen was tuned toward them.
+
+### Correction
+
+1. `state/sweeps/dayton_coverage.csv` now carries `filter_basis` and `deviation_note`
+   on every row, marked **agent-invented**, with the violation written out.
+2. `scripts/preflight.sh` gains a check that **fails** when a sweep carries an
+   unlabelled price cap. Verified by injecting one.
+3. `tests/` gains three regression checks including the injection test. The suite
+   runs under `pipefail`, so the preflight capture had to become `$(... || true)` —
+   noted in the test so it is not "fixed" back.
+4. **The Dayton coverage figure of 31/31 is withdrawn.** It measured a self-selected
+   subset. No ZIP has been swept against `on-market.md`'s procedure.
+
+### Still owed
+
+A per-ZIP sweep per `on-market.md`: all active listings, all types, under the market's
+price band, every listing recorded with a reject reason, and `x of y` reported. That
+has not been done for any Dayton ZIP.
