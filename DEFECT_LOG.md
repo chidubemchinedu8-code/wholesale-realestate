@@ -495,3 +495,55 @@ dead at that grade. Do not omit grades that fail; the spread across grades is th
 statement of how much the walkthrough is worth.
 
 **Fix lives in.** `state/comps/CLEVELAND_44102_3216_W95TH.md`.
+
+---
+
+## D-25 · 2026-11-08 · The confidence badge measured the wrong thing
+
+**What happened.** `comp.py` badged a comp set `TIGHT` whenever the p25–p75 $/sf spread was
+≤25%. "TIGHT" reads as "accurate", and I used it as reassurance — the Cleveland set was reported
+as `TIGHT spread 0.8%` and I called it *"the tightest comp set produced so far"*, as though that
+were a quality signal.
+
+**Why it is wrong.** A backtest on 43 recorded Cuyahoga sales (see `state/comps/BACKTEST_44102.md`)
+found **0 of 39** comp sets were even badgeable TIGHT, and that a narrow set does not produce a
+smaller error. The real median absolute error of the method is **≈40%**, with only **21%** of
+sales landing within ±20%. The measured dispersion inside one ZIP and one property class is
+**$29–$223/sf, q1 $49, q3 $116 — a 2.4× interquartile range**. Three comps drawn from that
+population give a wide median however carefully they are picked.
+
+**The deeper lesson.** The badge was a measure of *how alike the three comps were*, not *how
+likely the answer was right*. That is the classic proxy-metric failure: it is easy to compute,
+it moves in a satisfying direction, and it is answering an adjacent question. Three houses on
+one block will always look alike; it says nothing about the fourth house.
+
+**Prevention.**
+1. **Publish the measured error, not a vibe.** Every priced run now prints an `ARV BAND` built
+   from `ARV_MEDIAN_ABS_ERROR` and cites `BACKTEST_BASIS`.
+2. **Any confidence label must be validated against outcomes.** If a label implies accuracy, it
+   needs a backtest behind it, and the backtest must be re-run per market — the constant is
+   data, not a truth.
+3. **`n=3` is a floor, not a target.** Runs below n=5 now warn; the error grows as n falls.
+4. Do not tune the engine to the backtest. Tightening the sqft band (C) and widening it (D) both
+   made the error worse.
+
+**Fix lives in.** `scripts/comp.py` (constants + ARV BAND output), 5 tests in
+`tests/test-real-estate-skill.sh`.
+
+---
+
+## D-26 · 2026-11-08 · County `sales_amount` includes portfolio transfers
+
+**What happened.** The first backtest pass was polluted by a **$2,200,000 "single-family sale"**
+of a 1,361 sf house in 44102 — a bulk/portfolio transfer recorded per-parcel with the whole
+consideration. It inflated the mean error to 47% and changed the median.
+
+**Why it matters beyond the backtest.** Zillow renders these as ordinary sold listings, and a
+hand-built comp set would not catch one either, because a human only opens the handful of houses
+they already like. Worse: the transfer **poisons the parcel's record** — any later same-parcel
+comp or "last sale" reference inherits a number that was never a market price for that house.
+
+**Prevention.** Screen `$/sf` (≤$250 removed them here), and **de-duplicate by parcel, keeping
+the last transfer** — the subject's own comp `3235 W 94th` appears twice, $60,000 then $146,000.
+The county layer has **no transaction-type flag**, so this screen is a proxy and must be stated
+as one. Never treat a high-$/sf or round-million figure as a comp without reading the deed.

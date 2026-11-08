@@ -68,6 +68,19 @@ OFFER_HIGH_PCT = 0.60
 WHOLE_FEE = 10_000
 JV_SPLIT = 0.50
 
+# Empirical dispersion of a comp-set ARV, measured 2026-11-08 by walk-forward
+# backtest on 43 recorded Cuyahoga County sales (44102, 1-family platted lots,
+# 2025-01 to 2026-02).  Each sale was priced only from sales closed before it.
+#   median absolute error 39.5%   within +-20%: 21%   median signed bias -1.1%
+# The error was NOT condition bias - the comp $/sf band already contained it.
+# It is genuine dispersion: neighbouring houses in the same condition on the
+# same street still sold 1.7x-2.7x apart per square foot.  See
+# state/comps/BACKTEST_44102.md.  Re-measure in any new market; do not retail
+# these numbers once the pool is genuinely condition-matched.
+ARV_MEDIAN_ABS_ERROR = 0.40
+ARV_WITHIN_20 = 0.21
+BACKTEST_BASIS = "Cuyahoga 44102 walk-forward, n=43, 2025-01..2026-02"
+
 # Repair tiers, $/sqft of living area. Moderate is the placeholder when
 # condition is unconfirmed - see references/repairs.md.
 REPAIR_TIERS = {"light": 20, "moderate": 35, "heavy": 50}
@@ -426,8 +439,15 @@ def compute_arv(subject_sqft: float, subject_hood: str, lat: float, lon: float,
     # The spread is REPORTED, never turned into a range of ARVs. A wide comp set
     # is a confidence problem, not three different valuations of one house.
     result.ppsf_spread = round((p75 - p25) / median * 100, 1) if median else 0.0
-    result.confidence = ("TIGHT" if result.ppsf_spread <= 25
+    # Honesty gate. The old badge called a <=25% spread "TIGHT" and implied
+    # accuracy; the backtest shows a tight spread does not predict accuracy at
+    # all. So confidence now reflects the MEASURED error, and a set too wide to
+    # be usable is called out rather than branded tight because it is small.
+    result.confidence = ("MEASURED (uncalibrated)"
+                         if result.ppsf_spread <= 25
                          else "WIDE" if result.ppsf_spread <= 50 else "VERY WIDE")
+    if result.ppsf_spread > CONSISTENCY_BAND * 100:
+        result.confidence = "UNUSABLE - comp set too dispersed"
     result.basis = (f"{int(subject_sqft)}sqft x ${median:,.2f}/sf MEDIAN of n={len(pool2)} "
                     f"renovated comps; {chosen_radius} mi, {subject_hood}; median method")
     result.note = (f"comp $/sf spreads {result.ppsf_spread}% (p25 ${p25:,.0f} to "
@@ -848,6 +868,15 @@ def cmd_arv(args) -> int:
         print(f"MEDIAN     ${result.median_ppsf:>9,.2f}/sf")
         print(f"CONF       {result.confidence}  spread {result.ppsf_spread}%  n={result.n}  "
               f"radius {result.radius} mi")
+        # Report the error this method was measured to have, not a vibe.
+        lo, hi = int(result.arv * (1 - ARV_MEDIAN_ABS_ERROR)), int(result.arv * (1 + ARV_MEDIAN_ABS_ERROR))
+        print(f"ARV BAND   ${lo:>9,}  -  ${hi:,}   (+-{ARV_MEDIAN_ABS_ERROR:.0%} median abs "
+              f"error, {BACKTEST_BASIS})")
+        print(f"           {ARV_WITHIN_20:.0%} of backtested sales landed within +-20% of the "
+              f"estimate. Treat the point figure as the middle, not the answer.")
+        if result.n < 5:
+            print(f"WARN       n={result.n} comps. Below 5 the error is wider than the "
+                  f"band above; n=3 is the floor, not a target.")
         print(f"BASIS      {result.basis}")
         if args.repairs is not None:
             bmax = buyer_max(result, args.repairs)

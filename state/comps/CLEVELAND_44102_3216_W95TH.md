@@ -1,7 +1,11 @@
 # 3216 W 95th St, Cleveland OH 44102 — ARV
 
-**ARV $172,328** · median $119.67/sf × **1,440 sf above ground** · n=3 renovated Colonial,
-0.5 mi, **spread 0.8% TIGHT** — the tightest comp set produced so far.
+**ARV $172,328** · median $119.67/sf × **1,440 sf above ground** · n=3 renovated Colonial, 0.5 mi.
+
+> **Read the band, not the point.** A walk-forward backtest on 43 Cuyahoga sales measured this
+> method's median error at **±40%** (`state/comps/BACKTEST_44102.md`). The honest figure is
+> **$103,396 – $241,259**. The 0.8% comp-set spread below is *not* evidence of accuracy — the
+> backtest found a narrow comp set does not predict a small error. See D-25.
 
 Hood **West Boulevard** (Zillow `## Neighborhood`). Parcel 01702115.
 
@@ -81,16 +85,19 @@ any price, because the repairs exceed what the finished house can carry.
 ## Honest caveats
 
 1. **It is pending.** All of the above is now theoretical for this buyer.
-2. **"Diamond in the rough" is an unscoped grade.** The listing says restore historic charm
+2. **±40% is not a rounding error — it is $138,000 wide on this house.** At the bottom of the
+   band the ARV is $103,396, barely above the $99,900 ask, which would make the deal marginal
+   even with light repairs. The point estimate alone would have hidden that.
+3. **"Diamond in the rough" is an unscoped grade.** The listing says restore historic charm
    and names no systems. Two window units and no central air on a 1905 house is the tell that
    HVAC, electrical and possibly roof are all open questions. Priced at MODERATE by default —
    a light grade would need a walkthrough showing recent systems, which this listing does not.
-3. **ARV is for a finished house, and this one is not finished.** The three comps are all
+4. **ARV is for a finished house, and this one is not finished.** The three comps are all
    *already renovated*. $172,328 is what 1,440 sf sells for *after* the work.
-4. **Repairs were charged on above-ground sf only** (1,440 × tier). If the 720 sf basement
+5. **Repairs were charged on above-ground sf only** (1,440 × tier). If the 720 sf basement
    needs finishing or moisture work, that is additional and unmodelled — the baseline
    understates a gut rehab.
-5. **Comp dates are sale dates**, read individually from each price history. Two earlier
+6. **Comp dates are sale dates**, read individually from each price history. Two earlier
    candidate rows were discarded when their true dates (one in 2024) came back.
-6. **Comp coordinates are hand-placed from street grid positions**, not parcel geocodes —
+7. **Comp coordinates are hand-placed from street grid positions**, not parcel geocodes —
    Nominatim gives road centerlines here (D-20). Distances are ±0.1 mi.

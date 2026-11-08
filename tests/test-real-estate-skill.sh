@@ -1085,4 +1085,31 @@ if [ "$FAIL" -gt 0 ]; then
   echo "STATUS: FAILED ($FAIL failure(s), $PASS pass(es))"
   exit 1
 fi
+
+# ---------------------------------------------------------------------------
+# Backtest honesty gate (added 2026-11-08). The comp engine previously badged a
+# <=25% $/sf spread "TIGHT", which read as "accurate". A walk-forward backtest on
+# 43 real Cuyahoga sales showed a tight spread does not predict accuracy and the
+# real median error is ~40%. The engine must now publish the measured error.
+# ---------------------------------------------------------------------------
+if grep -q "ARV_MEDIAN_ABS_ERROR" scripts/comp.py; then
+  pass "comp engine declares a measured ARV error constant"
+else fail "comp engine has no measured error constant"; fi
+
+if grep -q "BACKTEST_BASIS" scripts/comp.py; then
+  pass "comp engine cites the backtest its error figure came from"
+else fail "comp engine does not cite its backtest"; fi
+
+if grep -q "ARV BAND" scripts/comp.py; then
+  pass "comp engine prints an ARV band, not just a point estimate"
+else fail "comp engine prints a point estimate only"; fi
+
+if grep -q "is the floor, not a target" scripts/comp.py; then
+  pass "comp engine warns that n=3 is a floor"
+else fail "comp engine treats n=3 as sufficient"; fi
+
+if test -f state/comps/BACKTEST_44102.md; then
+  pass "backtest artifact exists for 44102"
+else fail "no backtest artifact"; fi
+
 echo "STATUS: PASSED ($PASS checks)"
