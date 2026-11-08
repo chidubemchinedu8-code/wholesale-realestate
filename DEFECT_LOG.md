@@ -384,3 +384,49 @@ asset type → price band → condition → then comps.
 `type ∈ {SFR, duplex, multifamily}` → `ARV band $125K–$900K` → `condition has a spread`.
 Only survivors get a comp pool. A property that fails at step one should never reach
 `comp.py`, and the refusal note should name the buy-box line, not the comp gap.
+
+---
+
+## D-20 · 2026-11-08 · Nominatim street centerlines are not parcel coordinates, and here they
+landed in the wrong neighbourhood
+
+**What happened.** Measuring comp distances for the Columbus subject, three of four Nominatim
+lookups returned **highway centerlines, not houses**. `3001 Woodland Ave` resolved to a point
+at latitude 40.0184 tagged `Arlington Park, Linden` — **0.8 mi south of the subject, in a
+different neighbourhood entirely**. The real parcel sits around 40.0265. Using the returned
+point would have dropped a valid comp on a geometry gate and reported the hood as 0 mi away
+while it was actually across a boundary.
+
+`2411 Lindale Rd` and `Lindale Rd` both returned `[]`.
+
+**Why.** Nominatim is a geocoder over OSM *ways*. `addresstype: residential` means "this is a
+road", and the returned lat/lon is a point **on that road**, not the building. The Dayton pool
+already carried the note "street-level fallback is misleading"; this is the sharper version:
+the error was 0.8 mi, which is larger than an entire comp radius.
+
+**Prevention.**
+1. **Never accept a Nominatim result whose `addresstype` is not `house`/`building`/`place`.**
+   `residential`, `highway`, `road` are all street-level answers.
+2. **When only a street centerline exists, do not fabricate parcel coordinates.** Record
+   `coords: APPROX` on the comp, state the uncertainty explicitly in the write-up (±0.1 mi is
+   the realistic error on a numbered block), and say which gate it could affect.
+3. **A comp's neighbourhood must be verified from the page, never from its coordinates.** The
+   Zillow `## Neighborhood` block on 3001 Woodland read `Framingham` — correct — while OSM
+   placed the same address in `Arlington Park`. **The page wins.**
+
+---
+
+## D-21 · 2026-11-08 · A subject's own listing can contradict itself on baths
+
+**What happened.** `2297 Albert Ave` carries `Bedrooms: 3 / Bathrooms: 2 / Full bathrooms: 2`
+in the Facts block, and in the same listing the description reads "3 bedrooms, **1 bathroom**."
+Both cannot be true.
+
+**Why it matters more than it looks.** Bath count feeds two independent parts of the model — the
+comp bed/bath screen and the repair scope. A house being sold as 2-bath that is really 1-bath
+needs a bath added, which is a five-figure line item that no `$/sf` tier will surface.
+
+**Prevention.** When header fields and description disagree on **beds, baths or sqft**, treat
+the row as `UNVERIFIED` on that field: note the conflict in the write-up, do not resolve it by
+picking the more favourable number, and flag it as a walkthrough item. Never silently take the
+listing header's word over the agent's own prose.

@@ -96,6 +96,14 @@ Never "pick the nearest hood", never "borrow the pool", never average two hoods.
   `4041 Old Riverside Dr` both return `[]`. Record `hood UNKNOWN` and do not price.
   Do **not** infer the hood from nearby listings or from the ZIP.
 
+### Works in Columbus too — `## Neighborhood: Framingham`
+
+The hierarchy is not Dayton-specific. On `2297 Albert Ave, Columbus OH 43224` the Zillow
+`## Neighborhood` block read **Framingham**, and the hood sold feed
+`/framingham-columbus-oh/sold/` returned a genuine **105 transactions** — a real hood feed,
+not the whole-ZIP redirect that D-4 documents for Dayton. `Subdivision` and `## Neighborhood`
+are the primaries; OSM is a corroborator only.
+
 ### The `Subdivision` field is the single best hood datum on a Zillow page
 
 Buried in `## Facts & features` → `### Community & HOA`, one line: `Subdivision: Northwood`.
