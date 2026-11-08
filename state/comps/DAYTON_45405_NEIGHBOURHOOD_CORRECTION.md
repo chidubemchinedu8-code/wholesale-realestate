@@ -1,67 +1,102 @@
-# 45405 — neighbourhood gate, corrected 2026-11-08
+# 45405 / 45403 neighbourhood correction — 2026-11-08
 
-## The error that cost the most
-Three leads were marked UNPRICED because I assigned their neighbourhood from the
-**street name**. W Norman, Santa Clara Ave and E Norman were all filed under
-Fairview. They are not Fairview.
+**This file previously claimed the opposite of what follows.** An earlier version
+argued that 119 and 209 W Norman were Santa Clara parcels that could still be priced
+off the North Riverdale pool "because they sit within 0.5 mi of it". That was wrong,
+and `comping/COMPING.md` says so in one line:
 
-| address | wrong hood | actual hood | source |
+> Same neighbourhood code, identical. Not nearby. Not similar. Identical.
+
+There is no distance exception. n=1 is UNPRICED. This file now records only what was
+verified, and what it invalidated.
+
+## Rule
+
+Neighbourhood comes from **Zillow's `## Neighborhood:` block or the breadcrumb
+(`…/45405/<Hood>/<Address>`)**, else OpenStreetMap's `display_name`. It never comes
+from the listing description, the street name, a subdivision name, or distance to a
+hood centre. Each of those produced a wrong answer at least once.
+
+Coordinated rule: a comp needs a **sourced coordinate**. Hand-estimated coordinates
+were found to be 0.25–0.50 mi off across this pool.
+
+## Leads whose neighbourhood was wrong
+
+| Lead | Was gated as | Verified hood | Source |
 |---|---|---|---|
-| 119 W Norman Ave | Fairview | Santa Clara | detail page breadcrumb "Neighborhood: Santa Clara" pattern + `santa-clara-dayton-oh/sold/` listing |
-| 209 W Norman Ave | Fairview | Santa Clara | same block, same seller |
-| 35 Santa Clara Ave | Santa Clara | **Santa Clara** | detail page: "## Neighborhood: Santa Clara", coords 39.78122 / -84.209694 |
-| 127 E Norman Ave | Fairview | North Riverdale | detail page breadcrumb ends `north-riverdale-dayton-oh` |
-| 101 E Hudson Ave | — | North Riverdale | detail page: "## Neighborhood: North Riverdale" |
+| 124 Victor Ave | North Riverdale | **Santa Clara** | Zillow `## Neighborhood:` |
+| 119 W Norman Ave | North Riverdale | **Santa Clara** | Zillow breadcrumb |
+| 209 W Norman Ave | North Riverdale | **Santa Clara** | Zillow breadcrumb |
+| 2015 N Main St | North Riverdale | **Santa Clara** (subdiv. Elmwood) | Zillow breadcrumb |
+| 111 Forest Ave | North Riverdale | **Grafton Hill** | listing text + OSM |
+| 25 Redwood Ave | North Riverdale | **45405 / Northwoods** | Zillow hood string |
+| 152 Northwood Ave | North Riverdale | **45405 / Northwoods** (subdiv. Northwoods) | Zillow hood string + OSM |
+| 66 Redder Ave | North Riverdale | **45405 / Northwood** | Zillow hood string |
+| 35 Santa Clara Ave | North Riverdale | **Fairview** | OSM |
+| 2916 Philadelphia Dr | North Riverdale | **Harrison Township** | OSM — outside the city hood system |
 
-127 E Norman sits 1 block from Santa Clara's western edge but the detail page
-assigns it North Riverdale. **The detail page decides, not the street, not the
-distance, not the map.**
+**124 Victor is the instructive one.** Its own listing remark reads "near the ever
+expanding and rejuvenating North Riverdale community". Agent marketing is not a
+neighbourhood. Zillow's `## Neighborhood:` field says Santa Clara, and that governs.
 
-## Second error, caught the same way
-The first North Riverdale renovated pool had **n=3** and a median of **$129.92/sf**.
-It produced ARVs of $182k-$218k. Then 101 E Hudson — same neighbourhood, fully
-renovated ("Fully renovated and ready to go", modernized kitchen) — sold at
-**$93/sf**. The n=3 pool was the high tail of the distribution, not its centre.
+## Comp rows removed from the North Riverdale pool
 
-Rebuilt pool is **n=10 renovated** in North Riverdale. Individual $/sf spans
-$84.6 (258 E Siebenthaler) to $129.9 (44 E Beechwood). The engine's own radius
-ladder picks a different subset per subject, which is why the same street yields
-$93.23/sf for a 2,016 sf house and $99.77/sf for a 1,681 sf one. That spread is
-real, not noise: **$93/sf at 2,000 sf, $120/sf at 1,100-1,300 sf.** $/sf falls as
-size rises, and the radius ladder is picking up that size effect.
+| Comp | Was gated as | Verified hood | Source |
+|---|---|---|---|
+| 409 Kenilworth Ave | North Riverdale | **Daytonview** | OSM; stored coord was 0.5 mi off |
+| 49 Woodcrest Ave | North Riverdale | **Fairview** | OSM |
 
-## Renovated cohort, North Riverdale (n=10)
-| address | sold | price | sqft | $/sf | evidence |
-|---|---|---|---|---|---|
-| 44 E Beechwood | 10/26/26 | 176,950 | 1,362 | 129.92 | "Everything else is new"; refinished hardwood, quartz, new AC |
-| 212 E Beechwood | 06/29/26 | 155,000 | 1,294 | 119.78 | new furnace/AC, radon, all baths + kitchen redone |
-| 258 E Siebenthaler | 07/31/26 | 165,000 | 1,248 | 132.21 | 4bd, renovated |
-| 101 E Hudson | 06/30/26 | 140,500 | 1,507 | 93.23 | "Fully renovated and ready to go" |
-| 409 Kenilworth | 04/07/26 | 142,700 | 1,596 | 89.41 | kitchen/baths completely redone |
-| 69 E Beechwood | 05/11/26 | 173,000 | 1,400 | 123.57 | sold +$37k over ask band |
-| 53 E Beechwood | 04/24/26 | 163,000 | 1,442 | 113.04 | "delightful renovated 3-bedroom, 3-bathroom" |
-| 332 Ashwood | 03/31/26 | 134,900 | 1,176 | 114.71 | new roof, flooring, carpet, paint, furnace |
-| 49 Woodcrest | 05/20/26 | 175,000 | 1,754 | 99.77 | updated kitchen, quartz, new SS appliances (4bd) |
-| 312 E Maplewood | 06/22/26 | 122,500 | 812 | 150.86 | renovated, small — outside most bands |
+Pool goes from 10 renovated comps to **8**. Both removals were `renovated`, so they
+were carrying ARV weight.
 
-**4-bedroom renovated in North Riverdale in-band: exactly 2** (258 E Siebenthaler
-1,248 sf, 49 Woodcrest 1,754 sf). MIN_COMPS=3, so every 4bd subject stays UNPRICED.
-That is the whole reason 66 Redder, 35 Santa Clara and 2916 Philadelphia have no
-number. Do not relabel a maintained 4bd sale to fix it. The fix is more sold data.
+## Consequence by neighbourhood
 
-## Window
-The engine default of 180 days was silently starving every subject. The repo's own
-policy allows up to 12 months for a thin market. At 180 days, 119 W Norman, 209 W
-Norman, 127 E Norman, 218 E Parkwood, 25 Redwood, 111 Forest and 152 Northwood were
-all UNPRICED. At 365 days, all seven price with n=3-6. **Use --window 365 for 45405
-and say so on the row.**
+- **Santa Clara — n=1, cannot produce an ARV.** The full 127-sale Santa Clara feed was
+  read. Exactly one sale is renovated: 202 Santa Clara Ave, $125,400 / 1,302 sf /
+  $96.31 per sf. Every other candidate failed on condition or size:
+  55 W Norman (no condition data), 147 Niagara (sold as-is), 136 Niagara (no condition
+  language), 123 W Hudson (no renovation language), 96 & 87 W Hudson (multifamily),
+  129 Marathon (the $119,197 "sale" was a foreclosure; Zillow now lists it bank-owned
+  at $55,000), 104 W Norman, 138 W Norman (non-arm's-length), 302 Fountain and
+  321 W Norman (out of band).
+  **124 Victor, 119 W Norman, 209 W Norman, 2015 N Main are therefore UNPRICED.**
+  Their previously published ARVs ($203,454 / $167,717 / $174,504 / $187,955) are
+  withdrawn.
+- **North Riverdale — n=8 renovated, verified.** Four leads price cleanly:
+  152 E Parkwood, 218 E Parkwood, 127 E Norman, 2326 Parkland.
+- **Burkhardt — newly built.** 141 S Torrence and 633 Huffman are Burkhardt, not East
+  Dayton. A 4-comp pulled pool supports both. The `$105.41/sf` figure previously
+  quoted for 45403 was **one comp (15 Parnell) repeated three times**, not a median.
+- **Grafton Hill, Northwoods/45405, Fairview — no pool built.** Leads in those hoods
+  stay unpriced until one exists.
+- **Bed-floor failures** (66 Redder, 35 Santa Clara, 2916 Philadelphia) fail the 4-bed
+  rule on top of the hood problems above.
 
-## Files
-- `state/comps/dayton_45405_northriverdale_comps.csv` — 35 rows, 10 renovated
-- `state/comps/dayton_45405_santaclara_comps.csv` — 13 rows, **0 renovated**
+## North Riverdale renovated pool, current state
 
-Santa Clara genuinely has no renovated cohort. Every sale there is `maintained`,
-`dated` or `distressed`, and its maintained band is $61-$104/sf. A Santa Clara
-subject priceable only if it is under the North Riverdale gate (119/209 W Norman,
-which are Santa Clara parcels but sit within 0.5 mi of the North Riverdale
-renovated pool). 35 Santa Clara does not clear the 4bd floor anywhere.
+| Comp | Price | Sqft | $/sf | Verified coord |
+|---|---|---|---|---|
+| 44 E Beechwood Ave | $176,950 | 1,362 | $129.92 | 39.7902448, −84.2120874 |
+| 212 E Beechwood Ave | $155,000 | 1,294 | $119.78 | 39.7902698, −84.2080889 |
+| 258 E Siebenthaler Ave | $165,000 | 1,248 | $132.21 | 39.7984764, −84.2129620 |
+| 101 E Hudson Ave | $140,500 | 1,507 | $93.23 | 39.7843250, −84.2062810 |
+| 69 E Beechwood Ave | $173,000 | 1,400 | $123.57 | 39.7904105, −84.2118458 |
+| 312 E Maplewood Ave | $122,500 | 812 | $150.86 | 39.7920002, −84.2079874 |
+| 53 E Beechwood Ave | $163,000 | 1,442 | $113.04 | 39.7904082, −84.2121811 |
+| 332 Ashwood Ave | $134,900 | 1,176 | $114.71 | 39.7975686, −84.2096566 |
+
+Note the spread: $93.23 to $150.86 per sf. That is why the median method matters and
+why no single comp should ever be quoted as "the" $/sf.
+
+## Reproduce
+
+```
+python3 scripts/comp.py \
+  --comps state/comps/dayton_45405_northriverdale_comps.csv \
+  --as-of 2026-11-08 --window 365 \
+  --subject '{"address":"127 E Norman Ave","hood":"45405-NORTH RIVERDALE",
+              "sqft":1188,"beds":"3 bd","lat":39.7855184,"lon":-84.2064888,
+              "style":"TRADITIONAL"}'
+```
+
+Exit 0 = priced, 3 = UNPRICED, 1 = comp-file error.
