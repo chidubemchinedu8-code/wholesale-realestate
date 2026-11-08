@@ -2,7 +2,7 @@ zip,in_scope_3bed_plus,price_cap,redfin_listed_total,examined,verdicts,note
 45402,6,100000,24,1,1,"817 Faulkner $50,000 (gutted to studs, new roof/siding/windows/electrical), 623 Anna $65,000 (gutted), 624 N Broadway $85,000, 945 Vernon $86,999, 3619 Hoover $99,900 - NONE examined"
 45403,4,100000,13,3,1,"141 S Torrence $74,900, 237 N Irwin $74,900, 633 Huffman $44,900 named but unpriced; plus 2 multi-unit (48 S Monmouth, 17-19 Bell)"
 45404,2,110000,8,3,1,"1309 Leonhard $99,900 and 1012 St Adelbert $105,000 (package stock); my earlier '3 homes' count was wrong - 8 under $110k"
-45405,9,100000,39,1,1,"WORST GAP. 49 Pointview SHORT SALE $39,900 3bd/1,778sf; 152 E Parkwood $39,900 cash-only; 2326 Parkland $65,000; 119 & 209 W Norman $80,000 (same seller); 46 Pointview $85,000; 35 Santa Clara $84,900 4bd - NONE examined"
+45405,9,100000,39,2,2,"49 Pointview PRICED 2026-11-08 - ask corrected 39900->59900, PENDING 15mo short sale, ARV 230996, MAO 89467, WATCH/backup at 45-52k. Still unexamined: 152 E Parkwood $39,900 cash-only, 2326 Parkland $65,000, 119 & 209 W Norman $80,000 (same seller), 46 Pointview $85,000, 35 Santa Clara $84,900 4bd"
 45406,5,100000,16,4,1,"3395 Brumbaugh $99,900 still unpriced; 4074 Middlehurst pricing blocked"
-45410,2,100000,24,2,1,"2100 Wayne the only 4-bed; rest are 2-bed rentals outside buy box"
-45417,3,110000,49,2,1,"330 Bolander unpriced; cheap stock dominated by court-ordered auctions"
+45410,2,100000,24,2,1,2100 Wayne the only 4-bed; rest are 2-bed rentals outside buy box
+45417,3,110000,49,2,1,330 Bolander unpriced; cheap stock dominated by court-ordered auctions
