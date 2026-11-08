@@ -35,7 +35,11 @@ PROP_LEDGER = os.path.join(STATE, "property_ledger.csv")
 ZIP_FIELDS = ["city", "zip", "priority_score", "priority_category", "evidence",
               "scanned", "last_scan_date", "qualifying_count", "potential_count",
               "rejected_count", "rejection_reasons", "best_opportunity", "revisit",
-              "notes"]
+              "source", "notes"]
+
+# Discovery order is a hard rule, not a preference. Zillow discovers; Redfin
+# only cross-checks. A ZIP logged as discovered anywhere else is a process bug.
+ZILLOW_FIRST = "zillow"
 PROP_FIELDS = ["address", "city", "zip", "first_seen", "last_seen", "channel",
                "status", "last_verdict", "last_price", "last_scan_date", "notes"]
 
@@ -72,8 +76,21 @@ def category_for(score: int) -> str:
     return "C"
 
 
+def check_source(source: str) -> str:
+    """Reject a scan that was not discovered on Zillow first."""
+    s = (source or "").strip().lower()
+    if s != ZILLOW_FIRST:
+        raise SystemExit(
+            f"REFUSED: scan source is '{source or 'blank'}'. Zillow is the primary "
+            f"discovery reference and Redfin is only a cross-check (SKILL.md rule 20, "
+            f"references/on-market.md). Log it with --source zillow after actually "
+            f"scanning Zillow, or log the divergence in notes and stop.")
+    return s
+
+
 def log_zip(city, zip5, score, category, qualifying, potential, rejected,
-            best="", reasons="", evidence="", notes="", today=None) -> dict:
+            best="", reasons="", evidence="", notes="", source=ZILLOW_FIRST,
+            today=None) -> dict:
     today = today or date.today()
     rows = _read(ZIP_LEDGER, ZIP_FIELDS)
     row = next((r for r in rows if r["zip"] == str(zip5)), None)
@@ -95,6 +112,7 @@ def log_zip(city, zip5, score, category, qualifying, potential, rejected,
         "rejection_reasons": reasons,
         "best_opportunity": best or "none",
         "revisit": "no",
+        "source": check_source(source),
         "notes": notes,
     })
     _write(ZIP_LEDGER, ZIP_FIELDS, rows)
@@ -262,6 +280,19 @@ def selftest() -> int:
           f"({n} row(s), expected 1)")
     fails += 0 if n == 1 else 1
 
+    # --- Zillow-first is enforced, not just documented (rule 20)
+    try:
+        log_zip("Dayton", 45417, 70, "B", 1, 2, 3, source="redfin", today=d0)
+        ok = False
+    except SystemExit:
+        ok = True
+    print(f"  {'PASS' if ok else 'FAIL'}  a scan discovered on redfin is REFUSED")
+    fails += 0 if ok else 1
+    row = log_zip("Dayton", 45417, 70, "B", 1, 2, 3, source="zillow", today=d0)
+    print(f"  {'PASS' if row['source'] == 'zillow' else 'FAIL'}  "
+          f"a zillow-first scan records its source")
+    fails += 0 if row["source"] == "zillow" else 1
+
     # category boundary
     print(f"  {'PASS' if category_for(75)=='A' else 'FAIL'}  75 -> A")
     fails += 0 if category_for(75) == "A" else 1
@@ -290,6 +321,8 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(description="ZIP and property ledgers")
     p.add_argument("--log", action="store_true")
     p.add_argument("--list", action="store_true")
+    p.add_argument("--list-sources", action="store_true",
+                   help="distinct discovery sources recorded (rule 20 audit)")
     p.add_argument("--due", action="store_true")
     p.add_argument("--check")
     p.add_argument("--city", default="")
@@ -303,18 +336,25 @@ def main(argv=None) -> int:
     p.add_argument("--best", default="")
     p.add_argument("--evidence", default="")
     p.add_argument("--notes", default="")
+    p.add_argument("--source", default=ZILLOW_FIRST,
+                   help="discovery source; must be zillow (rule 20)")
     p.add_argument("--selftest", action="store_true")
     a = p.parse_args(argv)
 
     if a.selftest:
         return selftest()
+    if a.list_sources:
+        for src in sorted({(r.get("source") or "").strip().lower()
+                           for r in _read(ZIP_LEDGER, ZIP_FIELDS)} - {""}):
+            print(src)
+        return 0
     if a.log:
         if not a.zip5 or a.score is None:
             print("--log needs --zip and --score", file=sys.stderr)
             return 2
         row = log_zip(a.city, a.zip5, a.score, a.category, a.qualifying,
                       a.potential, a.rejected, a.best, a.reasons, a.evidence,
-                      a.notes)
+                      a.notes, source=a.source)
         print(f"logged {row['zip']} ({row['priority_category']}, "
               f"score {row['priority_score']}) scanned {row['last_scan_date']}")
         return 0

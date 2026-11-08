@@ -648,6 +648,40 @@ else
   pass "no alternate cap is hard-coded"
 fi
 
+section "9l. ZILLOW IS PRIMARY AND THE SYSTEM ENFORCES IT"
+# rule 20 must be stated in the entry point and the detail file
+grep -q "Zillow is the primary manual discovery reference" "$SKILL_MD" \
+  && pass "rule 20 is in SKILL.md" || fail "rule 20 missing"
+tr '\n' ' ' < "$SKILL_DIR/references/on-market.md" | tr -s ' ' \
+  | grep -qi "photos are part of discovery" \
+  && pass "photos are a discovery step on the Zillow page, not a later task" \
+  || fail "photos are not part of the documented discovery step"
+# the ledger must refuse a non-Zillow discovery
+if py "$SKILL_DIR/scripts/zip_ledger.py" --selftest 2>&1 \
+     | grep -q "a scan discovered on redfin is REFUSED"; then
+  pass "the ledger REFUSES a scan discovered on any site but Zillow"
+else
+  fail "nothing stops a Redfin-first scan being logged"
+fi
+grep -q "ZILLOW_FIRST" "$SKILL_DIR/scripts/zip_ledger.py" \
+  && pass "the Zillow-first constant exists in code, not only in prose" \
+  || fail "Zillow-first is documentation only"
+# the market the operator named must be credentialed in the universe
+if [ -f "$UNIVERSE" ] && grep -q "^Dayton," "$UNIVERSE"; then
+  pass "Dayton is in the ZIP universe (a market you cannot scan is not a market)"
+else
+  fail "Dayton is missing from assets/zip_universe.csv"
+fi
+# no logged ZIP may claim a non-Zillow discovery source
+SRCW="$(py "$SKILL_DIR/scripts/zip_ledger.py" --list-sources 2>/dev/null | sort -u)"
+if [ "$SRCW" = "zillow" ]; then
+  pass "every scanned ZIP is logged as Zillow-discovered"
+elif [ -z "$SRCW" ]; then
+  pass "no ZIP scanned yet, so no source can be wrong"
+else
+  fail "a ZIP is logged as discovered somewhere other than Zillow: $SRCW"
+fi
+
 section "10. DATA INTEGRITY RULES PRESENT"
 for pat in "Invent a property address" "Invent a sold price" \
            "Invent buyer approval" "Claim to have swept a ZIP"; do

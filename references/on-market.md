@@ -17,6 +17,28 @@ Neither site is licensed data. Everything read here is `REPORTED`. See
 
 Scan **by ZIP**, never by browsing a whole city.
 
+## Photos are part of discovery, not a later step
+
+**Read the photos on the Zillow property page before scoring the lead.** Photos
+classify condition; descriptions do not — a listing that says "great bones" and
+shows a collapsed rear addition is a different property from the one the text
+describes. The Zillow page is where the photo set is complete and in listing order.
+
+How to actually get them in front of you:
+
+1. **Open the Zillow property page.** The gallery is the primary evidence.
+2. If the page cannot be rendered, `image_search` with the full address
+   (`"<address>, <city>, <state> <zip>"`) pulls the listing photos into the
+   workspace where they can be inspected directly.
+3. Only then cross-check on Redfin.
+
+**Tested 2026-11-08:** `photos.zillowstatic.com` and `ssl.cdn-redfin.com` are not
+reachable from this sandbox (`curl` returns `000` — DNS/egress blocked). Page text
+via a fetcher works; direct image URLs do not. That is a fact about this
+environment, **not** permission to start on Redfin. If Zillow photos cannot be
+read, record the lead as `CONDITION UNVERIFIED` and say so — do not quietly
+substitute a Redfin gallery and call the scan complete.
+
 ## Source reality — tested, not assumed
 
 | Source | Works | Does not work |

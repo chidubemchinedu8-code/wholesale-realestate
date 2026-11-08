@@ -1,6 +1,6 @@
 ---
 name: wholesale-realestate
-version: 3.2.0
+version: 3.3.0
 description: Use when any task involves US real estate wholesaling - finding investment properties, scanning Zillow/Redfin/PropWire, evaluating a property, estimating ARV or repairs, pulling comparable sales, calculating buyer maximum or seller MAO, preparing an offer, negotiating with a seller or buyer (anchoring, concessions, influence), assigning a contract, or deciding whether a deal is worth pursuing
 ---
 
