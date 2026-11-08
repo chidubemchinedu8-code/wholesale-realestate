@@ -1,5 +1,16 @@
 # 3308 W 88th St, Cleveland OH 44102 — ARV
 
+> ## ⚠️ CORRECTION 2026-11-08 — the ARV below is ~15% too high (D-51)
+>
+> `$121.25/sf` is the median of a **0.25 mi pocket** of three renovated houses on W 88th–91st.
+> Recomputing on the whole of the county hood **`02125`** (n=5 renovated) gives **$102.70/sf**,
+> which puts the ARV at **$118,619**, not $140,041 — a **$21,422 (15%) overstatement**, and a MAO
+> overstatement of ~$15,000.
+>
+> The tight radius selected the three highest-$/sf sales in the hood. It did not average the hood.
+> **The verdict is unchanged and strengthened: WALK at the $95,000 ask.** Everything below stays as
+> published so the error is auditable, not silently edited.
+
 **ARV $140,041** · median $121.25/sf × **1,155 sf** · n=3 renovated Colonial, 0.25 mi.
 
 > **Read the band, not the point.** Walk-forward backtest on 43 Cuyahoga sales puts this method's

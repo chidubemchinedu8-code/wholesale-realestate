@@ -261,7 +261,16 @@ The county endpoint works. **Query it before grinding more retail comps.**
 ```
 MAO = sf × (0.70 × hood_$psf − repair_$psf) − fee
 ```
-At $121.25/sf and MODERATE repairs that is **`sf × $49.875 − $10,000`**. ARV and repairs both
-scale with footage, so **buy big and cheap, not small and cheap.** A 990 sf subject can never pay a
-$10,000 fee; a 2,400 sf subject supports ~$110,000. This is why an ask-per-foot sort is the wrong
-sort for this business.
+~~At $121.25/sf and MODERATE repairs that is `sf × $49.875 − $10,000`.~~
+
+**STRUCK 2026-11-08 (D-50, D-51). Do not use that shortcut.** Two independent defects:
+
+1. **Wrong hood.** `$121.25/sf` is one 0.25 mi pocket in `02125`. It is not a 44109, 44111, or even
+   a 44102 number. Every lead it was applied to was in a different hood.
+2. **Wrong shape.** `$/sf` is **not constant in size.** Over 16 44102 comps:
+   `$/sf = 113.1 − 0.0097 × sqft` — roughly **−$1.00/100 sf**. Even inside `02125`, hood-wide is
+   **$102.70/sf**, not $121.25.
+
+Compute per hood, per size band, from that hood's own comps. `MAO = sf × (0.70 × hood_$psf − repair_$psf) − fee`
+remains the right *form*; it needs a local `$/psf`, and it needs a backtest before the output is
+quoted as a band rather than a point.

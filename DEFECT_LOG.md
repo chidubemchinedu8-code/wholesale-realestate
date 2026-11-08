@@ -1112,3 +1112,57 @@ comps at $121/sf was spent in the channel the arithmetic had already condemned.
 4. Field-type traps found in the same pass: `parcel_zip` is a **Double**, `foreclosure_flag` is an
    **integer**, and `grand_total_balance` is **county tax owed, not mortgage debt**. Each one
    silently returns a 400 rather than a wrong answer — which is the good failure mode.
+
+---
+
+## D-50 — The MAO column was a cross-hood comp, and it made every lead look dealable
+
+**Where.** `state/comps/cuyahoga_foreclosure_leads_2026-11-08.csv`, column `mao_moderate`.
+Also the `$49.875/sf` shortcut in `CLEVELAND_OFFMARKET_UNIVERSE.md` and §11 of the protocol.
+
+**What the record said.** Ten MAO figures — $106,432 / $109,700 / $99,605 / $119,376 and so on —
+computed as `sf × (0.70 × $121.25 − $35) − $10,000`.
+
+**What is actually true.** `$121.25/sf` is the median of **three renovated houses on W 88th–91st**
+(`02125`), priced for one subject: 3308 W 88th. It is not a 44109 number, not a 44111 number, and
+not even a 44102 number. Every lead in that table was **44109 or 44111**, and several of the 44102
+ones were in different hoods again (`02122`, `02123`, `02130`, `02133`). Protocol §3 bars borrowing
+a comp across a hood. The shortcut is valid at exactly one address.
+
+**What that cost.** Ten confident numbers that had no source. Each was an *output* of arithmetic
+that looked correct at every step, which is what makes this class of error survive review.
+
+**Rules:**
+1. **`$121.25/sf` may only be used for `02125`.** It is not a city number and not a ZIP number.
+2. **A hood's `$/sf` must be recomputed from that hood's own comps** — never carried.
+3. **Retracted figures must be struck from the file, not annotated.** An `UNSOURCED` cell is
+   honest; a plausible number with a warning beside it still gets quoted.
+
+---
+
+## D-51 — The three-comp pocket understated $/sf by 18%, and priced a subject 38% too high
+
+Found the same day, while testing D-50's replacement.
+
+**What the record said.** 3308 W 88th priced at **$121.25/sf**, n=3, 0.25 mi.
+
+**What is actually true.** Widening to the whole of `02125` (n=5 renovated, 0.5–1.0 mi) gives
+**$102.70/sf** — **15% lower**. The three comps that survived the 0.25 mi radius were the three
+largest $/sf sales in the hood; the tighter radius selected for them.
+
+| basis | $/sf | ARV on 1,155 sf |
+|---|---|---|
+| 0.25 mi pocket (as published) | $121.25 | **$140,041** |
+| hood-wide 02125, renovated only | $102.70 | **$118,619** |
+| hood-wide 02125, all conditions | $100.20 | $115,731 |
+
+**Not a correction to arithmetic — a correction to the *radius as a selector*.** A radius is meant
+to find comparable houses. Here the nearest-3 rule guaranteed the *highest-priced* three, because
+West Boulevard's renovated stock is clustered in a small pocket. **Tightness felt like rigour and
+behaved like a filter for outliers.**
+
+**Rules:**
+1. **Compare the tight-radius set against the hood-wide median before publishing.** If the pocket
+   is more than ~10% above the hood, say so and price the hood.
+2. **A small radius is not evidence of comparability.** Report the hood-wide figure alongside.
+3. `n=3` at 0.25 mi is a warning, not a certificate.
