@@ -1166,3 +1166,75 @@ behaved like a filter for outliers.**
    is more than ~10% above the hood, say so and price the hood.
 2. **A small radius is not evidence of comparability.** Report the hood-wide figure alongside.
 3. `n=3` at 0.25 mi is a warning, not a certificate.
+
+---
+
+## D-52 — A hood median $/sf is meaningless when the distribution is bimodal
+
+Found working `02131` (Clark-Fulton west / Daisy's hood).
+
+**What I was about to do.** Compute the hood's median $/sf from recent transfers and price three
+leads off it — the same method that worked in `02125`.
+
+**What the data actually looks like.** All 18 single-family transfers of 1,200–1,700 sf in `02131`
+since 2025-11-08, `$/sf` sorted:
+
+| $/sf | address | | $/sf | address |
+|---|---|---|---|---|
+| 188.7 | 3407 Library | | 83.7 | 3227 Trowbridge |
+| 159.9 | 3642 Marvin | | 78.8 | 2914 Woodbridge |
+| 151.5 | 4020 Poe | | 76.8 | 3719 Poe |
+| 138.6 | 3205 Trowbridge | | 73.0 | 3517 W 32nd |
+| 132.3 | 3713 Library | | 72.9 | 3218 Marvin |
+| 127.9 | 3107 Trowbridge | | 63.2 | 3757 Trowbridge |
+| 124.3 | 3341 Woodbridge | | 55.4 | 3618 Daisy |
+| 106.9 | 3712 Daisy | | 49.0 | 3618 Marvin |
+| | | | 45.9 | 3942 Poe |
+| | | | 38.7 | 3617 Trowbridge |
+
+There is a **$23/sf empty gap between 106.9 and 83.7**, and the two clusters sit at **$135.45/sf
+(n=8)** and **$68.05/sf (n=10)**. The overall median, **$81.25/sf**, lands *inside the empty gap* —
+it is a number that describes **not one sale in the neighbourhood.**
+
+**Why this is worse than a wide spread.** A wide unimodal spread can be handled by a median: the
+median is a real central tendency. A bimodal spread has **no central tendency**. The median is an
+artefact of how many houses happen to have been renovated last year. On the three `02131` leads it
+swings the answer by **2×**:
+
+| lead | sf | @ upper $135.45 | @ lower $68.05 |
+|---|---|---|---|
+| 3701 Marvin Ave | 1,260 | $170,667 | $85,743 |
+| 3531 Woodbridge Ave | 1,462 | $198,028 | $99,489 |
+| 3404 Woodbridge Ave | 1,263 | $171,073 | $85,947 |
+
+**A stability test does NOT catch this — and I nearly recorded that it did.** I tested the medians
+by leave-one-out jackknife, expecting `02131` to look fragile:
+
+| set | n | median | leave-1-out swing |
+|---|---|---|---|
+| `02125` renovated (the ARV pool) | 5 | $102.70 | **10.5%** |
+| `02125` all conditions | 12 | $100.20 | 1.2% |
+| `02131` all conditions | 18 | $81.25 | **6.0%** |
+
+**`02131` is the *more* stable median and the *less* valid one.** With 10 low sales and 8 high,
+removing any single sale cannot move the median out of the empty gap. **Robustness to
+single-point removal is not evidence of validity.** A bimodal set gives a stable answer that
+describes nothing. Had I used the jackknife as the test, I would have passed `02131` and priced
+three leads off a statistic sitting in a void.
+
+**The gap test and the jackknife measure different things and must both be reported:**
+- **gap test → validity.** Does a median exist at all? (fails for `02131`)
+- **jackknife → fragility.** How much does one comp move it? (fails worst for `02125`, which is valid)
+
+**Rules:**
+1. **Plot / sort the $/sf distribution before taking a median.** If the sorted values contain a gap
+   wider than ~15% of the median, the hood is bimodal and a single $/sf is not available.
+   `02125` renovated has an 18.0% gap ($102.70→$121.20) — above that line — so **its $102.70 carries
+   a 10.5% one-comp sensitivity that must be quoted with it**, not a clean point estimate.
+   I am not moving the threshold down to exempt my earlier work; it is reported as it measures.
+2. **A median that falls inside an empty gap must not be reported at all** — it is not a low-confidence
+   estimate, it is a category error.
+3. **Bimodality is evidence that condition is the dominant variable**, which strengthens the
+   requirement for remark-based condition grading (D-48) rather than weakening it.
+4. **Check `02125` against this rule.** Its 12-sale set ran $45.50–$139.46 with no comparable gap,
+   so its $102.70 median survives. The rule does not retroactively invalidate D-51.
