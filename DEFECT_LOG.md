@@ -1315,3 +1315,18 @@ formula produces a plausible number, not an error.**
    `UNFORMATTED_VALUE` to confirm the arithmetic — and reconcile at least one row to `comp.py`.
 
 **Same family as:** D-40 (ARV present + MAO absent is a parse bug, never a refusal).
+
+## D-56 — comp.py stops at three although submission requires five (2026-11-08)
+
+Default `MIN_COMPS=3` accepts 176 S Burgess at 0.25 mi / n=3 and ARV $187,389.
+`references/comps.md` and SKILL require five; a warning is not compliance.
+For this underwriting only, imported `comp`, set `comp.MIN_COMPS=5` in memory,
+and invoked `main()` with the saved five-row pool. Result: 0.50 mi / n=5,
+ARV $183,402, repairs $42,350, buyer max $86,031, MAO $76,031.
+Production code unchanged; global migration needs regression tests of refusal,
+radius, style, outlier and indicative paths. Do not submit default n=3 output.
+
+Research QA: 716 S Ogden was incorrectly included as a sold in scratch arithmetic;
+its opened page says FOR SALE, so it is excluded. Subsequent scratch arithmetic
+also used tuple indices for sqft/latitude rather than price/sqft; discard all
+Warren numbers from those scratch runs. No such valuation was saved to Sheets.

@@ -1,0 +1,6 @@
+address,sold,price,sqft,hood,lat,lon,style,beds,condition,exclusion
+704 S Ogden Ave,2026-09-16,225000,1544,43204-S CENTRAL HILLTOP,39.9405506,-83.0688404,,3,renovated,
+610 S Terrace Ave,2026-07-31,205000,1056,43204-S CENTRAL HILLTOP,39.9426709,-83.065054,,3,renovated,
+511 S Wayne Ave,2026-10-20,165000,1304,43204-S CENTRAL HILLTOP,39.9447732,-83.0636589,,3,renovated,
+799 S Wayne Ave,2026-08-25,115000,912,43204-S CENTRAL HILLTOP,39.938898,-83.0627313,,3,renovated,
+554 S Ogden Ave,2026-08-07,140000,1248,43204-S CENTRAL HILLTOP,39.9437048,-83.0693868,,3,unknown,Roof and electrical work alone do not establish renovated interiors
