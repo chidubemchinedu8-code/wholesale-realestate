@@ -1227,11 +1227,19 @@ three leads off a statistic sitting in a void.
 - **jackknife → fragility.** How much does one comp move it? (fails worst for `02125`, which is valid)
 
 **Rules:**
-1. **Plot / sort the $/sf distribution before taking a median.** If the sorted values contain a gap
-   wider than ~15% of the median, the hood is bimodal and a single $/sf is not available.
-   `02125` renovated has an 18.0% gap ($102.70→$121.20) — above that line — so **its $102.70 carries
-   a 10.5% one-comp sensitivity that must be quoted with it**, not a clean point estimate.
-   I am not moving the threshold down to exempt my earlier work; it is reported as it measures.
+1. **Test for a gap that leaves at least 3 observations on EACH side, at ≥20% of the median.**
+   My first version of this rule used "largest gap ≥15%" and it was **wrong on its own test case**.
+   In `02131` it flagged the $159.90→$188.70 gap — which splits **17 | 1** and is an outlier, not a
+   mode. The real bimodality is **$83.70→$106.90, a 28.6% gap splitting 10 | 8.** A naive
+   largest-gap test finds the widest gap, which is almost always the single most extreme sale.
+2. **Require ≥3 observations on both sides.** A gap with 1 observation on one side is an outlier;
+   the rule must not fire on it, and must not miss the real mode when a bigger outlier sits above.
+3. **Re-run the corrected rule against both hoods:**
+   - `02131` all conditions → **fires** ($83.70→$106.90). Hood median invalid for mixed-condition use.
+   - `02131` renovated only (n=3) → does not fire (largest gap splits 1 | 2).
+   - `02125` renovated only (n=5) → **does not fire** (18.0% gap splits 3 | 2). My D-51 rebuke was
+     itself over-applied; `02125`'s $102.70 was never bimodal. Its **10.5% one-comp sensitivity
+     still stands and must be quoted**, which is a separate finding correctly retained in D-51.
 2. **A median that falls inside an empty gap must not be reported at all** — it is not a low-confidence
    estimate, it is a category error.
 3. **Bimodality is evidence that condition is the dominant variable**, which strengthens the

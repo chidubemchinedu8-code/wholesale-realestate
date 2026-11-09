@@ -239,6 +239,23 @@ Screen order with this gate inserted:
 
 **type → assignable → ARV band → condition → comps**
 
+### Comping without a home ID — the autocomplete unlock
+
+Redfin **address-only URLs 404** (`/OH/Cleveland/3341-Woodbridge-Ave-44109` returns Page Not Found).
+That is not a missing property and it was wrongly treated as one for two passes. Resolve the ID:
+
+```
+https://www.redfin.com/stingray/do/location-autocomplete?location=<addr>%2C%20Cleveland%2C%20OH%2044109&v=2
+```
+
+The response carries `payload.exactMatch.url` → `/OH/Cleveland/<Street>-<ZIP>/home/<id>`, which
+serves the full agent remarks. **Use it before declaring a comp ungradeable**, and check
+`payload.sections[].rows` for a `unit-` path: if the property has units it may be a duplex and
+belongs outside an SFR comp set.
+
+Grading `02131` took 6 autocomplete calls and 6 property pages and turned three `UNPRICED` leads
+into one `PRICED` lead. That is the cheapest unblock in this market.
+
 ## 11. Channel 2 — county GIS is live (D-49)
 
 The county endpoint works. **Query it before grinding more retail comps.**

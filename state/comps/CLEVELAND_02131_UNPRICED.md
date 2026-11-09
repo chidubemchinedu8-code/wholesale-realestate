@@ -1,3 +1,15 @@
+> ## ⚠️ SUPERSEDED IN PART — 3531 Woodbridge Ave is now PRICED
+>
+> The home-ID unlock (`stingray/do/location-autocomplete`) resolved condition on the comps after
+> this file was written. Three sales grade **renovated** (3341 Woodbridge, 3407 Library, 3642 Marvin)
+> and **3531 Woodbridge now prices: ARV $233,721, MAO $102,435 vs $25,973 arrears.**
+> See `CLEVELAND_44109_3531_WOODBRIDGE.md`.
+>
+> **3701 Marvin and 3404 Woodbridge remain unpriced** — but not because of condition. At 1,260 and
+> 1,263 sf the ±30% band leaves only **2** of the three renovated comps, so the floor fails on
+> **size**, not condition. Everything below about bimodality still holds for mixed-condition use of
+> the hood median and is retained as the audit trail.
+
 # `02131` — worked, and correctly UNPRICED
 
 **Result: no ARV for 3701 Marvin, 3531 Woodbridge or 3404 Woodbridge.** Not for want of leads or

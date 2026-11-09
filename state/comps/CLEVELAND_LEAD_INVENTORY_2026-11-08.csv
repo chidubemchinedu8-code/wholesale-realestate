@@ -47,10 +47,10 @@ parcelpin,address,zip,sf,rooms,style,delinquent,payment_plan,owner_state,last_sa
 01420193,3304 Montclair Ave,44109,1308,9,CAP,6452.07,,OH,8000,02142,UNPRICED-no-comp-set,
 01411003,3802 Revere Ct,44109,1296,6,COL,1467.4,YES,OH,0,02142,UNPRICED-no-comp-set,
 01421144,2711 Roanoke Ave,44109,1298,6,COL,4835.02,,OH,30604,02142,UNPRICED-no-comp-set,
-01513009,3701 Marvin Ave,44109,1260,6,COL,37811.15,YES,OH,82500,02131,UNPRICED-bimodal-hood,"18 sales in hood but $/sf bimodal ($68 vs $135, empty gap $84-107). No verified condition. Potentially the best lead on the list."
-01508119,3531 Woodbridge Ave,44109,1462,8,COL,25972.59,YES,OH,0,02131,UNPRICED-bimodal-hood,"18 sales in hood but $/sf bimodal ($68 vs $135, empty gap $84-107). No verified condition. Potentially the best lead on the list."
+01513009,3701 Marvin Ave,44109,1260,6,COL,37811.15,YES,OH,82500,02131,UNPRICED-size-band,"n drops to 2 at 1,260sf - outside +-30% band of the 3 renovated comps (1327-1726). Needs band-size comps, not more conditions."
+01508119,3531 Woodbridge Ave,44109,1462,8,COL,25972.59,YES,OH,0,02131,PRICED,"ARV $233,721 n=3 renovated. MAO-M $102,435 vs $25,973 arrears. Survives -40% ARV. BEST LEAD IN MARKET."
 01514056,3223 Daisy Ave,44109,2334,9,COL,11021.7,YES,OH,0,02131,UNPRICED-needs-walkthrough,UNPRICED - see CLEVELAND_44109_3223_DAISY.md
-01509101,3404 Woodbridge Ave,44109,1263,6,COL,1730.81,YES,OH,0,02131,UNPRICED-bimodal-hood,"18 sales in hood but $/sf bimodal ($68 vs $135, empty gap $84-107). No verified condition. Potentially the best lead on the list."
+01509101,3404 Woodbridge Ave,44109,1263,6,COL,1730.81,YES,OH,0,02131,UNPRICED-size-band,"n drops to 2 at 1,263sf - same band problem as 3701 Marvin."
 00220015,1421 W 85th St,44102,1520,7,COL,73421.11,,OH,0,02122,UNPRICED-no-comp-set,STATE OF OHIO FORF CV#109962 - largest arrears on the list
 00109090,1276 W 85th St,44102,1488,5,TWN,7532.27,,OH,70000,02122,UNPRICED-no-comp-set,
 00107069,1349 W 93rd St,44102,1420,6,COL,14811.86,,OH,25000,02122,UNPRICED-no-comp-set,
