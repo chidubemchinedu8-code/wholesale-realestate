@@ -1274,3 +1274,44 @@ still the most common way this file shape breaks (see D-44).
 **asking-price** ceiling. That looks like the invented filter D-34 bans. It is not, because coverage
 is reported against the full 196 active listings and the band is named as a reading order, not a
 buy box. The distinction is the last sentence of that paragraph, and it has to keep being made.
+
+---
+
+## D-54 — 2026-11-08 — A currency format painted over four text columns
+
+On the Columbus 43204 delivery tab I applied currency to `F2:P56` because that span "is the money
+columns". It is not. `Style` (G), `DOM` (H), `Status` (I), `Tier` (K) and `Notes`-adjacent text sit
+inside that span, and the live sheet rendered them as `$TRADITIONAL`, `$15`, `$PRICED`, `$moderate`.
+
+Nothing errored. `updated_cells` was correct. The write succeeded and the render lied.
+
+**What caught it:** reading `A1:R5` with `FORMATTED_VALUE` after the format calls, which is the only
+way to see what a number format did to a string. `UNFORMATTED_VALUE` would have shown the text
+untouched and hidden the whole defect.
+
+**Rule:** format money **column by column** — F, L, M, N, O, P — never as one block spanning a
+text column. And re-read a rendered range after every format call, because a format is a write that
+cannot fail.
+
+**Same family as:** D-43 (`updated_rows` is not a receipt), D-44 (a row is all 18 columns).
+
+---
+
+## D-55 — 2026-11-08 — The live formula hardcoded the two inputs it was meant to prove
+
+The 247 S Terrace row computed `=ROUND(1691*151.0714,0)`. It reproduced `comp.py` exactly, which is
+why it passed review — but the subject's square footage and the comp median were both typed into the
+formula as literals. The row could not be audited, could not be updated when a better comp landed,
+and would silently keep the old median if the pool was rebuilt.
+
+Worse, in the first pass the same row was written with `M` (Repairs) blank, so `N = 0.7*M-L` produced
+an ARV-only ceiling of $178,821 that looked like a real buyer max. **A blank input inside a live
+formula produces a plausible number, not an error.**
+
+**Rule:**
+1. Every sweep constant gets a labelled cell. Here `T1:T3` holds the median `$151.0714` and its
+   source path, and the formula reads `=ROUND(E2*$T$2,0)`.
+2. After writing any formula row, read it back **both** ways — `FORMULA` to confirm the references,
+   `UNFORMATTED_VALUE` to confirm the arithmetic — and reconcile at least one row to `comp.py`.
+
+**Same family as:** D-40 (ARV present + MAO absent is a parse bug, never a refusal).
