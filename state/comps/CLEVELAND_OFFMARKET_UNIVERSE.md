@@ -38,7 +38,17 @@ tax bill, and there is nobody ahead of the county in line.
 | **foreclosure + NO LENDER, 1,200–2,600 sf** | **134** |
 | **foreclosure + NO LENDER, 1,200–2,600 sf, balance < $15,000** | **116** |
 
-**116 free-and-clear, county-foreclosing, 1,200–2,600 sf houses** across the three ZIPs swept.
+**SUPERSEDED 2026-11-08 — the SFR universe is 78, not 116.** The 116 figure came from a
+count that did not hold the single-family type filter, so it bundled duplexes, triplexes and vacant
+lots. The reconciled count, including every parcel, is in `CLEVELAND_FULL_SCREEN_2026-11-08.md`:
+
+| filter | count |
+|---|---|
+| SFR 1,200–2,600 sf, 3 ZIPs, free & clear, delinquent, `foreclosure_flag=1` | **78** |
+| all SFR (any size) | 129 |
+| all types, any size | 228 |
+
+Every one of the 78 is enumerated in `CLEVELAND_LEAD_INVENTORY_2026-11-08.csv`.
 
 ---
 
