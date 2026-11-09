@@ -1246,3 +1246,31 @@ three leads off a statistic sitting in a void.
    requirement for remark-based condition grading (D-48) rather than weakening it.
 4. **Check `02125` against this rule.** Its 12-sale set ran $45.50–$139.46 with no comparable gap,
    so its $102.70 median survives. The rule does not retroactively invalidate D-51.
+
+---
+
+## D-53 — 2026-11-08 — I wrote a coverage row count before I had the coverage
+
+While building the Columbus 43204 sweep file I wrote 29 rows and then, in the same pass, wrote a
+sentence claiming the band had been read complete. The filtered feed was **54** listings, not 29.
+I had stopped reading at the bottom of a page and never reconciled my row count against the feed's
+own reported total. Had I shipped it, the file would have said "54 examined" with 29 addresses in it
+— the exact failure D-36 describes, in a new ZIP.
+
+**What caught it:** comparing the row count to the `N homes` number in the feed header, then to the
+map-pin price list, which is emitted independently of the card list.
+
+**Rule added:** a sweep's row count must equal the feed's own stated total before a coverage
+percentage is written. Reconcile on a **field the page emits twice** — card list vs map pins, or
+filter header vs footer — because a single count can be stale or lazy-loaded. `54 homes` on the
+header and 54 map pins agreed; my hand-built row list did not. The page was right and I was wrong.
+
+**Also corrected in the same pass:** the first CSV write was column-shifted because I embedded
+commas in `verdict` without quoting. `csv.DictWriter` from the start; and assert `len(row) ==
+len(header)` and `len(set(address)) == len(rows)` before the file is trusted. A duplicate tail is
+still the most common way this file shape breaks (see D-44).
+
+**Not a defect, but recorded here so it is not re-litigated:** 43204 was screened with a $175,000
+**asking-price** ceiling. That looks like the invented filter D-34 bans. It is not, because coverage
+is reported against the full 196 active listings and the band is named as a reading order, not a
+buy box. The distinction is the last sentence of that paragraph, and it has to keep being made.

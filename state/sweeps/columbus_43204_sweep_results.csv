@@ -1,0 +1,56 @@
+address,hood,beds,sqft,ask,style,dom,tier,repairs,arv,ceiling,mao,status,reason,note
+247 S Terrace Ave,CENTRAL HILLTOP,3,1691,95000,TRADITIONAL,15,moderate,50307,255462,128516,118516,PRICED,NEGOTIATE - ask above even the heavy ceiling,"n=5 renovated comps, 0.5 mi, 10.4% spread. Electrical + HVAC named in remarks; photos show wood paneling, drop ceiling, worn carpet. LIGHT grade also clears: MAO $140,076."
+262 S Harris Ave,HILLTOP-WICKLOW,2,1120,79900,TRADITIONAL,110,moderate,39200,169200,79240,69240,MAYBE,Existing worked example in property_ledger,"Already underwritten 2026-11-08 as the 43204 worked example. Not re-underwritten - duplicate guard. n=5, 0.5 mi, 19.1% spread."
+691 S Warren Ave,SOUTH CENTRAL HILLTOP,3,1288,102500,RANCH,25,,,,,,UNPRICED,Own hood - no comp pool built yet,"Zillow Neighborhood block says South Central Hilltop, NOT Central Hilltop. Reusing the Central Hilltop pool would be a silent cross-hood pool. Gutted and cleaned out, new roof, cabinets on site. Prior sale $95,000 on 2026-05-12 - already flipped once this year."
+569 S Terrace Ave,CENTRAL HILLTOP,4,1390,79900,TRADITIONAL,,,,,,,UNPRICED,Bed floor,"4bd subject. All five renovated Central Hilltop solds in the window are 3bd, so the bed floor has nothing to draw on. Also an ONLINE AUCTION with a $79,900 minimum bid closing Dec 6 - that is a bid floor, not a seller's ask."
+176 S Burgess Ave,CENTRAL HILLTOP,2,1210,64900,TRADITIONAL,,,,,,,CANDIDATE,Needs a 2bd comp pool,"Cheapest in-band SFR on the 43204 feed. Generic copy with no upgrade named - condition UNVERIFIED, photos not yet read."
+446 S Powell Ave,UNVERIFIED,3,1098,90900,CAPE COD,,,,,,,CANDIDATE,Hood + comps not yet read,"AS-IS investor copy. Price cut $3,000 on 11/5. Hood not yet taken off the Zillow Neighborhood block."
+2732 Dibblee Ave,UNVERIFIED,3,1250,135900,TRADITIONAL,86,,,,,,CANDIDATE,"Stale, but condition weakened","86 DOM, cut $9,000 on 10/29, sold as-is. Listing says photos may be virtually staged or AI enhanced - that weakens any condition read, so no grade yet."
+213 Powhatan Ave,UNVERIFIED,3,1624,50000,TRADITIONAL,48,,,,,,CANDIDATE,Auction channel,"Auction, 48 DOM. $50K is a bid floor, not an ask. Auction channel is evaluated separately."
+168 S Richardson Ave,UNVERIFIED,3,1358,135000,TRADITIONAL,,,,,,,CANDIDATE,Short sale,Short sale. Approval timeline does not fit a 21-30 day close.
+82 S Richardson Ave,UNVERIFIED,3,1300,130000,TRADITIONAL,27,,,,,,CANDIDATE,Tenant occupied,"Curb offers only, as-is, agent owned, part of a multi-property package."
+28 S Warren Ave,UNVERIFIED,3,1298,120000,TRADITIONAL,,,,,,,CANDIDATE,"Distress language, hood not read","As-is, 'bring this home back to life'. Furnace 3/2026, roof 2024. Previously rented Section 8 at $1,550."
+389 S Warren Ave,UNVERIFIED,3,1110,99900,TRADITIONAL,,,,,,,CANDIDATE,Condition needs confirmation,"Vacant, last rented at $1,055. 'Recent updates' with nothing named - cannot be called renovated or dated yet."
+244 S Harris Ave,UNVERIFIED,3,1232,105000,TRADITIONAL,,,,,,,CANDIDATE,Condition UNVERIFIED,"'Tons of potential', large flat lot, off-alley parking. No condition evidence."
+223 N Wayne Ave,UNVERIFIED,4,1530,119900,TRADITIONAL,,,,,,,UNPRICED,Bed floor,4bd subject against a 3bd comp band. As-is.
+827 S Harris Ave,UNVERIFIED,4,1077,125000,TRADITIONAL,,,,,,,UNPRICED,Bed floor,"4bd subject against a 3bd comp band. 'In need of TLC, curb offers only'."
+138 S Ogden Ave,UNVERIFIED,3,1184,115000,TRADITIONAL,4,,,,,,REJECT,14-day rule + package,Listed 4 days. Part of a 16-property package. Neither is a single-property negotiation.
+716 S Ogden Ave,UNVERIFIED,3,1056,170000,TRADITIONAL,27,,,,,,REJECT,Turnkey,"Fully renovated, 'nothing left to do but unpack'. No spread in retail pricing."
+370 S Oakley Ave,UNVERIFIED,3,1131,159900,TRADITIONAL,,,,,,,REJECT,Turnkey,"New kitchen, full bath, siding, windows and plumbing all 2026."
+212 S Harris Ave,UNVERIFIED,3,1136,135400,TRADITIONAL,,,,,,,REJECT,Turnkey,"Updated kitchen, granite, newer mechanicals, move-in ready."
+232 S Burgess Ave,UNVERIFIED,3,1137,140000,TRADITIONAL,,,,,,,REJECT,Turnkey,Solid turn-key home. New AC condenser 2022.
+2905 W Broad St,UNVERIFIED,3,1410,145000,MIXED USE,,,,,,,REJECT,Property type,Commercial zoning first floor with residential above. Not an SFR buy-box asset and a different buyer pool.
+228 N Harris Ave,UNVERIFIED,3,1466,125000,TRADITIONAL,,,,,,,REJECT,REO / auction channel,"Fannie Mae Xome auction. Separate channel, not a normal-market lead."
+965 S Harris Ave,UNVERIFIED,2,816,124900,TRADITIONAL,,,,,,,REJECT,Size / price,816 sf at $153/sf ask against a $151/sf ARV. No spread at any repair grade.
+706 S Wheatland Ave,UNVERIFIED,2,732,169900,TRADITIONAL,,,,,,,REJECT,Size / price,732 sf at $232/sf ask. Above the entire hood ARV.
+229 S Eureka Ave,UNVERIFIED,2,768,134900,TRADITIONAL,,,,,,,REJECT,Size / price,768 sf at $175/sf ask - over ARV before a single repair.
+288 N Oakley Ave,UNVERIFIED,2,820,160000,TRADITIONAL,,,,,,,REJECT,Size / price,820 sf at $195/sf ask.
+53 N Warren Ave,UNVERIFIED,3,1558,169900,TRADITIONAL,23,,,,,,REJECT,Turnkey rental,"Rented at $1,495, well maintained, do not disturb tenants. Retail pricing for a rent roll."
+869 Binns Blvd,UNVERIFIED,2,1059,164900,TRADITIONAL,,,,,,,REJECT,Turnkey,"Move-in ready, fresh paint, new flooring."
+383 S Wayne Ave,UNVERIFIED,2,1020,159900,TRADITIONAL,,,,,,,REJECT,Size / price,"2bd at 1,020 sf and $157/sf ask. Above the hood renovated median before repairs."
+475 S Richardson Ave,UNVERIFIED,3,1248,95000,TRADITIONAL,,,,,,,CANDIDATE,Condition ambiguous,"'Mostly renovated by the previous owners', needs finishing touches. Half-renovated is the worst condition to grade remotely - no tier until seen."
+249 S Burgess Ave,UNVERIFIED,2,1104,89900,TRADITIONAL,,,,,,,CANDIDATE,Foundation work needed,"As-is, tenant month-to-month at $825 and wants to stay. Remarks state foundation work is needed - that is a scope no $/sf tier covers."
+3357 Eakin Rd,UNVERIFIED,3,1017,149900,CAPE COD,,,,,,,REJECT,Size / price,"1,017 sf at $147/sf ask, 'ready for a full renovation'. Ask exceeds ARV once repairs are counted."
+346 S Hague Ave,UNVERIFIED,3,1142,125000,TRADITIONAL,27,,,,,,CANDIDATE,Tenant in place,"Long-term tenant since 2017, never late. Condition unknown; occupancy makes a walkthrough harder."
+133 S Wheatland Ave,UNVERIFIED,3,1346,149000,TRADITIONAL,,,,,,,CANDIDATE,Best size-to-price on the page,"1,346 sf at $111/sf ask, 'priced to sell, priced to factor in needed repairs', granite already in. Worth a comp pool next."
+84 N Oakley Ave,UNVERIFIED,2,965,114900,TRADITIONAL,,,,,,,CANDIDATE,Small 2bd,$119/sf ask. 2bd pool needed; no 2bd renovated solds pulled yet.
+181 N Wheatland Ave,UNVERIFIED,3,1348,139900,TRADITIONAL,,,,,,,CANDIDATE,Distressed-seller listing agent,"1,348 sf at $104/sf ask. Mainstay Brokerage - an REO-adjacent listing agent, but this one is not flagged bank-owned."
+97 S Oakley Ave,UNVERIFIED,2,968,105000,TRADITIONAL,,,,,,,CANDIDATE,"Investor special, curb offers","New AC, furnace and water heater in 2023. $108/sf ask. 2bd pool needed."
+264 N Eureka Ave,UNVERIFIED,2,1038,104900,TRADITIONAL,,,,,,,CANDIDATE,Small 2bd,$101/sf ask. 2bd pool needed.
+438 S Eureka Ave,UNVERIFIED,3,1144,135000,TRADITIONAL,,,,,,,CANDIDATE,One named improvement only,New furnace and new sliding doors; nothing else named. $118/sf ask.
+281 N Wayne Ave,UNVERIFIED,2,962,149900,TRADITIONAL,,,,,,,REJECT,Size / price,962 sf at $156/sf ask - at the hood ARV ceiling already.
+479 S Ogden Ave,UNVERIFIED,2,804,100000,TRADITIONAL,130,,,,,,REJECT,Size / price,"804 sf at $124/sf ask, 130 DOM. Turnkey rental, tenant at $1,154. The long DOM does not fix a $124/sf basis on an 804 sf house."
+207 S Richardson Ave,UNVERIFIED,3,1321,129900,TRADITIONAL,,,,,,,CANDIDATE,Condition UNVERIFIED,"Section 8 month-to-month at $1,297. Interior photos not yet published - cannot grade."
+314 N Burgess Ave,UNVERIFIED,3,1484,129900,TRADITIONAL,,,,,,,CANDIDATE,Second-best size-to-price,"1,484 sf at $88/sf ask in Hillcrest. Cheapest $/sf of any 3bd in band. Pull a comp pool next."
+763 S Eureka Ave,UNVERIFIED,2,984,125000,TRADITIONAL,,,,,,,CANDIDATE,No central A/C,"Some recent updates, no central air - a named defect that costs money. $127/sf ask."
+308 N Burgess Ave,UNVERIFIED,2,969,130000,TRADITIONAL,,,,,,,CANDIDATE,Half-renovated,"Updated roof and windows, interior ready for renovation. $134/sf ask for a 969 sf shell."
+53 N Wayne Ave,UNVERIFIED,5,1883,154000,TRADITIONAL,,,,,,,UNPRICED,Bed floor + short sale,"5bd subject against a 3bd comp band, and a short sale. Two independent blockers."
+328 S Oakley Ave,UNVERIFIED,4,1044,162000,TRADITIONAL,,,,,,,REJECT,Turnkey,"Beautifully updated, VA/FHA eligible, move-in ready. Retail buyer product, not a wholesale lead."
+31 S Ogden Ave,UNVERIFIED,3,1156,160500,TRADITIONAL,,,,,,,REJECT,Turnkey,"Updated, clean, ready to move right in. $139/sf ask."
+346 S Wheatland Ave,UNVERIFIED,3,1293,159900,TRADITIONAL,,,,,,,REJECT,Turnkey,Fully updated in 2024. $124/sf ask retail.
+3515 Eakin Rd,UNVERIFIED,3,956,172900,TRADITIONAL,,,,,,,REJECT,Size / price,956 sf at $181/sf ask. Above the hood ARV.
+354 S Ogden Ave,UNVERIFIED,2,1146,119900,TRADITIONAL,,,,,,,REJECT,Turnkey rental,"Rented at $1,408, updated LVP, vinyl windows, updated kitchen and bath."
+2533 Sullivant Ave,UNVERIFIED,2,1332,164900,TRADITIONAL,,,,,,,REJECT,Size / price,2bd at $124/sf ask with only paint and flooring named. Also marketed as lease-option.
+136 Haldy Ave,UNVERIFIED,2,1061,120000,TRADITIONAL,,,,,,,CANDIDATE,Short sale,$113/sf ask on a 2bd. SHORT SALE flag - approval timeline. 2bd pool needed.
+2422 Hardesty Dr S #S11,UNVERIFIED,2,,160000,CONDO,,,,,,,SEPARATE,Condo,"Condo in Hardesty Village, fully renovated. Condos are excluded from SFR results by rule - different product and different buyer."
+548-550 S Oakley Ave,UNVERIFIED,2,,150000,DUPLEX,,,,,,,SEPARATE,Multifamily,"Side-by-side double, no sqft published. Multi-family is its own comp pool and buyer set."
