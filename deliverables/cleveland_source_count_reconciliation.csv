@@ -1,0 +1,12 @@
+Measure,Count,Definition / reconciliation
+Raw local tracker and master rows,96,Physical data rows in both local CSV files.
+Generic non-property source rows,4,"Leads 006, 008, 009 and 010 are category/placeholder rows without a distinct subject address; excluding them reconciles the user-stated 92-row population."
+Reconciled intended lead population,92,96 raw rows minus the four generic non-property rows. This is a reconciliation basis; no separate 92-row CSV was found.
+REO / foreclosure / bank-owned / auction excluded,9,"Leads 027, 034, 049, 052, 059, 064, 070, 071 and 079. Not present in the operational wholesale queue."
+No identifiable subject within the reconciled 92,2,Leads 062 and 096 lack sufficient property identity and are not operational.
+"Address-identifiable, non-REO candidates",81,92 reconciled population minus 9 excluded REO/auction rows and 2 no-subject exceptions.
+Strictly actionable wholesale queue,25,"Current public availability; no documented REO/auction, explicit anti-wholesale term, fixed screen failure, or material fact/configuration hold. Requires written terms, access, title, condition and final ARV diligence."
+Material-fact/configuration hold,9,Address-identifiable non-REO records that should not be worked as operational wholesale leads until their listed verification issue is resolved.
+Reference / no-pursuit inventory,47,"Historical, closed, pending, off-market, disqualified, price/terms-screened, or other non-operational records."
+Reconciled population check,92,25 action + 9 hold + 47 reference + 9 REO/auction excluded + 2 no-subject = 92.
+Raw source check,96,92 reconciled population + 4 generic non-property source rows = 96 raw local rows.
