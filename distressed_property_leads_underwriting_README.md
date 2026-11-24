@@ -21,4 +21,4 @@ No ARV is inserted where a compliant 3–5 renovated-sale comp set or a verified
 
 ## Current progress
 
-Rows **1–22** are documented. Lead 022 has a preliminary $125,000–$135,000 ARV screen (working midpoint $130,000) and accompanying dossier. The first 21 did not receive ARVs because they were pending/sold/off market, lacked essential identifying facts, violated a hard rule, or had unverifiable current data. Rows 23–96 remain queued in order.
+Rows **1–22** are documented. Lead 001 was re-underwritten with a preliminary $130,000–$145,000 ARV (working midpoint $137,500), subject to a material 1,086-sf versus 1,794-sf public-record conflict. Lead 002 was re-underwritten with a preliminary $190,000–$210,000 ARV (working midpoint $200,000). Lead 022 has a preliminary $125,000–$135,000 ARV screen (working midpoint $130,000). The remaining earlier status/eligibility screens will be revisited in sequence for address-level preliminary ARVs where the address is identifiable; status and filter fit are kept separate from valuation. Rows 23–96 remain queued after that catch-up sequence.
