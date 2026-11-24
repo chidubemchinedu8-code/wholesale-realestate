@@ -21,4 +21,4 @@ No ARV is inserted where a compliant 3–5 renovated-sale comp set or a verified
 
 ## Current progress
 
-Rows **1–21** are documented. None received an ARV because every reviewed lead was pending/sold/off market, lacked essential identifying facts, violated a hard rule, or had unverifiable current data. Rows 22–96 remain queued in order.
+Rows **1–22** are documented. Lead 022 has a preliminary $125,000–$135,000 ARV screen (working midpoint $130,000) and accompanying dossier. The first 21 did not receive ARVs because they were pending/sold/off market, lacked essential identifying facts, violated a hard rule, or had unverifiable current data. Rows 23–96 remain queued in order.
