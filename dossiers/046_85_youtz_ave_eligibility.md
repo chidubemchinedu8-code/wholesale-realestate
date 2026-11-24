@@ -18,3 +18,15 @@ No rehab, MAO, or offer anchor is calculated.
 - https://www.xome.com/realestate/oh/akron/44301
 - https://www.movoto.com/oh/44309/
 - https://www.redfin.com/OH/Akron/1269-Marcy-St-44301/home/66344613
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $135,000–$150,000; midpoint $142,500.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1.5-bath, 1,152-sf single-family house**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** This is based on public active/listing context, not compliant renovated closed-sales. It does not add a third bedroom or change the bedroom-minimum screen.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Akron/1209-Brown-St-44301/home/66501193

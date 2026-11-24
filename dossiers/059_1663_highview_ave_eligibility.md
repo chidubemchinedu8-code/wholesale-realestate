@@ -17,3 +17,15 @@ If separately considered as a direct REO purchase, verify lender offer/bid proce
 - https://www.carletonrealty.com/homes/1663-Highview-Avenue/Akron/OH/44301/178200596/
 - https://www.thepinnaclepostteam.com/homes/1663-Highview-Avenue/Akron/OH/44301/178200596/
 - https://www.redfin.com/OH/Akron/1664-Highview-Ave-44301/home/75454583
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $140,000–$160,000; midpoint $150,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 1,176-sf Cape Cod**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** No second-bath value is credited because public records conflict with MLS treatment. The property is REO/foreclosure excluded and its current availability must be confirmed; public AVM context is not a compliant comp set.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.trulia.com/home/1663-highview-ave-akron-oh-44301-35432150

@@ -17,3 +17,15 @@ If reconsidered as a direct REO purchase rather than an assignment lead, indepen
 - https://www.coldwellbankerhomes.com/oh/akron/912-s-hawkins-ave/pid_73233835/
 - https://www.thepinnaclepostteam.com/homes/912-S-Hawkins-Avenue/Akron/OH/44320/180494818/
 - https://www.redfin.com/OH/Akron/912-S-Hawkins-Ave-44320/home/66357402
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $120,000–$140,000; midpoint $130,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 1,184-sf colonial**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Accessible support combines current list/automated-value context and is not a compliant renovated closed-sale comp set. REO exclusion remains; do not use this range for a normal assignment strategy.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Akron/912-S-Hawkins-Ave-44320/home/66357402

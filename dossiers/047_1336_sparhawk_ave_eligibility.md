@@ -19,3 +19,15 @@ No rehab, MAO, or offer anchor is calculated.
 - https://www.redfin.com/OH/Akron/1336-Sparhawk-Ave-44305/home/100652504
 - https://tracymarx.com/listing/5245363/1336-sparhawk-avenue-akron-oh-44305/
 - https://www.staceyhoffmanrealtor.com/search/ohio/akron/sparhawk-allotment/1336-sparhawk-ave-bid-258-5245363
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $145,000–$165,000; midpoint $155,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 996-sf house with the two parcels retained**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The small no-closet room is not independently confirmed as a legal bedroom, and GLA is just under the threshold. Public sales/active context, lot contribution, and room legality require verification; no MAO follows.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Akron/1336-Sparhawk-Ave-44305/home/100652504

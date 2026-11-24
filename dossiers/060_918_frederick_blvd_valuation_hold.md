@@ -26,3 +26,15 @@ Also verify roof, foundation/basement, HVAC, electrical, plumbing/sewer, title, 
 - Public-record/GLA conflict: https://www.compass.com/homedetails/918-Frederick-Blvd-Akron-OH-44320/21F3JC_pid/
 - Historical 1,266-sf facts/condition history: https://www.redfin.com/OH/Akron/918-Frederick-Blvd-44320/home/66092401
 - Current as-is marketing: https://www.propertypanorama.com/918-Frederick-Boulevard-Akron-OH-44320--5226080
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $110,000–$130,000; midpoint $120,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 1,266-sf single-family home**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The range assumes the MLS/assessor 1,266-sf fact, not the conflicting 690-sf public field. It is historical/off-market context only until legal GLA, condition, and current status are reconciled.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Akron/918-Frederick-Blvd-44320/home/66092401

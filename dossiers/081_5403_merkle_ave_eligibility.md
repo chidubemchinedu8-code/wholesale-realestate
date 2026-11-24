@@ -17,3 +17,15 @@ Reopen only with evidence of a legal, permitted third bedroom, current listing s
 - https://www.xome.com/homes-for-sale/5403-Merkle-Avenue-Parma-OH-44129-406142597
 - https://www.trulia.com/p/oh/parma/5403-merkle-ave-parma-oh-44129--2045756719
 - https://www.redfin.com/OH/Parma/Westview-North-Apartments/apartment/177387013
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $175,000–$200,000; midpoint $187,500.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath house using roughly 1,068–1,086 sf, not the unverified 1,596-sf figure**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The latest accessible estimate/listing history is stale and public GLA is materially conflicted. This is an off-market historical screen and does not change the bedroom exclusion.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.trulia.com/p/oh/parma/5403-merkle-ave-parma-oh-44129--2045756719

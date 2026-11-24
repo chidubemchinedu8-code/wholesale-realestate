@@ -17,3 +17,15 @@ Reopen only with evidence of a legal/permitted third bedroom, verified qualifyin
 - https://www.coldwellbanker.com/oh/euclid/1527-babbitt-rd/lid-P00800000HAFTvTm5F1iAMtcnjEib7BiCQW1BiZp
 - https://www.coldwellbankerhomes.com/ohio/1527-babbitt-rd/pid_71816848/
 - https://www.bhhspro.com/property/192-5206145-1527-babbitt-road-euclid-OH-44132
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $100,000–$115,000; midpoint $107,500.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath, 858-sf house**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The May 2026 $73,000 sale, rental status, and public automated estimates are far weaker than a compliant renovated comp set. It remains a closed/rental, sub-threshold property rather than a live acquisition.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.highrises.com/realestateandhomes-detail/1527-Babbitt-Rd_Euclid_OH_44132_M34548-47464

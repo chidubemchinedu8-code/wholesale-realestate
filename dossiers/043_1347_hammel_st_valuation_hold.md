@@ -30,3 +30,15 @@ No rehab, MAO, or offer anchor is calculated.
 - Later #5251510 / current-listing broker indication: https://www.remax.com/homes-for-sale/oh/akron/zip/44306
 - Later 3/1 marketing: https://www.homes.com/akron-oh/44306/ and https://www.redfin.com/neighborhood/152154/OH/Akron/Firestone-Park/vintage
 - Public-record 2/1 treatment: https://www.spokeo.com/Hammel+St+Akron+OH+addresses
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $120,000–$135,000; midpoint $127,500.**
+
+This is a directional public-data range for **the corroborated public-record 2-bedroom/1-bath, 1,008-sf configuration, fully renovated**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The later 3/1 marketing is not credited because it lacks GLA, floor-plan, permit, and egress proof. This does not resolve the legal-bedroom hold or support final comp-based underwriting.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.coldwellbankerhomes.com/oh/akron/1347-hammel-st/pid_72717071/

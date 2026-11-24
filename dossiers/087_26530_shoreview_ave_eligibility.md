@@ -16,3 +16,15 @@ Reopen only with assessor/MLS/floor-plan proof of legal, permitted additional be
 - https://www.zillow.com/homedetails/26530-Shoreview-Ave-Euclid-OH-44132/33634966_zpid/
 - https://shelby.visionsalesteam.com/listings/26530-shoreview-avenue/44132/5189951
 - https://www.chrisbergin.com/homes-for-sale/OH/Euclid/44132
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $90,000–$105,000; midpoint $97,500.**
+
+This is a directional public-data range for **a legal, fully renovated 1-bedroom/1-bath, 720-sf single-family home**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** This is a small-home market screen using public list/market context rather than like-for-like renovated closed sales. It does not overcome the 1/1 and size exclusions.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/zipcode/44132

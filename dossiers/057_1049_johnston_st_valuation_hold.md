@@ -26,3 +26,15 @@ No rehab, MAO, or offer anchor is calculated.
 - https://www.redfin.com/zipcode/44312/for-sale-by-owner
 - https://www.zillow.com/lane-wooster-akron-oh/fsbo/
 - https://www.redfin.com/OH/Akron/931-Reed-Ave-44306/home/75523917
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $120,000–$150,000; midpoint $135,000.**
+
+This is a directional public-data range for **a legal, fully renovated 4-bedroom/2-bath house, spanning the unresolved 983-to-1,463-sf public GLA treatments**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The range is deliberately broad because the GLA conflict is material; it is not a per-square-foot conclusion. Confirm assessor GLA, legal 4/2 layout, egress, permits, and floor plan before final valuation.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/neighborhood/149739/OH/Akron/Middlebury

@@ -17,3 +17,15 @@ Reopen only on evidence of a legal, permitted third bedroom and a non-REO, indep
 - https://www.ikeyrealty.com/p/7226-State-Road-Parma-OH-44134/dmgsid_64355002
 - https://www.howardhanna.com/property/7226-state-road-parma-oh-44134-390000130334
 - https://www.coldwellbanker.com/oh/parma/7226-state-rd/lid-P00800000Gq8OgnIDf1Vjgeu5hoLVFVxB4S6QYm8
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $225,000–$275,000; midpoint $250,000.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath, 1,080-sf residence with the full 2.377-acre parcel legally usable as represented**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** This range is highly speculative because the acreage, State Road setting, zoning/access, buildability, and any excess-land contribution were not independently appraised. It is historical only; the 2025 bank-owned close and 2-bedroom exclusion remain.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Cleveland/7226-State-Rd-44134/home/70892540

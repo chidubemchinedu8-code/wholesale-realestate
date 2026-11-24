@@ -17,3 +17,15 @@ If separately considered as a direct REO/auction acquisition, first verify the a
 - https://www.danberry.com/residential/yes/1189735898/1738-superior-avenue-canton-oh-44705
 - https://bidprowl.com/listing/single-family-3br-1ba-1738-superior-avenue-canton-oh-oh-hubzu-94517742679
 - https://homes.com/canton-oh/fairmount-neighborhood/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $90,000–$110,000; midpoint $100,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 1,000-sf bungalow**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Public estimated value and nearby sale context are not photo-verified renovated-sales support. Code-permit requirements, bank-owned status, and live-auction/buyer-premium structure remain excluded.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Canton/1738-Superior-Ave-NE-44705/home/75751305

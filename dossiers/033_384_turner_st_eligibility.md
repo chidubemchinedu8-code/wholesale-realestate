@@ -23,3 +23,15 @@ This is an identifiable property—not an address-match issue. It should be reop
 - Fire/water damage and full-rehab language: https://www.redfin.com/zipcode/44304
 - Listing/status/GLA conflict: https://www.trulia.com/for_sale/Akron,OH/10000-30000_price/
 - Additional property description/GLA conflict: https://www.homes.com/akron-oh/houses-for-sale/under-100k/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $100,000–$125,000; midpoint $112,500.**
+
+This is a directional public-data range for **a legal, fully remediated and fully renovated 3-bedroom/1-bath home using 1,144 sf only as a working assumption**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Fire and water damage remains an acquisition exclusion. Public GLA ranges from 572 to 1,644 sf; the range is exceptionally uncertain and cannot be converted to an offer or a repair budget without remediation, structural, permit, and GLA proof.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/zipcode/44304

@@ -19,3 +19,15 @@ Reopen only with a materially reduced/accepted price, interior access, an accura
 - https://www.redfin.com/zipcode/44707
 - https://www.redfin.com/city/3101/OH/Canton/fixer-upper
 - https://www.beenverified.com/property/oh/canton/bywood-st-residences/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $175,000–$195,000; midpoint $185,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 1,176-sf single-family home**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Nearby public estimates support a lower neighborhood band than the current $214,900 FSBO ask but are not renovated closed-sale evidence. Condition, permits, and exact site contribution remain unknown; the price-screen exclusion remains.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/zipcode/44707

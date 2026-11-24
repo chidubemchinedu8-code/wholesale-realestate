@@ -26,3 +26,15 @@ No rehab, MAO, or offer anchor is calculated.
 - https://www.homes.com/akron-oh/44306/under-100k/
 - https://www.trulia.com/OH/Akron/44306/
 - https://www.xome.com/realestate/oh/akron/44306
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $150,000–$175,000; midpoint $162,500.**
+
+This is a directional public-data range for **the main legal single-family 3-bedroom/1-bath, 1,896-sf structure after full renovation**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** No value is assigned to the secondary building, a second unit, or an ADU because legality, utilities, GLA allocation, and CO/POS are unresolved. This range is not a duplex valuation.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.homes.com/akron-oh/44306/under-100k/

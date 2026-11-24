@@ -22,3 +22,15 @@ No rehab, MAO, or offer anchor is calculated.
 - https://www.mystarkcountyhome.com/homedetails/oh/akron/ohmlsnow-1191417140-ohmlsnow/639-grant-st-akron-oh-44311
 - https://www.spokeo.com/Grant+St+Akron+OH+addresses
 - https://www.homes.com/akron-oh/44311/houses-for-sale/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $155,000–$180,000; midpoint $167,500.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/2-bath, 1,853-sf single-family house**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** This is explicitly not a duplex income valuation. Public records call the property a duplex/two-unit asset; legal use, utilities, CO/POS, rents, and occupancy must be resolved before selecting the appropriate final valuation method.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.mystarkcountyhome.com/homedetails/oh/akron/ohmlsnow-1191417140-ohmlsnow/639-grant-st-akron-oh-44311

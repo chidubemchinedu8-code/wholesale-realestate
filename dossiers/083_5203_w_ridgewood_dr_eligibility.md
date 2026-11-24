@@ -19,3 +19,15 @@ Reopen only with a material price change, current MLS disclosures/photos/access,
 - https://www.redfin.com/zipcode/44134
 - https://www.redfin.com/OH/Parma/5100-W-Ridgewood-Dr-44134/home/66394032
 - https://www.redfin.com/OH/Parma/5650-W-Ridgewood-Dr-44129/home/70886021
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $240,000–$260,000; midpoint $250,000.**
+
+This is a directional public-data range for **a legal, market-ready renovated 3-bedroom/2-bath brick ranch, with only about 1,078 sf treated as verified above-grade area**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The range aligns with current public retail marketing rather than a closed-sale set. It gives no extra GLA credit to the basement/total-area discrepancy and does not demonstrate wholesale margin at the active retail ask.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.zillow.com/homedetails/5203-W-Ridgewood-Dr-Parma-OH-44134/33565909_zpid/

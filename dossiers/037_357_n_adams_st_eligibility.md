@@ -17,3 +17,15 @@ Do not reopen without evidence of a legal, permitted third bedroom and re-verifi
 - https://www.zillow.com/homedetails/357-N-Adams-St-Akron-OH-44304/35439724_zpid/
 - https://www.nexthomenextstepp.com/property/192-5209424-357-N-Adams-Street-Akron-OH-44304
 - https://starksummithomesforsale.com/homedetails/oh/akron/ohmlsnow-1173806711-ohmlsnow
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $90,000–$110,000; midpoint $100,000.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath, 1,056-sf colonial**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** This deliberately values the verified 2/1 rather than an unproven third bedroom. Accessible support is mainly current asking/older sale context, not the required renovated closed-sale set.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/zipcode/44304

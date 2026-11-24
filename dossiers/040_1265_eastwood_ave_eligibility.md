@@ -16,3 +16,15 @@ Reopen only if authoritative records establish a legal/permitted third bedroom (
 - https://www.trulia.com/home/1265-eastwood-ave-akron-oh-44305-35481368
 - https://www.homes.com/akron-oh/44305/under-100k/
 - http://www.thehighleyrecommendedteam.com/homes-for-sale/1265-Eastwood-Avenue-Akron-OH-44305-404228963
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $100,000–$115,000; midpoint $107,500.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath, 720-sf ranch**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Public support is market/listing context rather than renovated closed sales. Probate authority, condition, and GLA/room verification are still required; the 2-bedroom eligibility exclusion remains.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.trulia.com/home/1265-eastwood-ave-akron-oh-44305-35481368

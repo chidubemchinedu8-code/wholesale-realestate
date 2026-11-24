@@ -16,3 +16,15 @@ Reopen only upon evidence of a legal/permitted third bedroom, a new verified lis
 - https://www.weichert.com/126815801/
 - https://www.compass.com/homedetails/1102-Brookview-Blvd-Parma-OH-44134/23MFK7_pid/
 - https://www.redfin.com/OH/Cleveland/3103-Russell-Ave-44134/home/70879226
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $180,000–$200,000; midpoint $190,000.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath Parma single-family home of typical street scale**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Public GLA and interior condition are unavailable; the range relies on nearby street-value context and the April 2025 $140,000 close, not a compliant closed renovated set. This remains historical and below the bedroom criterion.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Cleveland/2814-Brookdale-Ave-44134/home/70879152

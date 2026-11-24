@@ -33,3 +33,15 @@ Do not treat future/potential bedrooms as current legal bedrooms, distribute thi
 - Public package/address display: https://www.xome.com/realestate/oh/akron/44307
 - 672/678 public-record bed/GLA treatment: https://www.spokeo.com/Moon+St+Akron+OH+addresses
 - Market package context: https://www.redfin.com/city/244/OH/Akron/fixer-upper
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $230,000–$270,000; midpoint $250,000.**
+
+This is a directional public-data range for **the combined 672-and-678 package only, assuming two separately legal, fully renovated single-family structures and functioning utilities**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** No value is given to proposed third-floor layouts, tax abatement, or unverified 5/1.5/2,253-sf treatment. Parcel, legal-use, GLA, utility, permit, and title confirmation remain mandatory; this is not an ARV for 678 alone.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/city/244/OH/Akron/homes-for-sale-under-700000/page-6

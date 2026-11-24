@@ -17,3 +17,15 @@ If separately considered as a direct REO purchase, confirm lender/bank offer pro
 - https://www.trulia.com/OH/Canton,West_Park/
 - https://oldhousesunder50k.com/c-1950-brick-ohio-fixer-upper-for-sale-46k/
 - https://www.movoto.com/canton-oh/1007-7th-st-nw-canton-oh-44703-831_1272916/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $100,000–$120,000; midpoint $110,000.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath, 1,080-sf home**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Public records conflict with 3/1 marketing, so no third-bedroom premium is credited. This is not a normal acquisition ARV: foreclosure/bank-owned status remains excluded.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.trulia.com/OH/Canton,West_Park/

@@ -14,3 +14,15 @@
 
 - Foreclosure classification and facts: https://www.redfin.com/county/2226/OH/Portage-County/foreclosures
 - Public syndicated price discrepancy: https://www.movoto.com/lakemore-oh/springfield-coventry/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $150,000–$175,000; midpoint $162,500.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 1,113-sf house**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** This is retrospective only: foreclosure/auction information and public price/status are inconsistent, and the property reportedly sold at auction. REO/foreclosure exclusion and no-assignment treatment remain unchanged.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/city/244/OH/Akron/foreclosures/page-4

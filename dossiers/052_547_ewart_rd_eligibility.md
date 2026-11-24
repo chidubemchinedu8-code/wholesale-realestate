@@ -17,3 +17,15 @@ If a direct foreclosure purchase were separately considered, obtain the court/le
 - https://www.thepinnaclepostteam.com/homes/547-Ewart-Road/Akron/OH/44312/180339877/
 - https://www.redfin.com/city/244/OH/Akron/foreclosures
 - https://homes.com/akron-oh/houses-for-sale/4-bedroom/above-100000/p5
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $240,000–$270,000; midpoint $255,000.**
+
+This is a directional public-data range for **a legal, fully renovated 4-bedroom/2-bath, 1,732-sf house with the 30×40 heated attached garage and roughly 0.61-acre site**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Marketing asserts area comps near $250,000 but that assertion is not a verified comp set. Well/septic, interior gut condition, system claims, foreclosure status, and exact building/garage legality require full diligence.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.homes.com/akron-oh/44312/

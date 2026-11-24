@@ -17,3 +17,15 @@ Reopen only with assessor/MLS/floor-plan/permit evidence of legal additional bed
 - https://www.homes.com/euclid-oh/p2/
 - https://www.trulia.com/p/oh/euclid/25161-euclid-ave-euclid-oh-44117--1110496491
 - https://www.redfin.com/OH/Euclid/25131-Euclid-Ave-44117/home/66109264
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $90,000–$105,000; midpoint $97,500.**
+
+This is a directional public-data range for **a legal, fully renovated 2-bedroom/1-bath, roughly 832–858-sf house**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Public size and current list-price feeds conflict. The range is a small-home screen only and does not cure the 2-bedroom/sub-1,000-sf eligibility exclusion.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://inservice.exprealty.com/euclid-oh-real-estate/25161-euclid-ave

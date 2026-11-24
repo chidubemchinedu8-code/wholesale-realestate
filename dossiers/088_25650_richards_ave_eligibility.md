@@ -17,3 +17,15 @@ Reopen only upon authoritative evidence that legal qualifying above-grade GLA is
 - https://www.leonardandnewland.com/property/192-5179113-25650-richards-avenue-euclid-OH-44132
 - https://www.homes.com/euclid-oh/houses-for-sale/
 - https://www.innovateonline.com/homes-for-sale/OH/Euclid
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $145,000–$160,000; midpoint $152,500.**
+
+This is a directional public-data range for **a legal, fully renovated 4-bedroom/1-bath, 992-sf bungalow**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The limited public support includes an active $99,000 ask and a broad portal appraisal band, not a compliant renovated-sale set. Size and principal-buyer/assignment restrictions remain in force.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.exprealty.com/euclid-oh-real-estate/elinore-park-02/25650-richards-ave

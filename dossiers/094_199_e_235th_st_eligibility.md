@@ -17,3 +17,15 @@ Reopen only with exact unit/parcel and MLS status confirmation plus evidence of 
 - https://www.trulia.com/for_sale/Euclid,OH/designer-homes/
 - https://www.trulia.com/sold/Euclid,OH/
 - https://www.beenverified.com/property/oh/euclid/235th-st-residences/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $100,000–$115,000; midpoint $107,500.**
+
+This is a directional public-data range for **the apparent Unit 17/approximately 700-sf, renovated 2-bedroom/1-bath condominium**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Address-only sources conflict between a $95,000 September 2026 reported sale and active-list displays. Exact unit/parcel and HOA/rental/assessment documents are required; this is not a single-family ARV.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.trulia.com/sold/Euclid,OH/

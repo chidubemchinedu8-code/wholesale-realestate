@@ -18,3 +18,15 @@ Reopen only with authoritative assessor/MLS/floor-plan proof of legal qualifying
 - https://www.brokerssold.com/property/192-5203917-22553-ivan-avenue-euclid-OH-44123
 - https://circlehomegroup.com/listing/yesmls/5203917/Euclid/22553-Ivan-Avenue/
 - https://propertyonion.com/property_search/cuyahoga-county-euclid-oh
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $135,000–$155,000; midpoint $145,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 900-sf bungalow with its garage retained**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** No value is based on basement area; soft-floor remediation, POS/code, auction-history discrepancy, and title/ownership facts need verification. This remains below the 1,000-sf screen.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/OH/Euclid/21-E-221st-St-44123/home/70944638

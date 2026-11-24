@@ -17,3 +17,15 @@ Reopen only if the size criterion is formally changed and the lender-approved sh
 - https://www.carletonrealty.com/homes/1815-Daniels-Avenue/Akron/OH/44312/180378148/
 - https://www.thepinnaclepostteam.com/homes/1815-Daniels-Avenue/Akron/OH/44312/180378148/
 - https://www.redfin.com/zipcode/44312
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $170,000–$190,000; midpoint $180,000.**
+
+This is a directional public-data range for **a legal, fully renovated 3-bedroom/1-bath, 924-sf bungalow, without crediting lower-level area as above-grade GLA**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The range is informed by a 2024 sale/active-market context, not a current compliant renovated closed-sale set. Short-sale/lender approval, below-minimum GLA, condition, and title constraints remain.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.thepinnaclepostteam.com/homes/1815-Daniels-Avenue/Akron/OH/44312/180378148/

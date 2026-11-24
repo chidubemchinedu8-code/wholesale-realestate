@@ -31,3 +31,15 @@ The differences in unit count/configuration, bed/bath count, listing sequence, c
 - https://www.remax.com/homes-for-sale/oh/canton/city/3912000/page-25
 - https://www.redfin.com/city/3101/OH/Canton/multi-family-homes-for-sale
 - https://www.spokeo.com/Wertz+Ave+Canton+OH+addresses
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $195,000–$215,000; midpoint $205,000.**
+
+This is a directional public-data range for **a legally confirmed, fully renovated two-unit duplex with 6 bedrooms/2 baths and 1,536 sf**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** Public marketing claims nearby updated duplex sales at $200,000 and $205,000, but the exact sales and current 6/2-versus-4/3 conflict require confirmation. This is not a single-family ARV and does not resolve legal use, rents, or CO/POS.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.trulia.com/p/oh/canton/610-wertz-ave-sw-canton-oh-44710--2097619409

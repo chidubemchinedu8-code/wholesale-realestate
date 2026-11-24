@@ -17,3 +17,15 @@ If separately evaluated as a direct REO acquisition, first verify lender ownersh
 - https://www.redfin.com/city/3101/OH/Canton/foreclosures
 - https://www.auction.com/details/1106-11th-street-northwest-canton-oh-2228501
 - https://www.zillow.com/homedetails/1857-Maple-Ave-NE-Canton-OH-44705/35207681_zpid/
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $125,000–$150,000; midpoint $137,500.**
+
+This is a directional public-data range for **a legal, fully renovated 4-bedroom/1-bath, 2,100-sf single-family home**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The unusually large footprint is not independently reconciled with the low-area market evidence. This is a very-low-confidence market screen, not an REO offer value; bank-owned/foreclosure status remains excluded.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.redfin.com/neighborhood/551958/OH/Canton/Northeast-Canton

@@ -24,3 +24,15 @@ No preliminary ARV is issued for this active, below-buy-box record. This is not 
 - Current listing, status, 2/1 facts, tenant/as-is language, agent and MLS #5253398: https://www.redfin.com/OH/Warrensville-Heights/4401-Ingleside-Rd-44128/home/71061350
 - Public-record GLA/bedroom corroboration: https://www.spokeo.com/Ingleside+Rd+Cleveland+OH+addresses
 - Stale conflicting 3/1 listing feed, MLS #5182490: https://www.houzeo.com/homes-for-sale/ohio/warrensville-heights/homes-for-sale-under-200k
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $115,000–$130,000; midpoint $122,500.**
+
+This is a directional public-data range for **a legal, vacant, fully renovated 2-bedroom/1-bath, 725-sf single-family home**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** The current 2/1 record conflicts with older 3/1 marketing; no third-bedroom value is credited. Tenant condition, lease, access, and interior evidence remain unavailable, so this does not alter the eligibility screen.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.exprealty.com/euclid-oh-real-estate/4401-ingleside-rd

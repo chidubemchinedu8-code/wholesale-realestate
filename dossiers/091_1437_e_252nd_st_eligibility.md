@@ -18,3 +18,15 @@ Reopen only with assessor parcel/card, MLS agent confirmation, certificates of o
 - https://www.redfin.com/city/6612/OH/Euclid/homes-for-sale-under-100000
 - https://www.josesellshomes.com/search/ohio/euclid/treadwell-homes/1437-e-252nd-street-bid-258-5205495
 - https://www.spokeo.com/252nd+St+Euclid+OH+addresses
+
+## User-Directed Preliminary Public-Data ARV Update — 2026-11-15
+
+**Preliminary range: $90,000–$110,000; midpoint $100,000.**
+
+This is a directional public-data range for **the public-record legal single-family 2-bedroom/1-bath, 832-sf configuration after renovation**. It is **not** a final ARV, an appraisal, an offer price, a MAO, or an acquisition recommendation.
+
+**Material caveats:** No duplex, finished-third-floor, additional-bedroom, or additional-unit value is included. The use/unit/GLA/occupancy conflict is unresolved, so this cannot be used for multi-unit underwriting.
+
+A final ARV still requires 3–5 photo-verified renovated closed sales in the prescribed date/radius/type/GLA framework. No rehab, MAO, or initial offer anchor is calculated.
+
+**Current public-data context:** https://www.homes.com/euclid-oh/
